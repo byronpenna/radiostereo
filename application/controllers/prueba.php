@@ -9,14 +9,9 @@
 
 
 		public function index(){
-			$this->load->model("pruebam");
+			
 			$this->load->helper("url");
-			$prueba = new pruebam();
-
-			$data['head']=$prueba->cargarContent();
-			$data['Titulo']='Titulo Dinamico';
-
-			$this->load->view("estructura/head.php",$data);
+			$data["Titulo"] = "Titulo";
 			$this->load->view("index.php",$data);
 		}
 	}

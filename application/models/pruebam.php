@@ -6,9 +6,7 @@
 			parent:: __construct();
 		}
 
-		public function cargarContent(){
-			echo "hola";
-		}
+		
 
 	}
 ?>

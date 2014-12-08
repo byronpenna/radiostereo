@@ -1,5 +1,12 @@
-<?php echo $head; ?>
+<html>
+<head>
+	<?php
+		$this->load->view("estructura/head.php");
+	?>
+</head>
 <body>
-	
+	<?php
+		$this->load->view("estructura/menu.php");
+	?>
 </body>
 </html>
