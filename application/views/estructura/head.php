@@ -5,7 +5,7 @@
 <title><?php echo $Titulo; ?></title>
 
 <!-- Estilo General -->
-<link rel="stylesheet" href=<?php echo "'".base_url()."resources/css/bootstrap.css'" ?> type="text/css" />
+<link rel="stylesheet" href=<?php echo "'".base_url("resources/css/bootstrap.css")."'" ?> type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url() ?>resources/css/estilo.css" type="text/css" />
 
 
