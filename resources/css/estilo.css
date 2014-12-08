@@ -5,11 +5,15 @@ Images by Nike.com (http://www.nike.com/us/en_us/)
 Logo by Sneaker-mission.com (http://www.sneaker-mission.com/)
 */
 
+body{
+	background:#F9F8F3;
+}
+
 .navbar-brand { 
   width: 70px;
   height: 50px;
-  background: url('http://www.sneaker-mission.com/uploads/3/1/2/7/31279819/5617441.png') no-repeat center center;
-  background-size: 50px;  
+  background: url('../imagenes/logo.png') no-repeat center center;
+  background-size: 50px;
 }
 
 .nav-tabs {
@@ -46,4 +50,7 @@ Logo by Sneaker-mission.com (http://www.sneaker-mission.com/)
   padding: 20px 15px 15px;
   text-align: center;
   width: 100%;
+}
+#menuc{
+	box-shadow: 1.5px 1.5px 1.5px #CCCCCC;
 }
