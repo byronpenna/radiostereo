@@ -7,7 +7,7 @@
 		public function index(){
 			$this->load->helper("url");
 			$data["Titulo"] = "Login";
-			$this->load->view("login.php",$data);
+			$this->load->view("login/login.php",$data);
 		}
 	}
 ?>

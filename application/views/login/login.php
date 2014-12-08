@@ -4,6 +4,9 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
+<script  type="text/javascript" charset="utf-8">
+	
+</script>
 </head>
 <body>
             <div class="container">
