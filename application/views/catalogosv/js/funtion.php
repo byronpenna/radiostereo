@@ -20,7 +20,8 @@ function agregarPrograma(frm){
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_programa"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
-			console.log(datos);
+			alert(datos);//muestra el mensaje
+			//console.log(datos);
 		}
 	});
 }
