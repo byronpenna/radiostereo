@@ -29,61 +29,61 @@
                         <td>1</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td><button class="btn btn-sm btn-primary" >Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>2</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>3</td>
                         <td>Jacob</td>
                         <td>Thornton</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>4</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>5</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>6</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>7</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>8</td>
                         <td>Jose</td>
                         <td>Nuevo</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>9</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>10</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td><button class="btn btn-sm btn-primary">Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                 </tbody>
             </table>
