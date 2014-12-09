@@ -27,7 +27,7 @@
                                         <input class="form-control" placeholder="Usuario" id="username" type="text">
                                         <input class="form-control" placeholder="Contraseña" id="password" type="password">
                                         <br></br>
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesion »">
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesion">
                                     </fieldset>
                                 </form>
                             </div>
