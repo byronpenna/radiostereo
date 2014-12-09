@@ -1,12 +1,9 @@
 <?php 
-
 	Class welcomem extends CI_Model{
-
-		public function welcomem(){
+		public function __construct(){
 			parent:: __construct();
 		}
 
-
-
+		
 	}
 ?>

@@ -6,7 +6,7 @@ Logo by Sneaker-mission.com (http://www.sneaker-mission.com/)
 */
 
 body{
-	background:#F9F8F3;
+	background:rgba(133,118,102,0.2);
 }
 
 .navbar-brand { 
@@ -53,4 +53,191 @@ body{
 }
 #menuc{
 	box-shadow: 1.5px 1.5px 1.5px #CCCCCC;
+}
+
+.form-signin input[type="text"] {
+        margin-bottom: 5px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+}
+.form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+        height: auto;
+        padding: 10px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+.vertical-offset-100 {
+        padding-top: 100px;
+}
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.filterable {
+    margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+    margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+}
+#contenedorClientes{
+  background:none;
+  margin-top:-28px;
+}
+#hr{
+  margin-top:-5px;
+}
+#tableClientes{
+  margin-top:-16px;
+}
+#colordis{
+  width: 15px;
+  height: 15px;
+  background:rgba(144, 240, 139, 0.8);
+  border-radius:0px;
+  float:left;
+  box-shadow:0.5px 0.5px 0.5px #000000;
+}
+#coloroc{
+  width: 15px;
+  height: 15px;
+  background:rgba(235,123,89,0.8);;
+  border-radius:0px;
+  float:left;
+  box-shadow:0.5px 0.5px 0.5px #000000;
+}
+#pagination-clean li{
+border:0;
+margin:0;
+padding:0; 
+font-size:12px;
+list-style:none;
+float:left; }
+
+#pagination-clean a{ 
+border-right:solid 1px #DEDEDE;
+margin-right:2px;
+
+}
+#pagination-clean .previous-off,
+#pagination-clean .next-off{
+color:#888888; 
+display:block; 
+float:left; 
+font-weight:bold; 
+padding:3px 4px; 
+}
+#pagination-clean .next a,
+#pagination-clean previous a{ 
+border:none; 
+font-weight:bold; 
+}
+#pagination-clean .active{ 
+color:#000000; 
+font-weight:bold; 
+display:block; 
+float:left; 
+padding:4px 6px;
+border-right:solid 1px #DEDEDE; 
+}
+#pagination-clean a:link,
+#pagination-clean a:visited{ 
+color:#0e509e; 
+display:block; 
+float:left; 
+padding:3px 6px; 
+text-decoration:underline; 
+}
+#pagination-clean a:hover{ 
+text-decoration:none; 
+}
+.tu{
+  background:none;
+  margin-top:-12px;
+}
+.tu ul li{
+  display: inline-block;
+  width:10%;
+}
+.tu ul{
+  background: none;
+}
+@media screen and (max-width: 1199px) {
+     .tu ul li{
+        display: block;
+        width:50%;
+      }
+      #tableClientes{
+        margin-top:-10px;
+      }
+}
+@media screen and (max-width: 260px) {
+     .tu ul li{
+        display: block;
+        width:100%;
+      }
+}
+.btn:not(a){
+  border:0;
+  border-bottom:0;
+  border-left:0;
+  font-weight:'900';
+  font-family:'Ubuntu', 
+  sans-serif;box-shadow: inset 0 -3.2px rgba(0, 0, 0, 0.12),inset 2px 0 rgba(0, 0, 0, 0.1);
+  outline:none;-webkit-outline:none;
+  -o-outline:none;-moz-outline:none;
+}
+.btn:active:not(a), .btn.active {
+  outline:none;
+  -moz-outline:none;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+  position: relative;box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;top: 1px;left:-1px;
+}
+.btn:focus:not(a) {
+  outline:none;
+  -webkit-outline:none;
+  -moz-outline:none;
+}
+.btn-sm {
+  padding-top:1.5px;
+}
+.pag{
+  margin-top:-12px;
 }
