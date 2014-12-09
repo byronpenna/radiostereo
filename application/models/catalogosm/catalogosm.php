@@ -9,5 +9,9 @@
 		{
 			parent::__construct();
 		}
+		public function insert_catalogo()
+		{
+			# code...
+		}
 	}
  ?>

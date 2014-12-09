@@ -20,7 +20,6 @@
 			<tr>
 				<td><label for="nombre">Nombre Programa:</label></td>
 				<td><input type="text" name="nombpro" /></td>
-				<td><input type="text" name="apellido" /></td>
 			</tr>
 			<tr>
 					<td colspan="2"><input type="submit" value="Guardar"></td>
