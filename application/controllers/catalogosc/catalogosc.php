@@ -2,7 +2,7 @@
 	/**
 	* 
 	*/
-	class catalogosc extends CI_Controller
+	class Catalogosc extends CI_Controller
 	{
 		
 		function __construct()
@@ -10,15 +10,21 @@
 			parent::__construct();
 			$this->load->helper('url');
 		}
-<<<<<<< HEAD
-=======
 		public function insert_programa(){
-			echo "esto proviene de php";
+			// vars 
+				$frm = json_decode($_POST["form"]);//decodificamos el objeto json
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$mensaje = $Catalogosm->insert_catalogobd($frm);
+			echo $mensaje;
+			// print_r($frm);
 		}
->>>>>>> origin/InertarDatos
 		public function index()
 		{
-			$this->load->view('catalogosv/catalogosv.php');
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$datos['array'] = $Catalogosm->get_catalogobd();
+			$this->load->view('catalogosv/catalogosv.php',$datos);
 		}
 	}
  ?>
