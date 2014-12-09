@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
+$db['default']['hostname'] = '192.168.16.64';
+$db['default']['username'] = 'itca';
 $db['default']['password'] = '';
-$db['default']['database'] = 'radiov2';
+$db['default']['database'] = 'radios';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

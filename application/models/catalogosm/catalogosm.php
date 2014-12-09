@@ -9,20 +9,24 @@
 		{
 			parent::__construct();
 		}
+		//aqui comienzan los metodos para insertar a los catalogos
 		public function insert_catalogobd($frm)//metodo que inserta los datos a la bd
 		{
-			try {
 				$data = array('prog_nombre' => $frm->nombpro);
 				$this->db->trans_start();//inicia la transaccion
 					$this->db->insert('prog_programa', $data);
 				$this->db->trans_complete();//finaliza la transaccion
 				$mensaje = "Datos insertados con exito";
 				return $mensaje;
-			} catch (Exception $e) {
-				$mensaje = "Error:";
-				return $mensaje + "" + $e;
-			}
-			
+		}
+		public function add_precio($vect)
+		{
+			$data = array('pre_precio' => $frm->precio);
+			$this->db->trans_start();
+				$this->db->insert('pre_precio', $data);
+			$this->db->trans_complete();
+			$mensaje = "Precio guardado con exito";
+			return $mensaje;
 		}
 		public function get_catalogobd()//metodo que extrae los datos de la bd
 		{

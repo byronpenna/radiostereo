@@ -6,4 +6,10 @@ $(document).ready(function () {
 				frm = serializeToJson($(this).serializeArray());//se encuentra en funtion.php
 				agregarPrograma(frm);//se encuentra en el archivo funtion.php
 			});
+		//submit agregar precio
+		$(document).on("submit","#frmPrecio",function(e) {
+			e.preventDefault();
+			frm =serializeToJson($(this).serializeArray());
+			agregarPrecio(frm);
+		});
 });

@@ -25,3 +25,15 @@ function agregarPrograma(frm){
 		}
 	});
 }
+function agregarPrecio(frm) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url:<?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_precio"."'" ?>,
+		type: "POST",
+		success: function(datos){
+			console.log(datos);
+		}
+	});
+}

@@ -25,7 +25,7 @@
 			</tr>
 		</table>
 	</form>
-	<table border="2px">
+		<table border="2px"><!--Datos de la bd de catalogo programa-->
 		<thead>
 			<tr>
 			<th>Id Programa</th>
@@ -37,6 +37,7 @@
 			<?php echo $array; ?>
 		</tbody>
 	</table>
+	
 	<form id="frmPrecio" method="POST">
 		<table>
 			<tr>
