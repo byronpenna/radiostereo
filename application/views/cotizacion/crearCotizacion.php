@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container" id="contenedorClientes">
-    <h3>Crear Solicitud</h3>
+    <h3>Crear Cotizacion</h3>
     <hr id="hr">
     
     </div>
