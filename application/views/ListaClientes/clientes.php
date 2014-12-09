@@ -21,7 +21,6 @@
                         <th><input type="text" class="form-control" placeholder="#"></th>
                         <th><input type="text" class="form-control" placeholder="First Name" ></th>
                         <th><input type="text" class="form-control" placeholder="Last Name" ></th>
-                        <th><input type="text" class="form-control" placeholder="Username" ></th>
                         <th><input type="hidden" class="form-control" placeholder="Username"></th>
                     </tr>
                 </thead>
@@ -30,71 +29,61 @@
                         <td>1</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td>@mdo</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>2</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td>@mdo</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>3</td>
                         <td>Jacob</td>
                         <td>Thornton</td>
-                        <td>@fat</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>4</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td>@mdo</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(144, 240, 139, 0.8);">
                         <td>5</td>
                         <td>Mark</td>
                         <td>Otto</td>
-                        <td>@mdo</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>6</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>7</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>8</td>
                         <td>Jose</td>
                         <td>Nuevo</td>
-                        <td>@new</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>9</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                     <tr style="background:rgba(235,123,89,0.7);">
                         <td>10</td>
                         <td>Larry</td>
                         <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td><button class="btn btn-sm btn-primary" href="#myModal" data-toggle="modal">Generar Cotizacion</button></td>
+                        <td><a href="<?php echo site_url('solicitud/solicitud/crearSolicitud'); ?>" style="text-decoration:none;color:#FFFFFF;"><button class="btn btn-sm btn-primary" >Cotizacion</button></a></td>
                     </tr>
                 </tbody>
             </table>
@@ -110,30 +99,4 @@
             <li><a href="#">7</a></li>
             <li class="next"><a href="#">Next »</a></li>
         </ul>
-
-
-    <div class="row">
-        <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <a class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a>
-                    <h4 class="modal-title" id="myModalLabel">Creando Solicitud</h4><hr>
-                </div>
-                <div class="modal-body">
-                    <h4>Solicitud</h4>
-                    <p>Solicitudes</p>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-group">
-                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary">Guardar</button>
-                </div>
-                </div>
- 
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dalog -->
-</div><!-- /.modal -->
-
-
     </div>
