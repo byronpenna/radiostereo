@@ -15,6 +15,7 @@
 |
 */
 $config['base_url']	= '';
+define("URLLOCAL","http://localhost/radiostereo/index.php/");
 
 /*
 |--------------------------------------------------------------------------

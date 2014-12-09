@@ -2,7 +2,21 @@
 <html lang="Es">
 <head>
 	<meta charset="UTF-8">
+<<<<<<< HEAD
 	<title></title>
+=======
+	<title>..::Catalogos::..</title>
+	<!--linea para cargar el archivo jquery-->
+	
+	<script type="text/javascript" src=<?php echo "'".base_url("resources/js/jquery-1.11.1.min.js")."'" ?> ></script>
+	<!-- <script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/funtion.php")."'";?> > </script>-->
+	<!--<script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/script.php")."'";?> > </script>-->
+	<script type="text/javascript">
+		<?php $this->load->view("catalogosv/js/funtion.php") ?> 
+		<?php $this->load->view("catalogosv/js/script.php") ?>
+	</script>
+	
+>>>>>>> origin/InertarDatos
 </head>
 <body>
 	<form id="frmPrograma" method="POST">
