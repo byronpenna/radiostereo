@@ -18,10 +18,10 @@
             <table class="table" >
                 <thead>
                     <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="#"></th>
-                        <th><input type="text" class="form-control" placeholder="First Name" ></th>
-                        <th><input type="text" class="form-control" placeholder="Last Name" ></th>
-                        <th><input type="hidden" class="form-control" placeholder="Username"></th>
+                        <th><input type="text" class="form-control" placeholder="ID"></th>
+                        <th><input type="text" class="form-control" placeholder="Nombre" ></th>
+                        <th><input type="text" class="form-control" placeholder="Apellido" ></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

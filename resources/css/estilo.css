@@ -241,3 +241,32 @@ text-decoration:none;
 .pag{
   margin-top:-12px;
 }
+#mainCot{
+  width:100%;
+  height:auto;
+  background: rgba(255,255,240,1);
+  border-radius:0.5em;
+  box-shadow: 5px 5px 5px #CCCCCC;
+  padding-bottom: 1em;
+}
+#cotHeader article{
+    background: transparent;
+    margin-left:5%;
+    margin-top:1%;
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+}
+#cotHeader article select{
+  float: right;
+}
+#cotHeader article span{
+  float: right;
+}
+#mainCot hr{
+  border: 1px solid rgba(240,234,214,1);
+}
+#contCotSer{
+  background: orange;
+  width: 100%;
+}
