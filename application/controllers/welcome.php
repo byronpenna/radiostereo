@@ -9,5 +9,12 @@
 			$data["Titulo"] = "Login";
 			$this->load->view("login/login.php",$data);
 		}
+
+		public function login(){
+			$frm=json_decode($_POST['form']);
+			$retorno = new stdClass();
+			$retorno->mensaje="logeado correctamente";
+			echo json_encode($retorno);
+		}
 	}
 ?>
