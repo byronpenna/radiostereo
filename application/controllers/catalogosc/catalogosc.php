@@ -23,21 +23,49 @@
 		public function insert_precio()
 		{
 			//vars
-			$frm = json_decode($_POST["form"]);
+				$frm = json_decode($_POST["form2"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->add_precio($frm);
 			echo $mensaje;
 		}
-		public function update_programa($id)
+		public function insert_servicio()
 		{
-			echo "vamos a modificar el id ". $id;
+			//vars
+				$form = json_decode($_POST["form3"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$mensaje = $Catalogosm->add_servicio($form);
+
+			echo $mensaje;
+		}
+		public function insert_radio()
+		{
+			//vars
+				$form = json_decode($_POST["form4"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$mensaje = $Catalogosm->add_radio($form);
+			echo "Radio guardado con exito";
+		}
+		//aqui comienzan los metodos q me mandaran al modelo los datos a modificar
+		public function update_programa()
+		{
+			//vars
+				$updatfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$mensaje = $Catalogosm->update_programadb($updatfrm);
+			echo json_encode($mensaje);
+			//echo $mensaje;
 		}
 		public function index()//carga la vista
 		{
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$datos['array'] = $Catalogosm->get_catalogobd();
+			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
+			$tabla->programas = $Catalogosm->get_catalogobd(); 
+			$datos['tabla'] = $tabla; 
 			$this->load->view('catalogosv/catalogosv.php',$datos);
 		}
 	}
