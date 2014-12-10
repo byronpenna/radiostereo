@@ -28,13 +28,12 @@
 		<table border="2px"><!--Datos de la bd de catalogo programa-->
 		<thead>
 			<tr>
-			<th>Id Programa</th>
-			<th>Programa</th>
-			<th>Acción</th>
-		</tr>
+				<th>Nombre Programa</th>
+				<th>Acción</th>
+			</tr>
 		</thead>
 		<tbody>
-			<?php echo $array; ?>
+			<?php echo $tabla->programas; ?>
 		</tbody>
 	</table>
 	
@@ -53,14 +52,14 @@
 		<table>
 			<tr>
 				<td><label for="nombservicio">Nombre Servicio:</label></td>
-				<td><input type="text" name="nombservicio" /></td>
+				<td><input type="text" name="servicio" /></td>
 			</tr>
 			<tr>
 					<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
-	<form id="frmServicio" method="POST">
+	<form id="frmRadio" method="POST">
 		<table>
 			<tr>
 				<td><label for="nombradio">Nombre Radio:</label></td>
