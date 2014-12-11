@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '192.168.16.64';
-$db['default']['username'] = 'itca';
-$db['default']['password'] = '';
-$db['default']['database'] = 'radios';
+$db['default']['hostname'] = '192.168.16.115';
+$db['default']['username'] = 'username';
+$db['default']['password'] = 'password';
+$db['default']['database'] = 'radio';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
