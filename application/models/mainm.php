@@ -13,11 +13,11 @@
 			$get_radio = $query->result();
 			$retorno = "";
 			foreach ($get_radio as $row) {
-				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->cli_id."' /></td>
+				$retorno .= "<tr style='background:rgba(144, 240, 139, 0.8);'>
+								<td>".$row->cli_id."</td>
 								<td>".$row->cli_nombres."</td>
 								<td>".$row->cli_apellidos."</td>
-								<td><button class='Editcliente'>Editar</button></td>
+								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Cotizacion</button></a></td>
 							</tr>";
 			}
 			return $retorno;

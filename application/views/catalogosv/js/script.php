@@ -11,7 +11,7 @@ $(document).ready(function () {
 				frm = tr.find("input");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 				//console.log(frm);
-				saveEditPrograma(frm);
+				saveEditPrograma(frm,tr);
 			});
 		// submit
 			$(document).on("submit","#frmPrograma",function(e){

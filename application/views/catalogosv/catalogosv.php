@@ -21,11 +21,11 @@
 				<td><input type="text" name="nombpro" /></td>
 			</tr>
 			<tr>
-					<td colspan="2"><input type="submit" value="Guardar"></td>
+				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
-		<table border="2px"><!--Datos de la bd de catalogo programa-->
+		<table border="2px" rules="all"><!--Datos de la bd de catalogo programa-->
 		<thead>
 			<tr>
 				<th>Nombre Programa</th>
