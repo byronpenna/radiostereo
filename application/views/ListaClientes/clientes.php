@@ -1,4 +1,4 @@
-<div class="container" id="contenedorClientes">
+<div class="container" id="contenedorClientes" />
     <h3>Listado de Clientes</h3>
     <hr id="hr">
     <nav class="tu">   

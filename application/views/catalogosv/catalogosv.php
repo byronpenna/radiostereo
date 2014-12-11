@@ -32,7 +32,7 @@
 				<th>Acción</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class='tbProgramas'>
 			<?php echo $tabla->programas; ?>
 		</tbody>
 	</table>
@@ -126,7 +126,7 @@
 				<th>Acción</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class='tbClientes'>
 			<?php echo $tabla->clientes ?>
 		</tbody>
 	</table>
