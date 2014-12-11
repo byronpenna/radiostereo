@@ -21,7 +21,11 @@
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Cerrar Sesion</a></li>
+            <li>
+              <form id="frmLogout">
+                <input type="submit" class="btn-link" value="Cerrar Sesion" id="btnlout">
+              </form>
+            </li>
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

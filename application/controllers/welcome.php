@@ -19,5 +19,15 @@
 			// $retorno->mensaje=$res;
 			echo json_encode($retorno);
 		}
+
+		public function logOut(){
+			if(session_start()==null){
+				session_start();
+			}
+			session_destroy();
+			$retorno=new stdClass();
+			$retorno="Cierre de Sesion exitoso";
+			echo json_encode($retorno);
+		}
 	}
 ?>

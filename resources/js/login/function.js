@@ -2,6 +2,7 @@ $(document).ready(function(){
 	$('#hide').fadeIn("slow");
 	}
 );
+
 function login(frm){
 	$.ajax({
          data:{
@@ -11,7 +12,6 @@ function login(frm){
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-           
           if(datos.validacion==true){
           	$('#hide').fadeOut( "fast",function(){
           		window.location="main";	
@@ -22,12 +22,24 @@ function login(frm){
           	setTimeout(function() {
       			$('#msj').hide( "fast");
 			}, 2000);
-
           }
          }
      });
 }
 
+function logOut(frm){
+	$.ajax({
+         data:{
+           form: JSON.stringify(frm)
+         },
+         url:  "welcome/logOut",
+         type:   "POST",
+         success: function(data){
+           var datos = jQuery.parseJSON(data);
+           window.location="welcome";
+         }
+     });
+}
 
 function serializeToJson(a){
 	var o = {};

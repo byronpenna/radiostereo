@@ -8,7 +8,6 @@
 		public function login($frm){
 			$datos=new stdClass();
 			$datos->validacion=false;
-			$datos->mensaje 	= "prueba";
 			$contra=sha1($frm->txtContra);
 			$sql="SELECT COUNT(*) AS login,usu_id FROM usu_usuario WHERE  usu_nombre='".$frm->txtUsuario."' AND  usu_password='".$contra."'";
 			//iniciar transaccion para validar la consulta 
@@ -30,6 +29,9 @@
 			}
 			if ($datos->validacion===true) {
 				foreach ($query as $key => $valor) {
+					if(session_start()==null){
+				session_start();
+			}
 					$_SESSION['iduser']=$valor->usu_id;
 				}
 			}

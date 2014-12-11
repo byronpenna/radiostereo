@@ -9,8 +9,16 @@
 
 		public function index(){
 			//$this->load->helper("url");
+			if(session_start()==null){
+				session_start();
+			}
+			if(isset($_SESSION['iduser'])){
 			$data["Titulo"] = "Principal";
-			$this->load->view("index.php",$data);
+			$this->load->view("index.php",$data);	
+			}else{
+				header("Location:welcome");
+			}
+			
 		}
 	}
 	
