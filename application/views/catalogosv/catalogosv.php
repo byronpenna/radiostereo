@@ -48,6 +48,17 @@
 			</tr>
 		</table>
 	</form>
+	<table border="2px" rules="all">
+		<thead>
+			<tr>
+				<th>Precio</th>
+				<th>Acción</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<?php echo $tabla->radios ?>
+		</tbody>
+	</table>
 	<form id="frmServicio" method="POST">
 		<table>
 			<tr>
@@ -59,16 +70,41 @@
 			</tr>
 		</table>
 	</form>
+	<table border="2px" rules="all">
+		<thead>
+			<tr>
+				<th>Nombre Servicio</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php echo $tabla->servicio ?>
+		</tbody>
+	</table>
 	<form id="frmRadio" method="POST">
 		<table>
 			<tr>
 				<td><label for="nombradio">Nombre Radio:</label></td>
-				<td><input type="text" name="nombradio" /></td>
+				<td><input type="text" name="txtnombradio" /></td>
 			</tr>
 			<tr>
 					<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
+	<table border="2px" rules="all">
+		<thead>
+			<tr>
+				<th>Nombre Radio</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php echo $tabla->radio ?>
+		</tbody>
+	</table>
+	<div>
+		<h2 class="mensaje"></h2>
+	</div>
 </body>
 </html>
