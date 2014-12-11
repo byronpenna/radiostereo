@@ -4,5 +4,9 @@ $(document).ready(function(){
 			 e.preventDefault();
 			var frm= serializeToJson($(this).serializeArray());
 			console.log(frm);
+			login(frm);
 		});
 });
+
+
+ 

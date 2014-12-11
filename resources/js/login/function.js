@@ -1,5 +1,16 @@
 function login(frm){
-	
+	console.log("entro");
+	$.ajax({
+         data:{
+           form: JSON.stringify(frm)
+         },
+         url:  "welcome/login",
+         type:   "POST",
+         success: function(data){
+           var datos = jQuery.parseJSON(data);
+           console.log(datos.mensaje);
+         }
+     });
 }
 
 
