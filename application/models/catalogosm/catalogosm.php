@@ -142,7 +142,7 @@
 			foreach ($get_radio as $row) {
 				$retorno .= "<tr>
 								<td style='display:none'><input value='".$row->rad_id."' /></td>
-								<td>".$row->rad_nombre  ."</td>
+								<td>".$row->rad_nombre."</td>
 								<td><button class='Editradio'>Editar</button></td>
 							</tr>";
 			}

@@ -38,7 +38,12 @@ function saveEditPrograma(update){
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_programa"."'" ?>,
 		type: 	"POST",
 		success: 	function(datos) {
-			$(".mensaje").text(datos);
+			tr = "<tr>\
+						<td>"+frm.nombpro+"</td>\
+						<td><button class='Editradio'>Editar</button></td>\
+					  </tr>"
+			$(".tbProgramas").prepend(tr);
+			//$(".mensaje").text(datos);
 			//console.log(datos);
 			//datos = jQuery.json_decode(datos);
 		}
@@ -53,7 +58,13 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_programa"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
-			$(".mensaje").text(datos);
+			// $(".mensaje").text(datos);
+			// agregar el elemento a la tabla 
+				tr = "<tr>\
+						<td>"+frm.nombpro+"</td>\
+						<td><button class='Editradio'>Editar</button></td>\
+					  </tr>"
+				$(".tbProgramas").prepend(tr);
 			//alert(datos);//muestra el mensaje
 			//console.log(datos);
 		}
