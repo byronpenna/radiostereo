@@ -13,20 +13,20 @@
 				session_start();
 			}
 			if(isset($_SESSION['iduser'])){
+			$this->load->model('mainm');
+			$mainm = new mainm();
+			$tabla = new stdClass();
+			$tabla->clientes = $mainm->get_clientedb();
+			$data['tabla'] = $tabla;
 			$data["Titulo"] = "Principal";
-			$this->load->view("index.php",$data);	
+			$this->load->view("index.php",$data);
 			}else{
 				header("Location:welcome");
 			}
 			
 			//aqui estaba la linea del helper
 	 
-			$this->load->model('mainm');
-			$mainm = new mainm();
-			$tabla = new stdClass();
-			$tabla->clientes = $mainm->get_clientedb();
-			$data['tabla'] = $tabla;
-			$this->load->view("index.php",$data);
+			
 		}
 	}
 	
