@@ -14,16 +14,19 @@
 		public function insert_catalogobd($frm)//metodo que inserta los datos a la bd y recive un vector
 		{
 				$data = array('prog_nombre' => $frm->nombpro);//creo el arreglo para el insert 'nombpro' es el name q tiene el campo en la vista
+				$retorno = new stdClass();
 				$this->db->trans_start();//inicia la transaccion
 					$this->db->insert('prog_programa', $data);//inseta los datos a la bd
 				$this->db->trans_complete();//finaliza la transaccion
 				if ($this->db->trans_status() === true) {
-					$mensaje = "Programa guardado con exito";
+					$retorno->mensaje 	= "Programa guardado con exito";
+					$retorno->status 	= true;
 				}else{
-					$mensaje = "Se ha producido un Error";
+					$retorno->mensaje 	= "Se ha producido un Error";
+					$retorno->status 	= false;
 				}
 				
-				return $mensaje;//retorna el mensaje
+				return $retorno;//retorna el mensaje
 		}
 		public function add_precio($vect)
 		{
@@ -128,7 +131,8 @@
 								<td style='display:none'><input value='".$row->serv_id."' /></td>
 								<td>".$row->serv_nombre ."</td>
 								<td><button class='Editservicio'>Editar</button></td>
-							</tr>";
+							</tr>
+							";
 			}
 			return $retorno;
 		}
@@ -174,8 +178,7 @@
 				$this->db->update('prog_programa', $data);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === true){
-				$retorno->estado 	= true;
-				$retorno->mensaje 	= "Modificado correctamente";
+				$retorno = $dato->txtNombrePrograma;
 			}else{
 				$retorno->estado = false;
 			}

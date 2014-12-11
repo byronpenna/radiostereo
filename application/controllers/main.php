@@ -9,7 +9,11 @@
 
 		public function index(){
 			//$this->load->helper("url");
-			$data["Titulo"] = "Principal";
+			$this->load->model('mainm');
+			$mainm = new mainm();
+			$tabla = new stdClass();
+			$tabla->clientes = $mainm->get_clientedb();
+			$data["tabla"] = $tabla;
 			$this->load->view("index.php",$data);
 		}
 	}

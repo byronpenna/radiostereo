@@ -25,7 +25,7 @@
 			</tr>
 		</table>
 	</form>
-		<table border="2px"><!--Datos de la bd de catalogo programa-->
+		<table border="2px" rules="all"><!--Datos de la bd de catalogo programa-->
 		<thead>
 			<tr>
 				<th>Nombre Programa</th>

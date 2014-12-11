@@ -17,7 +17,7 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->insert_catalogobd($frm);
-			echo $mensaje;
+			echo json_encode($mensaje);
 			// print_r($frm);
 		}
 		public function insert_precio()

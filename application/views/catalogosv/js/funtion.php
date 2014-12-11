@@ -30,7 +30,7 @@ function createControlsEdit(tr){//funcion que me cargara el dato a editar
 								//en el archivo script el el primer evento click
 }
 //aqui comienzan las funciones ajax q me pasaran los datos a modificar al modelo
-function saveEditPrograma(update){
+function saveEditPrograma(update,tr){
 	$.ajax({
 		data:{
 			form:JSON.stringify(update)
@@ -38,14 +38,15 @@ function saveEditPrograma(update){
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_programa"."'" ?>,
 		type: 	"POST",
 		success: 	function(datos) {
-			tr = "<tr>\
-						<td>"+frm.nombpro+"</td>\
-						<td><button class='Editradio'>Editar</button></td>\
-					  </tr>"
-			$(".tbProgramas").prepend(tr);
 			//$(".mensaje").text(datos);
-			//console.log(datos);
-			//datos = jQuery.json_decode(datos);
+			tr.empty();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			tr2 = "\
+					<td class='tdProgramNombre'>"+data+"</td>\
+					<td>\
+						<button class='btnEditar'>Editar</button>\
+					</td>";//creamos el nuevo fila
+			tr.append(tr2);
 		}
 	});
 }
@@ -60,13 +61,12 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 		success: 	function(datos){
 			// $(".mensaje").text(datos);
 			// agregar el elemento a la tabla 
+				data = jQuery.parseJSON(datos);//convertimos los datos
 				tr = "<tr>\
 						<td>"+frm.nombpro+"</td>\
 						<td><button class='Editradio'>Editar</button></td>\
 					  </tr>"
-				$(".tbProgramas").prepend(tr);
-			//alert(datos);//muestra el mensaje
-			//console.log(datos);
+				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
 		}
 	});
 }
