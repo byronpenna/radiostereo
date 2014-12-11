@@ -1,14 +1,29 @@
+$(document).ready(function(){
+	$('#hide').fadeIn("slow");
+	}
+);
 function login(frm){
-	console.log("entro");
 	$.ajax({
          data:{
            form: JSON.stringify(frm)
          },
-         url:  "welcome/login",
+         url:  "welcome/obtenerDatosLogin",
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-           console.log(datos.mensaje);
+           
+          if(datos.validacion==true){
+          	$('#hide').fadeOut( "fast",function(){
+          		window.location="main";	
+          	});
+          }else{
+          	$("#msj").empty().append(datos.mensaje);
+          	$('#msj').show( "fast");
+          	setTimeout(function() {
+      			$('#msj').hide( "fast");
+			}, 2000);
+
+          }
          }
      });
 }

@@ -8,7 +8,7 @@
 <script src="<?php echo base_url('resources/js/login/function.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-            <div class="container">
+            <div class="container" id="hide" style="display:none;">
                 <div class="row vertical-offset-100">
                     <div class="col-md-4 col-md-offset-4">
                         <div class="panel panel-default">
@@ -25,7 +25,8 @@
                                         </label>
                                         <input class="form-control" placeholder="Usuario" id="username" name="txtUsuario" type="text">
                                         <input class="form-control" placeholder="Contraseña" id="password" name="txtContra" type="password">
-                                        <br></br>
+                                        <p id="msj" style="display:none;"></p>
+                                        <br>
                                         <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesion">
                                     </fieldset>
                                 </form>
