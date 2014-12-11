@@ -39,9 +39,13 @@ function saveEditPrograma(update,tr){
 		type: 	"POST",
 		success: 	function(datos) {
 			//$(".mensaje").text(datos);
+			idPrograma = tr.find(".inputProgramId").val();//buscamos el id para construir la fila
 			data = jQuery.parseJSON(datos);//convirtiendo datos
-			console.log(data);
+			//console.log(data);
 			tr2 = "\
+					<td style='display:none'>\
+						<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
+					</td>\
 					<td class='tdProgramNombre'>"+data+"</td>\
 					<td>\
 						<button class='btnEditar'>Editar</button>\
