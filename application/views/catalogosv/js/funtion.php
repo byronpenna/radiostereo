@@ -39,14 +39,14 @@ function saveEditPrograma(update,tr){
 		type: 	"POST",
 		success: 	function(datos) {
 			//$(".mensaje").text(datos);
-			tr.empty();
 			data = jQuery.parseJSON(datos);//convirtiendo datos
+			console.log(data);
 			tr2 = "\
 					<td class='tdProgramNombre'>"+data+"</td>\
 					<td>\
 						<button class='btnEditar'>Editar</button>\
 					</td>";//creamos el nuevo fila
-			tr.append(tr2);
+			tr.empty().append(tr2);
 		}
 	});
 }

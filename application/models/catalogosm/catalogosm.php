@@ -112,9 +112,9 @@
 			$retorno = "";
 			foreach ($get_precio as $row) {
 				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->pre_id."' /></td>
+								<td style='display:none'><input value='".$row->pre_id."' class='inputProgramId'></td>
 								<td>$ ".$row->pre_precio."</td>
-								<td><button class='Editradio'>Editar</button></td>
+								<td><button class='btnEditar'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;
@@ -178,7 +178,7 @@
 				$this->db->update('prog_programa', $data);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === true){
-				$retorno = $dato->txtNombrePrograma;
+				$retorno = $dato->txtNombrePrograma;//retorno el nuevo valor
 			}else{
 				$retorno->estado = false;
 			}

@@ -1,5 +1,6 @@
 <html>
 <head>
+	<title>..::Principal::..</title>
 	<?php
 		$this->load->view("estructura/head.php");
 	?>
