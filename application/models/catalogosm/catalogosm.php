@@ -66,6 +66,19 @@
 			}
 			return $mensaje;
 		}
+		public function add_cliente($frm)
+		{
+			$data = array('cli_nombres' => $frm->txtnombcliente, 'cli_apellidos ' => $frm->txtapellido);
+			$this->db->trans_start();
+				$this->db->insert('cli_cliente', $data);
+			$this->db->trans_complete();
+			if ($this->db->trans_status() === true) {
+				$mensaje = "Datos guardados con exito";
+			}else{
+				$mensaje = "Se ha producido un Error";
+			}
+			return $mensaje;
+		}
 		//aqui comienzan los metodos para extraer y mostrar los datos de la bd
 		public function get_catalogobd()//metodo que extrae los datos de la bd para la tabla programa
 		{
@@ -131,6 +144,23 @@
 								<td style='display:none'><input value='".$row->rad_id."' /></td>
 								<td>".$row->rad_nombre  ."</td>
 								<td><button class='Editradio'>Editar</button></td>
+							</tr>";
+			}
+			return $retorno;
+		}
+		public function get_clientedb()
+		{
+			$this->db->trans_start();
+				$query = $this->db->get('cli_cliente');
+			$this->db->trans_complete();
+			$get_radio = $query->result();
+			$retorno = "";
+			foreach ($get_radio as $row) {
+				$retorno .= "<tr>
+								<td style='display:none'><input value='".$row->cli_id."' /></td>
+								<td>".$row->cli_nombres."</td>
+								<td>".$row->cli_apellidos."</td>
+								<td><button class='Editcliente'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;

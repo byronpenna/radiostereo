@@ -14,7 +14,7 @@
 	
 </head>
 <body>
-	<form id="frmPrograma" method="POST">
+	<form id="frmPrograma" method="POST"><!--Formulario para ingresar programas-->
 		<table>
 			<tr>
 				<td><label for="nombre">Nombre Programa:</label></td>
@@ -37,7 +37,7 @@
 		</tbody>
 	</table>
 	
-	<form id="frmPrecio" method="POST">
+	<form id="frmPrecio" method="POST"><!--Formulario para ingresar precio-->
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
@@ -48,7 +48,7 @@
 			</tr>
 		</table>
 	</form>
-	<table border="2px" rules="all">
+	<table border="2px" rules="all"><!--Datos de la bd de catalogo precios-->
 		<thead>
 			<tr>
 				<th>Precio</th>
@@ -59,7 +59,7 @@
 			<?php echo $tabla->radios ?>
 		</tbody>
 	</table>
-	<form id="frmServicio" method="POST">
+	<form id="frmServicio" method="POST"><!--Formulario para ingresar un servicio-->
 		<table>
 			<tr>
 				<td><label for="nombservicio">Nombre Servicio:</label></td>
@@ -70,7 +70,7 @@
 			</tr>
 		</table>
 	</form>
-	<table border="2px" rules="all">
+	<table border="2px" rules="all"><!--Datos de la bd de catalogo servicios-->
 		<thead>
 			<tr>
 				<th>Nombre Servicio</th>
@@ -81,7 +81,7 @@
 			<?php echo $tabla->servicio ?>
 		</tbody>
 	</table>
-	<form id="frmRadio" method="POST">
+	<form id="frmRadio" method="POST"><!--Formulario para ingresar radio-->
 		<table>
 			<tr>
 				<td><label for="nombradio">Nombre Radio:</label></td>
@@ -92,7 +92,7 @@
 			</tr>
 		</table>
 	</form>
-	<table border="2px" rules="all">
+	<table border="2px" rules="all"><!--Datos de la bd de catalogo radios-->
 		<thead>
 			<tr>
 				<th>Nombre Radio</th>
@@ -103,8 +103,36 @@
 			<?php echo $tabla->radio ?>
 		</tbody>
 	</table>
+	<form id="frmClientes" method="POST">
+		<table>
+			<tr>
+				<td><label for="nombcliente">Nombre:</label></td>
+				<td><input type="text" name="txtnombcliente" /></td>
+			</tr>
+			<tr>
+				<td><label for="apellido">Apellido:</label></td>
+				<td><input type="text" name="txtapellido" /></td>
+			</tr>
+			<tr>
+					<td colspan="2"><input type="submit" value="Guardar"></td>
+			</tr>
+		</table>
+	</form>
+	<table border="2px" rules="all"><!--Datos de la bd de catalogo clientes-->
+		<thead>
+			<tr>
+				<th>Nombre cliente</th>
+				<th>Apellido cliente</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php echo $tabla->clientes ?>
+		</tbody>
+	</table>
 	<div>
 		<h2 class="mensaje"></h2>
 	</div>
+
 </body>
 </html>

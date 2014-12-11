@@ -99,3 +99,15 @@ function agregarradio(frm4) {//funcion que manda los datos de radio al controlad
 		}
 	});
 }
+function agregarcliente(frm5) {
+	$.ajax({
+		data:{
+			form5: JSON.stringify(frm5)
+		},
+		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_cliente"."'" ?>,
+		type: 	"POST",
+		success: function(datos) {
+			console.log(datos);
+		}
+	});
+}
