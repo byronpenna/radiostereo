@@ -46,7 +46,16 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->add_radio($form);
-			echo "Radio guardado con exito";
+			echo $mensaje;
+		}
+		public function insert_cliente()
+		{
+			//vars
+				$form = json_decode($_POST["form5"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$mensaje = $Catalogosm->add_cliente($form);
+			echo $mensaje;
 		}
 		//aqui comienzan los metodos q me mandaran al modelo los datos a modificar
 		public function update_programa()
@@ -64,9 +73,14 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
-			$tabla->programas = $Catalogosm->get_catalogobd(); 
+			$tabla->programas = $Catalogosm->get_catalogobd();//carga la tabla programas
+			$tabla->radios =  $Catalogosm->get_preciodb();//carga la tabla precios
+			$tabla->servicio =  $Catalogosm->get_serviciodb();//carga la tabla servicios
+			$tabla->radio = $Catalogosm->get_radiodb();//carga la tabla radios
+			$tabla->clientes = $Catalogosm->get_clientedb();//carga la tabla clientes
 			$datos['tabla'] = $tabla; 
 			$this->load->view('catalogosv/catalogosv.php',$datos);
+
 		}
 	}
  ?>

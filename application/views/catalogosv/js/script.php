@@ -35,6 +35,14 @@ $(document).ready(function () {
 			$(document).on("submit","#frmRadio",function(e) {
 				e.preventDefault();
 				form4 = serializeToJson($(this).serializeArray());
+				//console.log(form4);
 				agregarradio(form4);
+			});
+			//submit agregar cliente
+			$(document).on("submit","#frmClientes",function(e) {
+				e.preventDefault();
+				form5 = serializeToJson($(this).serializeArray());
+				agregarcliente(form5);
+				//console.log(form5);
 			});
 });
