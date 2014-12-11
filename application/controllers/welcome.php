@@ -10,10 +10,13 @@
 			$this->load->view("login/login.php",$data);
 		}
 
-		public function login(){
+		public function obtenerDatosLogin(){
+			$this->load->model("welcomem");
 			$frm=json_decode($_POST['form']);
 			$retorno = new stdClass();
-			$retorno->mensaje="logeado correctamente";
+			$login=new welcomem();
+			$retorno=$login->login($frm);
+			// $retorno->mensaje=$res;
 			echo json_encode($retorno);
 		}
 	}

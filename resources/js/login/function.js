@@ -1,14 +1,26 @@
 function login(frm){
-	console.log("entro");
+	//console.log("entro");
 	$.ajax({
          data:{
            form: JSON.stringify(frm)
          },
-         url:  "welcome/login",
+         url:  "welcome/obtenerDatosLogin",
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-           console.log(datos.mensaje);
+           //alert(datos.mensaje);
+           
+          if(datos.validacion==true){
+          	window.location="main";
+          	//console.log(datos.mensaje);
+          }else{
+          	$("#msj").empty().append(datos.mensaje);
+          	$('#msj').show( "fast");
+          	setTimeout(function() {
+      			$('#msj').hide( "fast");
+			}, 2000);
+
+          }
          }
      });
 }
