@@ -17,7 +17,12 @@
 				$this->db->trans_start();//inicia la transaccion
 					$this->db->insert('prog_programa', $data);//inseta los datos a la bd
 				$this->db->trans_complete();//finaliza la transaccion
-				$mensaje = "Datos insertados con exito";
+				if ($this->db->trans_status() === true) {
+					$mensaje = "Programa guardado con exito";
+				}else{
+					$mensaje = "Se ha producido un Error";
+				}
+				
 				return $mensaje;//retorna el mensaje
 		}
 		public function add_precio($vect)
@@ -26,7 +31,12 @@
 			$this->db->trans_start();
 				$this->db->insert('pre_precio', $data);
 			$this->db->trans_complete();
-			$mensaje = "Precio guardado con exito";
+			if ($this->db->trans_status() === true) {
+				$mensaje = "Precio guardado con exito";
+			}else{
+				$mensaje = "Se ha producido un Error";
+			}
+			
 			return $mensaje;
 		}
 		public function add_servicio($vect)
@@ -35,15 +45,29 @@
 			$this->db->trans_start();
 				$this->db->insert('serv_servicio', $data);
 			$this->db->trans_complete();
-			$mensaje = "Servicio guardado con exito";
+			if ($this->db->trans_status() === true) {
+				$mensaje = "Servicio guardado con exito";
+			}else{
+				$mensaje = "Se ha producido un Error";
+			}
+			
 			return $mensaje;
 		}
 		public function add_radio($form)
 		{
-			
+			$data = array('rad_nombre' => $form->txtnombradio);
+			$this->db->trans_start();
+				$this->db->insert('rad_radio', $data);
+			$this->db->trans_complete();
+			if ($this->db->trans_status() === true) {
+				$mensaje = "Datos guardados con exito";
+			}else{
+				$mensaje = "Se ha producido un Error";
+			}
+			return $mensaje;
 		}
 		//aqui comienzan los metodos para extraer y mostrar los datos de la bd
-		public function get_catalogobd()//metodo que extrae los datos de la bd
+		public function get_catalogobd()//metodo que extrae los datos de la bd para la tabla programa
 		{
 			$this->db->trans_start();
 			$query = $this->db->get('prog_programa');
@@ -62,6 +86,54 @@
 						</tr>";
 			}
 			return $retornar;
+		}
+		public function get_preciodb()//metodo que extrae los datos de la bd para la tabla precio
+		{
+			$this->db->trans_start();
+				$query = $this->db->get('pre_precio');
+			$this->db->trans_complete();
+			$get_precio = $query->result();
+			$retorno = "";
+			foreach ($get_precio as $row) {
+				$retorno .= "<tr>
+								<td style='display:none'><input value='".$row->pre_id."' /></td>
+								<td>$ ".$row->pre_precio."</td>
+								<td><button class='Editradio'>Editar</button></td>
+							</tr>";
+			}
+			return $retorno;
+		}
+		public function get_serviciodb()//metodo que extrae los datos de la bd para la tabla servicio
+		{
+			$this->db->trans_start();
+				$query = $this->db->get('serv_servicio');
+			$this->db->trans_complete();
+			$get_servicio = $query->result();
+			$retorno = "";
+			foreach ($get_servicio as $row) {
+				$retorno .= "<tr>
+								<td style='display:none'><input value='".$row->serv_id."' /></td>
+								<td>".$row->serv_nombre ."</td>
+								<td><button class='Editservicio'>Editar</button></td>
+							</tr>";
+			}
+			return $retorno;
+		}
+		public function get_radiodb()//metodo que extrae los datos de la bd para la tabla radio
+		{
+			$this->db->trans_start();
+				$query = $this->db->get('rad_radio');
+			$this->db->trans_complete();
+			$get_radio = $query->result();
+			$retorno = "";
+			foreach ($get_radio as $row) {
+				$retorno .= "<tr>
+								<td style='display:none'><input value='".$row->rad_id."' /></td>
+								<td>".$row->rad_nombre  ."</td>
+								<td><button class='Editradio'>Editar</button></td>
+							</tr>";
+			}
+			return $retorno;
 		}
 		public function update_programadb($dato)
 		{

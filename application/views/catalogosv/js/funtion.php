@@ -38,7 +38,8 @@ function saveEditPrograma(update){
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_programa"."'" ?>,
 		type: 	"POST",
 		success: 	function(datos) {
-			console.log(datos);
+			$(".mensaje").text(datos);
+			//console.log(datos);
 			//datos = jQuery.json_decode(datos);
 		}
 	});
@@ -52,7 +53,8 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_programa"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
-			alert(datos);//muestra el mensaje
+			$(".mensaje").text(datos);
+			//alert(datos);//muestra el mensaje
 			//console.log(datos);
 		}
 	});
@@ -65,8 +67,9 @@ function agregarPrecio(form2) {//funcion que manda los datos de precio al contro
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_precio"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
+			$(".mensaje").text(datos);
 			//alert(datos);//muestra el mensaje
-			console.log(datos);
+			//console.log(datos);
 		}
 	});
 }
@@ -78,19 +81,21 @@ function agregarservicio(form3) {//funcion que manda los datos del servicio al c
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_servicio"."'" ?>,
 		type: 	"POST",
 		success:    function(datos) {
-			console.log(datos);
+			$(".mensaje").text(datos);
+			//console.log(datos);
 		}
 	});
 }
-function agregarradio(form4) {//funcion que manda los datos de radio al controlador
+function agregarradio(frm4) {//funcion que manda los datos de radio al controlador
 	$.ajax({
 		data:{
-			form4: JSON.stringify(form4)
+			form4: JSON.stringify(frm4)
 		},
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_radio"."'" ?>,
 		type: 	"POST",
 		success: function(datos) {
-			console.log(datos);
+			$(".mensaje").text(datos);
+			//console.log(datos);
 		}
 	});
 }

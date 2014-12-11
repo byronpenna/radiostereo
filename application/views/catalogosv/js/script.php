@@ -35,6 +35,7 @@ $(document).ready(function () {
 			$(document).on("submit","#frmRadio",function(e) {
 				e.preventDefault();
 				form4 = serializeToJson($(this).serializeArray());
+				//console.log(form4);
 				agregarradio(form4);
 			});
 });

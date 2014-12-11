@@ -46,7 +46,7 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->add_radio($form);
-			echo "Radio guardado con exito";
+			echo $mensaje;
 		}
 		//aqui comienzan los metodos q me mandaran al modelo los datos a modificar
 		public function update_programa()
@@ -64,9 +64,13 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
-			$tabla->programas = $Catalogosm->get_catalogobd(); 
+			$tabla->programas = $Catalogosm->get_catalogobd();
+			$tabla->radios =  $Catalogosm->get_preciodb();
+			$tabla->servicio =  $Catalogosm->get_serviciodb();
+			$tabla->radio = $Catalogosm->get_radiodb();
 			$datos['tabla'] = $tabla; 
 			$this->load->view('catalogosv/catalogosv.php',$datos);
+
 		}
 	}
  ?>
