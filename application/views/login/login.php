@@ -8,7 +8,7 @@
 <script src="<?php echo base_url('resources/js/login/function.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
-            <div class="container">
+            <div class="container" id="hide" style="display:none;">
                 <div class="row vertical-offset-100">
                     <div class="col-md-4 col-md-offset-4">
                         <div class="panel panel-default">
