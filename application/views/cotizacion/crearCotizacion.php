@@ -13,8 +13,8 @@
     	<section id="mainCot">
     		<article id="cotHeader">
     			<article>
-    				<p>Id de Cliente <span>182913</span></p>
-    				<p>Nombre <span>Kevin Alberto Garcia Cortez</span></p>	
+    				<p>Id de Cliente <span><?php echo $_GET['id']; ?></span></p>
+    				<p>Nombre <span><?php echo $_GET['nombre']." ".$_GET['apellido']; ?></span></p>	
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
@@ -37,8 +37,7 @@
     		<hr>
 			<article id="contCotSer">
 				asasasas
-			</article>
-    		
+			</article>    		
     	</section>
     </div>
 </body>

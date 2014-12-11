@@ -22,11 +22,7 @@
 			$this->load->view("index.php",$data);
 			}else{
 				header("Location:welcome");
-			}
-			
-			//aqui estaba la linea del helper
-	 
-			
+			}			
 		}
 	}
 	
