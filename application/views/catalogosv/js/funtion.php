@@ -107,7 +107,8 @@ function agregarcliente(frm5) {
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_cliente"."'" ?>,
 		type: 	"POST",
 		success: function(datos) {
-			console.log(datos);
+			$(".mensaje").text(datos);
+			//console.log(datos);
 		}
 	});
 }
