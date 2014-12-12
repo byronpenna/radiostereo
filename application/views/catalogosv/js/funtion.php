@@ -38,19 +38,22 @@ function saveEditPrograma(update,tr){
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_programa"."'" ?>,
 		type: 	"POST",
 		success: 	function(datos) {
-			//$(".mensaje").text(datos);
 			idPrograma = tr.find(".inputProgramId").val();//buscamos el id para construir la fila
 			data = jQuery.parseJSON(datos);//convirtiendo datos
-			//console.log(data);
-			tr2 = "\
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);
+			}else if(data.estado == true){
+				tr2 = "\
 					<td style='display:none'>\
 						<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
 					</td>\
-					<td class='tdProgramNombre'>"+data+"</td>\
+					<td class='tdProgramNombre'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEditar'>Editar</button>\
 					</td>";//creamos el nuevo fila
-			tr.empty().append(tr2);
+				tr.empty().append(tr2);
+			}
+			//console.log(data);
 		}
 	});
 }
@@ -63,14 +66,21 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_programa"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
-			// $(".mensaje").text(datos);
 			// agregar el elemento a la tabla 
+			//console.log(data.mensaje);
 				data = jQuery.parseJSON(datos);//convertimos los datos
-				tr = "<tr>\
-						<td>"+frm.nombpro+"</td>\
-						<td><button class='Editradio'>Editar</button></td>\
+				if (data.estado == false) {
+					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+				}else if(data.estado == true){
+					tr = "<tr>\
+						<td style='display:none'>\
+							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
+						</td>\
+						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
+						<td><button class='btnEditar'>Editar</button></td>\
 					  </tr>"
-				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
+					$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
+				}
 		}
 	});
 }
@@ -82,7 +92,8 @@ function agregarPrecio(form2) {//funcion que manda los datos de precio al contro
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_precio"."'" ?>,
 		type: 		"POST",
 		success: 	function(datos){
-			$(".mensaje").text(datos);
+			data = jQuery.parseJSON(datos);
+			$(".mensaje").text(data.mensaje);
 			//alert(datos);//muestra el mensaje
 			//console.log(datos);
 		}
@@ -96,7 +107,8 @@ function agregarservicio(form3) {//funcion que manda los datos del servicio al c
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_servicio"."'" ?>,
 		type: 	"POST",
 		success:    function(datos) {
-			$(".mensaje").text(datos);
+			data = jQuery.parseJSON(datos);
+			$(".mensaje").text(data.mensaje);
 			//console.log(datos);
 		}
 	});
@@ -109,7 +121,8 @@ function agregarradio(frm4) {//funcion que manda los datos de radio al controlad
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_radio"."'" ?>,
 		type: 	"POST",
 		success: function(datos) {
-			$(".mensaje").text(datos);
+			data = jQuery.parseJSON(datos);
+			$(".mensaje").text(data.mensaje);
 			//console.log(datos);
 		}
 	});
@@ -122,7 +135,8 @@ function agregarcliente(frm5) {
 		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_cliente"."'" ?>,
 		type: 	"POST",
 		success: function(datos) {
-			$(".mensaje").text(datos);
+			data = jQuery.parseJSON(datos);
+			$(".mensaje").text(data.mensaje);
 			//console.log(datos);
 		}
 	});
