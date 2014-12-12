@@ -2,7 +2,6 @@ $(document).ready(function(){
 	$('#hide').fadeIn("slow");
 	}
 );
-
 function login(frm){
 	$.ajax({
          data:{
@@ -14,33 +13,18 @@ function login(frm){
            var datos = jQuery.parseJSON(data);
           if(datos.validacion==true){
           	$('#hide').fadeOut( "fast",function(){
-          		window.location="main";	
+          		window.location="main/main";	
           	});
           }else{
           	$("#msj").empty().append(datos.mensaje);
           	$('#msj').show( "fast");
           	setTimeout(function() {
       			$('#msj').hide( "fast");
-			}, 2000);
+			}, 4000);
           }
          }
      });
 }
-
-function logOut(frm){
-	$.ajax({
-         data:{
-           form: JSON.stringify(frm)
-         },
-         url:  "welcome/logOut",
-         type:   "POST",
-         success: function(data){
-           var datos = jQuery.parseJSON(data);
-           window.location="welcome";
-         }
-     });
-}
-
 function serializeToJson(a){
 	var o = {};
 	$.each(a, function() {
