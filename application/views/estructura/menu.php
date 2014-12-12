@@ -14,8 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav">
-            <li><a href="<?php echo site_url('main'); ?>">Inicio</a></li>
-            <li><a href="#">Catalogos</a></li>
+            <li><a href="<?php echo site_url('main/main'); ?>">Inicio</a></li>
+            <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Catalogos</a></li>
             <li><a href="#">Solicitudes</a></li>
             <li><a href="#">Cotizaciones</a></li>
         </ul>
