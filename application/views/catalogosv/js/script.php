@@ -13,6 +13,22 @@ $(document).ready(function () {
 				//console.log(frm);
 				saveEditPrograma(frm,tr);
 			});
+		//keypress
+			$(document).on("keypress","#txtPrecio",function(e){//evento para validar si es un numero
+				exp 					= /[0-9 ,\.]/; // expresion regular y buscar codigo asccii
+				ascciiCaracterIngresado = e.which;//which obtiene el codigo ascii del el evento keypress
+				caracter 				= String.fromCharCode(ascciiCaracterIngresado); //obtenemos el caracter ingresado
+				console.log("Ingresaste el caracter: ",caracter);
+				if(exp.test(caracter)){
+					if (caracter.indexOf('.')) {
+						console.log(caracter);
+					};
+					
+				}else{
+					e.preventDefault();//evitamos que se ejecute la accion
+					//console.log("no es un numero");
+				}
+			});
 		// submit
 			$(document).on("submit","#frmPrograma",function(e){
 				e.preventDefault();
@@ -20,6 +36,7 @@ $(document).ready(function () {
 				agregarPrograma(frm);//se encuentra en el archivo funtion.php
 			});
 			//submit agregar precio
+			
 			$(document).on("submit","#frmPrecio",function(e){
 					e.preventDefault();
 					form2 = serializeToJson($(this).serializeArray());//se encuentra en funtion.php
