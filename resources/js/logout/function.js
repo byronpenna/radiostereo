@@ -1,30 +1,17 @@
-$(document).ready(function(){
-	$('#hide').fadeIn("slow");
-	}
-);
-function login(frm){
+function logOut(frm){
 	$.ajax({
          data:{
            form: JSON.stringify(frm)
          },
-         url:  "welcome/obtenerDatosLogin",
+         url:  "../welcome/logOut",
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-          if(datos.validacion==true){
-          	$('#hide').fadeOut( "fast",function(){
-          		window.location="main";	
-          	});
-          }else{
-          	$("#msj").empty().append(datos.mensaje);
-          	$('#msj').show( "fast");
-          	setTimeout(function() {
-      			$('#msj').hide( "fast");
-			}, 4000);
-          }
+           window.location="../welcome";
          }
      });
 }
+
 function serializeToJson(a){
 	var o = {};
 	$.each(a, function() {

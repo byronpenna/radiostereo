@@ -13,3 +13,5 @@
 <script src="<?php echo base_url('resources/js/jquery-1.11.1.min.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/bootstrap.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/miscript.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/logout/script.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/logout/function.js')?>" type="text/javascript" charset="utf-8"></script>

@@ -9,7 +9,6 @@
 			$data["Titulo"] = "Login";
 			$this->load->view("login/login.php",$data);
 		}
-
 		public function obtenerDatosLogin(){
 			$this->load->model("welcomem");
 			$frm=json_decode($_POST['form']);

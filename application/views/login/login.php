@@ -7,7 +7,7 @@
                 session_start();
             }
             if(isset($_SESSION['iduser'])){
-                header("Location:main");
+                header("Location:main/main");
             }
 	?>
 <script src="<?php echo base_url('resources/js/login/script.js')?>" type="text/javascript" charset="utf-8"></script>
