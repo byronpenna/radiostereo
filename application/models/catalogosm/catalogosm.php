@@ -9,149 +9,71 @@
 		{
 			parent::__construct();
 		}
-		//Nota: la explicacion del primer metodo de insert es la misma para todas los otros metodos
-		//aqui comienzan los metodos para insertar a los catalogos
-		public function insert_catalogobd($frm)//metodo que inserta los datos a la bd y recive un vector
+		
+		//inicio insert catalogos
+		public function add_catalogos($tabla,$vect)//recibe el nombre de la tabla y un vector con los satos
 		{
-				$data = array('prog_nombre' => $frm->nombpro);//creo el arreglo para el insert 'nombpro' es el name q tiene el campo en la vista
-				$retorno = new stdClass();
+			$retorno = new stdClass();
 				$this->db->trans_start();//inicia la transaccion
-					$this->db->insert('prog_programa', $data);//inseta los datos a la bd
+					$this->db->insert($tabla, $vect);//inseta los datos a la bd
+					$retorno->last_id = $this->db->insert_id();
 				$this->db->trans_complete();//finaliza la transaccion
 				if ($this->db->trans_status() === true) {
-					$retorno->mensaje 	= "Programa guardado con exito";
-					$retorno->status 	= true;
+					$retorno->mensaje 	= "guardado con exito";
+					$retorno->estado	= true;
 				}else{
-					$retorno->mensaje 	= "Se ha producido un Error";
-					$retorno->status 	= false;
+					$retorno->mensaje 	= "Se ha producido un Error al Guardar";
+					$retorno->estado 	= false;
 				}
-				
-				return $retorno;//retorna el mensaje
-		}
-		public function add_precio($vect)
+			return $retorno;
+		}//fin insert catalogos
+		//metodo que genera las filas de cada dato
+		public function generar_retorno($datos, $clases, $campo)
 		{
-			$data = array('pre_precio' => $vect->precio);
-			$this->db->trans_start();
-				$this->db->insert('pre_precio', $data);
-			$this->db->trans_complete();
-			if ($this->db->trans_status() === true) {
-				$mensaje = "Precio guardado con exito";
-			}else{
-				$mensaje = "Se ha producido un Error";
-			}
-			
-			return $mensaje;
-		}
-		public function add_servicio($vect)
-		{
-			$data = array('serv_nombre' => $vect->servicio);
-			$this->db->trans_start();
-				$this->db->insert('serv_servicio', $data);
-			$this->db->trans_complete();
-			if ($this->db->trans_status() === true) {
-				$mensaje = "Servicio guardado con exito";
-			}else{
-				$mensaje = "Se ha producido un Error";
-			}
-			
-			return $mensaje;
-		}
-		public function add_radio($form)
-		{
-			$data = array('rad_nombre' => $form->txtnombradio);
-			$this->db->trans_start();
-				$this->db->insert('rad_radio', $data);
-			$this->db->trans_complete();
-			if ($this->db->trans_status() === true) {
-				$mensaje = "Datos guardados con exito";
-			}else{
-				$mensaje = "Se ha producido un Error";
-			}
-			return $mensaje;
-		}
-		public function add_cliente($frm)
-		{
-			$data = array('cli_nombres' => $frm->txtnombcliente, 'cli_apellidos ' => $frm->txtapellido);
-			$this->db->trans_start();
-				$this->db->insert('cli_cliente', $data);
-			$this->db->trans_complete();
-			if ($this->db->trans_status() === true) {
-				$mensaje = "Datos guardados con exito";
-			}else{
-				$mensaje = "Se ha producido un Error";
-			}
-			return $mensaje;
-		}
-		//aqui comienzan los metodos para extraer y mostrar los datos de la bd
-		public function get_catalogobd()//metodo que extrae los datos de la bd para la tabla programa
-		{
-			$this->db->trans_start();
-			$query = $this->db->get('prog_programa');
-			$this->db->trans_complete();
-			$get_datos = $query->result();
-			$retornar = "";
-			foreach ($get_datos as $row) {
+			$retornar="";
+			foreach ($datos as $row) {
 				$retornar .="<tr>
-							<td style='display:none'><input value='".$row->prog_id."' class='inputProgramId'></td>
-							<td class='tdProgramNombre'>".$row->prog_nombre."</td>
-							<td>
-								<button class='btnEditar'>
-									Editar
-								</button>
-							</td>
-						</tr>";
+								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
+								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
+								<td><button class='".$clases['class3']."'>Editar</button></td>
+							</tr>";
 			}
 			return $retornar;
 		}
-		public function get_preciodb()//metodo que extrae los datos de la bd para la tabla precio
+		public function get_catalogo($tabla)//metodo que extrae los datos de la bd
 		{
 			$this->db->trans_start();
-				$query = $this->db->get('pre_precio');
+			$query = $this->db->get($tabla);
 			$this->db->trans_complete();
-			$get_precio = $query->result();
-			$retorno = "";
-			foreach ($get_precio as $row) {
-				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->pre_id."' class='inputProgramId'></td>
-								<td>$ ".$row->pre_precio."</td>
-								<td><button class='btnEditar'>Editar</button></td>
-							</tr>";
+			$get_datos = $query->result();
+			switch ($tabla) {
+				case 'prog_programa':
+						$clases = array('class1' => "inputProgramId", 'class2' => "tdProgramNombre", 'class3' => "btnEditar");
+						$campos = array('prog_id', 'prog_nombre');
+						$retorno = $this->generar_retorno($get_datos, $clases, $campos);//por cada dato obtenido se manda a llamar a la funcion
+					break;
+				case 'pre_precio':
+						$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEdtserv");
+						$campos = array('pre_id', 'pre_precio');
+						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
+					break;
+				case 'serv_servicio':
+						$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtprecio");
+						$campos = array('serv_id', 'serv_nombre');
+						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
+					break;
+				case 'rad_radio':
+						$clases = array('class1' => "inputRadioId", 'class2' => "tdRadioNomb", 'class3' => "btnEdtRadio");
+						$campos = array('rad_id', 'rad_nombre');
+						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
+					break;
+				default:
+					$retorno = "Table dosn't exist";
+					break;
 			}
 			return $retorno;
 		}
-		public function get_serviciodb()//metodo que extrae los datos de la bd para la tabla servicio
-		{
-			$this->db->trans_start();
-				$query = $this->db->get('serv_servicio');
-			$this->db->trans_complete();
-			$get_servicio = $query->result();
-			$retorno = "";
-			foreach ($get_servicio as $row) {
-				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->serv_id."' /></td>
-								<td>".$row->serv_nombre ."</td>
-								<td><button class='Editservicio'>Editar</button></td>
-							</tr>
-							";
-			}
-			return $retorno;
-		}
-		public function get_radiodb()//metodo que extrae los datos de la bd para la tabla radio
-		{
-			$this->db->trans_start();
-				$query = $this->db->get('rad_radio');
-			$this->db->trans_complete();
-			$get_radio = $query->result();
-			$retorno = "";
-			foreach ($get_radio as $row) {
-				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->rad_id."' /></td>
-								<td>".$row->rad_nombre."</td>
-								<td><button class='Editradio'>Editar</button></td>
-							</tr>";
-			}
-			return $retorno;
-		}
+		//aqui comienzan los metodos para extraer y mostrar los datos de la bd
 		public function get_clientedb()
 		{
 			$this->db->trans_start();
@@ -178,11 +100,13 @@
 				$this->db->update('prog_programa', $data);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === true){
-				$retorno = $dato->txtNombrePrograma;//retorno el nuevo valor
+				$retorno->estado = true;
+				$retorno->mensaje = "Modificado con exito";
+				$retorno->dato = $dato->txtNombrePrograma;//retorno el nuevo valor
 			}else{
 				$retorno->estado = false;
+				$retorno->mensaje = "Se ha producido un Error al modificar";
 			}
-			//$mensaje = "Dato modificado con exito";
 			return $retorno;
 		}
 	}
