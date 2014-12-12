@@ -3,7 +3,6 @@
 		public function __construct(){
 			parent:: __construct();
 		}
-
 		public function crearCotizacion(){
 			if(session_start()==null){
 				session_start();
