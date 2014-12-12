@@ -10,13 +10,21 @@
 			parent::__construct();
 			$this->load->helper('url');
 		}
+		//public function inser_catalogos()
+		//{
+		//	$frm = json_decode($_POST["form"]);
+		//	$this->load->model('catalogosm/catalogosm');
+		//	$Catalogosm = new Catalogosm();
+
+		//}
 		//aqui comienzan las funciones que capturan los datos de los catalogos
 		public function insert_programa(){//captura los datos del form y los pasa al mododelo
 			// vars 
 				$frm = json_decode($_POST["form"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->insert_catalogobd($frm);
+			$data = array('prog_nombre' => $frm->nombpro);
+			$mensaje = $Catalogosm->add_catalogos('prog_programa',$data);
 			echo json_encode($mensaje);
 			// print_r($frm);
 		}
@@ -26,8 +34,9 @@
 				$frm = json_decode($_POST["form2"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->add_precio($frm);
-			echo $mensaje;
+			$data = array('pre_precio' => $frm->precio);
+			$mensaje = $Catalogosm->add_catalogos('pre_precio',$data);
+			echo json_encode($mensaje);
 		}
 		public function insert_servicio()
 		{
@@ -35,9 +44,10 @@
 				$form = json_decode($_POST["form3"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->add_servicio($form);
+			$data = array('serv_nombre' => $form->servicio);
+			$mensaje = $Catalogosm->add_catalogos('serv_servicio',$data);
 
-			echo $mensaje;
+			echo json_encode($mensaje);
 		}
 		public function insert_radio()
 		{
@@ -45,8 +55,9 @@
 				$form = json_decode($_POST["form4"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->add_radio($form);
-			echo $mensaje;
+			$data = array('rad_nombre' => $form->txtnombradio);
+			$mensaje = $Catalogosm->add_catalogos('rad_radio',$data);
+			echo json_encode($mensaje);
 		}
 		public function insert_cliente()
 		{
@@ -54,8 +65,9 @@
 				$form = json_decode($_POST["form5"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->add_cliente($form);
-			echo $mensaje;
+			$data = array('cli_nombres' => $form->txtnombcliente, 'cli_apellidos ' => $form->txtapellido);
+			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
+			echo json_encode($mensaje);
 		}
 		//aqui comienzan los metodos q me mandaran al modelo los datos a modificar
 		public function update_programa()
@@ -66,17 +78,16 @@
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->update_programadb($updatfrm);
 			echo json_encode($mensaje);
-			//echo $mensaje;
 		}
 		public function index()//carga la vista
 		{
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
-			$tabla->programas = $Catalogosm->get_catalogobd();//carga la tabla programas
-			$tabla->radios =  $Catalogosm->get_preciodb();//carga la tabla precios
-			$tabla->servicio =  $Catalogosm->get_serviciodb();//carga la tabla servicios
-			$tabla->radio = $Catalogosm->get_radiodb();//carga la tabla radios
+			$tabla->programas = $Catalogosm->get_catalogo('prog_programa');//carga la tabla programas
+			$tabla->radios =  $Catalogosm->get_catalogo('pre_precio');//carga la tabla precios
+			$tabla->servicio =  $Catalogosm->get_catalogo('serv_servicio');//carga la tabla servicios
+			$tabla->radio = $Catalogosm->get_catalogo('rad_radio');//carga la tabla radios
 			$tabla->clientes = $Catalogosm->get_clientedb();//carga la tabla clientes
 			$datos['tabla'] = $tabla; 
 			$this->load->view('catalogosv/catalogosv.php',$datos);

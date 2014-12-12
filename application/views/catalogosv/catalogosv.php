@@ -14,13 +14,14 @@
 	
 </head>
 <body>
+	<div><!--Mostramos el mensaje retornado-->
+		<h2 class="mensaje"></h2>
+	</div>
 	<form id="frmPrograma" method="POST"><!--Formulario para ingresar programas-->
 		<table>
 			<tr>
 				<td><label for="nombre">Nombre Programa:</label></td>
 				<td><input type="text" name="nombpro" /></td>
-			</tr>
-			<tr>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -42,9 +43,7 @@
 			<tr>
 				<td><label for="precio">Precio $</label></td>
 				<td><input type="text" name="precio" /></td>
-			</tr>
-			<tr>
-					<td colspan="2"><input type="submit" value="Guardar"></td>
+				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
@@ -64,9 +63,7 @@
 			<tr>
 				<td><label for="nombservicio">Nombre Servicio:</label></td>
 				<td><input type="text" name="servicio" /></td>
-			</tr>
-			<tr>
-					<td colspan="2"><input type="submit" value="Guardar"></td>
+				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
@@ -86,9 +83,7 @@
 			<tr>
 				<td><label for="nombradio">Nombre Radio:</label></td>
 				<td><input type="text" name="txtnombradio" /></td>
-			</tr>
-			<tr>
-					<td colspan="2"><input type="submit" value="Guardar"></td>
+				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
 	</form>
@@ -130,9 +125,7 @@
 			<?php echo $tabla->clientes ?>
 		</tbody>
 	</table>
-	<div>
-		<h2 class="mensaje"></h2>
-	</div>
+	
 
 </body>
 </html>
