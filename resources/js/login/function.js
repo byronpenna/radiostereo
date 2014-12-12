@@ -13,7 +13,7 @@ function login(frm){
            var datos = jQuery.parseJSON(data);
           if(datos.validacion==true){
           	$('#hide').fadeOut( "fast",function(){
-          		window.location="main";	
+          		window.location="main/main";	
           	});
           }else{
           	$("#msj").empty().append(datos.mensaje);
