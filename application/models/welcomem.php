@@ -3,8 +3,7 @@
 		public function __construct(){
 			parent:: __construct();
 		}
-
-
+		
 		public function login($frm){
 			$datos=new stdClass();
 			$datos->validacion=false;
@@ -37,6 +36,5 @@
 			}
 			return $datos;
 		}
-		
 	}
 ?>

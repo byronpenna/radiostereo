@@ -13,8 +13,8 @@
     	<section id="mainCot">
     		<article id="cotHeader">
     			<article>
-    				<p>Id de Cliente <span><?php echo $_GET['id']; ?></span></p>
-    				<p>Nombre <span><?php echo $_GET['nombre']." ".$_GET['apellido']; ?></span></p>	
+    				<p>Id de Cliente <span></span></p>
+    				<p>Nombre <span></span></p>	
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
