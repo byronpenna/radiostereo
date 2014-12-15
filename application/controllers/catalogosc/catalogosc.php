@@ -76,7 +76,31 @@
 				$updatfrm = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->update_programadb($updatfrm);
+			$tablabd = array('prog_nombre', 'prog_id', 'prog_programa');
+			$nameform = array('txtNombrePrograma', 'txtidprograma');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_precio()
+		{
+			//vars
+				$updtfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('pre_precio', 'pre_id', 'pre_precio');
+			$nameform = array('txtPrecio', 'txtidprecio');
+			$mensaje = $Catalogosm->update_programadb($updtfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_servicio()
+		{
+			//vars
+				$updtfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('serv_nombre', 'serv_id', 'serv_servicio');
+			$nameform = array('txtservicio', 'txtidservicio');
+			$mensaje = $Catalogosm->update_programadb($updtfrm, $tablabd, $nameform);
 			echo json_encode($mensaje);
 		}
 		public function index()//carga la vista

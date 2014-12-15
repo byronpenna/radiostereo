@@ -13,11 +13,31 @@ $(document).ready(function () {
 				//console.log(frm);
 				saveEditPrograma(frm,tr);
 			});
+			//funciones para editar precio
 			$(document).on("click",".btnEditPrecio",function() {//obtiene la fila con los datos
 				tr = $(this).parents("tr");
 				//console.log(tr);
 				createEditPrecio(tr);
-			})
+			});
+			$(document).on("click",".btnGuardarPrecio",function () {
+				tr = $(this).parents("tr");
+				frm = tr.find("input");
+				frm = serializeToJson(frm.serializeArray());
+				//console.log(frm);
+				savenewPrecio(frm,tr);
+			});
+			//funciones para editar servicios
+			$(document).on("click",".btnEdtserv",function() {//obtiene la fila con los datos
+				tr = $(this).parents("tr");
+				createEditServicio(tr);
+			});
+			$(document).on("click",".btnGuardarServi",function () {
+				tr = $(this).parents("tr");
+				frm = tr.find("input");
+				frm = serializeToJson(frm.serializeArray());
+				//console.log(frm);
+				savenewServicio(frm,tr);
+			});
 		//keypress
 			$(document).on("keypress","#txtPrecio",function(e){//evento para validar si es un numero
 				exp 					= /[0-9 ,\.]/; // expresion regular y buscar codigo asccii

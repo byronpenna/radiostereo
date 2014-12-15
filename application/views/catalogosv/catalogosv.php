@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="Es">
 <head>
-	<?php $this->load->view("estructura/head.php"); ?>
+	
 	<script type="text/javascript" src=<?php echo "'".base_url("resources/js/jquery-1.11.1.min.js")."'" ?> ></script>
-	<!-- <script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/funtion.php")."'";?> > </script>-->
-	<!--<script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/script.php")."'";?> > </script>-->
+	<!-- <script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/funtion.php")."'"; ?> > </script>-->
+	<!--<script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/script.php")."'"; ?> > </script>-->
 	<script type="text/javascript">
 		<?php $this->load->view("catalogosv/js/funtion.php"); ?> //cargamos el archivo q contiene las funciones
 		<?php $this->load->view("catalogosv/js/script.php"); ?>//cargamos el archivo q contiene los script
@@ -52,7 +52,7 @@
 				<th>Acción</th>	
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="tbprecios">
 			<?php echo $tabla->radios ?>
 		</tbody>
 	</table>
