@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="Es">
 <head>
-	<?php $this->load->view("estructura/head.php"); ?>
-	<script type="text/javascript" src=<?php echo "'".base_url("resources/js/jquery-1.11.1.min.js")."'" ?> ></script>
+	<script src="<?php echo base_url('resources/js/jquery-1.11.1.min.js')?>" type="text/javascript" charset="utf-8"></script>
 	<!-- <script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/funtion.php")."'";?> > </script>-->
 	<!--<script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/script.php")."'";?> > </script>-->
 	<script type="text/javascript">

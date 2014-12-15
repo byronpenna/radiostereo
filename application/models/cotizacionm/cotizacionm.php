@@ -20,5 +20,72 @@
 			return $query[0];
 		}
 
+		public function getTipoCotizacion(){
+			$datos = new stdClass();
+			$datos->validacion=false;
+			$sql="SELECT * FROM tip_tipo";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			if($query->num_rows()>0){
+				$datos->validacion=true;
+			}
+			$query=$query->result();
+			$this->db->trans_complete();
+
+			$r= "<select name='tipo_cot' class='form-control input-sm'>";
+			if($datos->validacion===true){
+				foreach ($query as $key => $valor) {
+					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
+				}
+				$r.="</select>";	
+			}
+			return $r;
+		}
+
+
+		public function getEstadoCotizacion(){
+			$datos = new stdClass();
+			$datos->validacion=false;
+			$sql="SELECT * FROM est_estado";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			if($query->num_rows()>0){
+				$datos->validacion=true;
+			}
+			$query=$query->result();
+			$this->db->trans_complete();
+
+			$r= "<select name='estado_cot' class='form-control input-sm'>";
+			if($datos->validacion===true){
+				foreach ($query as $key => $valor) {
+					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
+				}
+				$r.="</select>";	
+			}
+			return $r;
+		}
+
+
+		public function getProgramas(){
+			$datos = new stdClass();
+			$datos->validacion=false;
+			$sql="SELECT * FROM prog_programa";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			if($query->num_rows()>0){
+				$datos->validacion=true;
+			}
+			$query=$query->result();
+			$this->db->trans_complete();
+
+			$r= "<select name='programa' class='form-control input-sm' id='selectCot'>";
+			if($datos->validacion===true){
+				foreach ($query as $key => $valor) {
+					$r.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
+				}
+				$r.="</select>";	
+			}
+			return $r;
+		}
 	}
 ?>
