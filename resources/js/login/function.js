@@ -7,7 +7,7 @@ function login(frm){
          data:{
            form: JSON.stringify(frm)
          },
-         url:  getBaseURL()+"welcome/obtenerDatosLogin",
+         url:  getBaseURL()+"index.php/welcome/obtenerDatosLogin",
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
