@@ -40,7 +40,7 @@
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
-				<td><input type="text" name="precio" /></td>
+				<td><input type="text" name="precio" id='txtPrecio' /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -104,7 +104,7 @@
 			</tr>
 			<tr>
 				<td><label for="apellido">Apellido:</label></td>
-				<td><input type="text" name="txtapellido" /></td>
+				<td><input type="text" name="txtapellido" id='txtapellido'/></td>
 			</tr>
 			<tr>
 					<td colspan="2"><input type="submit" value="Guardar"></td>
