@@ -57,6 +57,22 @@ function saveEditPrograma(update,tr){
 		}
 	});
 }
+function createEditPrecio (tr) {//funcion para cargar el form de editar
+	idprecio = tr.find("inputPrecioId").val();
+	precio = tr.find("tdPrecio").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidprecio' value='"+idprecio+"' class='inputProgramId'>\
+			</td>\
+			<td>\
+				<input name='nombpro' class='inputPrecioId' value='"+precio+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarPrecio' value='Guardar' />\
+			</td>";
+			console.log(newtr);
+			//tr.empty().append(newtr);
+}
 //aqui comienza las funciones ajax para agregar catalogos
 function agregarPrograma(frm){//funcion que manda los datos al controlador
 	$.ajax({
