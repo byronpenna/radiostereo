@@ -13,6 +13,11 @@ $(document).ready(function () {
 				//console.log(frm);
 				saveEditPrograma(frm,tr);
 			});
+			$(document).on("click",".btnEditPrecio",function() {//obtiene la fila con los datos
+				tr = $(this).parents("tr");
+				//console.log(tr);
+				createEditPrecio(tr);
+			})
 		//keypress
 			$(document).on("keypress","#txtPrecio",function(e){//evento para validar si es un numero
 				exp 					= /[0-9 ,\.]/; // expresion regular y buscar codigo asccii

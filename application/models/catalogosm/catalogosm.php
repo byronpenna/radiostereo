@@ -53,12 +53,12 @@
 						$retorno = $this->generar_retorno($get_datos, $clases, $campos);//por cada dato obtenido se manda a llamar a la funcion
 					break;
 				case 'pre_precio':
-						$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEdtserv");
+						$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEditPrecio");
 						$campos = array('pre_id', 'pre_precio');
 						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
 					break;
 				case 'serv_servicio':
-						$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtprecio");
+						$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtserv");
 						$campos = array('serv_id', 'serv_nombre');
 						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
 					break;
