@@ -6,8 +6,11 @@
 
 		}
 		public function crearCotizacion($id){
-			
-			$data['Titulo']='Cotizacion';
+			// load 
+				$this->load->model("cotizacionm/cotizacionm");
+			$cotizacionModel 	= new cotizacionm(); 
+			$data['Titulo']		= 'Cotizacion';
+			$data["cliente"] 	= $cotizacionModel->getDatosCliente($id);
 			$this->load->view("cotizacion/crearCotizacion.php",$data);
 		}
 	}

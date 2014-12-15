@@ -13,8 +13,8 @@
     	<section id="mainCot">
     		<article id="cotHeader">
     			<article>
-    				<p>Id de Cliente <span></span></p>
-    				<p>Nombre <span></span></p>	
+    				<p>Id de Cliente <span><?= $cliente->cli_id ?></span></p>
+    				<p>Nombre <span><?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?></span></p>	
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
