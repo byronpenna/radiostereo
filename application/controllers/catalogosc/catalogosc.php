@@ -1,26 +1,16 @@
 <?php 
-	/**
-	* 
-	*/
-	class Catalogosc extends CI_Controller
+	include_once(APPPATH.'controllers/padre.php');
+	class Catalogosc extends padre
 	{
 		
 		function __construct()
 		{
 			parent::__construct();
-			$this->load->helper('url');
 		}
-		//public function inser_catalogos()
-		//{
-		//	$frm = json_decode($_POST["form"]);
-		//	$this->load->model('catalogosm/catalogosm');
-		//	$Catalogosm = new Catalogosm();
-
-		//}
 		//aqui comienzan las funciones que capturan los datos de los catalogos
 		public function insert_programa(){//captura los datos del form y los pasa al mododelo
 			// vars 
-				$frm = json_decode($_POST["form"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
+			$frm = json_decode($_POST["form"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('prog_nombre' => $frm->nombpro);

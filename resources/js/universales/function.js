@@ -18,6 +18,7 @@ function getBaseURL() {
 	    return baseURL + "/";
 	}
 }
+
 function logOut(frm){
 	console.log("la url es: ",getBaseURL());
 	$.ajax({

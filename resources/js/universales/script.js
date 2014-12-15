@@ -6,6 +6,3 @@ $(document).ready(function(){
 			logOut(frmlout);
 		});
 });
-
-
- 
