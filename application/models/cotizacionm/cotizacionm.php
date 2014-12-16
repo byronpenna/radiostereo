@@ -65,7 +65,6 @@
 			return $r;
 		}
 
-
 		public function getProgramas(){
 			$datos = new stdClass();
 			$datos->validacion=false;
@@ -77,15 +76,43 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
+			return $query;
+		}
 
-			$r= "<select name='programa' class='form-control input-sm' id='selectCot'>";
-			if($datos->validacion===true){
-				foreach ($query as $key => $valor) {
-					$r.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
-				}
-				$r.="</select>";	
+		public function getProgAddCot(){
+			$query=$this->getProgramas();
+			$res= "<select name='programa' class='form-control input-sm'>";
+			foreach ($query as $key => $valor) {
+				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
-			return $r;
+			$res.="</select>";
+			return $res;
+		}
+
+
+		public function queryPrecios(){
+			$datos = new stdClass();
+			$datos->validacion=false;
+			$sql="SELECT * FROM pre_precio";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			if($query->num_rows()>0){
+				$datos->validacion=true;
+			}
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;	
+		}
+
+
+		public function getPrecios(){
+			$query=$this->queryPrecios();
+			$res= "<select name='precio' class='form-control input-sm'>";
+			foreach ($query as $key => $valor) {
+				$res.="<option value='".$valor->pre_id."'> $ ".$valor->pre_precio."</option>";
+			}
+			$res.="</select>";
+			return $res;	
 		}
 	}
 ?>
