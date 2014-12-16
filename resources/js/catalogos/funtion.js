@@ -33,6 +33,29 @@ function getBaseURL() {
 	}
 }
 
-function agregarPrograma(frm){
-	
+function agregarPrograma(frm){//funcion que manda los datos al controlador
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)//convierte el objeto jason a string
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_programa",
+		type: 		"POST",
+		success: 	function(datos){
+			// agregar el elemento a la tabla
+			data = jQuery.parseJSON(datos);//convertimos los datos
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr>\
+						<td style='display:none'>\
+							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
+						</td>\
+						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
+						<td><button class='btnEditar'>Editar</button></td>\
+					  </tr>"
+				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
+				
+			}
+		}
+	});
 }
