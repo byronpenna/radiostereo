@@ -33,6 +33,7 @@
 			$this->db->trans_complete();
 
 			$r= "<select name='tipo_cot' class='form-control input-sm'>";
+			$r= "<select name='tipo_cot' class='form-control input-sm pequenios'>";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
@@ -56,6 +57,7 @@
 			$this->db->trans_complete();
 
 			$r= "<select name='estado_cot' class='form-control input-sm'>";
+			$r= "<select name='estado_cot' class='form-control input-sm pequenios'>";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
@@ -82,6 +84,7 @@
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
 			$res= "<select name='programa' class='form-control input-sm'>";
+			$res= "<select name='programa' class='largos'>";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}

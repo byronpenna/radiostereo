@@ -256,12 +256,10 @@ text-decoration:none;
     width: 25%;
     color:#658868;
 }
-#cotHeader article select{
-  float: right;
-}
+
 #cotHeader article span{
-  float: right;
   text-align: left;
+  display:block;
   width: 100%;
   font-weight: bold;
 }
@@ -284,12 +282,24 @@ text-decoration:none;
 }
 .titleAddCot{
   width:21%;
+  width:30%;
   margin:2em;
   margin-left:10%;
 }
 .titleAddCot span{
   display: inline-block;
   margin-left:10px;
+  margin-left:0px;
+}
+.largos{
+  margin-left:22px;
+  width: 250px;
+}
+.pequenios{
+  width: 90px;
+}
+.medios{
+  width: 140px;
 }
 #conProgra{
   height:70%;
