@@ -66,7 +66,7 @@ function createEditPrecio (tr) {//funcion para cargar el form de editar
 				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
 			</td>\
 			<td>\
-				<input name='txtPrecio' class='txtPrecio' value='"+precio+"'>\
+				<input name='txtPrecio' class='txtPrecio' id='txtPrecio' value='"+precio+"'>\
 			</td>\
 			<td>\
 				<input type='button' class='btnGuardarPrecio' value='Guardar' />\
@@ -226,6 +226,34 @@ function agregarcliente(frm5) {
 			data = jQuery.parseJSON(datos);
 			$(".mensaje").text(data.mensaje);
 			//console.log(datos);
+		}
+	});
+}
+function generar_tr (data,form,datostr,names) {
+	tr = "<tr>\
+			<td style='display:none'>\
+				<input name='"+datostr[0]+"' value='"+data.last_id+"' class='"+datostr[1]+"'>\
+			</td>\
+			<td class='"+datostr[2]+"'>"+form+"</td>\
+				<td><button class='"+datostr[3]+"'>Editar</button></td>\
+		  </tr>"
+		  $(".tbProgramas").prepend(tr);
+}
+function agregarCatalogo(form,tabla,datostr,names) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm),
+			otro: tabla
+		},
+		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_catalogo"."'" ?>,
+		type: 	"POST",
+		success: function(datos) {
+			data = jQuery.parseJSON(datos);
+			form = form.names;
+			generar_tr(data,form,datostr,names);
+			//$(".mensaje").text(data.mensaje);
+			console.log(data,names);
+			
 		}
 	});
 }

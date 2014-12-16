@@ -55,10 +55,14 @@ $(document).ready(function () {
 				}
 			});
 		// submit
+			//global asta el momento
 			$(document).on("submit","#frmPrograma",function(e){
 				e.preventDefault();
 				frm = serializeToJson($(this).serializeArray());//se encuentra en funtion.php
-				agregarPrograma(frm);//se encuentra en el archivo funtion.php
+				//console.log(frm);
+				tabla = "prog_programa";
+				datostr = ["txtidprograma", "inputProgramId", "tdProgramNombre", "btnEditar"];//la primera posicion es el name las demas son class
+				agregarCatalogo(frm,tabla,datostr,'nombpro');//se encuentra en el archivo funtion.php
 			});
 			//submit agregar precio
 			
