@@ -8,7 +8,10 @@
 		<?php $this->load->view("catalogosv/js/funtion.php"); ?> //cargamos el archivo q contiene las funciones
 		<?php $this->load->view("catalogosv/js/script.php"); ?>//cargamos el archivo q contiene los script
 	</script>
-	
+	<?php 
+		$this->load->view("estructura/head.php");
+		$this->load->view("estructura/menu.php");
+	?>
 </head>
 <body>
 	<div><!--Mostramos el mensaje retornado-->
@@ -31,7 +34,7 @@
 			</tr>
 		</thead>
 		<tbody class='tbProgramas'>
-			<?php echo $tabla->programas; ?>
+			<?php  echo $tabla->programas; ?>
 		</tbody>
 	</table>
 	
@@ -51,8 +54,8 @@
 				<th>Acción</th>	
 			</tr>
 		</thead>
-		<tbody>
-			<?php echo $tabla->radios ?>
+		<tbody class="tbprecios">
+			<?php //echo $tabla->radios ?>
 		</tbody>
 	</table>
 	<form id="frmServicio" method="POST"><!--Formulario para ingresar un servicio-->
@@ -72,7 +75,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php echo $tabla->servicio ?>
+			<?php //echo $tabla->servicio ?>
 		</tbody>
 	</table>
 	<form id="frmRadio" method="POST"><!--Formulario para ingresar radio-->
@@ -92,7 +95,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php echo $tabla->radio ?>
+			<?php //echo $tabla->radio ?>
 		</tbody>
 	</table>
 	<form id="frmClientes" method="POST">
@@ -119,7 +122,7 @@
 			</tr>
 		</thead>
 		<tbody class='tbClientes'>
-			<?php echo $tabla->clientes ?>
+			<?php //echo $tabla->clientes ?>
 		</tbody>
 	</table>
 </body>
