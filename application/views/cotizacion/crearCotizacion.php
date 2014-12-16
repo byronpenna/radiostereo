@@ -27,7 +27,7 @@
     				</span></p>
     			</article>
     			<article>
-    				<p><br>Fecha de Creacion <span> <input type="date" name="" class="form-control input-sm"></span></p>
+    				<p><br>Fecha de Creacion <span> <input type="date" name="" class="form-control input-sm medios" id="fechaCreacion" disabled></span></p>
     			</article>
     		</article>
 			<section id="contCotSer">
@@ -35,7 +35,7 @@
                 <h4 class="text-center">Programas</h4>
 				<article id="conProgra">
                     <article class="titleAddCot"><span>Programa </span><span><?php echo $Prog;?></span></article>
-                    <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" id="txtPrecio" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <tr>
@@ -88,7 +88,7 @@
                                 </article>
                                 <article class="col-lg-8">
                                     <span>
-                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
                                 </article>
                             </article>        
@@ -100,7 +100,7 @@
                             </article>
                             <article class="col-lg-8">
                                 <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                             </span>
                             </article>
                         </article>    
@@ -112,7 +112,7 @@
                 <!-- Contenedor para las Cuñas -->
                 <h4 class="text-center">Cu&ntilde;a</h4>
                 <article id="conProgra">
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <tr>
@@ -172,7 +172,7 @@
                                 </article>
                                 <article class="col-lg-8">
                                     <span>
-                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
                                 </article>
                             </article>        
@@ -184,7 +184,7 @@
                             </article>
                             <article class="col-lg-8">
                                 <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                             </span>
                             </article>
                         </article>    
@@ -196,7 +196,7 @@
                 <!-- Contenedor para las Entrevistas -->
                 <h4 class="text-center">Entrevista</h4>
                 <article id="conProgra">
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <tr>
@@ -256,7 +256,7 @@
                                 </article>
                                 <article class="col-lg-8">
                                     <span>
-                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
                                 </article>
                             </article>        
@@ -268,7 +268,7 @@
                             </article>
                             <article class="col-lg-8">
                                 <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                             </span>
                             </article>
                         </article>    
@@ -280,7 +280,7 @@
                 <!-- Contenedor para las Producciones -->
                 <h4 class="text-center">Producci&oacute;n</h4>
                 <article id="conProgra">
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <tr>
@@ -340,7 +340,7 @@
                                 </article>
                                 <article class="col-lg-8">
                                     <span>
-                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
                                 </article>
                             </article>        
@@ -352,7 +352,7 @@
                             </article>
                             <article class="col-lg-8">
                                 <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm" required>
+                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                             </span>
                             </article>
                         </article>    
