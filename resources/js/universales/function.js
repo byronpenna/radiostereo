@@ -1,3 +1,4 @@
+//Esta funcion sirve para obtener la base de la url para poder redirigir de una manera mas eficiente
 function getBaseURL() {
 	var url = location.href;  // entire url including querystring - also: window.location.href;
 	var baseURL = url.substring(0, url.indexOf('/', 14));
@@ -19,6 +20,7 @@ function getBaseURL() {
 	}
 }
 
+//Funcion Para Matar la sesion 
 function logOut(frm){
 	console.log("la url es: ",getBaseURL());
 	$.ajax({
@@ -33,6 +35,39 @@ function logOut(frm){
          }
      });
 }
+
+
+
+
+
+//keypress
+			$(document).on("keypress","#txtPrecio",function(e){//evento para validar si es un numero
+
+				
+
+				contador=0;
+				exp 					= /[0-9 \.]/; // expresion regular y buscar codigo asccii
+				ascciiCaracterIngresado = e.which;//which obtiene el codigo ascii del el evento keypress
+				caracter 				= String.fromCharCode(ascciiCaracterIngresado); //obtenemos el caracter ingresado
+				console.log("Ingresaste el caracter: ",caracter);
+				if(caracter=="."){
+					alert("punto detectado");
+				}
+				if(exp.test(caracter)){
+					
+				}else{
+					e.preventDefault();//evitamos que se ejecute la accion
+					//console.log("no es un numero");
+				}
+			});
+
+
+
+
+
+
+
+
 
 function serializeToJson(a){
 	var o = {};

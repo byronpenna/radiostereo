@@ -11,7 +11,8 @@
 			$data["cliente"] 	= $cotizacionModel->getDatosCliente($id);
 			$data["TipoCot"] 	= $cotizacionModel->getTipoCotizacion();
 			$data["EstadoCot"] 	= $cotizacionModel->getEstadoCotizacion();
-			$data["Prog"] 	= $cotizacionModel->getProgramas();
+			$data["Prog"] 	= $cotizacionModel->getProgAddCot();
+			$data["Precios"] = $cotizacionModel->getPrecios();
 			$this->load->view("cotizacion/crearCotizacion.php",$data);
 		}
 	}
