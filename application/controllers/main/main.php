@@ -10,7 +10,7 @@
 				$this->load->model('mainm/mainm');
 				$mainm = new mainm();
 				$tabla = new stdClass();
-				$tabla->clientes = $mainm->get_clientedb();
+				$tabla->clientes = $mainm->DatosCliente();
 				$data['tabla'] = $tabla;
 				$data["Titulo"] = "Principal";
 				$this->load->view("index/index.php",$data);

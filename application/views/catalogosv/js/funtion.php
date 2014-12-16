@@ -47,7 +47,7 @@ function saveEditPrograma(update,tr){
 					<td style='display:none'>\
 						<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
 					</td>\
-					<td class='tdProgramNombre'>"+data.dato+"</td>\
+					<td class='tdPrecio'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEditar'>Editar</button>\
 					</td>";//creamos el nuevo fila
@@ -57,21 +57,84 @@ function saveEditPrograma(update,tr){
 		}
 	});
 }
+//funciones para modificar precio
 function createEditPrecio (tr) {//funcion para cargar el form de editar
-	idprecio = tr.find("inputPrecioId").val();
-	precio = tr.find("tdPrecio").text();
+	idprecio = tr.find(".inputPrecioId").val();
+	precio = tr.find(".tdPrecio").text();
 	newtr = "\
 			<td style='display:none'>\
-				<input name='txtidprecio' value='"+idprecio+"' class='inputProgramId'>\
+				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
 			</td>\
 			<td>\
-				<input name='nombpro' class='inputPrecioId' value='"+precio+"'>\
+				<input name='txtPrecio' class='txtPrecio' id='txtPrecio' value='"+precio+"'>\
 			</td>\
 			<td>\
 				<input type='button' class='btnGuardarPrecio' value='Guardar' />\
 			</td>";
-			console.log(newtr);
-			//tr.empty().append(newtr);
+			//console.log(newtr);
+			tr.empty().append(newtr);
+}
+function savenewPrecio(frm,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_precio"."'" ?>,
+		type: "POST",
+		success: function(datos) {
+			idprecio = tr.find(".inputPrecioId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
+					</td>\
+					<td class='tdPrecio'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEditPrecio'>Editar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
+}
+//funciones para editar servicios
+function createEditServicio(tr){
+	idservicio = tr.find(".inputServId").val();
+	nombservicio = tr.find(".tdServicio").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidserv' value='"+idservicio+"' class='inputServId'>\
+			</td>\
+			<td>\
+				<input name='txtServi' class='txtServi' value='"+nombservicio+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarServi' value='Guardar' />\
+			</td>";
+	tr.empty().append(newtr);
+}
+function savenewServicio (frm,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/update_servicio"."'" ?>,
+		type: "POST",
+		success: function(datos) {
+			idServi = tr.find(".inputServId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidserv' value='"+idServi+"' class='inputServId'>\
+					</td>\
+					<td class='tdServicio'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEdtserv'>Editar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
 }
 //aqui comienza las funciones ajax para agregar catalogos
 function agregarPrograma(frm){//funcion que manda los datos al controlador
@@ -84,19 +147,19 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 		success: 	function(datos){
 			// agregar el elemento a la tabla 
 			//console.log(data.mensaje);
-				data = jQuery.parseJSON(datos);//convertimos los datos
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr>\
+			data = jQuery.parseJSON(datos);//convertimos los datos
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr>\
 						<td style='display:none'>\
 							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\
 						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
 						<td><button class='btnEditar'>Editar</button></td>\
 					  </tr>"
-					$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
-				}
+				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
+			}
 		}
 	});
 }
@@ -109,9 +172,18 @@ function agregarPrecio(form2) {//funcion que manda los datos de precio al contro
 		type: 		"POST",
 		success: 	function(datos){
 			data = jQuery.parseJSON(datos);
-			$(".mensaje").text(data.mensaje);
-			//alert(datos);//muestra el mensaje
-			//console.log(datos);
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr>\
+						<td style='display:none'>\
+							<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
+						</td>\
+						<td class='tdPrecio'>"+form2.precio+"</td>\
+						<td><button class='btnEditPrecio'>Editar</button></td>\
+					  </tr>"
+				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
+			}
 		}
 	});
 }
@@ -154,6 +226,34 @@ function agregarcliente(frm5) {
 			data = jQuery.parseJSON(datos);
 			$(".mensaje").text(data.mensaje);
 			//console.log(datos);
+		}
+	});
+}
+function generar_tr (data,form,datostr,names) {
+	tr = "<tr>\
+			<td style='display:none'>\
+				<input name='"+datostr[0]+"' value='"+data.last_id+"' class='"+datostr[1]+"'>\
+			</td>\
+			<td class='"+datostr[2]+"'>"+form+"</td>\
+				<td><button class='"+datostr[3]+"'>Editar</button></td>\
+		  </tr>"
+		  $(".tbProgramas").prepend(tr);
+}
+function agregarCatalogo(form,tabla,datostr,names) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm),
+			otro: tabla
+		},
+		url: <?php echo "'".URLLOCAL."catalogosc/catalogosc/insert_catalogo"."'" ?>,
+		type: 	"POST",
+		success: function(datos) {
+			data = jQuery.parseJSON(datos);
+			form = form.names;
+			generar_tr(data,form,datostr,names);
+			//$(".mensaje").text(data.mensaje);
+			console.log(data,names);
+			
 		}
 	});
 }

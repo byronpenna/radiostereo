@@ -27,11 +27,11 @@
 				}
 			return $retorno;
 		}//fin insert catalogos
-		//metodo que genera las filas de cada dato
-		public function generar_retorno($datos, $clases, $campo)
+		//genera los tr para progama, precio, servicio y radio
+		public function GenerarRetorno($consult, $clases, $campo)
 		{
 			$retornar="";
-			foreach ($datos as $row) {
+			foreach ($consult as $row) {
 				$retornar .="<tr>
 								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
@@ -40,74 +40,74 @@
 			}
 			return $retornar;
 		}
-		public function get_catalogo($tabla)//metodo que extrae los datos de la bd
+		//Inicia Metodos que muestran los datos
+		public function datos_programa()//retorna los datos del programa
 		{
-			$this->db->trans_start();
-			$query = $this->db->get($tabla);
-			$this->db->trans_complete();
-			$get_datos = $query->result();
-			switch ($tabla) {
-				case 'prog_programa':
-						$clases = array('class1' => "inputProgramId", 'class2' => "tdProgramNombre", 'class3' => "btnEditar");
-						$campos = array('prog_id', 'prog_nombre');
-						$retorno = $this->generar_retorno($get_datos, $clases, $campos);//por cada dato obtenido se manda a llamar a la funcion
-					break;
-				case 'pre_precio':
-						$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEditPrecio");
-						$campos = array('pre_id', 'pre_precio');
-						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
-					break;
-				case 'serv_servicio':
-						$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtserv");
-						$campos = array('serv_id', 'serv_nombre');
-						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
-					break;
-				case 'rad_radio':
-						$clases = array('class1' => "inputRadioId", 'class2' => "tdRadioNomb", 'class3' => "btnEdtRadio");
-						$campos = array('rad_id', 'rad_nombre');
-						$retorno = $this->generar_retorno($get_datos, $clases, $campos);
-					break;
-				default:
-					$retorno = "Table dosn't exist";
-					break;
-			}
+			$this->load->model('cotizacionm/cotizacionm');//cargamos el modelo
+			$cotizacionm = new cotizacionm();//instancia al modelo
+			$consulta = $cotizacionm->getProgramas();//LLamamos la funcion q retorna el resultado de la query
+			$clases = array('class1' => "inputProgramId", 'class2' => "tdProgramNombre", 'class3' => "btnEditar");
+			$campos = array('prog_id', 'prog_nombre');
+			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
 			return $retorno;
 		}
-		//aqui comienzan los metodos para extraer y mostrar los datos de la bd
-		public function get_clientedb()
+		public function DatosPrecio()//obtiene los datos de precio
 		{
-			$this->db->trans_start();
-				$query = $this->db->get('cli_cliente');
-			$this->db->trans_complete();
-			$get_radio = $query->result();
+			$this->load->model('cotizacionm/cotizacionm');//cargamos el modelo
+			$cotizacionm = new cotizacionm();//instancia al modelo
+			$consulta = $cotizacionm->queryPrecios();//LLamamos la funcion q retorna el resultado de la query
+			$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEditPrecio");
+			$campos = array('pre_id', 'pre_precio');
+			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
+			return $retorno;
+		}
+		public function GetServicio()//ejecuta la consulta y la retorna
+		{
+			$this->db->trans_start();//inicia la transaccion
+				$query = $this->db->get('serv_servicio');//
+			$this->db->trans_complete();//finaliza la transaccion
+			$query = $query->result();
+			return $query;
+		}
+		public function DatosServicio()
+		{
+			$consulta = $this->GetServicio();
+			$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtserv");
+			$campos = array('serv_id', 'serv_nombre');
+			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
+			return $retorno;
+		}
+		public function GetRadio()
+		{
+			$this->db->trans_start();//inicia la transaccion
+				$query = $this->db->get('rad_radio');//
+			$this->db->trans_complete();//finaliza la transaccion
+			$query = $query->result();
+			return $query;
+		}
+		public function DatosRadio()
+		{
+			$consulta = $this->GetRadio();
+			$clases = array('class1' => "inputRadioId", 'class2' => "tdRadioNomb", 'class3' => "btnEdtRadio");
+			$campos = array('rad_id', 'rad_nombre');
+			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);;
+			return $retorno;
+		}
+		public function DatosClientes()
+		{
+			$this->load->model('mainm/mainm');//cargamos el modelo
+			$mainm = new mainm();//instancia al modelo
+			$consulta = $mainm->get_clientedb();//LLamamos la funcion q retorna el resultado de la query
 			$retorno = "";
-			foreach ($get_radio as $row) {
+			foreach ($consulta as $row) {
 				$retorno .= "<tr>
-								<td style='display:none'><input value='".$row->cli_id."' /></td>
+								<td style='display:none'>".$row->cli_id."</td>
 								<td>".$row->cli_nombres."</td>
 								<td>".$row->cli_apellidos."</td>
 								<td><button class='Editcliente'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;
-		}
-		public function update_programadb($dato)
-		{
-			$data 		= array('prog_nombre' => $dato->txtNombrePrograma);
-			$retorno 	= new stdClass();
-			$this->db->trans_start();
-				$this->db->where('prog_id', $dato->txtidprograma);
-				$this->db->update('prog_programa', $data);
-			$this->db->trans_complete();
-			if($this->db->trans_status() === true){
-				$retorno->estado = true;
-				$retorno->mensaje = "Modificado con exito";
-				$retorno->dato = $dato->txtNombrePrograma;//retorno el nuevo valor
-			}else{
-				$retorno->estado = false;
-				$retorno->mensaje = "Se ha producido un Error al modificar";
-			}
-			return $retorno;
-		}
+		}//Finaliza metodos para mostrar datos
 	}
- ?>
+?>	

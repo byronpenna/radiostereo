@@ -1,16 +1,14 @@
 <!DOCTYPE HTML>
 <html lang="Es">
 <head>
-	<script src="<?php echo base_url('resources/js/jquery-1.11.1.min.js')?>" type="text/javascript" charset="utf-8"></script>
-	<!-- <script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/funtion.php")."'";?> > </script>-->
-	<!--<script type="text/javascript" src=<?php echo "'".base_url("resources/page/catalogosv/js/script.php")."'";?> > </script>-->
-	<script type="text/javascript">
-		<?php $this->load->view("catalogosv/js/funtion.php"); ?> //cargamos el archivo q contiene las funciones
-		<?php $this->load->view("catalogosv/js/script.php"); ?>//cargamos el archivo q contiene los script
-	</script>
-	
+	<?php 
+		$this->load->view("estructura/head.php");
+	?>
 </head>
 <body>
+	<?php 
+		$this->load->view("estructura/menu.php");
+	?>
 	<div><!--Mostramos el mensaje retornado-->
 		<h2 class="mensaje"></h2>
 	</div>
@@ -18,7 +16,7 @@
 		<table>
 			<tr>
 				<td><label for="nombre">Nombre Programa:</label></td>
-				<td><input type="text" name="nombpro" /></td>
+				<td><input type="text" name="nombpro" class="InputProduc" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -31,7 +29,7 @@
 			</tr>
 		</thead>
 		<tbody class='tbProgramas'>
-			<?php echo $tabla->programas; ?>
+			<?php  echo $tabla->programas; ?>
 		</tbody>
 	</table>
 	
@@ -51,8 +49,8 @@
 				<th>Acción</th>	
 			</tr>
 		</thead>
-		<tbody>
-			<?php echo $tabla->radios ?>
+		<tbody class="tbprecios">
+			<?php echo $tabla->precio ?>
 		</tbody>
 	</table>
 	<form id="frmServicio" method="POST"><!--Formulario para ingresar un servicio-->

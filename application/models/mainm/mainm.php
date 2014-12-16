@@ -8,11 +8,16 @@
 		public function get_clientedb()
 		{
 			$this->db->trans_start();
-			$query = $this->db->get('cli_cliente');
+				$query = $this->db->get('cli_cliente');
 			$this->db->trans_complete();
-			$get_radio = $query->result();
+			$query = $query->result();
+			return $query;
+		}
+		public function DatosCliente()
+		{
+			$datos = $this->get_clientedb();
 			$retorno = "";
-			foreach ($get_radio as $row) {
+			foreach ($datos as $row) {
 				$retorno .= "<tr style='background:rgba(144, 240, 139, 0.8);'>
 								<td>".$row->cli_id."</td>
 								<td>".$row->cli_nombres."</td>
