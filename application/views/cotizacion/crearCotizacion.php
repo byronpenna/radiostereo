@@ -191,7 +191,7 @@
                     </article>
                     </article>
                 </article>
-                <hr>
+                <hr class="hr">
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
                 <h4 class="text-center">Entrevista</h4>
