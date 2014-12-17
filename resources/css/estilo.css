@@ -240,7 +240,11 @@ text-decoration:none;
 }
 #mainCot hr{
   border: 1px solid rgba(26,49,89,0.2);
-  margin-top:-858px;
+  margin-top:-874px;
+}
+.hr{
+  margin-top: -100px;
+  margin:10px;
 }
 #textAddCot{
   margin:auto;

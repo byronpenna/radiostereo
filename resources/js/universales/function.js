@@ -1,19 +1,7 @@
-
-
-$(document).ready(function(){
-	var f = new Date();
-	console.log(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-	$("#fechaCreacion").val(f.getFullYear()+"-"+(f.getMonth() +1) + "-" + f.getDate());
-});
-
-
-
 //Esta funcion sirve para obtener la base de la url para poder redirigir de una manera mas eficiente
 function getBaseURL() {
 	var url = location.href;  // entire url including querystring - also: window.location.href;
 	var baseURL = url.substring(0, url.indexOf('/', 14));
-
-
 	if (baseURL.indexOf('http://localhost') != -1) {
 	    // Base Url for localhost
 	    var url = location.href;  // window.location.href;
@@ -29,6 +17,20 @@ function getBaseURL() {
 	    return baseURL + "/";
 	}
 }
+// Validar los keypress 
+	function probarExp(exp,texto){
+		return exp.test(texto);
+	}
+	function getCharFromEvent(e){
+		asccii 		= e.which;
+		console.log("el asccii es:",asccii)
+		character 	=  String.fromCharCode(asccii);
+		return character;
+	}
+	function testExpression(e,expresion){
+		character = getCharFromEvent(e);
+		return probarExp(expresion,character );
+	}
 
 //Funcion Para Matar la sesion 
 function logOut(frm){
@@ -45,64 +47,6 @@ function logOut(frm){
          }
      });
 }
-
-
-
-
-
-//keypress
-
-			$(document).on("keypress","#txtPrecio",function(e){//evento para validar si es un numero
-
-				
-
-				contador=0;
-				exp 					= /[0-9 \.]/; // expresion regular y buscar codigo asccii
-				ascciiCaracterIngresado = e.which;//which obtiene el codigo ascii del el evento keypress
-				caracter 				= String.fromCharCode(ascciiCaracterIngresado); //obtenemos el caracter ingresado
-				console.log("Ingresaste el caracter: ",caracter);
-				if(caracter=="."){
-					alert("punto detectado");
-				}
-				if(exp.test(caracter)){
-					
-				}else{
-					e.preventDefault();//evitamos que se ejecute la accion
-					//console.log("no es un numero");
-
-			$(document).on("keypress",".soloNumeros",function(e){//evento para validar si es un numero
-				exp 					= /[0-9 \.]/; // expresion regular y buscar codigo asccii
-				ascciiCaracterIngresado = e.which;//which obtiene el codigo ascii del el evento keypress
-				caracter 				= String.fromCharCode(ascciiCaracterIngresado); //obtenemos el caracter ingresado
-				el 						= $(this).val();
-				if(exp.test(caracter)){
-					if(el.indexOf('.')!=-1){
-						if(caracter=="."){
-							e.preventDefault();//evitamos que se ejecute la accion
-						}
-					}
-				}else{
-					e.preventDefault();//evitamos que se ejecute la accion
-
-				}
-			});
-
-
-
-
-//Evento para evitar copiar,pegar y cortar dentro de un TextBox
-		
-		 $('*').bind("cut copy paste",function(e) {
-      		e.preventDefault();
-    	});
-
-
-
-
-
-
-
-
 
 function serializeToJson(a){
 	var o = {};
