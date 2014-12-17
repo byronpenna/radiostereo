@@ -13,9 +13,9 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 			}else if(data.estado == true){
 				tr = "<tr>\
 						<td style='display:none'>\
-							<input name='txtidServicio' value='"+data.last_id+"' class='inputProgramId'>\
+							<input name='txtidServicio' value='"+data.last_id+"' class='inputServId'>\
 						</td>\
-						<td class='tdServicioNombre'>"+form.servicio+"</td>\
+						<td class='tdServicio'>"+form.servicio+"</td>\
 						<td><button class='btnEdtserv'>Editar</button></td>\
 					  </tr>"
 				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
@@ -33,7 +33,7 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 					<input name='txtidservicio' value='"+idservicio+"' class='inputServId'>\
 				</td>\
 				<td>\
-					<input name='txtServicio' class='txtServi' value='"+nombservicio+"'>\
+					<input name='txtServicio' class='tdServicio' value='"+nombservicio+"'>\
 				</td>\
 				<td>\
 					<input type='button' class='btnGuardarServi' value='Guardar' />\
