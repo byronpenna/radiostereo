@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 
 	//keypress
-	$(document).on("keypress",".soloNumeros",function(e){//evento para validar si es un numero
+	$(document).on("keypress",".NumPunto",function(e){//evento para validar si es un numero
 		el 			= $(this).val();
 		exp 		= /[0-9 \.]/;
 		caracter 	=getCharFromEvent(e);
@@ -30,12 +30,24 @@ $(document).ready(function(){
 	});
 
 
+	$(document).on("keypress",".SoloNumero",function(e){//evento para validar si es un numero
+		el 			= $(this).val();
+		exp 		= /[0-9]/;
+		caracter 	=getCharFromEvent(e);
+		if(!testExpression(e, exp)){
+			e.preventDefault();
+		}
+	});
+
 	//Evento para evitar copiar,pegar y cortar dentro de un TextBox
 		
 	$('*').bind("cut copy paste",function(e) {
       	e.preventDefault();
     });
 
+    //Select en lanco al inicio 
+    $("select").onload(function(){
+    	$(this).attr("selectedindex","-1");
 
-
+    });
 });

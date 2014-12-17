@@ -82,8 +82,7 @@
 
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
-			$res= "<select name='programa' class='form-control input-sm'>";
-			$res= "<select name='programa' class='largos'>";
+			$res= "<select name='programa' class='largos' style='width:250px;'>";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
@@ -121,13 +120,31 @@
 			$this->load->model('catalogosm/catalogosm');
 			$catalogosm = new Catalogosm();
 			$query=$catalogosm->GetServicio();
+			$res="";
 			foreach ($query as $valor) {
 				$res.="<tr>
 						<td>".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
-                                <td><input type='text' name='' value='' placeholder='Segundos' class='form-control input-sm inAddCot' ></td>
-                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot SoloNumero'></td>
+                                <td><input type='text' name='' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero' ></td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot' disabled></td>
+					</tr>";
+			}	
+			return $res;	
+		}
+
+		public function getRadios(){
+			$this->load->model('catalogosm/catalogosm');
+			$catalogosm = new Catalogosm();
+			$query=$catalogosm->GetRadio();
+			$res="";
+			foreach ($query as $valor) {
+				$res.="<tr>
+						<td>".$valor->rad_nombre."</td>
+                                <td>".$this->getPrecios()."</td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot SoloNumero'></td>
+                                <td><input type='text' name='' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero' ></td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot' disabled></td>
 					</tr>";
 			}	
 			return $res;	
