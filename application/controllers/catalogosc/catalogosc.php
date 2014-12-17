@@ -31,7 +31,7 @@
 		public function insert_servicio()
 		{
 			//vars
-				$form = json_decode($_POST["form3"]);
+				$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('serv_nombre' => $form->servicio);
@@ -42,7 +42,7 @@
 		public function insert_radio()
 		{
 			//vars
-				$form = json_decode($_POST["form4"]);
+				$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('rad_nombre' => $form->txtnombradio);
@@ -68,6 +68,28 @@
 			$Catalogosm = new Catalogosm();
 			$tablabd = array('prog_nombre', 'prog_id', 'prog_programa');
 			$nameform = array('txtNombrePrograma', 'txtidprograma');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_precio()
+		{
+			//vars
+				$updatfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('pre_precio', 'pre_id', 'pre_precio');
+			$nameform = array('txtPrecio', 'txtidprecio');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_servicio()
+		{
+			//vars
+				$updatfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('serv_nombre', 'serv_id', 'serv_servicio');
+			$nameform = array('txtServicio', 'txtidservicio');
 			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
 			echo json_encode($mensaje);
 		}
