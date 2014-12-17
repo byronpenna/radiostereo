@@ -334,7 +334,7 @@
 			</section>
             <!-- Finaliza contenedor de los servicios -->
             <article id="contBtnAddCot">
-                <input type="submit" name="" value="Guardar" class="btn btn-m  btnAddCot">
+                <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot">
                 <input type="submit" name="" value="Limpiar" class="btn btn-m  btnAddCot">
                 <input type="submit" name="" value="Cancelar" class="btn btn-m  btnAddCot">
             </article>
