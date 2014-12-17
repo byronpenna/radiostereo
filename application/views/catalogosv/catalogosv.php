@@ -37,7 +37,7 @@
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
-				<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros" /></td>
+				<td><input type="text" name="precio" id='txtPrecio' /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
