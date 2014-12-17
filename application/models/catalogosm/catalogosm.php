@@ -127,10 +127,10 @@
 			$retorno = "";
 			foreach ($consulta as $row) {
 				$retorno .= "<tr>
-								<td style='display:none'>".$row->cli_id."</td>
-								<td>".$row->cli_nombres."</td>
-								<td>".$row->cli_apellidos."</td>
-								<td><button class='Editcliente'>Editar</button></td>
+								<td style='display:none' class='inputClienteId'>".$row->cli_id."</td>
+								<td class='tdNombCliente'>".$row->cli_nombres."</td>
+								<td class='tdApellidoCliente'>".$row->cli_apellidos."</td>
+								<td><button class='EditCliente'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;

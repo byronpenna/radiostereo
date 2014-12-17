@@ -31,13 +31,13 @@
 		<tbody class='tbProgramas'>
 			<?php  echo $tabla->programas; ?>
 		</tbody>
-	</table>
+	</table><br>
 	
 	<form id="frmPrecio" method="POST"><!--Formulario para ingresar precio-->
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
-				<td><input type="text" name="precio" id='txtPrecio' /></td>
+				<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -52,7 +52,7 @@
 		<tbody class="tbprecios">
 			<?php echo $tabla->precio ?>
 		</tbody>
-	</table>
+	</table><br>
 	<form id="frmServicio" method="POST"><!--Formulario para ingresar un servicio-->
 		<table>
 			<tr>
@@ -72,7 +72,7 @@
 		<tbody class="tbservicio"><!--esta clase sirve para agregar el nuevo elemento-->
 			<?php echo $tabla->servicio ?>
 		</tbody>
-	</table>
+	</table><br>
 	<form id="frmRadio" method="POST"><!--Formulario para ingresar radio-->
 		<table>
 			<tr>
@@ -92,7 +92,7 @@
 		<tbody class="tbradio">
 			<?php echo $tabla->radio ?>
 		</tbody>
-	</table>
+	</table><br>
 	<form id="frmClientes" method="POST">
 		<table>
 			<tr>
@@ -119,6 +119,6 @@
 		<tbody class='tbClientes'>
 			<?php echo $tabla->clientes ?>
 		</tbody>
-	</table>
+	</table><br>
 </body>
 </html>

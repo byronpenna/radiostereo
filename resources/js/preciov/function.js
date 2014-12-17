@@ -31,7 +31,7 @@ function createEditPrecio (tr) {//funcion para cargar el form de editar
 				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
 			</td>\
 			<td>\
-				<input name='txtPrecio' class='txtPrecio' id='txtPrecio' value='"+precio+"'>\
+				<input name='txtPrecio' class='txtPrecio soloNumeros' value='"+precio+"'>\
 			</td>\
 			<td>\
 				<input type='button' class='btnGuardarPrecio' value='Guardar' />\

@@ -22,3 +22,42 @@ function agregarradio(frm) {//funcion que manda los datos de radio al controlado
 		}
 	});
 }
+function createEditRadio (tr) {
+	idradio = tr.find(".inputRadioId").val();
+	radio = tr.find(".tdRadioNomb").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
+			</td>\
+			<td>\
+				<input name='txtRadio' class='txtRadio' value='"+radio+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarRadio' value='Guardar' />\
+			</td>";
+			//console.log(newtr);
+			tr.empty().append(newtr);
+}
+function savenewRadio (form,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_radio",
+		type: "POST",
+		success: function(datos) {
+			idradio = tr.find(".inputRadioId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
+					</td>\
+					<td class='tdRadioNomb'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEdtRadio'>Editar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
+}
