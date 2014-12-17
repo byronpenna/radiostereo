@@ -21,7 +21,7 @@
 		public function insert_precio()
 		{
 			//vars
-				$frm = json_decode($_POST["form2"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
+				$frm = json_decode($_POST["form"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('pre_precio' => $frm->precio);
