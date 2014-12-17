@@ -4,6 +4,11 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
+    <style type="text/css" media="screen">
+        body{
+            padding-bottom: 2em;
+        }
+    </style>
 </head>
 <body>
     <?php 
@@ -32,8 +37,8 @@
     		</article>
 			<section id="contCotSer">
                 <!-- Contenedor para los programas -->
-                <h4 class="text-center">Programas</h4>
 				<article id="conProgra">
+                    <h4 class="text-center">Programas</h4>
                     <article class="titleAddCot"><span>Programa </span><span><?php echo $Prog;?></span></article>
                     <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
@@ -48,7 +53,7 @@
                             <tr>
                                 <td>Cuñas</td>
                                 <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" validacion='[0-9]' class="form-control input-sm inAddCot soloNumeros"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="  " class="form-control input-sm inAddCot "></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
@@ -81,37 +86,26 @@
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                         </table>
-                        <article class="col-lg-5 fechasFooter">
+                        <article class="fechasFooter">
                             <article class="fechaInicio">
-                                <article class="col-lg-4">
                                     <span>Fecha Inicio </span>    
-                                </article>
-                                <article class="col-lg-8">
                                     <span>
+                                        <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                    </span>
+                            </article>        
+                            <article class="fechaFin" >
+                                <span >Fecha Fin </span>    
+                                <span>
                                     <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
-                                </article>
-                            </article>        
-                        </article>
-                    <article class="col-lg-offset-2 col-lg-5 fechasFooter">
-                        <article class="fechaFin" >
-                            <article class="col-lg-4">
-                                <span >Fecha Fin </span>    
-                            </article>
-                            <article class="col-lg-8">
-                                <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
-                            </span>
-                            </article>
-                        </article>    
+                            </article>    
                     </article>
                     </article>
                 </article>
-                <hr>
                 <!-- Finaliza Contenedor para los programas -->
                 <!-- Contenedor para las Cuñas -->
-                <h4 class="text-center">Cu&ntilde;a</h4>
                 <article id="conProgra">
+                    <h4 class="text-center">Cu&ntilde;a</h4>
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -165,37 +159,26 @@
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                         </table>
-                        <article class="col-lg-5 fechasFooter">
+                        <article class="fechasFooter">
                             <article class="fechaInicio">
-                                <article class="col-lg-4">
                                     <span>Fecha Inicio </span>    
-                                </article>
-                                <article class="col-lg-8">
                                     <span>
+                                        <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                    </span>
+                            </article>        
+                            <article class="fechaFin" >
+                                <span >Fecha Fin </span>    
+                                <span>
                                     <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
-                                </article>
-                            </article>        
-                        </article>
-                    <article class="col-lg-offset-2 col-lg-5 fechasFooter">
-                        <article class="fechaFin" >
-                            <article class="col-lg-4">
-                                <span >Fecha Fin </span>    
-                            </article>
-                            <article class="col-lg-8">
-                                <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
-                            </span>
-                            </article>
-                        </article>    
+                            </article>    
                     </article>
                     </article>
                 </article>
-                <hr class="hr">
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
-                <h4 class="text-center">Entrevista</h4>
                 <article id="conProgra">
+                    <h4 class="text-center">Entrevista</h4>
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -249,37 +232,26 @@
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                         </table>
-                        <article class="col-lg-5 fechasFooter">
+                        <article class="fechasFooter">
                             <article class="fechaInicio">
-                                <article class="col-lg-4">
                                     <span>Fecha Inicio </span>    
-                                </article>
-                                <article class="col-lg-8">
                                     <span>
+                                        <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                    </span>
+                            </article>        
+                            <article class="fechaFin" >
+                                <span >Fecha Fin </span>    
+                                <span>
                                     <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
-                                </article>
-                            </article>        
-                        </article>
-                    <article class="col-lg-offset-2 col-lg-5 fechasFooter">
-                        <article class="fechaFin" >
-                            <article class="col-lg-4">
-                                <span >Fecha Fin </span>    
-                            </article>
-                            <article class="col-lg-8">
-                                <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
-                            </span>
-                            </article>
-                        </article>    
+                            </article>    
                     </article>
                     </article>
                 </article>
-                <hr>
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
-                <h4 class="text-center">Producci&oacute;n</h4>
                 <article id="conProgra">
+                    <h4 class="text-center">Producci&oacute;n</h4>
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -333,44 +305,39 @@
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                         </table>
-                        <article class="col-lg-5 fechasFooter">
+                        <article class="fechasFooter">
                             <article class="fechaInicio">
-                                <article class="col-lg-4">
                                     <span>Fecha Inicio </span>    
-                                </article>
-                                <article class="col-lg-8">
                                     <span>
+                                        <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                    </span>
+                            </article>        
+                            <article class="fechaFin" >
+                                <span >Fecha Fin </span>    
+                                <span>
                                     <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
                                 </span>
-                                </article>
-                            </article>        
-                        </article>
-                    <article class="col-lg-offset-2 col-lg-5 fechasFooter">
-                        <article class="fechaFin" >
-                            <article class="col-lg-4">
-                                <span >Fecha Fin </span>    
-                            </article>
-                            <article class="col-lg-8">
-                                <span>
-                                <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
-                            </span>
-                            </article>
-                        </article>    
+                            </article>    
                     </article>
                     </article>
                 </article>
-                <hr>
+                
                 <!-- Finaliza contenedor de las Produccion -->
                 <!-- Contenedor para las Producciones -->
-                <h4  class="text-center">Valores Agregados</h4>
                 <article id="conProgra">
+                    <h4  class="text-center">Valores Agregados</h4>
                     <article id="textAddCot">
                         <textarea name="" cols="50" rows="6" ></textarea>    
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las Produccion -->
 			</section>
-            <!-- <input type="submit" name="" value=""> -->
+            <!-- Finaliza contenedor de los servicios -->
+            <article id="contBtnAddCot">
+                <input type="submit" name="" value="Guardar" class="btn btn-m  btnAddCot">
+                <input type="submit" name="" value="Limpiar" class="btn btn-m  btnAddCot">
+                <input type="submit" name="" value="Cancelar" class="btn btn-m  btnAddCot">
+            </article>
     	</section>
     </section>
 </body>
