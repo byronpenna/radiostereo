@@ -69,7 +69,7 @@
 				<th>Acción</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="tbservicio"><!--esta clase sirve para agregar el nuevo elemento-->
 			<?php echo $tabla->servicio ?>
 		</tbody>
 	</table>

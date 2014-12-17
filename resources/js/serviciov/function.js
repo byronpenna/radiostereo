@@ -31,64 +31,65 @@ function getBaseURL() {
 	    return baseURL + "/";
 	}
 }
-function agregarPrecio(frm) {//funcion que manda los datos de precio al controlador
+function agregarservicio(form) {//funcion que manda los datos del servicio al controlador
 	$.ajax({
 		data:{
-			form: JSON.stringify(form)//convierte el objeto jason a string
+			form: JSON.stringify(form)
 		},
-		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_precio",
-		type: 		"POST",
-		success: 	function(datos){
-			data = jQuery.parseJSON(datos);
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_servicio",
+		type: 	"POST",
+		success:    function(datos) {
+			// agregar el elemento a la tabla
+			data = jQuery.parseJSON(datos);//convertimos los datos
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
 				tr = "<tr>\
 						<td style='display:none'>\
-							<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
+							<input name='txtidServicio' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\
-						<td class='tdPrecio'>"+frm.precio+"</td>\
-						<td><button class='btnEditPrecio'>Editar</button></td>\
+						<td class='tdServicioNombre'>"+form.servicio+"</td>\
+						<td><button class='btnEdtserv'>Editar</button></td>\
 					  </tr>"
-				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
+				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
+				
 			}
 		}
 	});
 }
-//funciones para modificar precio
-function createEditPrecio (tr) {//funcion para cargar el form de editar
-	idprecio = tr.find(".inputPrecioId").val();
-	precio = tr.find(".tdPrecio").text();
-	newtr = "\
-			<td style='display:none'>\
-				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
-			</td>\
-			<td>\
-				<input name='txtPrecio' class='txtPrecio' id='txtPrecio' value='"+precio+"'>\
-			</td>\
-			<td>\
-				<input type='button' class='btnGuardarPrecio' value='Guardar' />\
-			</td>";
-			//console.log(newtr);
-			tr.empty().append(newtr);
-}
-function savenewPrecio(form,tr) {
+	//funciones para editar servicios
+	function createEditServicio(tr){
+		idservicio = tr.find(".inputServId").val();
+		nombservicio = tr.find(".tdServicio").text();
+		newtr = "\
+				<td style='display:none'>\
+					<input name='txtidservicio' value='"+idservicio+"' class='inputServId'>\
+				</td>\
+				<td>\
+					<input name='txtServicio' class='txtServi' value='"+nombservicio+"'>\
+				</td>\
+				<td>\
+					<input type='button' class='btnGuardarServi' value='Guardar' />\
+				</td>";
+		tr.empty().append(newtr);
+	}
+function savenewServicio (frm,tr) {
 	$.ajax({
 		data:{
-			form: JSON.stringify(form)
+			form: JSON.stringify(frm)
 		},
-		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_precio",
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_servicio",
 		type: "POST",
 		success: function(datos) {
-			idprecio = tr.find(".inputPrecioId").val();
+			idServi = tr.find(".inputServId").val();
 			data = jQuery.parseJSON(datos);//convirtiendo datos
 			newtr = "\
 					<td style='display:none'>\
-						<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
+						<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
 					</td>\
-					<td class='tdPrecio'>"+data.dato+"</td>\
+					<td class='tdServicio'>"+data.dato+"</td>\
 					<td>\
-						<button class='btnEditPrecio'>Editar</button>\
+						<button class='btnEdtserv'>Editar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
