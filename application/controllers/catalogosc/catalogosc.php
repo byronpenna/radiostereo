@@ -42,7 +42,7 @@
 		public function insert_radio()
 		{
 			//vars
-				$form = json_decode($_POST["form4"]);
+				$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('rad_nombre' => $form->txtnombradio);

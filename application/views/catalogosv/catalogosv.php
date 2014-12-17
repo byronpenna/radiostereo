@@ -37,7 +37,7 @@
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
-				<td><input type="text" name="precio" id='txtPrecio' /></td>
+				<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -89,7 +89,7 @@
 				<th>Acción</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="tbradio">
 			<?php echo $tabla->radio ?>
 		</tbody>
 	</table>
