@@ -52,7 +52,7 @@
 		public function insert_cliente()
 		{
 			//vars
-				$form = json_decode($_POST["form5"]);
+				$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('cli_nombres' => $form->txtnombcliente, 'cli_apellidos ' => $form->txtapellido);
@@ -90,6 +90,28 @@
 			$Catalogosm = new Catalogosm();
 			$tablabd = array('serv_nombre', 'serv_id', 'serv_servicio');
 			$nameform = array('txtServicio', 'txtidservicio');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_radio()
+		{
+			//vars
+				$updatfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('rad_nombre', 'rad_id', 'rad_radio');
+			$nameform = array('txtRadio', 'txtidRadio');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+		public function update_cliente()
+		{
+			//vars
+				$updatfrm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$tablabd = array('cli_nombres', 'cli_apellidos', 'cli_id', 'cli_cliente');
+			$nameform = array('txtRadio', 'txtidRadio');
 			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
 			echo json_encode($mensaje);
 		}
