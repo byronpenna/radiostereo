@@ -15,31 +15,19 @@ $(document).ready(function(){
 
 	//keypress
 	$(document).on("keypress",".soloNumeros",function(e){//evento para validar si es un numero
-		// exp 					= /[0-9 \.]/; // expresion regular y buscar codigo asccii
-		// ascciiCaracterIngresado = e.which;//which obtiene el codigo ascii del el evento keypress
-		// caracter 				= String.fromCharCode(ascciiCaracterIngresado); //obtenemos el caracter ingresado
-		// el 						= $(this).val();
-		// if(exp.test(caracter)){
-		// 	if(el.indexOf('.')!=-1){
-		// 		if(caracter=="."){
-		// 			e.preventDefault();//evitamos que se ejecute la accion
-		// 		}
-		// 	}
-		// }else{
-		// 	e.preventDefault();//evitamos que se ejecute la accion
-		// }
-		el 						= $(this).val();
-		exp = /[0-9 \.]/;
-		caracter=getCharFromEvent(e);
-		if(testExpression(e, exp)==false){
+		el 			= 	$(this).val();
+		exp 		= 	/[a-z]/;
+		caracter 	=	getCharFromEvent(e);
+		if(testExpression(e, exp)){
 			if(el.indexOf('.')!=-1){
-				e.preventDefault();//evitamos que se ejecute la accion		
-			}else{
-				e.preventDefault();//evitamos que se ejecute la accion
+				if(caracter=="."){
+					e.preventDefault();
+				}
 			}
+		}else{
+			e.preventDefault();
 		}
 	});
-
 
 	//Evento para evitar copiar,pegar y cortar dentro de un TextBox
 		
