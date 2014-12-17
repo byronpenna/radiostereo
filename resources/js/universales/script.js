@@ -15,9 +15,9 @@ $(document).ready(function(){
 
 	//keypress
 	$(document).on("keypress",".soloNumeros",function(e){//evento para validar si es un numero
-		el 			= 	$(this).val();
-		exp 		= 	/[a-z]/;
-		caracter 	=	getCharFromEvent(e);
+		el 			= $(this).val();
+		exp 		= /[0-9 \.]/;
+		caracter 	=getCharFromEvent(e);
 		if(testExpression(e, exp)){
 			if(el.indexOf('.')!=-1){
 				if(caracter=="."){
@@ -28,6 +28,7 @@ $(document).ready(function(){
 			e.preventDefault();
 		}
 	});
+
 
 	//Evento para evitar copiar,pegar y cortar dentro de un TextBox
 		

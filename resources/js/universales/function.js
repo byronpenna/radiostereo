@@ -17,6 +17,7 @@ function getBaseURL() {
 	    return baseURL + "/";
 	}
 }
+
 // Validar los keypress 
 	function probarExp(exp,texto){
 		return exp.test(texto);
