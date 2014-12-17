@@ -66,7 +66,9 @@
 				$updatfrm = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$mensaje = $Catalogosm->update_programadb($updatfrm);
+			$tablabd = array('prog_nombre', 'prog_id', 'prog_programa');
+			$nameform = array('txtNombrePrograma', 'txtidprograma');
+			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform);
 			echo json_encode($mensaje);
 		}
 		public function index()//carga la vista

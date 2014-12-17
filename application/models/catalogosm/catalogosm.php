@@ -27,8 +27,34 @@
 				}
 			return $retorno;
 		}//fin insert catalogos
+		//funcion para modificar a la bd recibe los nuevos datos, estructura de la tabla y el name de los campos 
+		public function update_programadb($dato, $tabla, $namefrm)
+		{
+			$data 		= array($tabla[0] => $dato->$namefrm[0]);
+			$retorno 	= new stdClass();
+			$this->db->trans_start();
+				$this->db->where($tabla[1], $dato->$namefrm[1]);
+				$flag = $this->db->update($tabla[2], $data);
+			$this->db->trans_complete();
+			if($this->db->trans_status() === true){
+				if($flag){
+					$retorno->estado = true;
+					$retorno->mensaje = "Modificado con exito";
+					$retorno->dato = $dato->$namefrm[0];//retorno el nuevo valor	
+				}else{
+					$retorno->estado = false;
+					$msg = $this->db->_error_message();
+					$retorno->mensaje = $msg;
+				}
+			}else{
+				$retorno->estado = false;
+				$retorno->mensaje = "Se ha producido un Error al modificar";
+			}
+			return $retorno;
+		}
+	
 		//genera los tr para progama, precio, servicio y radio
-		public function GenerarRetorno($consult, $clases, $campo)
+	public function GenerarRetorno($consult, $clases, $campo)
 		{
 			$retornar="";
 			foreach ($consult as $row) {
