@@ -50,35 +50,36 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
-                            <tr>
+                            <?php echo $Servicios; ?>
+                            <!-- <tr>
                                 <td>Cuñas</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="  " class="form-control input-sm inAddCot "></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot " ></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Menciones</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Entrevistas</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Redes Sociales</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
-                            <tr>
+                            <tr> -->
                                 <td>Total</td>
                                 <td></td>
                                 <td></td>
@@ -120,35 +121,35 @@
                                 <td>Femenina</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Ranchera</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Fiesta</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Ingles</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Espa&ntilde;ol</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
@@ -193,35 +194,35 @@
                                 <td>Femenina</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text"  name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Ranchera</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Fiesta</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Ingles</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Espa&ntilde;ol</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
@@ -265,36 +266,36 @@
                             <tr>
                                 <td>Femenina</td>
                                 <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" validation='[0-9]' class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value=""  class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot "></td>
                             </tr>
                             <tr>
                                 <td>Ranchera</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Fiesta</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Ingles</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
                                 <td>Laser Espa&ntilde;ol</td>
                                 <td><?php echo $Precios; ?></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
@@ -335,8 +336,8 @@
             <!-- Finaliza contenedor de los servicios -->
             <article id="contBtnAddCot">
                 <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot">
-                <input type="submit" name="" value="Limpiar" class="btn btn-m  btnAddCot">
-                <input type="submit" name="" value="Cancelar" class="btn btn-m  btnAddCot">
+                <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot">
+                <input type="submit" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot">
             </article>
     	</section>
     </section>
