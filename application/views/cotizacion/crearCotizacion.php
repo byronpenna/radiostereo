@@ -49,8 +49,8 @@
                             <tr>
                                 <td>Cuñas</td>
                                 <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" validacion='[0-9]' class="form-control input-sm inAddCot soloNumeros"></td>
+                                <td><input type="text" name="" value="  " class="form-control input-sm inAddCot "></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
                             </tr>
                             <tr>
@@ -328,9 +328,9 @@
                             <tr>
                                 <td>Femenina</td>
                                 <td><?php echo $Precios; ?></td>
+                                <td><input type="text" name="" value="" validation='[0-9]' class="form-control input-sm inAddCot"></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot "></td>
                             </tr>
                             <tr>
                                 <td>Ranchera</td>

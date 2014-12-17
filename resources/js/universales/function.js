@@ -29,7 +29,7 @@ function getBaseURL() {
 	}
 	function testExpression(e,expresion){
 		character = getCharFromEvent(e);
-		return probarExp(expresion,character );
+		return probarExp(expresion,character);
 	}
 
 //Funcion Para Matar la sesion 
