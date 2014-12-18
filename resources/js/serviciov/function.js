@@ -18,6 +18,7 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 						<td class='tdServicio'>"+form.servicio+"</td>\
 						<td><button class='btnEdtserv'>Editar</button></td>\
 					  </tr>"
+				$(".vaciarinput").val("");
 				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
 				
 			}

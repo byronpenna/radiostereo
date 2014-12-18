@@ -63,8 +63,8 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
 						<td><button class='btnEditar'>Editar</button></td>\
 					  </tr>"
-				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio
-				
+				$(".vaciarinput").val("");
+				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio	
 			}
 		}
 	});

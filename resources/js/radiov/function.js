@@ -17,6 +17,7 @@ function agregarradio(frm) {//funcion que manda los datos de radio al controlado
 						<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
 						<td><button class='btnEdtRadio'>Editar</button></td>\
 					  </tr>"
+				$(".vaciarinput").val("");
 				$(".tbradio").prepend(tr);//ponemos el nuevo valor al principio
 			}
 		}

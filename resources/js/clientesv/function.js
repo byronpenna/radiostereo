@@ -19,6 +19,9 @@ function agregarcliente(frm) {
 						<td><button class='EditCliente'>Editar</button></td>\
 					  </tr>"
 				$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
+				$(".vaciarinput").val("");
+				// para input .val("") val()
+				// para divs .empty() text()
 			}
 		}
 	});
@@ -29,18 +32,18 @@ function createEditCliente (tr) {
 	apellido = tr.find(".tdApellidoCliente").text();
 	newtr = "\
 			<td style='display:none'>\
-				<input name='txtidcliente' value='"+idcliente+"' class='inputPrecioId'>\
+				<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
 			</td>\
 			<td>\
-				<input name='txtNombre' class='txtNombre soloNumeros' value='"+nombre+"'>\
+				<input name='txtNombre' class='txtNombre' value='"+nombre+"'>\
 			</td>\
 			<td>\
-				<input name='txtApellido' class='txtNombre soloNumeros' value='"+apellido+"'>\
+				<input name='txtApellido' class='txtNombre' value='"+apellido+"'>\
 			</td>\
 			<td>\
 				<input type='button' class='btnGuardarCliente' value='Guardar' />\
 			</td>";
-			//console.log(newtr);
+			//console.log(idcliente,nombre,apellido);
 			tr.empty().append(newtr);
 }
 function saveEditCliente (form,tr) {
@@ -51,19 +54,19 @@ function saveEditCliente (form,tr) {
 		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_cliente",
 		type: "POST",
 		success: function(datos) {
-			idradio = tr.find(".inputPrecioId").val();
+			idradio = tr.find(".inputClienteId").val();
 			data = jQuery.parseJSON(datos);//convirtiendo datos
 			newtr = "\
 					<td style='display:none'>\
-						<input name='txtidRadio' value='"+idradio+"' class='inputPrecioId'>\
+						<input name='txtidRadio' value='"+idradio+"' class='inputClienteId'>\
 					</td>\
-					<td class='tdNombCliente'>"+data.dato+"</td>\
-					<td class='tdApellidoCliente'>"+data.dato+"</td>\
+					<td class='tdNombCliente'>"+data.dato1+"</td>\
+					<td class='tdApellidoCliente'>"+data.dato2+"</td>\
 					<td>\
 						<button class='EditCliente'>Editar</button>\
 					</td>";//creamos el nuevo fila
-			//tr.empty().append(newtr);
-			console.log(datos);
+			tr.empty().append(newtr);
+			//console.log(datos);
 		}
 	});
 }

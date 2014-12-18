@@ -17,6 +17,7 @@ function agregarPrecio(frm) {//funcion que manda los datos de precio al controla
 						<td class='tdPrecio'>"+frm.precio+"</td>\
 						<td><button class='btnEditPrecio'>Editar</button></td>\
 					  </tr>"
+				$(".vaciarinput").val("");
 				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
 			}
 		}
