@@ -16,7 +16,7 @@
 		<table>
 			<tr>
 				<td><label for="nombre">Nombre Programa:</label></td>
-				<td><input type="text" name="nombpro" class="InputProduc" /></td>
+				<td><input type="text" name="nombpro" class="vaciarinput" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -37,7 +37,7 @@
 		<table>
 			<tr>
 				<td><label for="precio">Precio $</label></td>
-				<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros" /></td>
+				<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros vaciarinput" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -57,7 +57,7 @@
 		<table>
 			<tr>
 				<td><label for="nombservicio">Nombre Servicio:</label></td>
-				<td><input type="text" name="servicio" /></td>
+				<td><input type="text" name="servicio" class="vaciarinput" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -77,7 +77,7 @@
 		<table>
 			<tr>
 				<td><label for="nombradio">Nombre Radio:</label></td>
-				<td><input type="text" name="txtnombradio" /></td>
+				<td><input type="text" name="txtnombradio" class="vaciarinput" /></td>
 				<td colspan="2"><input type="submit" value="Guardar"></td>
 			</tr>
 		</table>
@@ -97,11 +97,11 @@
 		<table>
 			<tr>
 				<td><label for="nombcliente">Nombre:</label></td>
-				<td><input type="text" name="txtnombcliente" /></td>
+				<td><input type="text" name="txtnombcliente" class="vaciarinput"  /></td>
 			</tr>
 			<tr>
 				<td><label for="apellido">Apellido:</label></td>
-				<td><input type="text" name="txtapellido" id='txtapellido'/></td>
+				<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput" /></td>
 			</tr>
 			<tr>
 					<td colspan="2"><input type="submit" value="Guardar"></td>

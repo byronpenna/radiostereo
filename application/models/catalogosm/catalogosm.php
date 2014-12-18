@@ -28,19 +28,44 @@
 			return $retorno;
 		}//fin insert catalogos
 		//funcion para modificar a la bd recibe los nuevos datos, estructura de la tabla y el name de los campos 
-		public function update_programadb($dato, $tabla, $namefrm)
+		public function update_programadb($dato, $tablabd, $namefrm, $tabla)
 		{
-			$data 		= array($tabla[0] => $dato->$namefrm[0]);
+			$data 		= array($tablabd[0] => $dato->$namefrm[0]);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
-				$this->db->where($tabla[1], $dato->$namefrm[1]);
-				$flag = $this->db->update($tabla[2], $data);
+				$this->db->where($tablabd[1], $dato->$namefrm[1]);
+				$flag = $this->db->update($tabla, $data);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === true){
 				if($flag){
 					$retorno->estado = true;
 					$retorno->mensaje = "Modificado con exito";
 					$retorno->dato = $dato->$namefrm[0];//retorno el nuevo valor	
+				}else{
+					$retorno->estado = false;
+					$msg = $this->db->_error_message();
+					$retorno->mensaje = $msg;
+				}
+			}else{
+				$retorno->estado = false;
+				$retorno->mensaje = "Se ha producido un Error al modificar";
+			}
+			return $retorno;
+		}
+		public function update_clientedb($dato)
+		{
+			$data 		= array('cli_nombres' => $dato->txtNombre, 'cli_apellidos' => $dato->txtApellido);
+			$retorno 	= new stdClass();
+			$this->db->trans_start();
+				$this->db->where('cli_id', $dato->txtidcliente);
+				$flag = $this->db->update('cli_cliente', $data);
+			$this->db->trans_complete();
+			if($this->db->trans_status() === true){
+				if($flag){
+					$retorno->estado = true;
+					$retorno->mensaje = "Modificado con exito";
+					$retorno->dato1 = $dato->txtNombre;//retorno el nuevo valor	
+					$retorno->dato2 = $dato->txtApellido;
 				}else{
 					$retorno->estado = false;
 					$msg = $this->db->_error_message();
@@ -127,7 +152,7 @@
 			$retorno = "";
 			foreach ($consulta as $row) {
 				$retorno .= "<tr>
-								<td style='display:none' class='inputClienteId'>".$row->cli_id."</td>
+								<td style='display:none'><input value='".$row->cli_id."' class='inputClienteId'></td>
 								<td class='tdNombCliente'>".$row->cli_nombres."</td>
 								<td class='tdApellidoCliente'>".$row->cli_apellidos."</td>
 								<td><button class='EditCliente'>Editar</button></td>
