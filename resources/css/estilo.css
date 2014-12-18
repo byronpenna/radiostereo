@@ -232,7 +232,7 @@ text-decoration:none;
   padding-bottom: 5em;
 }
 #contCotSer{
-  background:rgba(214,215,181,0.4);
+  background:rgba(214,215,181,0.3);
   width: 100%;
   height:auto;
   padding-top:0.5px;
@@ -299,6 +299,16 @@ text-decoration:none;
 }
 .medios{
   width: 140px;
+}
+.mpequenios{
+  width: 77px;
+  margin:auto;
+  padding: auto;
+  height: 20px;
+}
+textarea{
+  resize:none;
+  border-radius:0.4em;
 }
 #conProgra{
   height:70%;

@@ -1,5 +1,4 @@
 <?php 
-
 	Class cotizacionm extends CI_Model{
 
 		public function __construct(){
@@ -104,17 +103,33 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			return $query;	
+			return $query;
 		}
 
 
 		public function getPrecios(){
 			$query=$this->queryPrecios();
-			$res= "<select name='precio' class='form-control input-sm'>";
+			$res= "<select name='precio' class='form-control input-sm mpequenios'>";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->pre_id."'> $ ".$valor->pre_precio."</option>";
 			}
 			$res.="</select>";
+			return $res;
+		}
+
+		public function getServiciosCot(){
+			$this->load->model('catalogosm/catalogosm');
+			$catalogosm = new Catalogosm();
+			$query=$catalogosm->GetServicio();
+			foreach ($query as $valor) {
+				$res.="<tr>
+						<td>".$valor->serv_nombre."</td>
+                                <td>".$this->getPrecios()."</td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
+                                <td><input type='text' name='' value='' placeholder='Segundos' class='form-control input-sm inAddCot' ></td>
+                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
+					</tr>";
+			}	
 			return $res;	
 		}
 	}
