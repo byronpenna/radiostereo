@@ -24,7 +24,6 @@ function getBaseURL() {
 	}
 	function getCharFromEvent(e){
 		asccii 		= e.which;
-		console.log("el asccii es:",asccii)
 		character 	=  String.fromCharCode(asccii);
 		return character;
 	}
@@ -48,6 +47,14 @@ function logOut(frm){
          }
      });
 }
+
+
+//Validar si es un numero
+	function isNumber(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+
 
 function serializeToJson(a){
 	var o = {};

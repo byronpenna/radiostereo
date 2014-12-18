@@ -281,7 +281,7 @@ text-decoration:none;
 }
 .titleAddCot{
   width:21%;
-  width:30%;
+  width:31%;
   margin:2em;
   margin-left:10%;
 }
@@ -289,10 +289,7 @@ text-decoration:none;
   display: inline-block;
   margin-left:10px;
   margin-left:0px;
-}
-.largos{
-  margin-left:22px;
-  width: 250px;
+  margin:10px;
 }
 .pequenios{
   width: 90px;
@@ -372,7 +369,7 @@ textarea{
   float:right;
 }
 #contBtnAddCot{
-  width: 22%;
+  width: 30%;
   float:right;
   margin-top:2%;
 }

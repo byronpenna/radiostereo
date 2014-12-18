@@ -10,7 +10,7 @@
         }
     </style>
 </head>
-<body>
+<body >
     <?php 
         $this->load->view("estructura/menu.php");
     ?>
@@ -40,9 +40,10 @@
 				<article id="conProgra">
                     <h4 class="text-center">Programas</h4>
                     <article class="titleAddCot"><span>Programa </span><span><?php echo $Prog;?></span></article>
-                    <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -50,42 +51,19 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php echo $Servicios; ?>
-                            <!-- <tr>
-                                <td>Cuñas</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot " ></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
+                        </tbody>
+                        <tfoot>
                             <tr>
-                                <td>Menciones</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Entrevistas</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Redes Sociales</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr> -->
                                 <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -107,9 +85,11 @@
                 <!-- Contenedor para las Cuñas -->
                 <article id="conProgra">
                     <h4 class="text-center">Cu&ntilde;a</h4>
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <input type="hidden" name="" value="Cu&ntilde;a">
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -117,48 +97,19 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
-                            <tr>
-                                <td>Femenina</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Ranchera</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Fiesta</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Ingles</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Espa&ntilde;ol</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -180,9 +131,11 @@
                 <!-- Contenedor para las Entrevistas -->
                 <article id="conProgra">
                     <h4 class="text-center">Entrevista</h4>
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <input type="hidden" name="" value="Entrevista">
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -190,48 +143,19 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
-                            <tr>
-                                <td>Femenina</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text"  name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Ranchera</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Fiesta</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Ingles</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Espa&ntilde;ol</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -253,9 +177,11 @@
                 <!-- Contenedor para las Producciones -->
                 <article id="conProgra">
                     <h4 class="text-center">Producci&oacute;n</h4>
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="soloNumeros" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <input type="hidden" name="" value="Producci&oacute;n">
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -263,48 +189,19 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
-                            <tr>
-                                <td>Femenina</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value=""  class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot "></td>
-                            </tr>
-                            <tr>
-                                <td>Ranchera</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Fiesta</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Ingles</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
-                            <tr>
-                                <td>Laser Espa&ntilde;ol</td>
-                                <td><?php echo $Precios; ?></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" placeholder="Segundos" class="form-control input-sm inAddCot"></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
-                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot"></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -324,20 +221,20 @@
                 </article>
                 
                 <!-- Finaliza contenedor de las Produccion -->
-                <!-- Contenedor para las Producciones -->
+                <!-- Contenedor para los Valores Agregados -->
                 <article id="conProgra">
                     <h4  class="text-center">Valores Agregados</h4>
                     <article id="textAddCot">
                         <textarea name="" cols="50" rows="6" ></textarea>    
                     </article>
                 </article>
-                <!-- Finaliza contenedor de las Produccion -->
+                <!-- Finaliza contenedor de los Valores Agregados -->
 			</section>
             <!-- Finaliza contenedor de los servicios -->
             <article id="contBtnAddCot">
                 <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot">
                 <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot">
-                <input type="submit" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot">
+                <a href="<?php site_url('main/main') ?>"><input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot"></a>
             </article>
     	</section>
     </section>
