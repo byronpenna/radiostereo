@@ -61,7 +61,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
                         </tfoot>
                         </table>
@@ -85,6 +85,7 @@
                 <!-- Contenedor para las Cuñas -->
                 <article id="conProgra">
                     <h4 class="text-center">Cu&ntilde;a</h4>
+                    <input type="hidden" name="" value="Cu&ntilde;a">
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -106,7 +107,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -130,6 +131,7 @@
                 <!-- Contenedor para las Entrevistas -->
                 <article id="conProgra">
                     <h4 class="text-center">Entrevista</h4>
+                    <input type="hidden" name="" value="Entrevista">
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -151,7 +153,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -175,6 +177,7 @@
                 <!-- Contenedor para las Producciones -->
                 <article id="conProgra">
                     <h4 class="text-center">Producci&oacute;n</h4>
+                    <input type="hidden" name="" value="Producci&oacute;n">
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -196,7 +199,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -218,20 +221,20 @@
                 </article>
                 
                 <!-- Finaliza contenedor de las Produccion -->
-                <!-- Contenedor para las Producciones -->
+                <!-- Contenedor para los Valores Agregados -->
                 <article id="conProgra">
                     <h4  class="text-center">Valores Agregados</h4>
                     <article id="textAddCot">
                         <textarea name="" cols="50" rows="6" ></textarea>    
                     </article>
                 </article>
-                <!-- Finaliza contenedor de las Produccion -->
+                <!-- Finaliza contenedor de los Valores Agregados -->
 			</section>
             <!-- Finaliza contenedor de los servicios -->
             <article id="contBtnAddCot">
                 <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot">
                 <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot">
-                <input type="submit" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot">
+                <a href="<?php site_url('main/main') ?>"><input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot"></a>
             </article>
     	</section>
     </section>

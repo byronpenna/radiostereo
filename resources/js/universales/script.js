@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	$("select").prop('selectedIndex', -1);
 	var f = new Date();
 	console.log(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 	$("#fechaCreacion").val(f.getFullYear()+"-"+(f.getMonth() +1) + "-" + f.getDate());
@@ -40,16 +41,42 @@ $(document).ready(function(){
 	});
 
 	//Evento para evitar copiar,pegar y cortar dentro de un TextBox
-		
 	$('*').bind("cut copy paste",function(e) {
       	e.preventDefault();
     });
 
-
-
-    $('.txtDuracion').keyup(function(){
-    	console.log( txt=$(this).attr("name"));
-    	console.log( txt=$(".txtCantidad").attr("name"));
-
+    $('.blur').blur(function(){
+    	tr 			= $(this).parents("tr");
+    	tabla		= $(this).parents("table");
+    	cantidad 	= tr.find(".txtCantidad");
+    	duracion 	= tr.find(".txtDuracion");
+    	select 		= tr.find(".precios option:selected").html();
+    	subTotal	= tr.find(".subTotal");
+    	total 		= tabla.find(".total");
+    	try{
+    		var valsin = select.replace("$","");
+    	}catch(err){
+    		console.log(err.message);
+    		valsin="";
+    	}
+    	
+    	valCantidad = cantidad.val();
+    	valDuracion = duracion.val();
+    	res=0;
+    	res=valsin*valCantidad*valDuracion;
+    	if(res!=0){
+    		subTotal.val(res.toFixed(2));
+    	}
+    	//Calcular el Total
+    	sum 	= 0;
+    	tabla.find(".subTotal").each(function(i,val){
+    		valor 	= $(this).val();
+    		if(isNumber(valor)){
+    			sum += parseFloat(valor);
+    		}
+    	})
+    	if(sum.toFixed(2)!=0.00){
+    		total.val(sum.toFixed(2));
+    	}
     });
 });

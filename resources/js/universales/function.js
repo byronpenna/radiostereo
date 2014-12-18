@@ -48,6 +48,14 @@ function logOut(frm){
      });
 }
 
+
+//Validar si es un numero
+	function isNumber(n) {
+	  return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+
+
 function serializeToJson(a){
 	var o = {};
 	$.each(a, function() {

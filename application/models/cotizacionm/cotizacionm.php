@@ -104,9 +104,9 @@
 
 		public function getPrecios(){
 			$query=$this->queryPrecios();
-			$res= "<select name='precio' class='form-control input-sm mpequenios' >";
+			$res= "<select name='precio' class='form-control input-sm mpequenios precios blur'>";
 			foreach ($query as $key => $valor) {
-				$res.="<option value='".$valor->pre_id."'> $ ".$valor->pre_precio."</option>";
+				$res.="<option value='".$valor->pre_id."'>$ ".$valor->pre_precio."</option>";
 			}
 			$res.="</select>";
 			return $res;
@@ -121,9 +121,9 @@
 				$res.="<tr>
 						<td>".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='".$valor->serv_nombre."txtCantidad' value='' class='form-control input-sm inAddCot SoloNumero txtCantidad'></td>
-                                <td><input type='text' name='".$valor->serv_nombre."txtDuracion' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion' ></td>
-                                <td><input type='text' name='txtSubTotal' value='' class='form-control input-sm inAddCot' disabled></td>
+                                <td><input type='text' name='txtCantidad' value='' class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
+                                <td><input type='text' name='txtSubTotal' value='' class='txtSubTotal form-control input-sm inAddCot subTotal' disabled></td>
 					</tr>";
 			}	
 			return $res;	
@@ -138,9 +138,9 @@
 				$res.="<tr>
 						<td>".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='txtCantidad' value='' class='form-control input-sm inAddCot SoloNumero'></td>
-                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero' ></td>
-                                <td><input type='text' name='txtSubTotal' value='' class='form-control input-sm inAddCot' disabled></td>
+                                <td><input type='text' name='txtCantidad' value='' class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
+                                <td><input type='text' name='txtSubTotal' value='' class='form-control input-sm inAddCot subTotal' disabled></td>
 					</tr>";
 			}	
 			return $res;	
