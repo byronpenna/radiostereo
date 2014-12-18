@@ -5,6 +5,9 @@ $(document).ready(function(){
 	console.log(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 	$("#fechaCreacion").val(f.getFullYear()+"-"+(f.getMonth() +1) + "-" + f.getDate());
 
+	$('.fechaInicio').blur(function(){
+		console.log($(this).val());
+	});
 
 	$(document).on('submit','#frmLogout',function(e){
 		e.preventDefault();
@@ -79,4 +82,16 @@ $(document).ready(function(){
     		total.val(sum.toFixed(2));
     	}
     });
+
+
+
+
+
+    //Date Picker
+    $(function () {
+	$.datepicker.setDefaults($.datepicker.regional["es"]);
+	$("#datepicker").datepicker({
+		firstDay: 1
+	});
+});
 });

@@ -69,13 +69,13 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                        <input type="text" name="" value="" placeholder="" class="form-control input-sm medios fechaInicio" id="datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="date" name="pventa" value="" placeholder="$" class="form-control input-sm medios" required>
+                                    <input type="text" name="" value="" placeholder="" class="form-control input-sm medios fechaFin" required>
                                 </span>
                             </article>    
                     </article>
