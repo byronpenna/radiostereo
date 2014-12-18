@@ -11,12 +11,12 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr>\
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
 							<input name='txtidServicio' value='"+data.last_id+"' class='inputServId'>\
 						</td>\
 						<td class='tdServicio'>"+form.servicio+"</td>\
-						<td><button class='btnEdtserv'>Editar</button></td>\
+						<td><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button></td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
@@ -34,10 +34,10 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 					<input name='txtidservicio' value='"+idservicio+"' class='inputServId'>\
 				</td>\
 				<td>\
-					<input name='txtServicio' class='tdServicio' value='"+nombservicio+"'>\
+					<input name='txtServicio' class='tdServicio form-control' value='"+nombservicio+"'>\
 				</td>\
 				<td>\
-					<input type='button' class='btnGuardarServi' value='Guardar' />\
+					<input type='button' class='btnGuardarServi btn btn-m btn-success btnAddCot' value='Guardar' />\
 				</td>";
 		tr.empty().append(newtr);
 	}
@@ -57,7 +57,7 @@ function savenewServicio (frm,tr) {
 					</td>\
 					<td class='tdServicio'>"+data.dato+"</td>\
 					<td>\
-						<button class='btnEdtserv'>Editar</button>\
+						<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);

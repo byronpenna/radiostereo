@@ -83,7 +83,7 @@
 		{
 			$retornar="";
 			foreach ($consult as $row) {
-				$retornar .="<tr>
+				$retornar .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
 								<td><button class='".$clases['class3']."'>Editar</button></td>
@@ -97,7 +97,7 @@
 			$this->load->model('cotizacionm/cotizacionm');//cargamos el modelo
 			$cotizacionm = new cotizacionm();//instancia al modelo
 			$consulta = $cotizacionm->getProgramas();//LLamamos la funcion q retorna el resultado de la query
-			$clases = array('class1' => "inputProgramId", 'class2' => "tdProgramNombre", 'class3' => "btnEditar");
+			$clases = array('class1' => "inputProgramId", 'class2' => "tdProgramNombre", 'class3' => "btnEditar btn btn-primary btn-sm");
 			$campos = array('prog_id', 'prog_nombre');
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
 			return $retorno;
@@ -107,7 +107,7 @@
 			$this->load->model('cotizacionm/cotizacionm');//cargamos el modelo
 			$cotizacionm = new cotizacionm();//instancia al modelo
 			$consulta = $cotizacionm->queryPrecios();//LLamamos la funcion q retorna el resultado de la query
-			$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEditPrecio");
+			$clases = array('class1' => "inputPrecioId", 'class2' => "tdPrecio", 'class3' => "btnEditPrecio btn btn-sm btn-primary");
 			$campos = array('pre_id', 'pre_precio');
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
 			return $retorno;
@@ -123,7 +123,7 @@
 		public function DatosServicio()
 		{
 			$consulta = $this->GetServicio();
-			$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtserv");
+			$clases = array('class1' => "inputServId", 'class2' => "tdServicio", 'class3' => "btnEdtserv btn btn-sm btn-primary");
 			$campos = array('serv_id', 'serv_nombre');
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);
 			return $retorno;
@@ -139,7 +139,7 @@
 		public function DatosRadio()
 		{
 			$consulta = $this->GetRadio();
-			$clases = array('class1' => "inputRadioId", 'class2' => "tdRadioNomb", 'class3' => "btnEdtRadio");
+			$clases = array('class1' => "inputRadioId", 'class2' => "tdRadioNomb", 'class3' => "btnEdtRadio btn btn-sm btn-primary");
 			$campos = array('rad_id', 'rad_nombre');
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);;
 			return $retorno;
@@ -151,11 +151,11 @@
 			$consulta = $mainm->get_clientedb();//LLamamos la funcion q retorna el resultado de la query
 			$retorno = "";
 			foreach ($consulta as $row) {
-				$retorno .= "<tr>
+				$retorno .= "<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->cli_id."' class='inputClienteId'></td>
 								<td class='tdNombCliente'>".$row->cli_nombres."</td>
 								<td class='tdApellidoCliente'>".$row->cli_apellidos."</td>
-								<td><button class='EditCliente'>Editar</button></td>
+								<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;

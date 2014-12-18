@@ -1,0 +1,36 @@
+fieldset{
+	height: 100%;
+	width: 60%;
+}
+.fielPrograma{
+	background-color: none;
+	margin-left: 20%;
+}
+.fieldRadio{
+	background-color: none;
+	margin-left: 20%;
+}
+.fieldPrecio{
+	background-color: none;
+	margin-left: 20%;
+}
+.fieldServicio{
+	background-color: none;
+	margin-left: 20%;
+}
+.fieldClientes{
+	background-color: none;
+	margin-left: 20%;
+}
+/*Estilo tr de tablas catalogos*/
+.styleTR{
+	background:rgba(144, 240, 139, 0.8);
+}
+.thead{
+	background: #3682F3;
+	color: white;
+}
+/*input busqueda*/
+#searchTerm{
+	width: 25%;
+}
