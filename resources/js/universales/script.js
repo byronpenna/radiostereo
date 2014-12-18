@@ -45,9 +45,11 @@ $(document).ready(function(){
       	e.preventDefault();
     });
 
-    //Select en lanco al inicio 
-    $("select").onload(function(){
-    	$(this).attr("selectedindex","-1");
+
+
+    $('.txtDuracion').keyup(function(){
+    	console.log( txt=$(this).attr("name"));
+    	console.log( txt=$(".txtCantidad").attr("name"));
 
     });
 });

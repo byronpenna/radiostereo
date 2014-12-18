@@ -15,8 +15,6 @@
 <script src="<?php echo base_url('resources/js/miscript.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/script.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/logout/script.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/logout/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/catalogos/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/catalogos/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/preciov/function.js')?>" type="text/javascript" charset="utf-8"></script>

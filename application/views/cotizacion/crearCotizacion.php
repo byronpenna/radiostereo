@@ -10,7 +10,7 @@
         }
     </style>
 </head>
-<body>
+<body >
     <?php 
         $this->load->view("estructura/menu.php");
     ?>
@@ -88,6 +88,7 @@
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -95,7 +96,11 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
+                            </thead>
+                            <tbody>
                             <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
@@ -103,6 +108,7 @@
                                 <td></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -127,6 +133,7 @@
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -134,7 +141,11 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
+                            </thead>
+                            <tbody>
                             <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
@@ -142,6 +153,7 @@
                                 <td></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -166,6 +178,7 @@
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
+                            <thead>
                             <tr>
                                 <td></td>
                                 <td><p>Precio</p></td>
@@ -173,7 +186,11 @@
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
+                            </thead>
+                            <tbody>
                             <?php echo $Radios; ?>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td>Total</td>
                                 <td></td>
@@ -181,6 +198,7 @@
                                 <td></td>
                                 <td><input type="text" name="" value="" class="form-control input-sm inAddCot" disabled></td>
                             </tr>
+                            </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">

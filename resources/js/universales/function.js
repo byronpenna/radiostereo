@@ -24,7 +24,6 @@ function getBaseURL() {
 	}
 	function getCharFromEvent(e){
 		asccii 		= e.which;
-		console.log("el asccii es:",asccii)
 		character 	=  String.fromCharCode(asccii);
 		return character;
 	}
