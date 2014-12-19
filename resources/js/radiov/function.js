@@ -10,7 +10,7 @@ function agregarradio(frm) {//funcion que manda los datos de radio al controlado
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr class='styleTR'>\
+				tr = "<tr class='styleTR alt'>\
 						<td style='display:none'>\
 							<input name='txtidRadio' value='"+data.last_id+"' class='inputRadioId'>\
 						</td>\

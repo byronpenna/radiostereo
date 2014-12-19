@@ -56,7 +56,7 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr class='styleTR'>\
+				tr = "<tr class='styleTR alt'>\
 						<td style='display:none'>\
 							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\

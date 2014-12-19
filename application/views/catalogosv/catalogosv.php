@@ -14,7 +14,7 @@
 	</div>
 	<fieldset class="fielPrograma well">
 		<legend>Programas</legend>
-		<form id="frmPrograma" method="POST" class=""><!--Formulario para ingresar programas-->
+		<form id="frmPrograma" method="POST" class="well"><!--Formulario para ingresar programas-->
 			<table>
 				<tr>
 					<td><label for="nombre">Nombre Programa:</label></td>
@@ -24,26 +24,24 @@
 			</table>
 		</form>
 		<div id="contenido">
-            <div class="midBox1">
-                <br class="clear" />
+                <div class="midBox1">	
+                    <div class="midBox1Top">
+                        <h3></h3>		 				 
+                    </div>
                     <div class="datagrid">
-                    	<div class="form-group has-success">
-                    		<form>
-                    			<label class="control-label" for="inputSuccess">BUSCAR:</label>
-                            	<input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Programa" />
-                       		</form>
-						</div>
-                        
+                        <form>
+                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Programa" />
+                        </form>
                         <br />
                         <table id="resultados" class="table">
                             <thead class="thead">
                                 <tr>
-                                    <th>Nombre Programa</th>
+                                   <th>Nombre Programa</th>
 									<th>Acción</th>
                                 </tr>
                             </thead>
-                            <tbody class='tbProgramas'>
-                            	<?php  echo $tabla->programas; ?>
+                            <tbody class="tbProgramas">
+                               <?php  echo $tabla->programas; ?>
                             </tbody>
                         </table>
                         <div style="border: 2px;" id="NavPosicion"></div>
@@ -69,17 +67,37 @@
 				</tr>
 			</table>
 		</form>
-		<table class="table"><!--Datos de la bd de catalogo radios-->
-			<thead class="thead">
-				<tr>
-					<th>Nombre Radio</th>
-					<th>Acción</th>
-				</tr>
-			</thead>
-			<tbody class="tbradio">
-				<?php echo $tabla->radio ?>
-			</tbody>
-		</table>
+		<div id="contenido">
+                <div class="midBox1">	
+                    <div class="midBox1Top">
+                        <h3></h3>		 				 
+                    </div>
+                    <div class="datagrid">
+                        <form>
+                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Radio" />
+                        </form>
+                        <br />
+                        <table id="resultados2" class="table">
+                            <thead class="thead">
+                                <tr>
+                                   <th>Nombre Radio</th>
+									<th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbradio">
+                              <?php echo $tabla->radio ?>
+                            </tbody>
+                        </table>
+                        <div style="border: 2px;" id="NavPosicion2"></div>
+                    </div>
+                    <script type="text/javascript">
+                    var pager = new Pager('resultados2', 10);
+                    pager.init();
+                    pager.showPageNav('pager', 'NavPosicion2');
+                    pager.showPage(1);
+                                    </script>
+                </div>
+            </div>
 	</fieldset>
 	<fieldset class="fieldPrecio well">
 		<legend>Precios</legend>

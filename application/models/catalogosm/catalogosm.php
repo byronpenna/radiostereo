@@ -83,7 +83,7 @@
 		{
 			$retornar="";
 			foreach ($consult as $row) {
-				$retornar .="<tr class='styleTR'>
+				$retornar .="<tr class='styleTR alt'>
 								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
 								<td><button class='".$clases['class3']."'>Editar</button></td>
