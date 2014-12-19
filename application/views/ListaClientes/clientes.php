@@ -14,7 +14,7 @@
                 <div class="pull-right">
                 </div>
             </div>
-            <table class="table" >
+            <table id="resultados" class="table" >
                 <thead>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="ID"></th>
@@ -28,15 +28,11 @@
                 </tbody>
             </table>
         </div>
-       <ul id="pagination-clean" class="pag">
-            <li class="previous-off">«Previous</li>
-            <li class="active">1</li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">6</a></li>
-            <li><a href="#">7</a></li>
-            <li class="next"><a href="#">Next »</a></li>
-        </ul>
+         <div style="border: 2px;" id="NavPosicion" class="pag"></div>
+          <script type="text/javascript">
+                    var pager = new Pager('resultados', 10);
+                    pager.init();
+                    pager.showPageNav('pager', 'NavPosicion');
+                    pager.showPage(1);
+                                    </script>
     </div>
