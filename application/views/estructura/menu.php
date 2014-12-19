@@ -18,10 +18,11 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li><a href="#">Separated link</a></li>
+                <li><a href="#">Programas</a></li>
+                <li><a href="#">Radios</a></li>
+                <li><a href="#">Precios</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Clientes</a></li>
               </ul>
             </li>
             <li><a href="#">Solicitudes</a></li>
