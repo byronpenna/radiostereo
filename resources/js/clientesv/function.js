@@ -18,7 +18,8 @@ function agregarcliente(frm) {
 						<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
 						<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button></td>\
 					  </tr>"
-				$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
+				//$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
+				console.log(frm);
 				$(".vaciarinput").val("");
 				// para input .val("") val()
 				// para divs .empty() text()

@@ -55,7 +55,7 @@
 				$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$data = array('cli_nombres' => $form->txtnombcliente, 'cli_apellidos ' => $form->txtapellido);
+			$data = array('cli_nombres' => $form->txtnombcliente, 'cli_apellidos ' => $form->txtapellido, 'cli_usu_id'=>$form->txtIdUser);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			echo json_encode($mensaje);
 		}
