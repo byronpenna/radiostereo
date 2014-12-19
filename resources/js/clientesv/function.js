@@ -10,13 +10,13 @@ function agregarcliente(frm) {
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr>\
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
 							<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
 						</td>\
 						<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
 						<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
-						<td><button class='EditCliente'>Editar</button></td>\
+						<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button></td>\
 					  </tr>"
 				$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
 				$(".vaciarinput").val("");
@@ -35,13 +35,13 @@ function createEditCliente (tr) {
 				<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
 			</td>\
 			<td>\
-				<input name='txtNombre' class='txtNombre' value='"+nombre+"'>\
+				<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
 			</td>\
 			<td>\
-				<input name='txtApellido' class='txtNombre' value='"+apellido+"'>\
+				<input name='txtApellido' class='txtNombre form-control' value='"+apellido+"'>\
 			</td>\
 			<td>\
-				<input type='button' class='btnGuardarCliente' value='Guardar' />\
+				<input type='button' class='btnGuardarCliente btn btn-m btn-success btnAddCot' value='Guardar' />\
 			</td>";
 			//console.log(idcliente,nombre,apellido);
 			tr.empty().append(newtr);
@@ -63,7 +63,7 @@ function saveEditCliente (form,tr) {
 					<td class='tdNombCliente'>"+data.dato1+"</td>\
 					<td class='tdApellidoCliente'>"+data.dato2+"</td>\
 					<td>\
-						<button class='EditCliente'>Editar</button>\
+						<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
