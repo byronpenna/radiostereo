@@ -5,9 +5,16 @@
 		}
 
 		public function index(){
-			$this->load->helper("url");
-			$data["Titulo"] = "Login";
-			$this->load->view("login/login.php",$data);
+			if(session_start()==null){
+                session_start();
+            }
+            if(isset($_SESSION['iduser'])){
+                header("Location:main/main");
+            }else{
+            	$this->load->helper("url");
+				$data["Titulo"] = "Login";
+				$this->load->view("login/login.php",$data);
+            }
 		}
 
 		public function obtenerDatosLogin(){

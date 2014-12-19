@@ -15,6 +15,5 @@
 				$data["Titulo"] = "Principal";
 				$this->load->view("index/index.php",$data);
 		}
-	}
-	
+	}	
 ?>
