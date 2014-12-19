@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php
-		$this->load->view("estructura/head.php");
-        if(session_start()==null){
-                session_start();
-            }
-            if(isset($_SESSION['iduser'])){
-                header("Location:main/main");
-            }
-	?>
+    <?php
+        $this->load->view("estructura/head.php");
+        
+    ?>
 <script src="<?php echo base_url('resources/js/login/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/login/function.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -25,7 +20,7 @@
                             </div>
                             <div class="panel-body">
                                 <form accept-charset="UTF-8" role="form" class="form-signin" id="frmLogin">
-                                    <fieldset>
+                                    <fieldset style="width:100%;">
                                         <label class="panel-login">
                                             <div class="login_result"></div>
                                         </label>
