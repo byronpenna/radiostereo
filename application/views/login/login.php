@@ -19,7 +19,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">                                
                                 <div class="row-fluid user-row">
-                                    <img src="<?php echo base_url('resources/imagenes/logo.png')?> " class="img-responsive" alt="BISA"/>
+                                    <img src="<?php echo base_url('resources/imagenes/logo.png')?> " class="img-responsive" alt="BISA" width="50%"/>
                                 </div>
                             </div>
                             <div class="panel-body">
