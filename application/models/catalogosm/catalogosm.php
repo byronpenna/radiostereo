@@ -144,11 +144,11 @@
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);;
 			return $retorno;
 		}
-		public function DatosClientes()
+		public function DatosClientes($iduser)
 		{
 			$this->load->model('mainm/mainm');//cargamos el modelo
 			$mainm = new mainm();//instancia al modelo
-			$consulta = $mainm->get_clientedb();//LLamamos la funcion q retorna el resultado de la query
+			$consulta = $mainm->get_clientedb($iduser);//LLamamos la funcion q retorna el resultado de la query
 			$retorno = "";
 			foreach ($consulta as $row) {
 				$retorno .= "<tr class='styleTR'>
