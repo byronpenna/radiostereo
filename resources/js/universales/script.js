@@ -7,14 +7,28 @@ $(document).ready(function(){
 	$(".fi").val(fActual);
 
 
-
-
 	$(document).on('submit','#frmLogout',function(e){
 		e.preventDefault();
 		var frmlout= serializeToJson($(this).serializeArray());
 		console.log(frmlout);
 		logOut(frmlout);
 	});
+
+    //obtener datos de el encabezado
+    $("#guardarCot").click(function(){
+        header               = serializeToJson($(".cotHeader :input").serializeArray());
+        programa             = serializeToJson($(".programas :input").serializeArray());
+        cunia                = serializeToJson($(".cunias  :input").serializeArray());
+        entrevista           = serializeToJson($(".entrevista  :input").serializeArray());
+        produccion           = serializeToJson($(".produccion  :input").serializeArray());
+        frmGlobal            = new Object();
+        frmGlobal.header     = header;
+        frmGlobal.programa   = programa;
+        frmGlobal.cunia      = cunia;
+        frmGlobal.entrevista = entrevista;
+        frmGlobal.produccion = produccion;
+        console.log(programa);
+    });
 
 
 	//keypress
@@ -62,7 +76,12 @@ $(document).ready(function(){
     		console.log(err.message);
     		valsin="";
     	}
-    	
+        if(cantidad.val()==0){
+            cantidad.val("");
+        }
+        if(duracion.val()==0){
+            duracion.val("");
+        }
     	valCantidad = cantidad.val();
     	valDuracion = duracion.val();
     	res=0;
@@ -82,10 +101,6 @@ $(document).ready(function(){
     		total.val(sum.toFixed(2));
     	}
     });
-
-
-
-
 
     //Date Picker
     $(function () {
@@ -109,7 +124,6 @@ $(document).ready(function(){
     );
 
 
-
     //capturar fechas de agregar cotizacion 
     $(".fi").change(function(){
         var fechaSeleccionada = $(this).val();
@@ -123,10 +137,17 @@ $(document).ready(function(){
     	var fechaSeleccionada = $(this).val();
     	if($(".fi").val()){
     		var fi=$(".fi").val();
-        	if(fechaSeleccionada<fi){
+            //fechaSeleccionada<fi
+        	if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada) < $.datepicker.parseDate('dd-mm-yy', fi)){
             	alert("la fecha de fin no puede ser menor que la fecha de inicio");
             	$(this).val("");
         	}
     	}
+    });
+
+
+    //Boton cancelar de la parte de agregar cotizacion 
+    $(".cancel").click(function(){
+        history.back()
     });
 });

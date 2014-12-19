@@ -78,7 +78,7 @@
 
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
-			$res= "<select name='programa' class='largos' style='width:250px;' >";
+			$res= "<select name='programa' class='form-control' style='width:240px;' >";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
@@ -121,9 +121,9 @@
 				$res.="<tr>
 						<td>".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='txtCantidad' value='' class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
-                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
-                                <td><input type='text' name='txtSubTotal' value='' class='txtSubTotal form-control input-sm inAddCot subTotal' disabled></td>
+                                <td><input type='text' name='txtCantidad'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
+                                <td><input type='text' name='txtSubTotal'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	
@@ -138,9 +138,9 @@
 				$res.="<tr>
 						<td>".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='txtCantidad' value='' class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
-                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
-                                <td><input type='text' name='txtSubTotal' value='' class='form-control input-sm inAddCot subTotal' disabled></td>
+                                <td><input type='text' name='txtCantidad'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
+                                <td><input type='text' name='txtSubTotal'  class='form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	

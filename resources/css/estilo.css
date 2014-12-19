@@ -125,7 +125,7 @@ body{
 #coloroc{
   width: 15px;
   height: 15px;
-  background:rgba(207,218,232,1);
+  background:rgba(235,123,89,0.8);
   border-radius:20px;
   float:left;
   box-shadow:0.5px 0.5px 0.5px #000000;
@@ -296,6 +296,10 @@ text-decoration:none;
   margin-left:10px;
   margin-left:0px;
   margin:10px;
+  vertical-align: top;
+}
+.titleAddCot span select{
+  padding:0px;
 }
 .pequenios{
   width: 150px;
@@ -306,8 +310,8 @@ text-decoration:none;
 .mpequenios{
   width: 77px;
   margin:auto;
-  padding: auto;
   height: 20px;
+  padding:0px;
 }
 textarea{
   resize:none;

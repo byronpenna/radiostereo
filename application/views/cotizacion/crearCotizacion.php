@@ -18,9 +18,9 @@
     <h3>Crear Cotizacion</h3>
     <hr id="hr">
     	<section id="mainCot">
-    		<article id="cotHeader">
+    		<article id="cotHeader" class='cotHeader'>
     			<article>
-    				<p>Id de Cliente <span><?= $cliente->cli_id ?></span></p>
+    				<p>Id de Cliente <span><?= $cliente->cli_id ?> <input type="hidden" name="idCliente" value="<?= $cliente->cli_id ?>"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
     				<p>Nombre <span><?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?></span></p>	
     			</article>
     			<article>
@@ -32,17 +32,17 @@
     				</span></p>
     			</article>
     			<article>
-    				<p><br>Fecha de Creacion <span> <input type="text" name="" class="form-control input-sm medios" id="fechaCreacion" disabled></span></p>
+    				<p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios" id="fechaCreacion" readonly="true"></span></p>
     			</article>
     		</article>
 			<section id="contCotSer">
                 <!-- Contenedor para los programas -->
-				<article id="conProgra">
+				<article id="conProgra" class="programas">
                     <h4 class="text-center">Programas</h4>
-                    <article class="titleAddCot"><span>Programa </span><span><?php echo $Prog;?></span></article>
-                    <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <article class="titleAddCot "><span>Programa </span><span><?php echo $Prog;?></span></article>
+                    <article class="contPVenta "><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm"></span></article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table width="100%" >
                             <thead>
                             <tr>
                                 <td></td>
@@ -61,21 +61,21 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" readonly="true"></td>
                             </tr>
                         </tfoot>
                         </table>
-                        <article class="fechasFooter">
+                        <article class="fechasFooter ">
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios fechaFin datepicker ffin" required>
+                                    <input type="text" name="txtFechaFin" placeholder="dd-mm-aaaa" class="form-control input-sm medios fechaFin datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
@@ -83,9 +83,9 @@
                 </article>
                 <!-- Finaliza Contenedor para los programas -->
                 <!-- Contenedor para las Cuñas -->
-                <article id="conProgra">
+                <article id="conProgra" class="cunias">
                     <h4 class="text-center">Cu&ntilde;a</h4>
-                    <input type="hidden" name="" value="Cu&ntilde;a">
+                    <input type="hidden" name="txtIdCuna" value="1" >
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -107,21 +107,21 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
+                                <td><input type="text"  class="form-control input-sm inAddCot total" readonly="true"></td>
                             </tr>
                             </tfoot>
                         </table>
-                        <article class="fechasFooter">
+                        <article class="fechasFooter" >
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
@@ -129,10 +129,10 @@
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra">
+                <article id="conProgra" class="entrevista">
                     <h4 class="text-center">Entrevista</h4>
-                    <input type="hidden" name="" value="Entrevista">
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <input type="hidden" name="txtIdEntrevista" value="2" >
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa"  placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <thead>
@@ -153,21 +153,21 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
                             </tr>
                             </tfoot>
                         </table>
-                        <article class="fechasFooter">
+                        <article class="fechasFooter " >
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
@@ -175,10 +175,10 @@
                 </article>
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
-                <article id="conProgra">
+                <article id="conProgra" class="produccion">
                     <h4 class="text-center">Producci&oacute;n</h4>
-                    <input type="hidden" name="" value="Producci&oacute;n">
-                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
+                    <input type="hidden" name="txtIdProduccion" value="3">
+                    <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa"  placeholder="$" class="form-control input-sm" required></span></article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
                             <thead>
@@ -199,7 +199,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" disabled></td>
+                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
                             </tr>
                             </tfoot>
                         </table>
@@ -207,34 +207,33 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
                     </article>
                 </article>
-                
                 <!-- Finaliza contenedor de las Produccion -->
                 <!-- Contenedor para los Valores Agregados -->
-                <article id="conProgra">
+                <article id="conProgra" class='cotHeader' >
                     <h4  class="text-center">Valores Agregados</h4>
                     <article id="textAddCot">
-                        <textarea name="" cols="50" rows="6" ></textarea>    
+                        <textarea name="txtValorAgregado" cols="50" rows="6" class="form-control"></textarea>    
                     </article>
                 </article>
                 <!-- Finaliza contenedor de los Valores Agregados -->
 			</section>
             <!-- Finaliza contenedor de los servicios -->
             <article id="contBtnAddCot">
-                <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot">
+                <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot" id="guardarCot">
                 <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot">
-                <a href="<?php site_url('main/main') ?>"><input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot"></a>
+                <input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot cancel">
             </article>
     	</section>
     </section>
