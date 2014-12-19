@@ -8,7 +8,7 @@
 		public function get_clientedb()
 		{
 			$this->db->trans_start();
-				$query = $this->db->get('cli_cliente');
+			$query = $this->db->get('cli_cliente');
 			$this->db->trans_complete();
 			$query = $query->result();
 			return $query;
