@@ -6,10 +6,10 @@ function createControlsEdit(tr){//funcion que me cargara el dato a editar
 				<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
 			</td>\
 			<td>\
-				<input name='txtNombrePrograma' class='txtNombrePrograma' value='"+nombrePrograma+"'>\
+				<input name='txtNombrePrograma' class='txtNombrePrograma form-control' value='"+nombrePrograma+"'>\
 			</td>\
 			<td>\
-				<input type='button' class='btnGuardarPrograma' value='Guardar' />\
+				<input type='button' class='btnGuardarPrograma btn btn-m btn-success btnAddCot' value='Guardar' />\
 			</td>\
 			";//creo nuevo html para modificar
 	tr.empty().append(htmlTr);//con empty vacio el tr y le coloco el nuevo elemento creado
@@ -35,7 +35,7 @@ function saveEditPrograma(update,tr){
 					</td>\
 					<td class='tdProgramNombre'>"+data.dato+"</td>\
 					<td>\
-						<button class='btnEditar'>Editar</button>\
+						<button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
 					</td>";//creamos el nuevo fila
 				tr.empty().append(tr2);
 			}
@@ -56,12 +56,12 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr>\
+				tr = "<tr class='styleTR alt'>\
 						<td style='display:none'>\
 							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\
 						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
-						<td><button class='btnEditar'>Editar</button></td>\
+						<td><button class='btnEditar btn btn-sm btn-primary'>Editar</button></td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio	

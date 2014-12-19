@@ -10,12 +10,12 @@ function agregarPrecio(frm) {//funcion que manda los datos de precio al controla
 			if (data.estado == false) {
 				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 			}else if(data.estado == true){
-				tr = "<tr>\
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
 							<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
 						</td>\
 						<td class='tdPrecio'>"+frm.precio+"</td>\
-						<td><button class='btnEditPrecio'>Editar</button></td>\
+						<td><button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button></td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
@@ -32,10 +32,10 @@ function createEditPrecio (tr) {//funcion para cargar el form de editar
 				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
 			</td>\
 			<td>\
-				<input name='txtPrecio' class='txtPrecio soloNumeros' value='"+precio+"'>\
+				<input name='txtPrecio' class='txtPrecio soloNumeros form-control' value='"+precio+"'>\
 			</td>\
 			<td>\
-				<input type='button' class='btnGuardarPrecio' value='Guardar' />\
+				<input type='button' class='btnGuardarPrecio btn btn-m btn-success btnAddCot' value='Guardar' />\
 			</td>";
 			//console.log(newtr);
 			tr.empty().append(newtr);
@@ -56,7 +56,7 @@ function savenewPrecio(form,tr) {
 					</td>\
 					<td class='tdPrecio'>"+data.dato+"</td>\
 					<td>\
-						<button class='btnEditPrecio'>Editar</button>\
+						<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);

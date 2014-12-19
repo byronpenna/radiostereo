@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.css')?>" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('resources/css/estilo.css') ?>" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('resources/css/jquery-ui.css') ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url('resources/css/style.css') ?>" type="text/css" /><!--Estilo catalogos-->
 
 
 <!-- Scripts Generales -->
@@ -25,3 +26,9 @@
 <script src="<?php echo base_url('resources/js/serviciov/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/radiov/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/radiov/script.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/radiov/script.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/clientesv/function.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/clientesv/script.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/catalogosjs/paging.js')?>" type="text/javascript" ></script>
+<script src="<?php echo base_url('resources/js/catalogosjs/doSearch.js')?>" type="text/javascript" ></script>
+
