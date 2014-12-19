@@ -18,7 +18,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Programas</a></li>
+                <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Programas</a></li>
                 <li><a href="#">Radios</a></li>
                 <li><a href="#">Precios</a></li>
                 <li><a href="#">Servicios</a></li>

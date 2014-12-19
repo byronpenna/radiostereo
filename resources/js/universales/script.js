@@ -126,8 +126,6 @@ $(document).ready(function(){
         	if(fechaSeleccionada<fi){
             	alert("la fecha de fin no puede ser menor que la fecha de inicio");
             	$(this).val("");
-        	}else{
-        		alert("Tiene que seleccionar una fecha de inicio");
         	}
     	}
     });
