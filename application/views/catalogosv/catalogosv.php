@@ -67,16 +67,6 @@
 				</tr>
 			</table>
 		</form>
-		<div id="contenido">
-                <div class="midBox1">	
-                    <div class="midBox1Top">
-                        <h3></h3>		 				 
-                    </div>
-                    <div class="datagrid">
-                        <form>
-                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Radio" />
-                        </form>
-                        <br />
                         <table id="resultados2" class="table">
                             <thead class="thead">
                                 <tr>
@@ -88,16 +78,13 @@
                               <?php echo $tabla->radio ?>
                             </tbody>
                         </table>
-                        <div style="border: 2px;" id="NavPosicion2"></div>
-                    </div>
-                    <script type="text/javascript">
+                         <div style="border: 2px;" id="NavPosicion2"></div>
+                         <script type="text/javascript">
                     var pager = new Pager('resultados2', 10);
                     pager.init();
                     pager.showPageNav('pager', 'NavPosicion2');
                     pager.showPage(1);
                                     </script>
-                </div>
-            </div>
 	</fieldset>
 	<fieldset class="fieldPrecio well">
 		<legend>Precios</legend>
@@ -157,6 +144,10 @@
 					<td><label for="apellido">Apellido:</label></td>
 					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" /></td>
 				</tr>
+				<tr style='display:none'>
+					<td><label for="iduser">Id Usuario:</label></td>
+					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" /></td>
+				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
@@ -172,6 +163,7 @@
 			</thead>
 			<tbody class='tbClientes'>
 				<?php echo $tabla->clientes ?>
+				
 			</tbody>
 		</table>
 	</fieldset>

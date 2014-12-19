@@ -127,6 +127,7 @@
 			$tabla->servicio =  $Catalogosm->DatosServicio();//carga la tabla servicios
 			$tabla->radio = $Catalogosm->DatosRadio();//carga la tabla radios
 			$tabla->clientes = $Catalogosm->DatosClientes();//carga la tabla clientes
+			$tabla->id = $_SESSION['iduser'];
 			$datos['tabla'] = $tabla; 
 			$datos['Titulo']="..::Catalogos::..";
 			$this->load->view('catalogosv/catalogosv.php', $datos);
