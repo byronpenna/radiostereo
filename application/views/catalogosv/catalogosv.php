@@ -12,7 +12,7 @@
 	<div><!--Mostramos el mensaje retornado-->
 		<h2 class="mensaje"></h2>
 	</div>
-	<fieldset class="fielPrograma well">
+	<fieldset class="fielPrograma well" id="fieldPrograma">
 		<legend>Programas</legend>
 		<form id="frmPrograma" method="POST" class="well"><!--Formulario para ingresar programas-->
 			<table>
@@ -56,7 +56,7 @@
             </div>
 	</fieldset>	
 	<br>
-	<fieldset class="fieldRadio well">
+	<fieldset class="fieldRadio well" id="fieldRadio">
 		<legend>Radios</legend>
 		<form id="frmRadio" method="POST" class="well"><!--Formulario para ingresar radio-->
 			<table>
@@ -86,7 +86,7 @@
                     pager.showPage(1);
                                     </script>
 	</fieldset>
-	<fieldset class="fieldPrecio well">
+	<fieldset class="fieldPrecio well" id="fieldPrecio">
 		<legend>Precios</legend>
 		<form id="frmPrecio" method="POST" class="well"><!--Formulario para ingresar precio-->
 			<table>
@@ -109,7 +109,7 @@
 		</tbody>
 	</table>
 	</fieldset>
-	<fieldset class="fieldServicio well">
+	<fieldset class="fieldServicio well" id="fieldServicio">
 		<legend>Servicios</legend>
 		<form id="frmServicio" method="POST" class="well"><!--Formulario para ingresar un servicio-->
 			<table>
@@ -132,7 +132,7 @@
 			</tbody>
 		</table>
 	</fieldset>
-	<fieldset class="fieldClientes well">
+	<fieldset class="fieldClientes well" id="fieldClientes">
 		<legend>Clientes</legend>
 		<form id="frmClientes" method="POST" class="well">
 			<table>
