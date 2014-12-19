@@ -69,13 +69,13 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="" value="" placeholder="" class="form-control input-sm medios fechaInicio datepicker" required>
+                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="" value="" placeholder="" class="form-control input-sm medios fechaFin datepicker" required>
+                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios fechaFin datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
@@ -115,13 +115,13 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
                                 </span>
                             </article>    
                     </article>
@@ -161,13 +161,13 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
                                 </span>
                             </article>    
                     </article>
@@ -207,13 +207,13 @@
                             <article class="fechaInicio">
                                     <span>Fecha Inicio </span>    
                                     <span>
-                                        <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                        <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fecha Fin </span>    
                                 <span>
-                                    <input type="text" name="pventa" value="" placeholder="$" class="form-control input-sm medios datepicker" required>
+                                    <input type="text" name="" value="" placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker" required>
                                 </span>
                             </article>    
                     </article>

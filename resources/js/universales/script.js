@@ -3,8 +3,8 @@ $(document).ready(function(){
 	$("select").prop('selectedIndex', -1);
 	var f = new Date();
     var fActual=f.getDate()+"-"+(f.getMonth() +1) + "-" +f.getFullYear() ;
-	$("#fechaCreacion").val(f.getDate()+"-"+(f.getMonth() +1) + "-" +f.getFullYear());
-
+	$("#fechaCreacion").val(fActual);
+	$(".fi").val(fActual);
 
 
 
@@ -110,14 +110,25 @@ $(document).ready(function(){
 
 
 
-    //capturar fecha actual de agregar cotizacion 
-    $(".datepicker").change(function(){
+    //capturar fechas de agregar cotizacion 
+    $(".fi").change(function(){
         var fechaSeleccionada = $(this).val();
         if(fechaSeleccionada<fActual){
             alert("fecha de inicio no puede ser menor que la actual");
-            $(this).val("");
+            $(this).val(fActual);
         }
-
     });
 
+    $(".ffin").change(function(){
+    	var fechaSeleccionada = $(this).val();
+    	if($(".fi").val()){
+    		var fi=$(".fi").val();
+        	if(fechaSeleccionada<fi){
+            	alert("la fecha de fin no puede ser menor que la fecha de inicio");
+            	$(this).val("");
+        	}else{
+        		alert("Tiene que seleccionar una fecha de inicio");
+        	}
+    	}
+    });
 });
