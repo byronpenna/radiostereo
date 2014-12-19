@@ -34,6 +34,12 @@ body{
   font-weight: bold;
   text-transform: uppercase;
 }
+.mega-dropdown { position: static !important; }
+.mega-dropdown-menu {
+  padding: 20px 15px 15px;
+  text-align: center;
+  width: 100%;
+}
 #menuc{
 	box-shadow: 1.5px 1.5px 1.5px #CCCCCC;
 }

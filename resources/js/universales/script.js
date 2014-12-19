@@ -2,12 +2,12 @@ $(document).ready(function(){
 
 	$("select").prop('selectedIndex', -1);
 	var f = new Date();
-	console.log(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-	$("#fechaCreacion").val(f.getFullYear()+"-"+(f.getMonth() +1) + "-" + f.getDate());
+    var fActual=f.getDate()+"-"+(f.getMonth() +1) + "-" +f.getFullYear() ;
+	$("#fechaCreacion").val(f.getDate()+"-"+(f.getMonth() +1) + "-" +f.getFullYear());
 
-	$('.fechaInicio').blur(function(){
-		console.log($(this).val());
-	});
+
+
+
 
 	$(document).on('submit','#frmLogout',function(e){
 		e.preventDefault();
@@ -90,8 +90,34 @@ $(document).ready(function(){
     //Date Picker
     $(function () {
 	$.datepicker.setDefaults($.datepicker.regional["es"]);
-	$("#datepicker").datepicker({
-		firstDay: 1
-	});
-});
+	$(".datepicker").datepicker({
+		firstDay: 1,
+        dateFormat: 'dd-mm-yy' 
+	   });
+    });
+
+    //Dropdown del menu de catalogos
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideDown("fast");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu', this).stop( true, true ).slideUp("fast");
+            $(this).toggleClass('open');       
+        }
+    );
+
+
+
+    //capturar fecha actual de agregar cotizacion 
+    $(".datepicker").change(function(){
+        var fechaSeleccionada = $(this).val();
+        if(fechaSeleccionada<fActual){
+            alert("fecha de inicio no puede ser menor que la actual");
+            $(this).val("");
+        }
+
+    });
+
 });
