@@ -13,6 +13,7 @@
 			$data["EstadoCot"] 	= $cotizacionModel->getEstadoCotizacion();
 			$data["Prog"] 		= $cotizacionModel->getProgAddCot();
 			$data["Servicios"]	=$cotizacionModel->getServiciosCot();
+			$data["Radios"]	=$cotizacionModel->getRadios();
 			$this->load->view("cotizacion/crearCotizacion.php",$data);
 		}
 	}

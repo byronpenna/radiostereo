@@ -30,8 +30,6 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-
-			$r= "<select name='tipo_cot' class='form-control input-sm'>";
 			$r= "<select name='tipo_cot' class='form-control input-sm pequenios'>";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
@@ -54,9 +52,7 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-
-			$r= "<select name='estado_cot' class='form-control input-sm'>";
-			$r= "<select name='estado_cot' class='form-control input-sm pequenios'>";
+			$r= "<select name='estado_cot' class='form-control input-sm pequenios' onload='this.selectedIndex = '-1'' >";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
@@ -82,8 +78,7 @@
 
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
-			$res= "<select name='programa' class='form-control input-sm'>";
-			$res= "<select name='programa' class='largos'>";
+			$res= "<select name='programa' class='largos' style='width:250px;' >";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
@@ -109,9 +104,9 @@
 
 		public function getPrecios(){
 			$query=$this->queryPrecios();
-			$res= "<select name='precio' class='form-control input-sm mpequenios'>";
+			$res= "<select name='precio' class='form-control input-sm mpequenios precios blur'>";
 			foreach ($query as $key => $valor) {
-				$res.="<option value='".$valor->pre_id."'> $ ".$valor->pre_precio."</option>";
+				$res.="<option value='".$valor->pre_id."'>$ ".$valor->pre_precio."</option>";
 			}
 			$res.="</select>";
 			return $res;
@@ -121,13 +116,31 @@
 			$this->load->model('catalogosm/catalogosm');
 			$catalogosm = new Catalogosm();
 			$query=$catalogosm->GetServicio();
+			$res="";
 			foreach ($query as $valor) {
 				$res.="<tr>
 						<td>".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
-                                <td><input type='text' name='' value='' placeholder='Segundos' class='form-control input-sm inAddCot' ></td>
-                                <td><input type='text' name='' value='' class='form-control input-sm inAddCot'></td>
+                                <td><input type='text' name='txtCantidad' value='' class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
+                                <td><input type='text' name='txtSubTotal' value='' class='txtSubTotal form-control input-sm inAddCot subTotal' disabled></td>
+					</tr>";
+			}	
+			return $res;	
+		}
+
+		public function getRadios(){
+			$this->load->model('catalogosm/catalogosm');
+			$catalogosm = new Catalogosm();
+			$query=$catalogosm->GetRadio();
+			$res="";
+			foreach ($query as $valor) {
+				$res.="<tr>
+						<td>".$valor->rad_nombre."</td>
+                                <td>".$this->getPrecios()."</td>
+                                <td><input type='text' name='txtCantidad' value='' class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                <td><input type='text' name='txtDuracion' value='' placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
+                                <td><input type='text' name='txtSubTotal' value='' class='form-control input-sm inAddCot subTotal' disabled></td>
 					</tr>";
 			}	
 			return $res;	

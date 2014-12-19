@@ -34,6 +34,12 @@ body{
   font-weight: bold;
   text-transform: uppercase;
 }
+.mega-dropdown { position: static !important; }
+.mega-dropdown-menu {
+  padding: 20px 15px 15px;
+  text-align: center;
+  width: 100%;
+}
 #menuc{
 	box-shadow: 1.5px 1.5px 1.5px #CCCCCC;
 }
@@ -281,7 +287,7 @@ text-decoration:none;
 }
 .titleAddCot{
   width:21%;
-  width:30%;
+  width:31%;
   margin:2em;
   margin-left:10%;
 }
@@ -289,13 +295,10 @@ text-decoration:none;
   display: inline-block;
   margin-left:10px;
   margin-left:0px;
-}
-.largos{
-  margin-left:22px;
-  width: 250px;
+  margin:10px;
 }
 .pequenios{
-  width: 90px;
+  width: 150px;
 }
 .medios{
   width: 140px;
@@ -372,7 +375,7 @@ textarea{
   float:right;
 }
 #contBtnAddCot{
-  width: 22%;
+  width: 30%;
   float:right;
   margin-top:2%;
 }

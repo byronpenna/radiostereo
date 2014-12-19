@@ -15,7 +15,15 @@
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav">
             <li><a href="<?php echo site_url('main/main'); ?>">Inicio</a></li>
-            <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Catalogos</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
             <li><a href="#">Solicitudes</a></li>
             <li><a href="#">Cotizaciones</a></li>
         </ul>
