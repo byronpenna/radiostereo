@@ -6,28 +6,24 @@ $(document).ready(function(){
 	$("#fechaCreacion").val(fActual);
 	$(".fi").val(fActual);
 
+    //Recargar pagina
+    $("#limpiar").click(function(){
+        location.reload();
+    });
+
 
 	$(document).on('submit','#frmLogout',function(e){
 		e.preventDefault();
 		var frmlout= serializeToJson($(this).serializeArray());
-		console.log(frmlout);
 		logOut(frmlout);
 	});
 
     //obtener datos de el encabezado
     $("#guardarCot").click(function(){
-        header               = serializeToJson($(".cotHeader :input").serializeArray());
-        programa             = serializeToJson($(".programas :input").serializeArray());
-        cunia                = serializeToJson($(".cunias  :input").serializeArray());
-        entrevista           = serializeToJson($(".entrevista  :input").serializeArray());
-        produccion           = serializeToJson($(".produccion  :input").serializeArray());
+        datosAddCot          = serializeToJson($("#mainCot :input").serializeArray());
         frmGlobal            = new Object();
-        frmGlobal.header     = header;
-        frmGlobal.programa   = programa;
-        frmGlobal.cunia      = cunia;
-        frmGlobal.entrevista = entrevista;
-        frmGlobal.produccion = produccion;
-        console.log(programa);
+        frmGlobal.datosAddCot     = datosAddCot;
+        console.log(datosAddCot);
     });
 
 
@@ -100,6 +96,7 @@ $(document).ready(function(){
     	if(sum.toFixed(2)!=0.00){
     		total.val(sum.toFixed(2));
     	}
+
     });
 
     //Date Picker
@@ -124,27 +121,40 @@ $(document).ready(function(){
     );
 
 
-    //capturar fechas de agregar cotizacion 
+    //capturar fechas de agregar cotizacion y manipularlas
     $(".fi").change(function(){
-        var fechaSeleccionada = $(this).val();
-        if(fechaSeleccionada<fActual){
-            alert("fecha de inicio no puede ser menor que la actual");
-            $(this).val(fActual);
+        padre=$(this).parents(".fechasFooter");
+        var fi = padre.find(".fi");
+        var ffin = padre.find(".ffin");
+        var fechaSeleccionada = fi.val(); 
+        if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada)<$.datepicker.parseDate('dd-mm-yy', fActual)){
+            alertify.alert("La fecha de inicio no puede ser menor que la fecha actual", function () {
+                    fi.val(fActual);        
+                });
+        }
+        if(ffin.val()){
+            if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada)>$.datepicker.parseDate('dd-mm-yy', ffin.val())){
+                alertify.alert("Ha cambiado la fecha de inicio, por lo tanto la fecha de fin debe cambiar",function(){
+                    ffin.val("");   
+                });
+            }
         }
     });
 
     $(".ffin").change(function(){
-    	var fechaSeleccionada = $(this).val();
-    	if($(".fi").val()){
-    		var fi=$(".fi").val();
-            //fechaSeleccionada<fi
-        	if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada) < $.datepicker.parseDate('dd-mm-yy', fi)){
-            	alert("la fecha de fin no puede ser menor que la fecha de inicio");
-            	$(this).val("");
+        padre=$(this).parents(".fechasFooter");
+        var hijo = padre.find(".ffin");
+        var hijoo = padre.find(".fi");
+        var fechaSeleccionada = hijo.val();
+        var fechaInicio = hijoo.val()
+    	if(fechaInicio){
+        	if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada) < $.datepicker.parseDate('dd-mm-yy', fechaInicio)){
+            	alertify.alert("La fecha de fin no puede ser menor que la fecha de inicio",function(){
+                    hijo.val("");
+                });
         	}
     	}
     });
-
 
     //Boton cancelar de la parte de agregar cotizacion 
     $(".cancel").click(function(){

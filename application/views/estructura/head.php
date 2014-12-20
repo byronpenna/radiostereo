@@ -6,6 +6,8 @@
 
 <!-- Estilo General -->
 <link rel="stylesheet" href="<?php echo base_url('resources/css/bootstrap.css')?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url('resources/css/alertify.core.css')?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url('resources/css/alertify.default.css')?>" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('resources/css/estilo.css') ?>" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('resources/css/jquery-ui.css') ?>" type="text/css" />
 <link rel="stylesheet" href="<?php echo base_url('resources/css/style.css') ?>" type="text/css" /><!--Estilo catalogos-->
@@ -15,6 +17,7 @@
 <script src="<?php echo base_url('resources/js/jquery-1.11.1.min.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/bootstrap.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/jquery-ui.js')?>" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="<?php echo base_url('resources/js/alertify.js')?>"></script>
 <script src="<?php echo base_url('resources/js/miscript.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/script.js')?>" type="text/javascript" charset="utf-8"></script>
@@ -25,7 +28,6 @@
 <script src="<?php echo base_url('resources/js/serviciov/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/serviciov/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/radiov/function.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/radiov/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/radiov/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/clientesv/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/clientesv/script.js')?>" type="text/javascript" charset="utf-8"></script>
