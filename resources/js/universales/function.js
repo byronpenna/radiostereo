@@ -66,7 +66,7 @@ function logOut(frm){
            var datos = jQuery.parseJSON(data);
         	  alert("Datos Recibidos y una respuesta del servidor rescibida tambien jajaja xD");
      	});
-}
+	}
 
 
 
