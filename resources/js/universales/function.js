@@ -55,7 +55,7 @@ function logOut(frm){
 	}
 
 	//Funcion para agregar datos a la tabla cotizaciones
-	function login(frm){
+	function addCotizacion(frm){
 	$.ajax({
          data:{
            form: JSON.stringify(frm)

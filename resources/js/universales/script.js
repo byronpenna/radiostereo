@@ -32,6 +32,7 @@ $(document).ready(function(){
         frmGlobal.entrevistasCot    = entrevistasCot;
         frmGlobal.produccionesCot   = produccionesCot;
         console.log(produccionesCot);
+        addCotizacion(frmGlobal);
     });
 
 

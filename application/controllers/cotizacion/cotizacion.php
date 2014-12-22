@@ -7,7 +7,7 @@
 		public function crearCotizacion($id){
 			$this->load->model("cotizacionm/cotizacionm");
 			$cotizacionModel 	= new cotizacionm();
-			$data['Titulo']		= 'Cotizacion';
+			$data['Titulo']		= 'Crear Cotizacion';
 			$data["cliente"] 	= $cotizacionModel->getDatosCliente($id);
 			$data["TipoCot"] 	= $cotizacionModel->getTipoCotizacion();
 			$data["EstadoCot"] 	= $cotizacionModel->getEstadoCotizacion();
