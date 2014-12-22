@@ -56,59 +56,8 @@
             </div>
 	</fieldset>	
 	<br>
-	<fieldset class="fieldRadio well" id="fieldRadio">
-		<legend>Radios</legend>
-		<form id="frmRadio" method="POST" class="well"><!--Formulario para ingresar radio-->
-			<table>
-				<tr>
-					<td><label for="nombradio">Nombre Radio:</label></td>
-					<td><input type="text" name="txtnombradio" class="vaciarinput form-control" /></td>
-					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
-				</tr>
-			</table>
-		</form>
-                        <table id="resultados2" class="table">
-                            <thead class="thead">
-                                <tr>
-                                   <th>Nombre Radio</th>
-									<th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tbradio">
-                              <?php echo $tabla->radio ?>
-                            </tbody>
-                        </table>
-                         <div style="border: 2px;" id="NavPosicion2"></div>
-                         <script type="text/javascript">
-                    var pager = new Pager('resultados2', 10);
-                    pager.init();
-                    pager.showPageNav('pager', 'NavPosicion2');
-                    pager.showPage(1);
-                                    </script>
-	</fieldset>
-	<fieldset class="fieldPrecio well" id="fieldPrecio">
-		<legend>Precios</legend>
-		<form id="frmPrecio" method="POST" class="well"><!--Formulario para ingresar precio-->
-			<table>
-				<tr>
-					<td><label for="precio">Precio $</label></td>
-					<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros vaciarinput form-control" /></td>
-					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
-				</tr>
-			</table>
-		</form>
-	<table class="table"><!--Datos de la bd de catalogo precios-->
-		<thead class="thead">
-			<tr>
-				<th>Tarifas</th>
-				<th>Acción</th>	
-			</tr>
-		</thead>
-		<tbody class="tbprecios">
-			<?php echo $tabla->precio ?>
-		</tbody>
-	</table>
-	</fieldset>
+	
+	
 	<fieldset class="fieldServicio well" id="fieldServicio">
 		<legend>Servicios</legend>
 		<form id="frmServicio" method="POST" class="well"><!--Formulario para ingresar un servicio-->
