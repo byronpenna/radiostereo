@@ -86,7 +86,9 @@
 				$retornar .="<tr class='styleTR alt'>
 								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
-								<td><button class='".$clases['class3']."'>Editar</button></td>
+								<td><button class='".$clases['class3']."'>Editar</button>
+									<button class='btn btn-sm btn-danger'>Eliminar</button>
+								</td>
 							</tr>";
 			}
 			return $retornar;
@@ -155,7 +157,9 @@
 								<td style='display:none'><input value='".$row->cli_id."' class='inputClienteId'></td>
 								<td class='tdNombCliente'>".$row->cli_nombres."</td>
 								<td class='tdApellidoCliente'>".$row->cli_apellidos."</td>
-								<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button></td>
+								<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button>
+									<button class='btn btn-sm btn-danger'>Eliminar</button>
+								</td>
 							</tr>";
 			}
 			return $retorno;

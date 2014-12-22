@@ -37,6 +37,7 @@ function saveEditPrograma(update,tr){
 					<td class='tdProgramNombre'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
 					</td>";//creamos el nuevo fila
 				tr.empty().append(tr2);
 			}
@@ -130,6 +131,7 @@ function savenewPrecio(form,tr) {
 					<td class='tdPrecio'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
@@ -195,6 +197,7 @@ function savenewRadio (form,tr) {
 					<td class='tdRadioNomb'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
@@ -262,6 +265,7 @@ function savenewServicio (frm,tr) {
 					<td class='tdServicio'>"+data.dato+"</td>\
 					<td>\
 						<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
@@ -336,6 +340,7 @@ function saveEditCliente (form,tr) {
 					<td class='tdApellidoCliente'>"+data.dato2+"</td>\
 					<td>\
 						<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
 					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
 			//console.log(datos);
