@@ -122,12 +122,7 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
-			$tabla->id = $_SESSION['iduser'];
 			$tabla->programas = $Catalogosm->datos_programa();//carga la tabla programas
-			
-			$tabla->servicio =  $Catalogosm->DatosServicio();//carga la tabla servicios
-			$tabla->radio = $Catalogosm->DatosRadio();//carga la tabla radios
-			$tabla->clientes = $Catalogosm->DatosClientes($tabla->id);//carga la tabla clientes
 			
 			$datos['tabla'] = $tabla; 
 			$datos['Titulo']="..::Catalogos::..";

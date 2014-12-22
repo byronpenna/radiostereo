@@ -20,9 +20,9 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Programas</a></li>
                 <li><a href="<?php echo site_url('radiosc/radiosc'); ?>">Radios</a></li>
-                <li><a href="#">Precios</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Clientes</a></li>
+                <li><a href="<?php echo site_url('preciosc/preciosc'); ?>">Precios</a></li>
+                <li><a href="<?php echo site_url('servicioc/servicioc'); ?>">Servicios</a></li>
+                <li><a href="<?php echo site_url('clientesc/clientesc'); ?>">Clientes</a></li>
               </ul>
             </li>
             <li><a href="#">Solicitudes</a></li>
