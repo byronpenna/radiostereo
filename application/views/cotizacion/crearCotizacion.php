@@ -18,7 +18,7 @@
     <h3>Crear Cotizacion</h3>
     <hr id="hr">
     	<section id="mainCot">
-    		<article id="cotHeader">
+    		<article id="cotHeader" class="headerCot">
     			<article>
     				<p>Id de Cliente <span><?= $cliente->cli_id ?> <input type="hidden" name="idCliente" value="<?= $cliente->cli_id ?>"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
     				<p>Nombre <span><?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?></span></p>	
@@ -37,7 +37,7 @@
     		</article>
 			<section id="contCotSer">
                 <!-- Contenedor para los programas -->
-				<article id="conProgra">
+				<article id="conProgra" class="programasCot">
                     <h4 class="text-center">Programas</h4>
                     <article class="titleAddCot "><span>Programa </span><span><?php echo $Prog;?></span></article>
                     <article class="contPVenta "><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm"></span></article>
@@ -83,7 +83,7 @@
                 </article>
                 <!-- Finaliza Contenedor para los programas -->
                 <!-- Contenedor para las Cuñas -->
-                <article id="conProgra">
+                <article id="conProgra" class="cuniasCot">
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdCuna" value="1" >
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>
@@ -129,7 +129,7 @@
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra">
+                <article id="conProgra" class="entrevistasCot">
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdEntrevista" value="2" >
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto"  name="pventa"  placeholder="$" class="form-control input-sm" required></span></article>
@@ -175,7 +175,7 @@
                 </article>
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
-                <article id="conProgra">
+                <article id="conProgra" class="produccionesCot">
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdProduccion" value="3">
                     <article class="conttPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa"  placeholder="$" class="form-control input-sm" required></span></article>
@@ -221,7 +221,7 @@
                 </article>
                 <!-- Finaliza contenedor de las Produccion -->
                 <!-- Contenedor para los Valores Agregados -->
-                <article id="conProgra" class='cotHeader' >
+                <article id="conProgra" class="headerCot" >
                     <h4  class="text-center">Valores Agregados</h4>
                     <article id="textAddCot">
                         <textarea name="txtValorAgregado" cols="50" rows="6" class="form-control"></textarea>    

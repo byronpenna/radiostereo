@@ -119,7 +119,7 @@
 			$res="";
 			foreach ($query as $valor) {
 				$res.="<tr>
-						<td>".$valor->serv_nombre."</td>
+						<td><input type='hidden' value='".$valor->serv_id."' name='txtIdServ' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
                                 <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
@@ -136,7 +136,7 @@
 			$res="";
 			foreach ($query as $valor) {
 				$res.="<tr>
-						<td>".$valor->rad_nombre."</td>
+						<td><input type='hidden' name='txtIdRadio' value='".$valor->rad_id."' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
                                 <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>

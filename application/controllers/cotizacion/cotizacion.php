@@ -16,5 +16,9 @@
 			$data["Radios"]	=$cotizacionModel->getRadios();
 			$this->load->view("cotizacion/crearCotizacion.php",$data);
 		}
+
+		public function recibeDatosAdd(){
+			echo "los datos si se resiviran aca xD";
+		}
 	}
 ?>

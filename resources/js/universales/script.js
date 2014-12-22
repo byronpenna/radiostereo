@@ -20,10 +20,18 @@ $(document).ready(function(){
 
     //obtener datos de el encabezado
     $("#guardarCot").click(function(){
-        datosAddCot          = serializeToJson($("#mainCot :input").serializeArray());
-        frmGlobal            = new Object();
-        frmGlobal.datosAddCot     = datosAddCot;
-        console.log(datosAddCot);
+        headerCot                   = serializeToJson($(".headerCot :input").serializeArray());
+        programasCot                = serializeToJson($(".programasCot :input").serializeArray());
+        cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
+        entrevistasCot              = serializeToJson($(".entrevistasCot :input").serializeArray());
+        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());
+        frmGlobal                   = new Object();
+        frmGlobal.headerCot         = headerCot;
+        frmGlobal.programasCot      = programasCot;
+        frmGlobal.cuniasCot         = cuniasCot;
+        frmGlobal.entrevistasCot    = entrevistasCot;
+        frmGlobal.produccionesCot   = produccionesCot;
+        console.log(produccionesCot);
     });
 
 
@@ -58,6 +66,8 @@ $(document).ready(function(){
       	e.preventDefault();
     });
 
+
+    //Evento para calcular el total de las filas tomando precio,cantidad y duracion.
     $('.blur').blur(function(){
     	tr 			= $(this).parents("tr");
     	tabla		= $(this).parents("table");
@@ -96,7 +106,6 @@ $(document).ready(function(){
     	if(sum.toFixed(2)!=0.00){
     		total.val(sum.toFixed(2));
     	}
-
     });
 
     //Date Picker
