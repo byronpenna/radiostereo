@@ -31,7 +31,8 @@
 					if(session_start()==null){
 				session_start();
 			}
-					$_SESSION['iduser']=$valor->usu_id;
+					$_SESSION['iduser']	=$valor->usu_id;
+					
 				}
 			}
 			return $datos;
