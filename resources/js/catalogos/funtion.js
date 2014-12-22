@@ -63,7 +63,9 @@ function agregarPrograma(frm){//funcion que manda los datos al controlador
 							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\
 						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
-						<td><button class='btnEditar btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio	
@@ -89,7 +91,9 @@ function agregarPrecio(frm) {//funcion que manda los datos de precio al controla
 							<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
 						</td>\
 						<td class='tdPrecio'>"+frm.precio+"</td>\
-						<td><button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
@@ -156,7 +160,9 @@ function agregarradio(frm) {//funcion que manda los datos de radio al controlado
 							<input name='txtidRadio' value='"+data.last_id+"' class='inputRadioId'>\
 						</td>\
 						<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
-						<td><button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbradio").prepend(tr);//ponemos el nuevo valor al principio
@@ -223,7 +229,9 @@ function agregarservicio(form) {//funcion que manda los datos del servicio al co
 							<input name='txtidServicio' value='"+data.last_id+"' class='inputServId'>\
 						</td>\
 						<td class='tdServicio'>"+form.servicio+"</td>\
-						<td><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
 					  </tr>"
 				$(".vaciarinput").val("");
 				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
@@ -291,7 +299,9 @@ function agregarcliente(frm) {
 						</td>\
 						<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
 						<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
-						<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
 					  </tr>"
 				$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
 				//console.log(frm);

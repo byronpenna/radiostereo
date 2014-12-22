@@ -29,6 +29,9 @@ fieldset{
 .thead{
 	background: #3682F3;
 	color: white;
+	text-align: center;
+}
+.thead > th{
 }
 /*input busqueda*/
 #searchTerm{
