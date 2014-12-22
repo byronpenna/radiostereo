@@ -33,7 +33,7 @@
                             <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Programa" />
                         </form>
                         <br />
-                        <table id="resultados" class="table" border="2px">
+                        <table id="resultados" class="table">
                             <thead class="thead">
                                 <tr>
                                    <th>Nombre Programa</th>
