@@ -24,7 +24,7 @@
         <div class="midBox1">
         		<div class="datagrid">
         <form>
-           <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Programa" />
+           <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Precio" />
         </form>
         <br />
 		        <table id="resultados" class="table"><!--Datos de la bd de catalogo precios-->
