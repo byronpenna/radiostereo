@@ -88,6 +88,7 @@
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
 								<td><button class='".$clases['class3']."'>Editar</button>
 									<button class='btn btn-sm btn-danger'>Eliminar</button>
+									<button class='btn btn-primary btn-sm'>Eliminar</button>
 								</td>
 							</tr>";
 			}
@@ -160,6 +161,7 @@
 								<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button>
 									<button class='btn btn-sm btn-danger'>Eliminar</button>
 								</td>
+								<button class='btn btn-primary btn-sm'>Eliminar</button></td>
 							</tr>";
 			}
 			return $retorno;

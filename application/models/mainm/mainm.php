@@ -8,7 +8,7 @@
 		public function get_clientedb($iduser)
 		{
 			$this->db->trans_start();
-				$sql = "SELECT * FROM cli_cliente WHERE cli_usu_id =".$iduser." or cli_usu_id = 0";
+				$sql = "SELECT * FROM cli_cliente WHERE cli_usu_id =".$iduser." or cli_usu_id = 0 ORDER BY cli_usu_id desc";
 				$query=$this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
@@ -20,7 +20,7 @@
 			$retorno = "";
 			foreach ($datos as $row) {
 				if($row->cli_usu_id == $iduser){
-					$color = "207,218,232,1";	
+					$color = "44,156,247,0.4";	
 				}else{
 					$color = "144, 240, 139, 0.8";
 				}

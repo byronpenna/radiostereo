@@ -146,11 +146,22 @@
 			return $res;	
 		}
 
+		//Funcion para insertar datos en la cotizacion
 		public function insertCotizacion($frm){
-			$datos = new stdClass();
-			$datos->validacion=false;
-			$encabezado="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',".$frm->headerCot->txtidCliente.",".$frm->headerCot->tipo_cot.",".$frm->headerCot->estado_cot.",".$frm->headerCot->idUsuario.")";
-			return $retorno;
+			$header 		= $frm->headerCot;
+			$programas 		= $frm->programasCot;
+			$cunias 		= $frm->cuniasCot;
+			$entrevistas 	= $frm->entrevistasCot;
+			$producciones 	= $frm->produccionesCot;
+			$retorno = new stdClass();
+			$this->db->trans_start();
+			
+
+
+
+
+			/*$sql="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',".$frm->headerCot->txtidCliente.",".$frm->headerCot->tipo_cot.",".$frm->headerCot->estado_cot.",".$frm->headerCot->idUsuario.")";
+			$this->db->query($sql);*/
 		}
 
 	}

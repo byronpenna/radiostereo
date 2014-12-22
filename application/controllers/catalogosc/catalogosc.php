@@ -23,9 +23,9 @@
 			//vars
 				$frm = json_decode($_POST["form"]);//decodificamos el objeto json que viene de la funcion agregarPrecio en el archivo fintion.php
 			$this->load->model('catalogosm/catalogosm');
-			$Catalogosm = new Catalogosm();
-			$data = array('pre_precio' => $frm->precio);
-			$mensaje = $Catalogosm->add_catalogos('pre_precio',$data);
+			$Catalogosm 				= new Catalogosm();
+			$data 						= array('pre_precio' 	=> $frm->precio);
+			$mensaje 					= $Catalogosm->add_catalogos('pre_precio',$data);
 			echo json_encode($mensaje);
 		}
 		public function insert_servicio()
@@ -42,7 +42,7 @@
 		public function insert_radio()
 		{
 			//vars
-				$form = json_decode($_POST["form"]);
+			$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array('rad_nombre' => $form->txtnombradio);
@@ -52,10 +52,13 @@
 		public function insert_cliente()
 		{
 			//vars
-				$form = json_decode($_POST["form"]);
+			$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$data = array('cli_nombres' => $form->txtnombcliente, 'cli_apellidos ' => $form->txtapellido, 'cli_usu_id'=>$form->txtIdUser);
+			$data = array(
+				'cli_nombres' => $form->txtnombcliente,
+				'cli_apellidos ' => $form->txtapellido,
+				'cli_usu_id'=>$form->txtIdUser);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			echo json_encode($mensaje);
 		}
@@ -111,7 +114,7 @@
 		public function update_cliente()
 		{
 			//vars
-				$updatfrm = json_decode($_POST["form"]);
+			$updatfrm = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->update_clientedb($updatfrm);
