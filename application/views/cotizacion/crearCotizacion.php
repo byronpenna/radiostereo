@@ -41,7 +41,7 @@
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
                         <article class="titleProgra"><span>Programa </span><span><?php echo $Prog;?></span></article>
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control"></span></article>    
+                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table width="100%" >
@@ -89,7 +89,7 @@
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdCuna" value="1" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>    
+                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -137,7 +137,7 @@
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdEntrevista" value="2" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>    
+                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">
@@ -185,7 +185,7 @@
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdProduccion" value="3">
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto" name="pventa" value="" placeholder="$" class="form-control input-sm" required></span></article>    
+                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all">

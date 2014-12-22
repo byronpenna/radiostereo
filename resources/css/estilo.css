@@ -249,9 +249,14 @@ text-decoration:none;
   padding:auto;
   width:33%;
 }
+#cotHeader{
+  width: 80%;
+  margin: auto;
+  padding: auto;
+}
 #cotHeader article{
     background: transparent;
-    margin-left:5%;
+    margin-left:7%;
     margin-top:1%;
     display: inline-block;
     vertical-align: top;
@@ -293,7 +298,7 @@ text-decoration:none;
   margin:3.5px;
 }
 .contPVenta{
-    width:35%;
+    width:30%;
     float: right;
 }
 .titleProgra{
