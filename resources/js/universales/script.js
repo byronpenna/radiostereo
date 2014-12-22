@@ -31,7 +31,6 @@ $(document).ready(function(){
         frmGlobal.cuniasCot         = cuniasCot;
         frmGlobal.entrevistasCot    = entrevistasCot;
         frmGlobal.produccionesCot   = produccionesCot;
-        console.log(produccionesCot);
         addCotizacion(frmGlobal);
     });
 
