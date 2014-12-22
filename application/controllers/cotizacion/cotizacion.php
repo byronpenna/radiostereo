@@ -13,12 +13,17 @@
 			$data["EstadoCot"] 	= $cotizacionModel->getEstadoCotizacion();
 			$data["Prog"] 		= $cotizacionModel->getProgAddCot();
 			$data["Servicios"]	=$cotizacionModel->getServiciosCot();
-			$data["Radios"]	=$cotizacionModel->getRadios();
+			$data["Radios"]		=$cotizacionModel->getRadios();
 			$this->load->view("cotizacion/crearCotizacion.php",$data);
 		}
 
 		public function recibeDatosAdd(){
-			echo "los datos si se resiviran aca xD";
+			$this->load->model("cotizacionm/cotizacionm");
+			$form 			= json_decode($_POST['form']);
+			$retorno 		= new stdClass();
+			$cotizacionm 	= new cotizacionm();
+			$retorno		=$cotizacionm->insertCotizacion($form);
+			echo json_encode($retorno);
 		}
 	}
 ?>

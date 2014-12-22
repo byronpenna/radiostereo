@@ -20,14 +20,14 @@
     	<section id="mainCot">
     		<article id="cotHeader" class="headerCot">
     			<article>
-    				<p>Id de Cliente <span> <input type="text" name="idCliente" value="<?= $cliente->cli_id ?> " class="form-control input-sm pequenios" readonly="true"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
+    				<p>Id de Cliente <span> <input type="text" name="txtidCliente" value="<?= $cliente->cli_id ?> " class="form-control input-sm pequenios" readonly="true"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
     				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
                         <?php echo $TipoCot; ?>
     				</span></p>
-    				<p>Estado de Ctoizacion <span>
+    				<p>Estado de Cotizacion <span>
     					<?php echo $EstadoCot; ?>
     				</span></p>
     			</article>

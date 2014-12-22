@@ -63,7 +63,7 @@ function logOut(frm){
          	url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
          	type:   "POST",
          	success: function(data){
-         		alert("hola");
+         		console.log(data);
          	}
 		});
 	}
