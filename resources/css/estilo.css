@@ -282,13 +282,10 @@ text-decoration:none;
   text-decoration: none;
   margin-top:10px;
 }
-.contTitle{
-  background: red;
-}
 .contTitle article{
   vertical-align: top;
   display: inline-block;
-  margin-left:90px;
+  margin-left:70px;
 }
 .contTitle article span{
   display: inline-block;
@@ -296,8 +293,7 @@ text-decoration:none;
   margin:3.5px;
 }
 .contPVenta{
-    width:20%;
-    background: orange;
+    width:35%;
     float: right;
 }
 .titleProgra{
