@@ -21,9 +21,10 @@
 			$this->load->model("cotizacionm/cotizacionm");
 			$form 			= json_decode($_POST['form']);
 			$header 		= $form->headerCot;
+			$seccion 		= $form->secCot;
 			$retorno 		= new stdClass();
 			$cotizacionm 	= new cotizacionm();
-			$tabla 			= array(
+			/*$tabla 			= array(
 				'cot_id'				=> '',
 				'cot_fecha_elaboracion'	=> $header->txtFechaCreacionCot,
 				'cot_valor_agregado'	=> $header->txtValorAgregado,
@@ -32,9 +33,9 @@
 				'cot_est_id'			=> $header->estado,
 				'cot_usu_id'			=> $header->idUsuario
 
-				);
-			$retorno					= $cotizacionm->insertHeadCot($head);
-			echo json_encode($retorno);
+				);*/
+			// $retorno					= $cotizacionm->insertHeadCot($head);
+			echo json_encode($form->secCot);
 		}
 	}
 ?>

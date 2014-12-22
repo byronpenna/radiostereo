@@ -21,16 +21,16 @@ $(document).ready(function(){
     //obtener datos de el encabezado
     $("#guardarCot").click(function(){
         headerCot                   = serializeToJson($(".headerCot :input").serializeArray());
-        programasCot                = serializeToJson($(".programasCot :input").serializeArray());
-        cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
+        secCot                      = serializeToJson($("#conProgra :input").serializeArray());
+        /*cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
         entrevistasCot              = serializeToJson($(".entrevistasCot :input").serializeArray());
-        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());
+        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());*/
         frmGlobal                   = new Object();
         frmGlobal.headerCot         = headerCot;
-        frmGlobal.programasCot      = programasCot;
-        frmGlobal.cuniasCot         = cuniasCot;
+        frmGlobal.secCot            = secCot;
+        /*frmGlobal.cuniasCot         = cuniasCot;
         frmGlobal.entrevistasCot    = entrevistasCot;
-        frmGlobal.produccionesCot   = produccionesCot;
+        frmGlobal.produccionesCot   = produccionesCot;*/
         addCotizacion(frmGlobal);
     });
 

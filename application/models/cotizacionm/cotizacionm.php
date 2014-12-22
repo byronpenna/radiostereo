@@ -155,13 +155,35 @@
 			$producciones 	= $frm->produccionesCot;
 			$retorno = new stdClass();
 			$this->db->trans_start();
-			
+			$flag = $this->insertHeaderCot($header);
+			if($flag){
 
-
-
-
+			}
+			$this->db->trans_complete();
 			/*$sql="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',".$frm->headerCot->txtidCliente.",".$frm->headerCot->tipo_cot.",".$frm->headerCot->estado_cot.",".$frm->headerCot->idUsuario.")";
 			$this->db->query($sql);*/
+		}
+
+		public function insertHeaderCot($obj){
+				$tabla 			= array(
+				'cot_id'				=> '',
+				'cot_fecha_elaboracion'	=> $obj->txtFechaCreacionCot,
+				'cot_valor_agregado'	=> $obj->txtValorAgregado,
+				'cot_cli_id'			=> $obj->txtidCliente,
+				'cot_tip_id'			=> $obj->tipo,
+				'cot_est_id'			=> $obj->estado,
+				'cot_usu_id'			=> $obj->idUsuario
+				);	
+
+				$flag = $this->db->insert('cot_encabezado_cotiazcion',$tabla);
+
+				return $flag;
+		}
+
+		public function insertPrograma($obj){
+			// $tabla = array(
+			// 	''=>,
+			// 	);
 		}
 
 	}

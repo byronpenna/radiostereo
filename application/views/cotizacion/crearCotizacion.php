@@ -37,7 +37,7 @@
     		</article>
 			<section id="contCotSer">
                 <!-- Contenedor para los programas -->
-				<article id="conProgra" class="programasCot">
+				<article id="conProgra" >
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
                         <article class="titleProgra"><span>Programa </span><span><?php echo $Prog;?></span></article>
@@ -85,9 +85,9 @@
                 </article>
                 <!-- Finaliza Contenedor para los programas -->
                 <!-- Contenedor para las Cuñas -->
-                <article id="conProgra" class="cuniasCot">
+                <article id="conProgra" >
                     <h4 class="text-center">Cu&ntilde;a</h4>
-                    <input type="hidden" name="txtIdCuna" value="1" >
+                    <input type="hidden" name="txtIdSec" value="1" >
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>    
                     </article>
@@ -133,9 +133,9 @@
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra" class="entrevistasCot">
+                <article id="conProgra" >
                     <h4 class="text-center">Entrevista</h4>
-                    <input type="hidden" name="txtIdEntrevista" value="2" >
+                    <input type="hidden" name="txtIdSec" value="2" >
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
@@ -181,9 +181,9 @@
                 </article>
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
-                <article id="conProgra" class="produccionesCot">
+                <article id="conProgra" >
                     <h4 class="text-center">Producci&oacute;n</h4>
-                    <input type="hidden" name="txtIdProduccion" value="3">
+                    <input type="hidden" name="txtIdSec" value="3">
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
