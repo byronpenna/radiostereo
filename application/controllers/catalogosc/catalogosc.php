@@ -130,7 +130,7 @@
 			$tabla->clientes = $Catalogosm->DatosClientes($tabla->id);//carga la tabla clientes
 			
 			$datos['tabla'] = $tabla; 
-			$datos['Titulo']="Catalogos";
+			$datos['Titulo']="..::Catalogos::..";
 			$this->load->view('catalogosv/catalogosv.php', $datos);
 
 		}
