@@ -183,9 +183,6 @@ text-decoration:none;
   display: inline-block;
   width:10%;
 }
-.tu ul{
-  background: none;
-}
 @media screen and (max-width: 1199px) {
      .tu ul li{
         display: block;
@@ -269,7 +266,7 @@ text-decoration:none;
   font-weight: bold;
 }
 #contCotSer input[type="text"]{
-  height:22px;
+  height:28px;
   width:100px;
 }
 #contCotSer select{
@@ -285,8 +282,28 @@ text-decoration:none;
   text-decoration: none;
   margin-top:10px;
 }
-.titleAddCot{
-  width:21%;
+.contTitle{
+  background: red;
+}
+.contTitle article{
+  vertical-align: top;
+  display: inline-block;
+  margin-left:90px;
+}
+.contTitle article span{
+  display: inline-block;
+  vertical-align: top;
+  margin:3.5px;
+}
+.contPVenta{
+    width:20%;
+    background: orange;
+    float: right;
+}
+.titleProgra{
+  width:50%;
+} 
+/* .titleAddCot{
   width:31%;
   margin:2em;
   margin-left:10%;
@@ -294,15 +311,14 @@ text-decoration:none;
 .titleAddCot span{
   display: inline-block;
   margin-left:10px;
-  margin-left:0px;
   margin:10px;
   vertical-align: top;
 }
 .titleAddCot span select{
   padding:0px;
-}
+} */
 .pequenios{
-  width: 150px;
+  width: 120px;
 }
 .medios{
   width: 140px;
@@ -322,7 +338,7 @@ textarea{
   border-top:1px solid #CCCCCC;
   box-shadow: 0.5em 0.5em 0.5em solid #000000;
 }
-.contPVenta{
+/* .contPVenta{
   width:26%;
   margin:2em;
   margin-left:70%;
@@ -347,7 +363,7 @@ textarea{
 }
 .conttPVenta input[type="text"]{
   margin-left:10%;
-}
+} */
 .cuerpo{
   width: 80%;
   margin: auto;

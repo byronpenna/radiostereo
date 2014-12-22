@@ -78,7 +78,7 @@
 
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
-			$res= "<select name='programa' class='form-control' style='width:240px;' >";
+			$res= "<select name='programa' class='form-control' style='width:240px;height:28px;' >";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
