@@ -149,7 +149,7 @@
 		public function insertCotizacion($frm){
 			$datos = new stdClass();
 			$datos->validacion=false;
-			$encabezado="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',"..","..","..")";
+			$encabezado="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',".$frm->headerCot->txtidCliente.",".$frm->headerCot->tipo_cot.",".$frm->headerCot->estado_cot.",".$frm->headerCot->idUsuario.")";
 			return $retorno;
 		}
 
