@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	$("select").prop('selectedIndex', -1);
 	var f = new Date();
-    var fActual=f.getDate()+"-"+(f.getMonth() +1) + "-" +f.getFullYear() ;
+    var fActual=f.getFullYear()+"-"+(f.getMonth() +1) + "-" +f.getDate();
 	$("#fechaCreacion").val(fActual);
 	$(".fi").val(fActual);
 
@@ -113,7 +113,7 @@ $(document).ready(function(){
 	$.datepicker.setDefaults($.datepicker.regional["es"]);
 	$(".datepicker").datepicker({
 		firstDay: 1,
-        dateFormat: 'dd-mm-yy' 
+        dateFormat: 'yy-mm-dd' 
 	   });
     });
 
@@ -136,13 +136,13 @@ $(document).ready(function(){
         var fi = padre.find(".fi");
         var ffin = padre.find(".ffin");
         var fechaSeleccionada = fi.val(); 
-        if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada)<$.datepicker.parseDate('dd-mm-yy', fActual)){
+        if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)<$.datepicker.parseDate('yy-mm-dd', fActual)){
             alertify.alert("La fecha de inicio no puede ser menor que la fecha actual", function () {
                     fi.val(fActual);        
                 });
         }
         if(ffin.val()){
-            if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada)>$.datepicker.parseDate('dd-mm-yy', ffin.val())){
+            if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)>$.datepicker.parseDate('yy-mm-dd', ffin.val())){
                 alertify.alert("Ha cambiado la fecha de inicio, por lo tanto la fecha de fin debe cambiar",function(){
                     ffin.val("");   
                 });
@@ -157,7 +157,7 @@ $(document).ready(function(){
         var fechaSeleccionada = hijo.val();
         var fechaInicio = hijoo.val()
     	if(fechaInicio){
-        	if($.datepicker.parseDate('dd-mm-yy', fechaSeleccionada) < $.datepicker.parseDate('dd-mm-yy', fechaInicio)){
+        	if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada) < $.datepicker.parseDate('yy-mm-dd', fechaInicio)){
             	alertify.alert("La fecha de fin no puede ser menor que la fecha de inicio",function(){
                     hijo.val("");
                 });

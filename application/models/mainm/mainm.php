@@ -20,7 +20,7 @@
 			$retorno = "";
 			foreach ($datos as $row) {
 				if($row->cli_usu_id == $iduser){
-					$color = "207,218,232,1";	
+					$color = "44,156,247,0.4";	
 				}else{
 					$color = "144, 240, 139, 0.8";
 				}
