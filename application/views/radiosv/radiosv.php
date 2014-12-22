@@ -15,8 +15,8 @@
       <table>
         <tr>
           <td><label for="nombradio">Nombre Radio:</label></td>
-          <td><input type="text" name="txtnombradio" class="vaciarinput form-control" /></td>
-          <td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
+          <td><input type="text" name="txtnombradio" class="vaciarinput form-control" required /></td>
+          <td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot" required /></td>
         </tr>
       </table>
     </form>

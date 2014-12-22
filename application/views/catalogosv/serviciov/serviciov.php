@@ -15,7 +15,7 @@
 			<table>
 				<tr>
 					<td><label for="nombservicio">Nombre Servicio:</label></td>
-					<td><input type="text" name="servicio" class="vaciarinput form-control" /></td>
+					<td><input type="text" name="servicio" class="vaciarinput form-control" required /></td>
 					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>

@@ -15,7 +15,7 @@
 			<table>
 				<tr>
 					<td><label for="precio">Precio $</label></td>
-					<td><input type="text" name="precio" id='txtPrecio' class="soloNumeros vaciarinput form-control" /></td>
+					<td><input type="text" name="precio" id='txtPrecio' class="NumPunto vaciarinput form-control" required /></td>
 					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
@@ -24,7 +24,7 @@
         <div class="midBox1">
         		<div class="datagrid">
         <form>
-           <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Precio" />
+           <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Tarifa" />
         </form>
         <br />
 		        <table id="resultados" class="table"><!--Datos de la bd de catalogo precios-->
