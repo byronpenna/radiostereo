@@ -17,15 +17,15 @@
 			<table>
 				<tr>
 					<td><label for="nombcliente">Nombre:</label></td>
-					<td><input type="text" name="txtnombcliente" class="vaciarinput form-control"  /></td>
+					<td><input type="text" name="txtnombcliente" class="vaciarinput form-control" required /></td>
 				</tr>
 				<tr>
 					<td><label for="apellido">Apellido:</label></td>
-					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" /></td>
+					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" required /></td>
 				</tr>
 				<tr style='display:none'>
 					<td><label for="iduser">Id Usuario:</label></td>
-					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" /></td>
+					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" required /></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
