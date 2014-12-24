@@ -37,7 +37,7 @@
     		</article>
 			<section id="contCotSer">
                 <!-- Contenedor para los programas -->
-				<article id="conProgra" >
+				<article id="conProgra"  class="conProgra">
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
                         <article class="titleProgra"><span>Programa </span><span><?php echo $Prog;?></span></article>
@@ -85,7 +85,7 @@
                 </article>
                 <!-- Finaliza Contenedor para los programas -->
                 <!-- Contenedor para las Cuñas -->
-                <article id="conProgra" >
+                <article id="conProgra"  class="conProgra">
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdSec" value="1" >
                     <article class="contTitle">
@@ -133,7 +133,7 @@
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra" >
+                <article id="conProgra" class="conProgra">
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdSec" value="2" >
                     <article class="contTitle">
@@ -181,7 +181,7 @@
                 </article>
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
-                <article id="conProgra" >
+                <article id="conProgra"  class="conProgra">
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdSec" value="3">
                     <article class="contTitle">

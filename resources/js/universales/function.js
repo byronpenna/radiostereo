@@ -63,7 +63,6 @@ function logOut(frm){
          	url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
          	type:   "POST",
          	success: function(data){
-         		console.log(data);
          		data = jQuery.parseJSON(data);
          		console.log("data json recibida",data);
          	}

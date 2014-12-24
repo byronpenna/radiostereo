@@ -20,18 +20,26 @@ $(document).ready(function(){
 
     //obtener datos de el encabezado
     $("#guardarCot").click(function(){
-        headerCot                   = serializeToJson($(".headerCot :input").serializeArray());
-        secCot                      = serializeToJson($("#conProgra :input").serializeArray());
-        /*cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
+        /*headerCot                   = serializeToJson($(".headerCot :input").serializeArray());
+        secCot                      = serializeToJson($(".conProgra :input").serializeArray());
+        cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
         entrevistasCot              = serializeToJson($(".entrevistasCot :input").serializeArray());
-        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());*/
+        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());
         frmGlobal                   = new Object();
         frmGlobal.headerCot         = headerCot;
         frmGlobal.secCot            = secCot;
-        /*frmGlobal.cuniasCot         = cuniasCot;
+        frmGlobal.cuniasCot         = cuniasCot;
         frmGlobal.entrevistasCot    = entrevistasCot;
-        frmGlobal.produccionesCot   = produccionesCot;*/
-        addCotizacion(frmGlobal);
+        frmGlobal.produccionesCot   = produccionesCot;
+        addCotizacion(frmGlobal);*/
+        frmGlobal = new Object();
+        headerCot = serializeToJson($(".headerCot :input").serializeArray());
+        var secCot = [];
+        $(".conProgra").each(function(i,val){
+            secCot[i] = serializeToJson($(this).find("input").serializeArray());
+        });
+        frmGlobal.secCot = secCot;
+        console.log(secCot[3]);
     });
 
 
