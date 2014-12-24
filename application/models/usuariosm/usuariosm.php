@@ -2,7 +2,7 @@
  /**
  * 
  */
- class Usuariom extends CI_Model
+ class Usuariosm extends CI_Model
  {
  	
  	function __construct()
@@ -22,13 +22,18 @@
 		$datos = $this->SelectUser();
 		$retorno = "";
 		foreach ($datos as $row) {
-			$retorno = "<tr>
-							<td>".."</td>
-							<td>".."</td>
-							<td>".."</td>
-							<td>".."</td>
+			$retorno .= "<tr class='styleTR'>
+							<td style='display:none'><input value='".$row->usu_id."' class='inputUserId'></td>
+							<td class='tdNombreUser'>".$row->usu_nombre."</td>
+							<td class='tdPasswordUser'>".$row->usu_password."</td>
+							<td style='display:none'><input value='".$row->usu_com_id."' class='inputCompaniaId'></td>
+							<td>
+								<button class='EditUser btn btn-sm btn-primary'>Editar</button>
+								<button class='btn btn-sm btn-danger'>Eliminar</button>
+							</td>
 					    </tr>";
 		}
+		return $retorno;
 	}
  }
  ?>
