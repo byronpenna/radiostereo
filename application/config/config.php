@@ -27,7 +27,7 @@ define("URLLOCAL","http://localhost/radiostereo/index.php/");
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
