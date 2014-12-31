@@ -49,24 +49,25 @@ function logOut(frm){
 }
 
 
-//Validar si es un numero
+	//Validar si es un numero
 	function isNumber(n) {
 	  return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
+
 	//Funcion para agregar datos a la tabla cotizaciones
 	function addCotizacion(frm){
 		$.ajax({
-			data:{
-           	form: JSON.stringify(frm)
-         	},
-         	url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
-         	type:   "POST",
-         	success: function(data){
-         		data = jQuery.parseJSON(data);
-         		console.log("data json recibida",data);
-         	}
-		});
+         data:{
+           form: JSON.stringify(frm)
+         },
+         url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
+         type:   "POST",
+         success: function(data){
+           var datos = jQuery.parseJSON(data);
+            console.log(datos);
+          }
+     });
 	}
 
 

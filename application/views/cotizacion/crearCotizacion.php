@@ -4,11 +4,6 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
-    <style type="text/css" media="screen">
-        body{
-            padding-bottom: 2em;
-        }
-    </style>
 </head>
 <body >
     <?php 

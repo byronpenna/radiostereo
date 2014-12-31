@@ -18,28 +18,22 @@ $(document).ready(function(){
 		logOut(frmlout);
 	});
 
-    //obtener datos de el encabezado
+    //obtener datos de cotizacion
     $("#guardarCot").click(function(){
-        /*headerCot                   = serializeToJson($(".headerCot :input").serializeArray());
-        secCot                      = serializeToJson($(".conProgra :input").serializeArray());
-        cuniasCot                   = serializeToJson($(".cuniasCot :input").serializeArray());
-        entrevistasCot              = serializeToJson($(".entrevistasCot :input").serializeArray());
-        produccionesCot             = serializeToJson($(".produccionesCot :input").serializeArray());
-        frmGlobal                   = new Object();
-        frmGlobal.headerCot         = headerCot;
-        frmGlobal.secCot            = secCot;
-        frmGlobal.cuniasCot         = cuniasCot;
-        frmGlobal.entrevistasCot    = entrevistasCot;
-        frmGlobal.produccionesCot   = produccionesCot;
-        addCotizacion(frmGlobal);*/
-        frmGlobal = new Object();
-        headerCot = serializeToJson($(".headerCot :input").serializeArray());
-        var secCot = [];
+        frmGlobal   = new Object();
+        $(".headerCot :input").each(function(){
+            if(!$(this).val() && $(this).attr("name")!="txtValorAgregado"){
+                alert("no puede dejar campos vacios");
+                $(this).css({'background-color' : 'orange'});
+            }
+        });
+        /*var secCot  = [];
         $(".conProgra").each(function(i,val){
             secCot[i] = serializeToJson($(this).find("input").serializeArray());
         });
-        frmGlobal.secCot = secCot;
-        console.log(secCot[3]);
+        frmGlobal.secCot    = secCot;
+        frmGlobal.headerCot = headerCot;
+        addCotizacion(frmGlobal);*/
     });
 
 

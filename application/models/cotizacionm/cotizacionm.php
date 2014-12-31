@@ -30,7 +30,7 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='tipo_cot' class='form-control input-sm pequenios'>";
+			$r= "<select name='tipo_cot' class='form-control input-sm pequenios' >";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
@@ -149,42 +149,37 @@
 		//Funcion para insertar datos en la cotizacion
 		public function insertCotizacion($frm){
 			$header 		= $frm->headerCot;
-			$programas 		= $frm->programasCot;
-			$cunias 		= $frm->cuniasCot;
-			$entrevistas 	= $frm->entrevistasCot;
-			$producciones 	= $frm->produccionesCot;
-			$retorno = new stdClass();
+			$seccion 		= $frm->secCot;
+			$retorno 		= new stdClass();
 			$this->db->trans_start();
-			$flag = $this->insertHeaderCot($header);
-			if($flag){
-
-			}
+			$flag 	= $this->insertHeaderCot($header);
 			$this->db->trans_complete();
-			/*$sql="INSERT INTO cot_encabezado_cotizacion VALUES('','".$frm->headerCot->txtFechaCreacionCot."','".$frm->headerCot->txtValorAgregado."',".$frm->headerCot->txtidCliente.",".$frm->headerCot->tipo_cot.",".$frm->headerCot->estado_cot.",".$frm->headerCot->idUsuario.")";
-			$this->db->query($sql);*/
 		}
 
 		public function insertHeaderCot($obj){
 				$tabla 			= array(
-				'cot_id'				=> '',
 				'cot_fecha_elaboracion'	=> $obj->txtFechaCreacionCot,
 				'cot_valor_agregado'	=> $obj->txtValorAgregado,
 				'cot_cli_id'			=> $obj->txtidCliente,
-				'cot_tip_id'			=> $obj->tipo,
-				'cot_est_id'			=> $obj->estado,
+				'cot_tip_id'			=> $obj->tipo_cot,
+				'cot_est_id'			=> $obj->estado_cot,
 				'cot_usu_id'			=> $obj->idUsuario
 				);	
 
-				$flag = $this->db->insert('cot_encabezado_cotiazcion',$tabla);
-
-				return $flag;
+				$res = $this->db->insert('cot_encabezado_cotizacion',$tabla);
+				
+				return $res;
 		}
 
-		public function insertPrograma($obj){
-			// $tabla = array(
-			// 	''=>,
-			// 	);
+		public function insertEncBloq($obj){
+				$tabla		= array(
+				'enc_cot_id' => $idEnCot,
+				'enc_prog_id'	=> $obj->programa,
+				'enc_precio_venta' => $obj->pventa,
+				'enc_fecha_inicio' => $obj->txtFechaInicio,
+				'enc_fecha_fin' => $obj->txtFechaFin,
+				'enc_sec_id' => $obj->txtIdSec
+				);
 		}
-
 	}
 ?>
