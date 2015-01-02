@@ -18,7 +18,7 @@
     		<article id="cotHeader" class="headerCot">
     			<article>
     				<p>Id de Cliente <span> <input type="text" name="txtidCliente" value="<?= $cliente->cli_id ?> " class="form-control input-sm pequenios" readonly="true"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
-    				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
+    				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres ;?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
