@@ -13,15 +13,32 @@
 	?>
 	<fieldset class="fieldClientes well" id="fieldClientes">
 		<legend>Clientes</legend>
+		<button class="btn btn-sm btn-success btnDesplegar"><b>Agregar Nuevo Cliente</b></button>
 		<form id="frmClientes" method="POST" class="well">
 			<table>
 				<tr>
 					<td><label for="nombcliente">Nombre:</label></td>
 					<td><input type="text" name="txtnombcliente" class="vaciarinput form-control" required /></td>
+					<td class="espacio" ><label for="apellido">Razón Social:</label></td>
+					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" required /></td>
 				</tr>
 				<tr>
-					<td><label for="apellido">Apellido:</label></td>
-					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" required /></td>
+					<td><label for="NRC">NRC:</label></td>
+					<td><input type="text" name="txtNRC" id='txtNRC' class="vaciarinput SoloNumero form-control" required /></td>
+					<td class="espacio"><label for="NIT">NIT:</label></td>
+					<td><input type="text" name="txtNIT" id='txtNIT' class="vaciarinput SoloNumero form-control" placeholder="0000-000000-000-0" required /></td>
+				</tr>
+				<tr>
+					<td><label for="Direccion">Dirección:</label></td>
+					<td><input type="text" name="txtDireccion" id='txtDireccion' class="vaciarinput form-control" required /></td>
+					<td class="espacio"><label for="Telefono">Telefono:</label></td>
+					<td><input type="text" name="txtTelefono" id='txtTelefono' class="vaciarinput SoloNumero form-control" placeholder="0000-0000" required /></td>
+				</tr>
+				<tr>
+					<td><label for="Contacto">Contacto:</label></td>
+					<td><input type="text" name="txtContacto" id='txtContacto' class="vaciarinput form-control" required /></td>
+					<td class="espacio"><label for="Correo">Correo:</label></td>
+					<td><input type="email" name="txtCorreo" id='txtCorreo' class="vaciarinput form-control" placeholder="ejemplo@gmail.com" required /></td>
 				</tr>
 				<tr style='display:none'>
 					<td><label for="iduser">Id Usuario:</label></td>
@@ -45,8 +62,9 @@
                     	<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
 							<thead class="thead">
 								<tr>
-									<th>Nombre cliente</th>
-									<th>Apellido cliente</th>
+									<th>Nombre</th>
+									<th>Razon Social</th>
+									<th>NIT</th>
 									<th>Acción</th>
 								</tr>
 							</thead>

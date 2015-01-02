@@ -1,6 +1,6 @@
 fieldset{
 	height: 100%;
-	width: 60%;
+	width: 65%;
 }
 .fielPrograma{
 	background-color: none;
@@ -22,18 +22,38 @@ fieldset{
 	background-color: none;
 	margin-left: 20%;
 }
+
 /*Estilo tr de tablas catalogos*/
 .styleTR{
-	background:rgba(248,249,244, 0.8);
+	background:white;
 }
 .thead{
 	background: #3682F3;
 	color: white;
-	text-align: center;
-}
-.thead > th{
 }
 /*input busqueda*/
 #searchTerm{
 	width: 25%;
 }
+.txtNombUser{
+	font-size: 13px;
+	width:90px;
+}
+.txtPsw{
+	font-size: 13px;
+}
+.buscar > form{
+	margin-left: 2%;
+	margin-bottom: 1%;
+	margin-top: 1%
+}
+.espacio{
+	padding-left: 4%;
+}
+.ocultar{
+	display: none;
+}
+/*aliniamiento botoses
+.EditCliente{
+	margin-left: 45%;
+}*/
