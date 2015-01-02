@@ -34,7 +34,7 @@
                 <thead class="thead">
                   <tr>
                     <th>Nombre Radio</th>
-                    <th><center>Acción</center></th>
+                    <th>Acción</th>
                   </tr>
                 </thead>
                 <tbody class="tbradio">

@@ -25,7 +25,7 @@
       header.each(function(){
               if(!$(this).val() && $(this).attr("name")!="txtValorAgregado"){
                   // alert("no puede dejar campos vacios");
-                  // $(this).css({'background-color' : 'orange'});
+                  $(this).css({'background-color' : 'rgba(246,71,71,0.2)'});
                   retorno.estado = false; 
                   retorno.mensaje = "No se pueden dejar campos vacios !"; 
               }
