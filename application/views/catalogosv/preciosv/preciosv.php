@@ -31,7 +31,7 @@
 				<thead class="thead">
 					<tr>
 						<th>Tarifas</th>
-						<th><center>Acción</center></th>	
+						<th>Acción</th>	
 					</tr>
 				</thead>
 				<tbody class="tbprecios">

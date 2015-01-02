@@ -37,7 +37,7 @@
                             <thead class="thead">
                                 <tr>
                                    <th>Nombre Programa</th>
-									<th><center>Acción</center></th>
+									<th colspan="2">Acción</th>
                                 </tr>
                             </thead>
                             <tbody class="tbProgramas">
