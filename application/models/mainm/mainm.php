@@ -25,9 +25,9 @@
 					$color = "144, 240, 139, 0.8";
 				}
 				$retorno .= "<tr style='background:rgba(".$color.");'>
-								<td>".$row->cli_id."</td>
 								<td>".$row->cli_nombres."</td>
-								<td>".$row->cli_apellidos."</td>
+								<td>".$row->cli_razon_social."</td>
+								<td>".$row->cli_nit."</td>
 								<td style='display:none;'>".$row->cli_usu_id."</td>
 								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion/'.$row->cli_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Cotizacion</button></a></td>
 							</tr>";
