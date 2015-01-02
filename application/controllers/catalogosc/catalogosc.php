@@ -56,15 +56,9 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$data = array(
-				'cli_nombres' 		=> $form->txtnombcliente,
-				'cli_razon_social' 	=> $form->txtapellido,
-				'cli_nrc'			=> $form->txtNRC,
-				'cli_nit'			=> $form->txtNIT,
-				'cli_direccion'		=> $form->txtDireccion,
-				'cli_telefono'		=> $form->txtTelefono,
-				'cli_contacto'		=> $form->txtContacto,
-				'cli_correo'		=> $form->txtCorreo,
-				'cli_usu_id'		=> $form->txtIdUser);
+				'cli_nombres' => $form->txtnombcliente,
+				'cli_apellidos ' => $form->txtapellido,
+				'cli_usu_id'=>$form->txtIdUser);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			echo json_encode($mensaje);
 		}

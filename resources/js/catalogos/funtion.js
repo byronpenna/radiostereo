@@ -1,509 +1,359 @@
-//funciones para el catalogo programa
-	function createControlsEdit(tr){//funcion que me cargara el dato a editar
-		idPrograma = tr.find(".inputProgramId").val();//busca el id del programa por medio de una clase y se encuentra en la vista
-		nombrePrograma = tr.find(".tdProgramNombre").text();//busca el nombre del programa por medio de una clase y " "
-		htmlTr = "\
-				<td style='display:none'>\
-					<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
-				</td>\
-				<td>\
-					<input name='txtNombrePrograma' class='txtNombrePrograma form-control' value='"+nombrePrograma+"'>\
-				</td>\
-				<td>\
-					<center>\
-						<input type='button' class='btnGuardarPrograma btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeleteProgra btn btn-sm btn-danger'>Eliminar</button>\
-					</center>\
-				</td>\
-				";//creo nuevo html para modificar
-		tr.empty().append(htmlTr);//con empty vacio el tr y le coloco el nuevo elemento creado
-		//en el archivo script el el primer evento click
-	}
-	//aqui comienzan las funciones ajax q me pasaran los datos a modificar al modelo
-	function saveEditPrograma(update,tr){
-		$.ajax({
-			data:{
-				form:JSON.stringify(update)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_programa",
-			type: 	"POST",
-			success: 	function(datos) {
-				idPrograma = tr.find(".inputProgramId").val();//buscamos el id para construir la fila
-				data = jQuery.parseJSON(datos);//convirtiendo datos
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);
-				}else if(data.estado == true){
-					tr2 = "\
+//funciones para insert y update del catalogo programa
+function createControlsEdit(tr){//funcion que me cargara el dato a editar
+	idPrograma = tr.find(".inputProgramId").val();//busca el id del programa por medio de una clase y se encuentra en la vista
+	nombrePrograma = tr.find(".tdProgramNombre").text();//busca el nombre del programa por medio de una clase y " "
+	htmlTr = "\
+			<td style='display:none'>\
+				<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
+			</td>\
+			<td>\
+				<input name='txtNombrePrograma' class='txtNombrePrograma form-control' value='"+nombrePrograma+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarPrograma btn btn-m btn-success btnAddCot' value='Guardar' />\
+			</td>\
+			";//creo nuevo html para modificar
+	tr.empty().append(htmlTr);//con empty vacio el tr y le coloco el nuevo elemento creado
+	//en el archivo script el el primer evento click
+}
+//aqui comienzan las funciones ajax q me pasaran los datos a modificar al modelo
+function saveEditPrograma(update,tr){
+	$.ajax({
+		data:{
+			form:JSON.stringify(update)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_programa",
+		type: 	"POST",
+		success: 	function(datos) {
+			idPrograma = tr.find(".inputProgramId").val();//buscamos el id para construir la fila
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);
+			}else if(data.estado == true){
+				tr2 = "\
+					<td style='display:none'>\
+						<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
+					</td>\
+					<td class='tdProgramNombre'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
+					</td>";//creamos el nuevo fila
+				tr.empty().append(tr2);
+			}
+			//console.log(data);
+		}
+	});
+}
+function agregarPrograma(frm){//funcion que manda los datos al controlador
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)//convierte el objeto jason a string
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_programa",
+		type: 		"POST",
+		success: 	function(datos){
+			// agregar el elemento a la tabla
+			data = jQuery.parseJSON(datos);//convertimos los datos
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr class='styleTR alt'>\
 						<td style='display:none'>\
-							<input name='txtidprograma' value='"+idPrograma+"' class='inputProgramId'>\
+							<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
 						</td>\
-						<td class='tdProgramNombre'>"+data.dato+"</td>\
-						<td>\
-							<center><button class='btnEditar btn btn-sm btn-primary'>Editar</button></center>\
-						</td>";//creamos el nuevo fila
-					tr.empty().append(tr2);
-				}
-				//console.log(data);
+						<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
+						<td><button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
+					  </tr>"
+				$(".vaciarinput").val("");
+				$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio	
 			}
-		});
-	}
-	function agregarPrograma(frm){//funcion que manda los datos al controlador
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)//convierte el objeto jason a string
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_programa",
-			type: 		"POST",
-			success: 	function(datos){
-				// agregar el elemento a la tabla
-				data = jQuery.parseJSON(datos);//convertimos los datos
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR alt'>\
-							<td style='display:none'>\
-								<input name='txtidprograma' value='"+data.last_id+"' class='inputProgramId'>\
-							</td>\
-							<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
-							<td>\
-								<center>\
-									<button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".vaciarinput").val("");
-					$(".tbProgramas").prepend(tr);//ponemos el nuevo valor al principio	
-				}
-			}
-		});
-	}
-//funciones para el catalogo radios
-	function agregarradio(frm) {//funcion que manda los datos de radio al controlador
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_radio",
-			type: 	"POST",
-			success: function(datos) {
-				data = jQuery.parseJSON(datos);
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidRadio' value='"+data.last_id+"' class='inputRadioId'>\
-							</td>\
-							<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
-							<td>\
-								<center>\
-									<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".vaciarinput").val("");
-					//console.log(tr)
-					$(".tbradio").prepend(tr);//ponemos el nuevo valor al principio
-				}
-			}
-		});
-	}
-	function createEditRadio (tr) {
-		idradio = tr.find(".inputRadioId").val();
-		radio = tr.find(".tdRadioNomb").text();
-		newtr = "\
-				<td style='display:none'>\
-					<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
-				</td>\
-				<td>\
-					<input name='txtRadio' class='txtRadio form-control' value='"+radio+"'>\
-				</td>\
-				<td>\
-					<center>\
-						<input type='button' class='btnGuardarRadio btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeleteRadio btn btn-sm btn-danger'>Eliminar</button>\
-					</center>\
-				</td>";
-				//console.log(newtr);
-				tr.empty().append(newtr);
-	}
-	function savenewRadio (form,tr) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(form)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_radio",
-			type: "POST",
-			success: function(datos) {
-				idradio = tr.find(".inputRadioId").val();
-				data = jQuery.parseJSON(datos);//convirtiendo datos
-				newtr = "\
+		}
+	});
+}
+//funciones para insert y update del catalogo precio
+function agregarPrecio(frm) {//funcion que manda los datos de precio al controlador
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)//convierte el objeto jason a string
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_precio",
+		type: 		"POST",
+		success: 	function(datos){
+			data = jQuery.parseJSON(datos);
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
-							<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
+							<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
 						</td>\
-						<td class='tdRadioNomb'>"+data.dato+"</td>\
-						<td>\
-							<center>\
-								<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
-							</center>\
-						</td>";//creamos el nuevo fila
-				tr.empty().append(newtr);
-				//console.log(datos);
-			}
-		});
-	}
-//funciones para el catalogo precios
-	function agregarPrecio(frm) {//funcion que manda los datos de precio al controlador
-		$.ajax({
-			data:{
-				form: JSON.stringify(form)//convierte el objeto jason a string
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_precio",
-			type: 		"POST",
-			success: 	function(datos){
-				data = jQuery.parseJSON(datos);
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidprecio' value='"+data.last_id+"' class='inputPrecioId'>\
-							</td>\
-							<td class='tdPrecio'>"+frm.precio+"</td>\
-							<td>\
-								<center>\
-									<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".vaciarinput").val("");
-					$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
-				}
-			}
-		});
-	}
-	//funciones para modificar precio
-	function createEditPrecio (tr) {//funcion para cargar el form de editar
-		idprecio = tr.find(".inputPrecioId").val();
-		precio = tr.find(".tdPrecio").text();
-		newtr = "\
-				<td style='display:none'>\
-					<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
-				</td>\
-				<td>\
-					<input name='txtPrecio' class='txtPrecio NumPunto form-control' value='"+precio+"'>\
-				</td>\
-				<td>\
-					<center>\
-						<input type='button' class='btnGuardarPrecio btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeletePrecio btn btn-sm btn-danger'>Eliminar</button>\
-					</center>\
-				</td>";
-				//console.log(newtr);
-				tr.empty().append(newtr);
-	}
-	function savenewPrecio(form,tr) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(form)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_precio",
-			type: "POST",
-			success: function(datos) {
-				idprecio = tr.find(".inputPrecioId").val();
-				data = jQuery.parseJSON(datos);//convirtiendo datos
-				newtr = "\
-						<td style='display:none'>\
-							<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
+						<td class='tdPrecio'>"+frm.precio+"</td>\
+						<td><button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
 						</td>\
-						<td class='tdPrecio'>"+data.dato+"</td>\
-						<td>\
-							<center>\
-								<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
-							</center>\
-						</td>";//creamos el nuevo fila
-				tr.empty().append(newtr);
-				//console.log(datos);
+					  </tr>"
+				$(".vaciarinput").val("");
+				$(".tbprecios").prepend(tr);//ponemos el nuevo valor al principio
 			}
-		});
-	}
-//funciones para el catalogo servicio
-	function agregarservicio(form) {//funcion que manda los datos del servicio al controlador
-		$.ajax({
-			data:{
-				form: JSON.stringify(form)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_servicio",
-			type: 	"POST",
-			success:    function(datos) {
-				// agregar el elemento a la tabla
-				data = jQuery.parseJSON(datos);//convertimos los datos
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidServicio' value='"+data.last_id+"' class='inputServId'>\
-							</td>\
-							<td class='tdServicio'>"+form.servicio+"</td>\
-							<td>\
-								<center>\
-									<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".vaciarinput").val("");
-					$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
-					
-				}
-			}
-		});
-	}
-		//funciones para editar servicios
-		function createEditServicio(tr){
-			idservicio = tr.find(".inputServId").val();
-			nombservicio = tr.find(".tdServicio").text();
+		}
+	});
+}
+//funciones para modificar precio
+function createEditPrecio (tr) {//funcion para cargar el form de editar
+	idprecio = tr.find(".inputPrecioId").val();
+	precio = tr.find(".tdPrecio").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
+			</td>\
+			<td>\
+				<input name='txtPrecio' class='txtPrecio soloNumeros form-control' value='"+precio+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarPrecio btn btn-m btn-success btnAddCot' value='Guardar' />\
+			</td>";
+			//console.log(newtr);
+			tr.empty().append(newtr);
+}
+function savenewPrecio(form,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_precio",
+		type: "POST",
+		success: function(datos) {
+			idprecio = tr.find(".inputPrecioId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
 			newtr = "\
 					<td style='display:none'>\
-						<input name='txtidservicio' value='"+idservicio+"' class='inputServId'>\
+						<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
 					</td>\
+					<td class='tdPrecio'>"+data.dato+"</td>\
 					<td>\
-						<input name='txtServicio' class='tdServicio form-control' value='"+nombservicio+"'>\
-					</td>\
-					<td>\
-						<center>\
-							<input type='button' class='btnGuardarServi btn btn-sm btn-success btnAddCot' value='Guardar' />\
-							<button class='DeleteServi btn btn-sm btn-danger'>Eliminar</button>\
-						</center>\
-					</td>";
+						<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
+					</td>";//creamos el nuevo fila
 			tr.empty().append(newtr);
+			//console.log(datos);
 		}
-	function savenewServicio (frm,tr) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_servicio",
-			type: "POST",
-			success: function(datos) {
-				idServi = tr.find(".inputServId").val();
-				data = jQuery.parseJSON(datos);//convirtiendo datos
-				newtr = "\
+	});
+}
+//funciones para insert y update del catalogo radio
+function agregarradio(frm) {//funcion que manda los datos de radio al controlador
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_radio",
+		type: 	"POST",
+		success: function(datos) {
+			data = jQuery.parseJSON(datos);
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
-							<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
+							<input name='txtidRadio' value='"+data.last_id+"' class='inputRadioId'>\
 						</td>\
-						<td class='tdServicio'>"+data.dato+"</td>\
-						<td>\
-							<center>\
-								<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
-							</center>\
-						</td>";//creamos el nuevo fila
-				tr.empty().append(newtr);
-				//console.log(datos);
+						<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
+						<td><button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
+					  </tr>"
+				$(".vaciarinput").val("");
+				$(".tbradio").prepend(tr);//ponemos el nuevo valor al principio
 			}
-		});
-	}
-//funciones para el catalogo servicio
-	function agregarcliente(frm) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)
-			},
-			url:  getBaseURL() + "index.php/catalogosc/catalogosc/insert_cliente",
-			type: 	"POST",
-			success: function(datos) {
-				data = jQuery.parseJSON(datos);
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
-							</td>\
-							<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
-							<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
-							<td>\
-								<center>\
-									<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
-					//console.log(frm);
-					$(".vaciarinput").val("");
-					// para input .val("") val()
-					// para divs .empty() text()
-				}
-			}
-		});
-	}
-	function createEditCliente (tr) {
-		idcliente = tr.find(".inputClienteId").val();
-		nombre = tr.find(".tdNombCliente").text();
-		razonsocial = tr.find(".tdApellidoCliente").text();
-		nrc = tr.find(".tdNRC").text();
-		nit = tr.find(".tdNIT").text();
-		direccion = tr.find(".tdDireccion").text();
-		telefono = tr.find(".tdTelefono").text();
-		contacto = tr.find(".tdContacto").text();
-		correo = tr.find(".tdCorreo").text();
-
-		newtr = "\
+		}
+	});
+}
+function createEditRadio (tr) {
+	idradio = tr.find(".inputRadioId").val();
+	radio = tr.find(".tdRadioNomb").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
+			</td>\
+			<td>\
+				<input name='txtRadio' class='txtRadio form-control' value='"+radio+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarRadio btn btn-m btn-success btnAddCot' value='Guardar' />\
+			</td>";
+			//console.log(newtr);
+			tr.empty().append(newtr);
+}
+function savenewRadio (form,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_radio",
+		type: "POST",
+		success: function(datos) {
+			idradio = tr.find(".inputRadioId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
+					</td>\
+					<td class='tdRadioNomb'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
+}
+//funciones para insert y update del catalogo servicio
+function agregarservicio(form) {//funcion que manda los datos del servicio al controlador
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_servicio",
+		type: 	"POST",
+		success:    function(datos) {
+			// agregar el elemento a la tabla
+			data = jQuery.parseJSON(datos);//convertimos los datos
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
-							<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
+							<input name='txtidServicio' value='"+data.last_id+"' class='inputServId'>\
 						</td>\
-						<td>\
-							<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
+						<td class='tdServicio'>"+form.servicio+"</td>\
+						<td><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
 						</td>\
-						<td>\
-							<input name='txtApellido' class='txtNombre form-control' value='"+razonsocial+"'>\
-						</td>\
-						<td>\
-							<input name='txtNRC' class='txtNRC form-control' value='"+nrc+"'>\
-						</td>\
-						<td>\
-							<input name='txtNIT' class='txtNIT form-control' value='"+nit+"'>\
-						</td>\
-						<td>\
-							<input name='txtDireccion' class='txtDireccion form-control' value='"+direccion+"'>\
-						</td>\
-						<td>\
-							<input name='txtTelefono' class='txtTelefono form-control' value='"+telefono+"'>\
-						</td>\
-						<td>\
-							<input name='txtContacto' class='txtContacto form-control' value='"+contacto+"'>\
-						</td>\
-						<td>\
-							<input name='txtCorreo' class='txtCorreo form-control' value='"+correo+"'>\
-						</td>\
-						<td>\
-							<center>\
-								<input type='button' class='btnGuardarCliente btn btn-sm btn-success btnAddCot' value='Guardar' />\
-								<button class='DeleteClient btn btn-sm btn-danger'>Eliminar</button>\
-							</center>\
-						</td>";
-				//console.log(idcliente,nombre,apellido);
-				tr.empty().append(newtr);
-	}
-	function saveEditCliente (form,tr) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(form)
-			},
-			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_cliente",
-			type: "POST",
-			success: function(datos) {
-				idradio = tr.find(".inputClienteId").val();
-				data = jQuery.parseJSON(datos);//convirtiendo datos
-				newtr = "\
-						<td style='display:none'>\
-							<input name='txtidRadio' value='"+idradio+"' class='inputClienteId'>\
-						</td>\
-						<td class='tdNombCliente'>"+data.dato1+"</td>\
-						<td class='tdApellidoCliente'>"+data.dato2+"</td>\
-						<td>\
-							<center>\
-								<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
-							</center>\
-						</td>";//creamos el nuevo fila
-				tr.empty().append(newtr);
-				//console.log(datos);
+					  </tr>"
+				$(".vaciarinput").val("");
+				$(".tbservicio").prepend(tr);//ponemos el nuevo valor al principio
+				
 			}
-		});
-	}
-//funciones para el usuarios
-	function agregarusuario (frm) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)
-			},
-			url:  getBaseURL() + "index.php/usuario/usuarioc/insert_user",
-			type: 	"POST",
-			success: function(datos) {
-				data = jQuery.parseJSON(datos);
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtIdUser' value='"+data.last_id+"' class='inputUserID'>\
-							</td>\
-							<td class='tdNombreUser'>"+frm.txtuser+"</td>\
-							<td class='tdContraUser'>"+frm.txtpassword+"</td>\
-							<td style='display:none' class='tdCopaniaId'>"+frm.txtIdCompania+"</td>\
-							<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>\
-						  </tr>"
-					$(".tbUsuario").prepend(tr);//ponemos el nuevo valor al principio
-					//console.log(datos);
-					$(".vaciarinput").val("");
-					// para input .val("") val()
-					// para divs .empty() text()
-				}
-			}
-		});
-	}
-	function CreateEdtUser (tr) {
-		iduser = tr.find(".inputUserID").val();
-		user = tr.find(".tdNombreUser").text();
-		psw = tr.find(".tdContraUser").text();
+		}
+	});
+}
+	//funciones para editar servicios
+	function createEditServicio(tr){
+		idservicio = tr.find(".inputServId").val();
+		nombservicio = tr.find(".tdServicio").text();
 		newtr = "\
 				<td style='display:none'>\
-					<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
+					<input name='txtidservicio' value='"+idservicio+"' class='inputServId'>\
 				</td>\
 				<td>\
-					<input name='txtNombUser' class='txtNombUser form-control' value='"+user+"'>\
+					<input name='txtServicio' class='tdServicio form-control' value='"+nombservicio+"'>\
 				</td>\
 				<td>\
-					<input name='txtPsw' class='txtPsw form-control' value='"+psw+"'>\
-				</td>\
-				<td colspan='2'>\
-					<input type='button' class='btnGuardarUser btn btn-sm btn-success btnAddCot' value='Guardar' />\
-					<button class='DeleteUser btn btn-sm btn-danger'>Eliminar</button>\
+					<input type='button' class='btnGuardarServi btn btn-m btn-success btnAddCot' value='Guardar' />\
 				</td>";
-				//console.log(idcliente,nombre,apellido);
-				tr.empty().append(newtr);
+		tr.empty().append(newtr);
 	}
-	function saveEditUser (form,tr) {
-			$.ajax({
-				data:{
-					form: JSON.stringify(form)
-				},
-				url: getBaseURL() + "index.php/usuario/usuarioc/update_user",
-				type: "POST",
-				success: function(datos) {
-					iduser = tr.find(".inputUserID").val();
-					data = jQuery.parseJSON(datos);//convirtiendo datos
-					newtr = "\
+function savenewServicio (frm,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_servicio",
+		type: "POST",
+		success: function(datos) {
+			idServi = tr.find(".inputServId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
+					</td>\
+					<td class='tdServicio'>"+data.dato+"</td>\
+					<td>\
+						<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
+}
+//funciones para insert y update del catalogo clientes
+function agregarcliente(frm) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(frm)
+		},
+		url:  getBaseURL() + "index.php/catalogosc/catalogosc/insert_cliente",
+		type: 	"POST",
+		success: function(datos) {
+			data = jQuery.parseJSON(datos);
+			if (data.estado == false) {
+				$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+			}else if(data.estado == true){
+				tr = "<tr class='styleTR'>\
 						<td style='display:none'>\
-							<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
+							<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
 						</td>\
-						<td class='tdNombreUser'>"+data.dato1+"</td>\
-						<td class='tdContraUser'>"+data.dato2+"</td>\
-						<td>\
-							<button class='EditUsuario btn btn-sm btn-primary'>Editar</button>\
-						</td>";//creamos el nuevo fila
-					tr.empty().append(newtr);
-					//console.log(datos);
-				}
-			});
-	}
-	function DeleteUser (form,tr) {
-		$.ajax({
-				data:{
-					form: JSON.stringify(form)
-				},
-				url: getBaseURL() + "index.php/usuario/usuarioc/delete_user",
-				type: "POST",
-				success: function(datos) {
-					data = jQuery.parseJSON(datos);//convirtiendo datos
-					if (data.estado == false) {
-						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-					}else if(data.estado == true){
-						tr.empty();
-						//console.log(data);
-						// para input .val("") val()
-						// para divs .empty() text()
-					}
-				}
-			});	
-	}
+						<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
+						<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
+						<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						</td>\
+					  </tr>"
+				$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
+				//console.log(frm);
+				$(".vaciarinput").val("");
+				// para input .val("") val()
+				// para divs .empty() text()
+			}
+		}
+	});
+}
+function createEditCliente (tr) {
+	idcliente = tr.find(".inputClienteId").val();
+	nombre = tr.find(".tdNombCliente").text();
+	apellido = tr.find(".tdApellidoCliente").text();
+	newtr = "\
+			<td style='display:none'>\
+				<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
+			</td>\
+			<td>\
+				<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
+			</td>\
+			<td>\
+				<input name='txtApellido' class='txtNombre form-control' value='"+apellido+"'>\
+			</td>\
+			<td>\
+				<input type='button' class='btnGuardarCliente btn btn-m btn-success btnAddCot' value='Guardar' />\
+			</td>";
+			//console.log(idcliente,nombre,apellido);
+			tr.empty().append(newtr);
+}
+function saveEditCliente (form,tr) {
+	$.ajax({
+		data:{
+			form: JSON.stringify(form)
+		},
+		url: getBaseURL() + "index.php/catalogosc/catalogosc/update_cliente",
+		type: "POST",
+		success: function(datos) {
+			idradio = tr.find(".inputClienteId").val();
+			data = jQuery.parseJSON(datos);//convirtiendo datos
+			newtr = "\
+					<td style='display:none'>\
+						<input name='txtidRadio' value='"+idradio+"' class='inputClienteId'>\
+					</td>\
+					<td class='tdNombCliente'>"+data.dato1+"</td>\
+					<td class='tdApellidoCliente'>"+data.dato2+"</td>\
+					<td>\
+						<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+						<button class='btn btn-sm btn-danger'>Eliminar</button>\
+					</td>";//creamos el nuevo fila
+			tr.empty().append(newtr);
+			//console.log(datos);
+		}
+	});
+}

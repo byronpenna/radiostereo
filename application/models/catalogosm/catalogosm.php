@@ -54,9 +54,7 @@
 		}
 		public function update_clientedb($dato)
 		{
-			$data 		= array(
-									'cli_nombres' => $dato->txtNombre, 
-									'cli_razon_social' => $dato->txtApellido);
+			$data 		= array('cli_nombres' => $dato->txtNombre, 'cli_apellidos' => $dato->txtApellido);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('cli_id', $dato->txtidcliente);
@@ -88,10 +86,8 @@
 				$retornar .="<tr class='styleTR alt'>
 								<td style='display:none'><input value='".$row->$campo[0]."' class='".$clases['class1']."'></td>
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
-								<td>
-									<center>
-										<button class='".$clases['class3']."'>Editar</button>
-									</center>
+								<td><button class='".$clases['class3']."'>Editar</button>
+									<button class='btn btn-sm btn-danger'>Eliminar</button>
 								</td>
 							</tr>";
 			}
@@ -158,16 +154,11 @@
 			$retorno = "";
 			foreach ($consulta as $row) {
 				$retorno .= "<tr class='styleTR'>
-								<td class='ocultar'><input value='".$row->cli_id."' class='inputClienteId'></td>
+								<td style='display:none'><input value='".$row->cli_id."' class='inputClienteId'></td>
 								<td class='tdNombCliente'>".$row->cli_nombres."</td>
-								<td class='tdApellidoCliente'>".$row->cli_razon_social."</td>
-								<td class='tdNRC ocultar'>".$row->cli_nrc."</td>
-								<td class='tdNIT'>".$row->cli_nit."</td>
-								<td class='tdDireccion ocultar'>".$row->cli_direccion."</td>
-								<td class='tdTelefono ocultar'>".$row->cli_telefono."</td>
-								<td class='tdContacto ocultar'>".$row->cli_contacto."</td>
-								<td class='tdCorreo ocultar'>".$row->cli_correo."</td>
-								<td><button class='EditCliente btn btn-sm btn-primary button' data-type='zoomout'>Editar</button>
+								<td class='tdApellidoCliente'>".$row->cli_apellidos."</td>
+								<td><button class='EditCliente btn btn-sm btn-primary'>Editar</button>
+									<button class='btn btn-sm btn-danger'>Eliminar</button>
 								</td>
 							</tr>";
 			}

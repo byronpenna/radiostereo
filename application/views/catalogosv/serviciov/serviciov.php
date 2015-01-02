@@ -34,7 +34,7 @@
 			<thead class="thead">
 				<tr>
 					<th>Nombre Servicio</th>
-					<th><center>Acción</center></th>
+					<th>Acción</th>
 				</tr>
 			</thead>
 			<tbody class="tbservicio"><!--esta clase sirve para agregar el nuevo elemento-->

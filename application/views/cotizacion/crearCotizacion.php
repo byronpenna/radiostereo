@@ -18,10 +18,10 @@
     		<article id="cotHeader" class="headerCot">
     			<article>
     				<p>Id de Cliente <span> <input type="text" name="txtidCliente" value="<?= $cliente->cli_id ?> " class="form-control input-sm pequenios" readonly="true"><input type="hidden" name="idUsuario" value="<?= $_SESSION['iduser'] ?>"> </span></p>
-    				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres ?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
+    				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres." ".$cliente->cli_apellidos ?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
     			</article>
     			<article>
-    				<p>Forma de Pago <span>
+    				<p>Tipo Cotizacion <span>
                         <?php echo $TipoCot; ?>
     				</span></p>
     				<p>Estado de Cotizacion <span>
@@ -59,7 +59,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>Precio sin Descuento</td>
+                                <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -69,13 +69,13 @@
                         </table>
                         <article class="fechasFooter ">
                             <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
+                                    <span>Fecha Inicio </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
+                                <span >Fecha Fin </span>    
                                 <span>
                                     <input type="text" name="txtFechaFin" placeholder="dd-mm-aaaa" class="form-control input-sm medios fechaFin datepicker ffin" required>
                                 </span>
@@ -107,7 +107,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td>Precio sin Descuento</td>
+                                <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -117,13 +117,13 @@
                         </table>
                         <article class="fechasFooter" >
                             <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
+                                    <span>Fecha Inicio </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
+                                <span >Fecha Fin </span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
@@ -155,7 +155,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td>Precio sin Descuento</td>
+                                <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -165,13 +165,13 @@
                         </table>
                         <article class="fechasFooter " >
                             <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
+                                    <span>Fecha Inicio </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
+                                <span >Fecha Fin </span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
@@ -203,7 +203,7 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td>Precio sin Descuento</td>
+                                <td>Total</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -213,13 +213,13 @@
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
+                                    <span>Fecha Inicio </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
+                                <span >Fecha Fin </span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
