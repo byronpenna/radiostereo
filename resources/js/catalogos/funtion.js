@@ -349,39 +349,39 @@
 		correo = tr.find(".tdCorreo").text();
 
 		newtr = "\
-						<td style='display:none'>\
-							<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
-						</td>\
-						<td>\
-							<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
-						</td>\
-						<td>\
-							<input name='txtApellido' class='txtNombre form-control' value='"+razonsocial+"'>\
-						</td>\
-						<td>\
-							<input name='txtNRC' class='txtNRC form-control' value='"+nrc+"'>\
-						</td>\
-						<td>\
-							<input name='txtNIT' class='txtNIT form-control' value='"+nit+"'>\
-						</td>\
-						<td>\
-							<input name='txtDireccion' class='txtDireccion form-control' value='"+direccion+"'>\
-						</td>\
-						<td>\
-							<input name='txtTelefono' class='txtTelefono form-control' value='"+telefono+"'>\
-						</td>\
-						<td>\
-							<input name='txtContacto' class='txtContacto form-control' value='"+contacto+"'>\
-						</td>\
-						<td>\
-							<input name='txtCorreo' class='txtCorreo form-control' value='"+correo+"'>\
-						</td>\
-						<td>\
-							<center>\
-								<input type='button' class='btnGuardarCliente btn btn-sm btn-success btnAddCot' value='Guardar' />\
-								<button class='DeleteClient btn btn-sm btn-danger'>Eliminar</button>\
-							</center>\
-						</td>";
+				<td style='display:none'>\
+					<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
+				</td>\
+				<td>\
+					<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
+				</td>\
+				<td>\
+					<input name='txtApellido' class='txtApellido form-control' value='"+razonsocial+"'>\
+				</td>\
+				<td>\
+					<input name='txtNRC' class='txtNRC form-control' value='"+nrc+"'>\
+				</td>\
+				<td>\
+					<input name='txtNIT' class='txtNIT form-control' value='"+nit+"'>\
+				</td>\
+				<td>\
+					<input name='txtDireccion' class='txtDireccion form-control' value='"+direccion+"'>\
+				</td>\
+				<td>\
+					<input name='txtTelefono' class='txtTelefono form-control' value='"+telefono+"'>\
+				</td>\
+				<td>\
+					<input name='txtContacto' class='txtContacto form-control' value='"+contacto+"'>\
+				</td>\
+				<td>\
+					<input name='txtCorreo' class='txtCorreo form-control' value='"+correo+"'>\
+				</td>\
+				<td>\
+					<center>\
+						<input type='button' class='btnGuardarCliente btn btn-sm btn-success btnAddCot' value='Guardar' />\
+						<button class='DeleteClient btn btn-sm btn-danger'>Eliminar</button>\
+					</center>\
+				</td>";
 				//console.log(idcliente,nombre,apellido);
 				tr.empty().append(newtr);
 	}
@@ -401,10 +401,14 @@
 						</td>\
 						<td class='tdNombCliente'>"+data.dato1+"</td>\
 						<td class='tdApellidoCliente'>"+data.dato2+"</td>\
+						<td class='tdNRC ocultar'>"+data.dato3+"</td>\
+						<td class='tdNIT'>"+data.dato4+"</td>\
+						<td class='tdDireccion ocultar'>"+data.dato5+"</td>\
+						<td class='tdTelefono ocultar'>"+data.dato6+"</td>\
+						<td class='tdContacto ocultar'>"+data.dato7+"</td>\
+						<td class='tdCorreo ocultar'>"+data.dato8+"</td>\
 						<td>\
-							<center>\
-								<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
-							</center>\
+							<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
 				tr.empty().append(newtr);
 				//console.log(datos);

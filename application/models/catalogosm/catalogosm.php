@@ -54,9 +54,15 @@
 		}
 		public function update_clientedb($dato)
 		{
-			$data 		= array(
-									'cli_nombres' => $dato->txtNombre, 
-									'cli_razon_social' => $dato->txtApellido);
+			$data 	= array(
+							'cli_nombres' 		=> $dato->txtNombre, 
+							'cli_razon_social' 	=> $dato->txtApellido,
+							'cli_nrc'			=> $dato->txtNRC,
+							'cli_nit'			=> $dato->txtNIT,
+							'cli_direccion'		=> $dato->txtDireccion,
+							'cli_telefono'		=> $dato->txtTelefono,
+							'cli_contacto'		=> $dato->txtContacto,
+							'cli_correo'		=> $dato->txtCorreo,);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('cli_id', $dato->txtidcliente);
@@ -68,6 +74,12 @@
 					$retorno->mensaje = "Modificado con exito";
 					$retorno->dato1 = $dato->txtNombre;//retorno el nuevo valor	
 					$retorno->dato2 = $dato->txtApellido;
+					$retorno->dato3 = $dato->txtNRC;
+					$retorno->dato4 = $dato->txtNIT;
+					$retorno->dato5 = $dato->txtDireccion;
+					$retorno->dato6 = $dato->txtTelefono;
+					$retorno->dato7 = $dato->txtContacto;
+					$retorno->dato8 = $dato->txtCorreo;
 				}else{
 					$retorno->estado = false;
 					$msg = $this->db->_error_message();
