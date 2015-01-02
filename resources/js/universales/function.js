@@ -53,25 +53,7 @@ function logOut(frm){
 	function isNumber(n) {
 	  return !isNaN(parseFloat(n)) && isFinite(n);
 	}
-
-
-	//Funcion para agregar datos a la tabla cotizaciones
-	function addCotizacion(frm){
-		$.ajax({
-         data:{
-           form: JSON.stringify(frm)
-         },
-         url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
-         type:   "POST",
-         success: function(data){
-           var datos = jQuery.parseJSON(data);
-            console.log(datos);
-          }
-     });
-	}
-
-
-
+	
 function serializeToJson(a){
 	var o = {};
 	$.each(a, function() {

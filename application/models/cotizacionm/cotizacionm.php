@@ -30,7 +30,7 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='tipo_cot' class='form-control input-sm pequenios' >";
+			$r= "<select name='tipo_cot' class='form-control input-sm pequenios selectBlanco' >";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
@@ -52,7 +52,7 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='estado_cot' class='form-control input-sm pequenios' onload='this.selectedIndex = '-1'' >";
+			$r= "<select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
@@ -78,11 +78,11 @@
 
 		public function getProgAddCot(){
 			$query=$this->getProgramas();
-			$res= "<select name='programa' class='form-control input-sm' style='width:240px;height:28px;padding:0px;' >";
+			$res= "";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->prog_id."'>".$valor->prog_nombre."</option>";
 			}
-			$res.="</select>";
+			$res.="";
 			return $res;
 		}
 
@@ -104,7 +104,8 @@
 
 		public function getPrecios(){
 			$query=$this->queryPrecios();
-			$res= "<select name='precio' class='form-control input-sm mpequenios precios blur'>";
+			$res= "<select name='precio' class='form-control input-sm mpequenios precios  blur'>
+					<option value='-1'></option>";
 			foreach ($query as $key => $valor) {
 				$res.="<option value='".$valor->pre_id."'>$ ".$valor->pre_precio."</option>";
 			}
@@ -145,15 +146,63 @@
 			}	
 			return $res;	
 		}
-
+		
 		//Funcion para insertar datos en la cotizacion
 		public function insertCotizacion($frm){
-			$header 		= $frm->headerCot;
-			$seccion 		= $frm->secCot;
+			$header 		= 	$frm->headerCot;
+			$seccion 		= 	$frm->secCot;
 			$retorno 		= new stdClass();
 			$this->db->trans_start();
 			$flag 	= $this->insertHeaderCot($header);
+			if($flag){
+				$idEncCot = $this->db->insert_id();
+				foreach ($seccion as $valor) {
+					if(!isset($valor->programa)){
+						$valor->programa 	= 	null;
+					}
+					if(!isset($valor->txtIdSec)){
+						$valor->txtIdSec 	= 	null;
+					}
+					if(!isset($valor->txtIdServ)){
+						$valor->txtIdServ	=	null;
+					}
+					if(!isset($valor->txtIdRadio)){
+						$valor->txtIdRadio	=	null;
+					}
+					if($valor->pventa!=null && $valor->txtFechaFin!=null){
+						$flag 		=	 $this->insertEncBloq($valor,$idEncCot);
+						$idEncBloq	=	 $this->db->insert_id();
+						for ($i=0; $i < count($valor->precio); $i++) {
+						if($valor->precio!=-1){
+							if(!isset($valor->txtIdRadio[$i])){
+								$valor->txtIdRadio[$i] 	= null;
+							}else if(!isset($valor->txtIdServ[$i])){
+								$valor->txtIdServ[$i] 	= null;
+							}else if(!isset($valor->txtIdSec[$i])){
+								$valor->txtIdSec[$i] 	= null;
+							}
+							if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
+								@$obj = $this->getObjDetalle($idEncBloq,$valor->txtIdServ[$i],$valor->txtIdRadio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i],$valor->txtIdSec[$i]);
+							$this->insertDetBloque($obj);
+							}
+					 	}
+					}
+					}
+				}
+			}
 			$this->db->trans_complete();
+		}
+
+		public function getObjDetalle($idEncBloq,$idServ,$idRadio,$cantidad,$duracion,$subTotal,$secId){
+			$obj = new stdClass();
+			$obj->det_enc_id 	= $idEncBloq;
+			$obj->det_serv_id 	= $idServ;
+			$obj->det_rad_id 	= $idRadio;
+			$obj->det_cantidad 	= $cantidad;
+			$obj->det_duracion 	= $duracion;
+			$obj->det_subtotal 	= $subTotal;
+			$obj->det_sec_id 	= $secId;
+			return $obj;
 		}
 
 		public function insertHeaderCot($obj){
@@ -171,15 +220,33 @@
 				return $res;
 		}
 
-		public function insertEncBloq($obj){
+		public function insertEncBloq($obj,$idEnCot){
 				$tabla		= array(
-				'enc_cot_id' => $idEnCot,
-				'enc_prog_id'	=> $obj->programa,
-				'enc_precio_venta' => $obj->pventa,
-				'enc_fecha_inicio' => $obj->txtFechaInicio,
-				'enc_fecha_fin' => $obj->txtFechaFin,
-				'enc_sec_id' => $obj->txtIdSec
+					'enc_cot_id' 		=> $idEnCot,
+					'enc_prog_id'		=> $obj->programa,
+					'enc_precio_venta' 	=> $obj->pventa,
+					'enc_fecha_inicio' 	=> $obj->txtFechaInicio,
+					'enc_fecha_fin' 	=> $obj->txtFechaFin,
+					'enc_sec_id' 		=> $obj->txtIdSec
 				);
+
+				$res = $this->db->insert('enc_encabezado_bloque',$tabla);
+				
+				return $res;
+		}
+
+		public function insertDetBloque($obj){
+			$tabla = array(
+				'det_enc_id' 	=> $obj->det_enc_id,
+				'det_serv_id' 	=> $obj->det_serv_id,
+				'det_rad_id' 	=> $obj->det_rad_id,
+				'det_cantidad' 	=> $obj->det_cantidad,
+				'det_duracion' 	=> $obj->det_duracion,
+				'det_subtotal' 	=> $obj->det_subtotal,
+				'det_sec_id'	=> $obj->det_sec_id 	
+				);
+			$res = $this->db->insert('det_detalle_bloque',$tabla);
+			return $res;
 		}
 	}
 ?>

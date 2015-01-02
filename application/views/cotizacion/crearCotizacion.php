@@ -4,6 +4,8 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
+    <script src="<?php echo base_url('resources/js/cotizacion/script.js')?>" type="text/javascript" charset="utf-8"></script>
+    <script src="<?php echo base_url('resources/js/cotizacion/function.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body >
     <?php 
@@ -35,7 +37,10 @@
 				<article id="conProgra"  class="conProgra">
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
-                        <article class="titleProgra"><span>Programa </span><span><?php echo $Prog;?></span></article>
+                        <article class="titleProgra"><span>Programa </span><span>
+                            <select name='programa' class='form-control input-sm selectBlanco' style='width:240px;height:28px;padding:0px;' >
+                                <?php echo $Prog;?>
+                            </select></span></article>
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article>    
                     </article>
                     <article class="cuerpo">

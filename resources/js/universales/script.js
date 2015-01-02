@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$("select").prop('selectedIndex', -1);
+	$(".selectBlanco").prop('selectedIndex', -1);
 	var f = new Date();
     var fActual=f.getFullYear()+"-"+(f.getMonth() +1) + "-" +f.getDate();
 	$("#fechaCreacion").val(fActual);
@@ -10,6 +10,7 @@ $(document).ready(function(){
     $("#limpiar").click(function(){
         location.reload();
     });
+    
 
 
 	$(document).on('submit','#frmLogout',function(e){
@@ -18,23 +19,6 @@ $(document).ready(function(){
 		logOut(frmlout);
 	});
 
-    //obtener datos de cotizacion
-    $("#guardarCot").click(function(){
-        frmGlobal   = new Object();
-        $(".headerCot :input").each(function(){
-            if(!$(this).val() && $(this).attr("name")!="txtValorAgregado"){
-                alert("no puede dejar campos vacios");
-                $(this).css({'background-color' : 'orange'});
-            }
-        });
-        /*var secCot  = [];
-        $(".conProgra").each(function(i,val){
-            secCot[i] = serializeToJson($(this).find("input").serializeArray());
-        });
-        frmGlobal.secCot    = secCot;
-        frmGlobal.headerCot = headerCot;
-        addCotizacion(frmGlobal);*/
-    });
 
 
 	//keypress
@@ -68,47 +52,6 @@ $(document).ready(function(){
       	e.preventDefault();
     });
 
-
-    //Evento para calcular el total de las filas tomando precio,cantidad y duracion.
-    $('.blur').blur(function(){
-    	tr 			= $(this).parents("tr");
-    	tabla		= $(this).parents("table");
-    	cantidad 	= tr.find(".txtCantidad");
-    	duracion 	= tr.find(".txtDuracion");
-    	select 		= tr.find(".precios option:selected").html();
-    	subTotal	= tr.find(".subTotal");
-    	total 		= tabla.find(".total");
-    	try{
-    		var valsin = select.replace("$","");
-    	}catch(err){
-    		console.log(err.message);
-    		valsin="";
-    	}
-        if(cantidad.val()==0){
-            cantidad.val("");
-        }
-        if(duracion.val()==0){
-            duracion.val("");
-        }
-    	valCantidad = cantidad.val();
-    	valDuracion = duracion.val();
-    	res=0;
-    	res=valsin*valCantidad*valDuracion;
-    	if(res!=0){
-    		subTotal.val(res.toFixed(2));
-    	}
-    	//Calcular el Total
-    	sum 	= 0;
-    	tabla.find(".subTotal").each(function(i,val){
-    		valor 	= $(this).val();
-    		if(isNumber(valor)){
-    			sum += parseFloat(valor);
-    		}
-    	})
-    	if(sum.toFixed(2)!=0.00){
-    		total.val(sum.toFixed(2));
-    	}
-    });
 
     //Date Picker
     $(function () {
@@ -152,19 +95,22 @@ $(document).ready(function(){
         }
     });
 
+    
+
+
     $(".ffin").change(function(){
         padre=$(this).parents(".fechasFooter");
         var hijo = padre.find(".ffin");
         var hijoo = padre.find(".fi");
         var fechaSeleccionada = hijo.val();
         var fechaInicio = hijoo.val()
-    	if(fechaInicio){
-        	if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada) < $.datepicker.parseDate('yy-mm-dd', fechaInicio)){
-            	alertify.alert("La fecha de fin no puede ser menor que la fecha de inicio",function(){
+        if(fechaInicio){
+            if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada) < $.datepicker.parseDate('yy-mm-dd', fechaInicio)){
+                alertify.alert("La fecha de fin no puede ser menor que la fecha de inicio",function(){
                     hijo.val("");
                 });
-        	}
-    	}
+            }
+        }
     });
 
     //Boton cancelar de la parte de agregar cotizacion 
