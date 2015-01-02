@@ -54,7 +54,7 @@
             frmGlobal.headerCot = headerCot;
             addCotizacion(frmGlobal);
         }else{
-            alertify.alert(valHeader.mensaje, function () {      
+            alertify.alert(valHeader.mensaje, function () { 
                 });
         }
     });
