@@ -12,36 +12,44 @@
 	<div><!--Mostramos el mensaje retornado-->
 		<h2 class="mensaje"></h2>
 	</div>
-	<fieldset class="fielPrograma well" id="fieldPrograma">
-		<legend>Programas</legend>
-		<form id="frmPrograma" method="POST" class="well"><!--Formulario para ingresar programas-->
+	<fieldset class="fieldClientes well" id="fieldUser">
+		<legend>Usuarios</legend>
+		<form id="frmMantoUser" method="POST" class="well"><!--Formulario para ingresar programas-->
 			<table>
 				<tr>
-					<td><label for="nombre">Nombre Programa:</label></td>
-					<td><input type="text" name="nombpro" class="vaciarinput form-control" required /></td>
+					<td><label for="usua">Usuario:</label></td>
+					<td><input type="text" name="txtuser" class="vaciarinput form-control" required /></td>
+				</tr>
+				<tr>
+					<td><label for="contra">Password:</label></td>
+					<td><input type="password" name="txtpassword" class="vaciarinput form-control" required /></td>
+				</tr>
+				<tr style='display:none'>
+					<td><label for="idcomp">Id Compañía:</label></td>
+					<td><input type="text" name="txtIdCompania" class="form-control" value="1" required /></td>
+				</tr>
+				<tr>
 					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
 		</form>
 		<div id="contenido">
-                <div class="midBox1">	
-                    <div class="midBox1Top">
-                        <h3></h3>		 				 
-                    </div>
+                <div class="midBox1">
                     <div class="datagrid">
                         <form>
-                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Programa" />
+                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Usuario" />
                         </form>
                         <br />
                         <table id="resultados" class="table">
                             <thead class="thead">
                                 <tr>
-                                   <th>Nombre Programa</th>
-									<th><center>Acción</center></th>
+                                   <th>Usuario</th>
+                                   <th>Password</th>
+									<th>Acción</th>
                                 </tr>
                             </thead>
-                            <tbody class="tbProgramas">
-                               <?php  echo $tabla->programas; ?>
+                            <tbody class="tbUsuario">
+                               <?php  echo $tabla->usuario; ?>
                             </tbody>
                         </table>
                         <div style="border: 2px;" id="NavPosicion"></div>
@@ -54,7 +62,6 @@
                                     </script>
                 </div>
             </div>
-	</fieldset>	
-	<br>
+	</fieldset>
 </body>
 </html>
