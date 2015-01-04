@@ -32,3 +32,7 @@
           });
           return retorno;
     }
+
+    function validarDetalle(obj){
+      
+    }
