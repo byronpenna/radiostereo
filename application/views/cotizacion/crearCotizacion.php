@@ -21,7 +21,7 @@
     				<p>Nombre <span> <input type="text" name="" value="<?php echo $cliente->cli_nombres ;?>" class="form-control input-sm pequenios" readonly="true"> </span></p>	
     			</article>
     			<article>
-    				<p>Tipo Cotizacion <span>
+    				<p>Forma de Pago <span>
                         <select name='tipo_cot' class='form-control input-sm pequenios selectBlanco' >
                             <?php echo $TipoCot; ?>
                         </select>   
@@ -73,13 +73,13 @@
                         </table>
                         <article class="fechasFooter ">
                             <article class="fechaInicio">
-                                    <span>Fecha Inicio </span>    
+                                    <span>Inicio de Pauta </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fecha Fin </span>    
+                                <span >Fin de Pauta</span>    
                                 <span>
                                     <input type="text" name="txtFechaFin" placeholder="dd-mm-aaaa" class="form-control input-sm medios fechaFin datepicker ffin" required>
                                 </span>
@@ -121,13 +121,13 @@
                         </table>
                         <article class="fechasFooter" >
                             <article class="fechaInicio">
-                                    <span>Fecha Inicio </span>    
+                                    <span>Inicio de Pauta </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fecha Fin </span>    
+                                <span >Fin de Pauta</span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
@@ -169,13 +169,13 @@
                         </table>
                         <article class="fechasFooter " >
                             <article class="fechaInicio">
-                                    <span>Fecha Inicio </span>    
+                                    <span>Inicio de Pauta</span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fecha Fin </span>    
+                                <span >Fin de Pauta</span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
@@ -217,13 +217,13 @@
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
-                                    <span>Fecha Inicio </span>    
+                                    <span>Inicio de Pauta </span>    
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
-                                <span >Fecha Fin </span>    
+                                <span >Fin de Pauta</span>    
                                 <span>
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
