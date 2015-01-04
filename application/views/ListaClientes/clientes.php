@@ -17,10 +17,9 @@
             <table id="resultados" class="table" >
                 <thead>
                     <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="ID"></th>
                         <th><input type="text" class="form-control" placeholder="Nombre" ></th>
-                        <th><input type="text" class="form-control" placeholder="Apellido" ></th>
-                        <th></th>
+                        <th><input type="text" class="form-control" placeholder="Razon Social" ></th>
+                        <th><input type="text" class="form-control" placeholder="NIT" ></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,3 +35,4 @@
                     pager.showPage(1);
                                     </script>
     </div>
+</div>
