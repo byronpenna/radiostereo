@@ -22,10 +22,14 @@
     			</article>
     			<article>
     				<p>Tipo Cotizacion <span>
-                        <?php echo $TipoCot; ?>
+                        <select name='tipo_cot' class='form-control input-sm pequenios selectBlanco' >
+                            <?php echo $TipoCot; ?>
+                        </select>   
     				</span></p>
     				<p>Estado de Cotizacion <span>
-    					<?php echo $EstadoCot; ?>
+                        <select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >
+        					<?php echo $EstadoCot; ?>
+                        </select>
     				</span></p>
     			</article>
     			<article>

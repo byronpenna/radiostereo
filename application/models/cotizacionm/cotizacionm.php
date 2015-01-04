@@ -30,12 +30,11 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='tipo_cot' class='form-control input-sm pequenios selectBlanco' >";
+			$r="";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
-				}
-				$r.="</select>";	
+				}	
 			}
 			return $r;
 		}
@@ -52,12 +51,11 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >";
+			$r= "";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
 				}
-				$r.="</select>";	
 			}
 			return $r;
 		}
