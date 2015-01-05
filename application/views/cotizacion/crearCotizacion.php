@@ -33,7 +33,7 @@
     				</span></p>
     			</article>
     			<article>
-    				<p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios" id="fechaCreacion" readonly="true"></span></p>
+    				<p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
     			</article>
     		</article>
 			<section id="contCotSer">
@@ -75,7 +75,7 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="form-control input-sm medios  datepicker fi fechaCreacion" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
@@ -123,7 +123,7 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker fechaCreacion" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
@@ -171,7 +171,7 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta</span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker fechaCreacion" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
@@ -219,7 +219,7 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker fechaCreacion" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >

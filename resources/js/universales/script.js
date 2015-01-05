@@ -3,8 +3,8 @@ $(document).ready(function(){
 	$(".selectBlanco").prop('selectedIndex', -1);
 	var f = new Date();
     var fActual=f.getFullYear()+"-"+(f.getMonth() +1) + "-" +f.getDate();
-	$("#fechaCreacion").val(fActual);
-	$(".fi").val(fActual);
+	$(".fechaCreacion").val(fActual);
+    
 
     //Recargar pagina
     $("#limpiar").click(function(){

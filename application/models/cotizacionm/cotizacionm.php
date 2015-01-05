@@ -167,7 +167,7 @@
 					if(!isset($valor->txtIdRadio)){
 						$valor->txtIdRadio	=	null;
 					}
-					if($valor->pventa!=null && $valor->txtFechaFin!=null){
+					//if($valor->pventa!=null && $valor->txtFechaFin!=null){
 						$flag 		=	 $this->insertEncBloq($valor,$idEncCot);
 						$idEncBloq	=	 $this->db->insert_id();
 						for ($i=0; $i < count($valor->precio); $i++) {
@@ -179,13 +179,13 @@
 							}else if(!isset($valor->txtIdSec[$i])){
 								$valor->txtIdSec[$i] 	= null;
 							}
-							if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
+					//		if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
 								@$obj = $this->getObjDetalle($idEncBloq,$valor->txtIdServ[$i],$valor->txtIdRadio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i],$valor->txtIdSec[$i]);
 							$this->insertDetBloque($obj);
 							}
-					 	}
+					 //	}
 					}
-					}
+					//}
 				}
 			}
 			$this->db->trans_complete();
