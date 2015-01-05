@@ -32,7 +32,6 @@ function getBaseURL() {
     try{
         var valsin = select.replace("$","");
     }catch(err){
-        console.log(err.message);
         valsin="";
     }
     if(cantidad.val()==0){
@@ -57,16 +56,10 @@ function getBaseURL() {
         }
     })
     if(sum){
-      console.log(valsin);
-    console.log(cantidad.val());
-    console.log(duracion.val());
-    console.log("el valor que trae el subtotal es ",subTotal.val());
-    subTotal.val();
     if(!valsin || !cantidad.val() || !duracion.val()){
       if(subTotal.val()){
         sum=sum-subTotal.val();
         subTotal.val("");
-        console.log("con la resta hecha",sum);
       }
     } 
         if(sum==0.00){
