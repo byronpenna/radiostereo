@@ -166,6 +166,33 @@
 			return $query;		
 		}
 
+		
+
+		public function getPrecios($idPre){
+			$datos = new stdClass();
+			$datos->validacion=false;
+			$sql="SELECT * FROM pre_precio";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			if($query->num_rows()>0){
+				$datos->validacion=true;
+			}
+			$query=$query->result();
+			$this->db->trans_complete();
+			$res= "<select name='precio' class='form-control input-sm mpequenios precios  blur'>
+					<option value='-1'></option>";
+			foreach ($query as $valor) {
+				if($valor->pre_id==$idPre){
+					$s="selected";
+				}else{
+					$s="";
+				}
+				$res.="<option value='".$valor->pre_id."' ".$s.">$ ".$valor->pre_precio."</option>";
+			}
+			$res.="</select>";
+			return $res;
+		}
+
 		public function prog($idProg){
 			$this->load->model("cotizacionm/cotizacionm");
 			$cotizacionm = new cotizacionm();
@@ -195,9 +222,6 @@
 		}
 
 		public function getServiciosCot($idEncBloq){
-			$this->load->model("cotizacionm/cotizacionm");
-			$cotizacionm=new cotizacionm();
-			$precios  = $cotizacionm->getPrecios();
 			$sql="SELECT * FROM 
 				det_detalle_bloque join serv_servicio
 				on det_serv_id=serv_id
@@ -210,17 +234,18 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal){
-						$valor->det_cantidad="";
-						$valor->det_duracion="";
-						$valor->det_subtotal="";
+					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal || !$valor->det_pre_id){
+						$valor->det_cantidad 	=	"";
+						$valor->det_duracion 	=	"";
+						$valor->det_subtotal 	=	"";
+						$valor->det_pre_id 		=	"";
 					}
 				$res.="<tr>
-						<td><input type='hidden' value='".$valor->det_serv_id."' name='txtIdServ' />".$valor->serv_nombre."</td>
-                                <td>".$precios."</td>
+						<td><input type='hidden' value='".$valor->det_serv_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->serv_nombre."</td>
+                                <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
                                 <td><input type='text' name='txtDuracion' value='".$valor->det_duracion."'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
-                                <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
+                                <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."'  placeholder='$' class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 				}	
 			}
@@ -230,9 +255,6 @@
 
 
 		public function getRadiosCot($idEncBloq){
-			$this->load->model("cotizacionm/cotizacionm");
-			$cotizacionm=new cotizacionm();
-			$precios  = $cotizacionm->getPrecios();
 			$sql="SELECT * FROM 
 				det_detalle_bloque join rad_radio
 				on det_rad_id=rad_id
@@ -251,8 +273,8 @@
 						$valor->det_subtotal="";
 					}
 				$res.="<tr>
-						<td><input type='hidden' value='".$valor->det_rad_id."' name='txtIdServ' />".$valor->rad_nombre."</td>
-                                <td>".$precios."</td>
+						<td><input type='hidden' value='".$valor->det_rad_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->rad_nombre."</td>
+                                <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
                                 <td><input type='text' name='txtDuracion' value='".$valor->det_duracion."'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
                                 <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
@@ -280,6 +302,7 @@
 			}
 				$r='
 				<article id="conProgra"  class="conProgra">
+				<input type="hidden" name="txtIdEncabezado" value="'.$query[0]->enc_id.'" />
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
                         <article class="titleProgra"><span>Programa </span><span>
@@ -289,7 +312,7 @@
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[0]->enc_precio_venta.'" placeholder="$"></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table width="100%" >
+                        <table width="100%" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -316,7 +339,7 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[0]->enc_fecha_inicio.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios  datepicker " required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[0]->enc_fecha_inicio.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
@@ -347,13 +370,14 @@
 			$r='
 				<!-- Contenedor para las Cuñas -->
                 <article id="conProgra"  class="conProgra">
+                <input type="hidden" name="txtIdEncabezado" value="'.$query[1]->enc_id.'" />
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdSec" value="1" >
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[1]->enc_precio_venta.'" placeholder="$" required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -395,13 +419,14 @@
                 <!-- Finaliza contenedor de las cuñas -->
                 <!-- Contenedor para las Entrevistas -->
                 <article id="conProgra" class="conProgra">
+                <input type="hidden" name="txtIdEncabezado" value="'.$query[2]->enc_id.'" />
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdSec" value="2" >
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[2]->enc_precio_venta.'" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -443,13 +468,14 @@
                 <!-- Finaliza contenedor de las entrevistas -->
                 <!-- Contenedor para las Producciones -->
                 <article id="conProgra"  class="conProgra">
+                <input type="hidden" name="txtIdEncabezado" value="'.$query[3]->enc_id.'" />
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdSec" value="3">
                     <article class="contTitle">
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" value="'.$query[3]->enc_precio_venta.'" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -491,6 +517,105 @@
                 <!-- Finaliza contenedor de las Produccion -->
 			';
 			return $r;
+		}
+
+
+
+		public  function editarCotizacion($frm){
+			$header 		= 	$frm->headerCot;
+			$seccion 		= 	$frm->secCot;
+			$retorno 		= new stdClass();
+			$this->db->trans_start();
+			$flag = $this->editarHeaderCot($header);
+			$retorno->header = $flag;
+			if($flag){
+				foreach ($seccion as $valor) {
+					if(!isset($valor->programa)){
+						$valor->programa 	= 	null;
+					}
+					if(!isset($valor->txtIdSec)){
+						$valor->txtIdSec 	= 	null;
+					}
+					if(!isset($valor->txtIdServ)){
+						$valor->txtIdServ	=	null;
+					}
+					if(!isset($valor->txtIdRadio)){
+						$valor->txtIdRadio	=	null;
+					}
+					//if($valor->pventa!=null && $valor->txtFechaFin!=null){
+						$retorno->encBloq=$this->editEncBloq($valor);
+						for ($i=0; $i < count($valor->precio); $i++) {
+						//if($valor->precio!=-1){
+						if($valor->precio[$i]==-1){
+							$valor->precio[$i]="";
+						}
+							if(!isset($valor->txtIdRadio[$i])){
+								$valor->txtIdRadio[$i] 	= null;
+							}else if(!isset($valor->txtIdServ[$i])){
+								$valor->txtIdServ[$i] 	= null;
+							}else if(!isset($valor->txtIdSec[$i])){
+								$valor->txtIdSec[$i] 	= null;
+							}
+					//		if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
+								@$obj = $this->getObjDetalle($valor->txtIdDet[$i],$valor->precio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i]);
+							$retorno->detBloq=$this->editDetBloque($obj);
+							//}
+					 //	}
+					}
+					//}
+				}
+			}
+
+			return $retorno;
+		}
+
+		public function editarHeaderCot($obj){
+			$tabla 			= array(
+				'cot_valor_agregado'	=> $obj->txtValorAgregado,
+				'cot_tip_id'			=> $obj->tipo_cot,
+				'cot_est_id'			=> $obj->estado_cot
+				);
+			$this->db->where('cot_id',$obj->idCot);
+			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
+			return $res;
+		}
+
+		public function editEncBloq($obj){
+				$tabla		= array(
+					'enc_prog_id'		=> $obj->programa,
+					'enc_precio_venta' 	=> $obj->pventa,
+					'enc_fecha_inicio' 	=> $obj->txtFechaInicio,
+					'enc_fecha_fin' 	=> $obj->txtFechaFin,
+				);
+
+				$this->db->where('enc_id',$obj->txtIdEncabezado);
+				$res = $this->db->update('enc_encabezado_bloque',$tabla);
+				
+				return $res;
+		}
+
+		public function getObjDetalle($IdDet,$precio,$cantidad,$duracion,$subTotal){
+			$obj = new stdClass();
+			$obj->det_id 		= $IdDet;
+			$obj->det_pre_id 	= $precio;
+			$obj->det_cantidad 	= $cantidad;
+			$obj->det_duracion 	= $duracion;
+			$obj->det_subtotal 	= $subTotal;
+			return $obj;
+		}
+
+
+
+		public function editDetBloque($obj){
+			$tabla = array(
+				'det_pre_id'	=> $obj->det_pre_id,
+				'det_cantidad' 	=> $obj->det_cantidad,
+				'det_duracion' 	=> $obj->det_duracion,
+				'det_subtotal' 	=> $obj->det_subtotal,
+				);
+			$this->db->where('det_id',$obj->det_id);
+			$res = $this->db->update('det_detalle_bloque',$tabla);
+			return $res;
 		}
 	}
  ?>

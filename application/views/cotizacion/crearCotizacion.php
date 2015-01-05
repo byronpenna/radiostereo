@@ -48,7 +48,7 @@
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table width="100%" >
+                        <table width="100%"  class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -96,7 +96,7 @@
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -144,7 +144,7 @@
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>
@@ -192,7 +192,7 @@
                         <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
-                        <table border=0 width="100%" rules="all">
+                        <table border=0 width="100%" rules="all" class="Tcalculo">
                             <thead>
                             <tr>
                                 <td></td>

@@ -1,10 +1,10 @@
-//Funcion para agregar datos a la tabla cotizaciones
-	function addCotizacion(frm){
+//Funcion para datos datos de la tabla cotizaciones
+	function editCotizacion(frm){
 		$.ajax({
          data:{
            form: JSON.stringify(frm)
          },
-         url:  getBaseURL()+"index.php/cotizacion/cotizacion/recibeDatosAdd",
+         url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/recibeDatosEdit",
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);

@@ -23,7 +23,7 @@
 			$retorno 		= new stdClass();
 			$cotizacionm 	= new cotizacionm();
 			$retorno		= $cotizacionm->insertCotizacion($form);
-			echo json_encode($form);
+			echo json_encode($retorno);
 		}
 	}
 ?>

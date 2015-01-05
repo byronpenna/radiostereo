@@ -33,5 +33,15 @@
 			$datos['data']=$data;
 			$this->load->view('cotizacion/cotizacionesv/editarCot', $datos);
 		}
+
+
+		public function recibeDatosEdit(){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$form 				= json_decode($_POST['form']);
+			$retorno 			= new stdClass();
+			$cotizacionm 		= new cotizacionesm();
+			$retorno 			= $cotizacionm->editarCotizacion($form);
+			echo json_encode($retorno);
+		}
 	}
  ?>
