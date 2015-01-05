@@ -191,11 +191,11 @@ $(document).ready(function () {
 				}
 			});
 		//submit agregar usuario
-			$(document).on("submit","#frmMantoUser",function(e) {
+			$(document).on("submit","#frmUser",function(e) {
 				e.preventDefault();
 				form = serializeToJson($(this).serializeArray());
-				agregarusuario(form);
-				//console.log(form);
+				//agregarusuario(form);
+				console.log(form);
 			});
 			$(document).on("click",".EditUsuario",function() {//obtiene la fila con los datos
 				tr = $(this).parents("tr");
