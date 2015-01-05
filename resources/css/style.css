@@ -37,3 +37,32 @@ fieldset{
 #searchTerm{
 	width: 25%;
 }
+.txtNombUser{
+	font-size: 13px;
+	width:90px;
+}
+.txtPsw{
+	font-size: 13px;
+}
+.buscar > form{
+	margin-left: 2%;
+	margin-bottom: 1%;
+	margin-top: 1%
+}
+.espacio{
+	padding-left: 4%;
+}
+.ocultar{
+	display: none;
+}
+.popup{
+	margin-top: 4%;
+	width: 50%;
+	height: 80%;
+	background-color: white;
+}
+/*aliniamiento botoses
+.EditCliente{
+	margin-left: 45%;
+}*/
+
