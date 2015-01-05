@@ -23,15 +23,12 @@
 	</div>
 	<fieldset class="fieldClientes well" id="fieldClientes">
 		<legend>Clientes</legend>
+		<button class="btn btn-sm btn-success btnDesplegar"><b>Agregar Nuevo Cliente</b></button>
 		<form id="frmClientes" method="POST" class="well">
 			<table>
 				<tr>
 					<td><label for="nombcliente">Nombre:</label></td>
 					<td><input type="text" name="txtnombcliente" class="vaciarinput form-control" required /></td>
-				</tr>
-				<tr>
-					<td><label for="apellido">Apellido:</label></td>
-					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" required /></td>
 					<td class="espacio" ><label for="apellido">Razón Social:</label></td>
 					<td><input type="text" name="txtapellido" id='txtapellido' class="vaciarinput form-control" required /></td>
 				</tr>
