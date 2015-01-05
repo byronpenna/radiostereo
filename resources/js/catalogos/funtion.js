@@ -428,7 +428,7 @@
 			}
 		});	
 	}
-	function saveEditCliente (form,tr,tr2) {
+	function saveEditCliente (form,tr) {
 		$.ajax({
 			data:{
 				form: JSON.stringify(form)
@@ -454,7 +454,7 @@
 							<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
 
-				tr2.empty().append(newtr);
+				$(".modificar").empty().append(newtr);
 				//console.log(datos);
 			}
 		});
