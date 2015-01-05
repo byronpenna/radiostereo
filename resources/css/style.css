@@ -53,6 +53,12 @@ fieldset{
 .ocultar{
 	display: none;
 }
+.popup{
+	margin-top: 4%;
+	width: 50%;
+	height: 80%;
+	background-color: white;
+}
 /*aliniamiento botoses
 .EditCliente{
 	margin-left: 45%;

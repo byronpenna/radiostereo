@@ -11,6 +11,16 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
+	<div class="popup well"><!--pop up para modificar-->
+		<table class="table">
+			<thead>
+				<h3><b>Datos Cliente</b></h3>
+			</thead>
+			<tbody class='tbClientes2 modificar'>
+				
+			</tbody>
+		</table>
+	</div>
 	<fieldset class="fieldClientes well" id="fieldClientes">
 		<legend>Clientes</legend>
 		<button class="btn btn-sm btn-success btnDesplegar"><b>Agregar Nuevo Cliente</b></button>

@@ -162,6 +162,30 @@
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);;
 			return $retorno;
 		}
+		public function selectCliente($idcliente)
+		{
+			$this->db->trans_start();//inicia la transaccion
+				$query = $this->db->query("SELECT * FROM cli_cliente WHERE cli_id =  ".$idcliente) ;//
+			$this->db->trans_complete();//finaliza la transaccion
+			$query = $query->result();
+			return $query[0];
+		}
+		public function RetornarUpdate($idcliente)
+		{
+			$consulta = $this->selectCliente($idcliente);
+			$retorno = new stdClass();
+			$retorno->idcliente 	= $consulta->cli_id;
+			$retorno->nombre 		= $consulta->cli_nombres;
+			$retorno->razonsocial 	= $consulta->cli_razon_social;
+			$retorno->nit 			= $consulta->cli_nit;
+			$retorno->nrc 			= $consulta->cli_nrc;
+			$retorno->direccion 	= $consulta->cli_direccion;
+			$retorno->telefono 		= $consulta->cli_telefono;
+			$retorno->contacto 		= $consulta->cli_contacto;
+			$retorno->correo 		= $consulta->cli_correo;
+			
+			return $retorno;
+		}
 		public function DatosClientes($iduser)
 		{
 			$this->load->model('mainm/mainm');//cargamos el modelo

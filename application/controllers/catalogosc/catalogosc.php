@@ -126,6 +126,14 @@
 			$mensaje = $Catalogosm->update_clientedb($updatfrm);
 			echo json_encode($mensaje);
 		}
+		public function get_Cliente()
+		{
+			$idCliente = json_decode($_POST["id"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$datos = $Catalogosm->RetornarUpdate($idCliente);
+			echo json_encode($datos);
+		}
 		public function index()//carga la vista
 		{
 			$this->load->model('catalogosm/catalogosm');

@@ -147,18 +147,34 @@ $(document).ready(function () {
 				$("#frmClientes").hide();
 				//console.log(form);
 			});
-			//funciones para editar precio
+			//funciones para editar cliente
+			$(".popup").hide()//se oculta el div de modificar;
 			$(document).on("click",".EditCliente",function() {//obtiene la fila con los datos
 				tr = $(this).parents("tr");
-				//console.log(tr);
-				createEditCliente(tr);
+				idcliente = tr.find(".inputClienteId").val();
+				//console.log(idcliente);
+				createEditCliente(idcliente,tr);
+				$(".modificar").show()//se muestra el div de modificar;
+				$(".popup").bPopup({//codigo para el popup
+		           opacity: 0.9,
+		            modalColor: 'Lightgray',
+			        speed: 650,
+			        positionStyle: 'fixed' //'fixed' or 'absolute'
+				});
 			});
 			$(document).on("click",".btnGuardarCliente",function(){//funcion q me controla el evento onclik ala hora de modificar
-				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+				tr = $(this).parents(".modificar");//ingreso a mi tr padre contenido en la vista
+				tr2 = $("table").find(".tbClientes").find("tr");
 				frm = tr.find("input");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 				//console.log(frm);
-				saveEditCliente(frm,tr);
+				saveEditCliente(frm,tr,tr2);
+				$(".popup").hide();//ocultar div;
+				$(".popup").bPopup({//codigo para el popup
+			        closeClass:'.btnGuardarCliente',
+            		follow: [false, false] //x, y
+				});
+				
 			});	
 			$(document).on("click",".DeleteClient",function(){//funcion q me controla el evento onclik ala hora de eliminar
 				 if (confirm("Advertencia: Si elimina el Cliente eliminará toda la información\

@@ -322,10 +322,14 @@
 							</td>\
 							<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
 							<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
+							<td class='tdNIT'>"+frm.txtNIT+"</td>\
+							<td class='tdNRC ocultar'>"+frm.txtNRC+"</td>\
+							<td class='tdDireccion ocultar'>"+frm.txtDireccion+"</td>\
+							<td class='tdTelefono ocultar'>"+frm.txtTelefono+"</td>\
+							<td class='tdContacto ocultar'>"+frm.txtContacto+"</td>\
+							<td class='tdCorreo ocultar'>"+frm.txtCorreo+"</td>\
 							<td>\
-								<center>\
 									<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
-								</center>\
 							</td>\
 						  </tr>"
 					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
@@ -337,55 +341,57 @@
 			}
 		});
 	}
-	function createEditCliente (tr) {
-		idcliente = tr.find(".inputClienteId").val();
-		nombre = tr.find(".tdNombCliente").text();
-		razonsocial = tr.find(".tdApellidoCliente").text();
-		nrc = tr.find(".tdNRC").text();
-		nit = tr.find(".tdNIT").text();
-		direccion = tr.find(".tdDireccion").text();
-		telefono = tr.find(".tdTelefono").text();
-		contacto = tr.find(".tdContacto").text();
-		correo = tr.find(".tdCorreo").text();
-
-		newtr = "\
-				<td style='display:none'>\
-					<input name='txtidcliente' value='"+idcliente+"' class='inputClienteId'>\
+	function createEditCliente (idcliente,tr) {
+		
+		$.ajax({
+			data:{
+				id: JSON.stringify(idcliente)
+			},
+			url: getBaseURL() + "index.php/catalogosc/catalogosc/get_Cliente",
+			type: "POST",
+			success: function(datos) {
+				data = jQuery.parseJSON(datos);//convirtiendo datos
+				//console.log(data);
+				newtr = "<tr>\
+				<td class='ocultar'>\
+					<input name='txtidcliente' value='"+data.idcliente+"' class='inputClienteId'>\
 				</td>\
-				<td>\
-					<input name='txtNombre' class='txtNombre form-control' value='"+nombre+"'>\
+				<td>Nombre:</td><td>\
+					<input name='txtNombre' class='txtNombre form-control' value='"+data.nombre+"'>\
 				</td>\
-				<td>\
-					<input name='txtApellido' class='txtApellido form-control' value='"+razonsocial+"'>\
+				<td>Razón Social</td><td>\
+					<input name='txtApellido' class='txtApellido form-control' value='"+data.razonsocial+"'>\
+				</td></tr>\
+				<tr><td>NIT:</td><td>\
+					<input name='txtNIT' class='txtNIT form-control' value='"+data.nit+"'>\
 				</td>\
-				<td>\
-					<input name='txtNRC' class='txtNRC form-control' value='"+nrc+"'>\
+				<td>NRC</td><td>\
+					<input name='txtNRC' class='txtNRC form-control' value='"+data.nrc+"'>\
+				</td></tr>\
+				<tr><td>Dirección:</td><td>\
+					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
 				</td>\
-				<td>\
-					<input name='txtNIT' class='txtNIT form-control' value='"+nit+"'>\
+				<td>Telefono</td><td>\
+					<input name='txtTelefono' class='txtTelefono form-control' value='"+data.telefono+"'>\
+				</td></tr>\
+				<tr><td>Contacto</td><td>\
+					<input name='txtContacto' class='txtContacto form-control' value='"+data.contacto+"'>\
 				</td>\
-				<td>\
-					<input name='txtDireccion' class='txtDireccion form-control' value='"+direccion+"'>\
-				</td>\
-				<td>\
-					<input name='txtTelefono' class='txtTelefono form-control' value='"+telefono+"'>\
-				</td>\
-				<td>\
-					<input name='txtContacto' class='txtContacto form-control' value='"+contacto+"'>\
-				</td>\
-				<td>\
-					<input name='txtCorreo' class='txtCorreo form-control' value='"+correo+"'>\
-				</td>\
-				<td>\
+				<td>Correo</td><td>\
+					<input name='txtCorreo' class='txtCorreo form-control' value='"+data.correo+"'>\
+				</td></tr>\
+				<tr><td colspan='2'>\
 					<center>\
-						<input type='button' class='btnGuardarCliente btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeleteClient btn btn-sm btn-danger'>Eliminar</button>\
+						<input type='button' class='btnGuardarCliente btn btn-m btn-success btnAddCot' value='Guardar' />\
+						<button class='DeleteClient btn btn-m btn-danger'>Eliminar</button>\
 					</center>\
-				</td>";
-				//console.log(idcliente,nombre,apellido);
-				tr.empty().append(newtr);
+				</td></tr>";
+				//tr.empty().append(newtr);
+				$(".modificar").empty().append(newtr);
+			}
+		});	
 	}
-	function saveEditCliente (form,tr) {
+	function saveEditCliente (form,tr,tr2) {
 		$.ajax({
 			data:{
 				form: JSON.stringify(form)
@@ -393,11 +399,11 @@
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_cliente",
 			type: "POST",
 			success: function(datos) {
-				idradio = tr.find(".inputClienteId").val();
+				idcliente = tr.find(".inputClienteId").val();
 				data = jQuery.parseJSON(datos);//convirtiendo datos
 				newtr = "\
 						<td style='display:none'>\
-							<input name='txtidRadio' value='"+idradio+"' class='inputClienteId'>\
+							<input name='txtidRadio' value='"+idcliente+"' class='inputClienteId'>\
 						</td>\
 						<td class='tdNombCliente'>"+data.dato1+"</td>\
 						<td class='tdApellidoCliente'>"+data.dato2+"</td>\
@@ -410,7 +416,8 @@
 						<td>\
 							<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
-				tr.empty().append(newtr);
+
+				tr2.empty().append(newtr);
 				//console.log(datos);
 			}
 		});

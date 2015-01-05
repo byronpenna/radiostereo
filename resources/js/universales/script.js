@@ -117,4 +117,13 @@ $(document).ready(function(){
     $(".cancel").click(function(){
         history.back()
     });
+
+    //validar numero telefonico
+    $(document).on("submit","#frmClientes",function() {
+                e.preventDefault();
+                form = serializeToJson($(this).serializeArray());
+                //agregarcliente(form);
+                //$("#frmClientes").hide();
+                console.log(form);
+    });
 });
