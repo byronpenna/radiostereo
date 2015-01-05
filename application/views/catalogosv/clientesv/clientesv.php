@@ -55,8 +55,9 @@
                     	<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
 							<thead class="thead">
 								<tr>
-									<th>Nombre cliente</th>
-									<th>Apellido cliente</th>
+									<th>Nombre</th>
+									<th>Razon Social</th>
+									<th>NIT</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
