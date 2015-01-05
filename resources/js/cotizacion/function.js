@@ -9,7 +9,7 @@
          success: function(data){
            var datos = jQuery.parseJSON(data);
            if(datos.header && datos.encBloq && datos.detBloq){
-              alertify.alert("Datos Editados Correctamente", function () {
+              alertify.alert("Datos Ingresados Correctamente", function () {
                     window.location=getBaseURL()+"cotizacionesc/cotizacionesc";
                 });
            }else{

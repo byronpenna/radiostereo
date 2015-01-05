@@ -21,13 +21,14 @@ function getBaseURL() {
 
 
 //calcular los totales para los campos de las cotizaciones 
-
 	function calcularTotal(tr,tabla){
     cantidad    = tr.find(".txtCantidad");
     duracion    = tr.find(".txtDuracion");
     select      = tr.find(".precios option:selected").html();
     subTotal    = tr.find(".subTotal");
     total       = tabla.find(".total");
+    descuento   = tabla.find(".descuento");
+    pventa      = tabla.find(".pventa");
     try{
         var valsin = select.replace("$","");
     }catch(err){
@@ -55,8 +56,21 @@ function getBaseURL() {
             sum += parseFloat(valor);
         }
     })
-    if(sum.toFixed(2)!=0.00){
-        total.val("$ "+sum.toFixed(2));
+
+    if(sum){
+        total.val("$ "+sum);
+        if(sum>=pventa.val()){
+          if(pventa.val()){
+          des=sum-pventa.val();
+          descuento.val(des.toFixed(2));
+        }else{
+          descuento.val("");
+        }
+        }else{
+          alertify.alert("El precio de venta no puede ser mayor que el precio sin descuento", function () {
+                    pventa.val("");
+                }); 
+        }
     }
 }
 

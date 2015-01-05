@@ -122,7 +122,7 @@
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
                                 <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
-                                <td><input type='text' name='txtSubTotal'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
+                                <td><input type='text' name='txtSubTotal' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	
@@ -139,7 +139,7 @@
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
                                 <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
-                                <td><input type='text' name='txtSubTotal'  class='form-control input-sm inAddCot subTotal' readonly='true'></td>
+                                <td><input type='text' name='txtSubTotal'  class='form-control input-sm inAddCot subTotal' placeholder='$' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	

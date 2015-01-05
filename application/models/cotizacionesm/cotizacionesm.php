@@ -37,7 +37,9 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a></td>
+									<td><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
+									</td>
 								 </tr>";
 				}
 			}else{
@@ -277,7 +279,7 @@
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
                                 <td><input type='text' name='txtDuracion' value='".$valor->det_duracion."'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
-                                <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
+                                <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 				}	
 			}
@@ -309,7 +311,7 @@
                             <select name="programa" class="form-control input-sm '.$c.'" style="width:240px;height:28px;padding:0px;"" >
                                 '.$this->prog($query[0]->enc_prog_id).'
                             </select></span></article>
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[0]->enc_precio_venta.'" placeholder="$"></span></article>    
+                        
                     </article>
                     <article class="cuerpo">
                         <table width="100%" class="Tcalculo">
@@ -326,12 +328,26 @@
                         	'.$this->getServiciosCot($query[0]->enc_id).'
                          </tbody>
                         <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Dcto</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa" value="'.$query[0]->enc_precio_venta.'"  placeholder="$"></td>
                             </tr>
                         </tfoot>
                         </table>
@@ -374,7 +390,6 @@
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdSec" value="1" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[1]->enc_precio_venta.'" placeholder="$" required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -391,14 +406,28 @@
                             '.$this->getRadiosCot($query[1]->enc_id).'
                             </tbody>
                             <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text"  class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Dcto</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[1]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter" >
                             <article class="fechaInicio">
@@ -423,7 +452,6 @@
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdSec" value="2" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="'.$query[2]->enc_precio_venta.'" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -440,14 +468,28 @@
                             '.$this->getRadiosCot($query[2]->enc_id).'
                             </tbody>
                             <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Dcto</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[2]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter " >
                             <article class="fechaInicio">
@@ -472,7 +514,6 @@
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdSec" value="3">
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" value="'.$query[3]->enc_precio_venta.'" name="pventa" value="" placeholder="$"  required></span></article>    
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -489,14 +530,28 @@
                             '.$this->getRadiosCot($query[3]->enc_id).'
                             </tbody>
                             <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Dcto</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[3]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">
@@ -616,6 +671,39 @@
 			$this->db->where('det_id',$obj->det_id);
 			$res = $this->db->update('det_detalle_bloque',$tabla);
 			return $res;
+		}
+
+		public function getEncId($IdCot){
+			$sql="SELECT  * FROM enc_encabezado_bloque WHERE enc_cot_id = ".$IdCot."";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;
+		}
+
+		public function getDetId($IdEnc){
+			$sql="SELECT  * FROM det_detalle_bloque WHERE det_enc_id = ".$IdEnc."";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;
+		}
+
+		public function eliminarCot($idCot){
+			$encId=$this->getEncId($idCot);
+			foreach ($encId as $valor) {
+				$detId=$this->getDetId($valor->enc_id);
+				foreach ($detId as $row) {
+					$this->db->where('det_id',$row->det_id);
+					$this->db->delete('det_detalle_bloque');
+				}
+				$this->db->where('enc_id',$valor->enc_id);
+				$this->db->delete('enc_encabezado_bloque');
+			}
+			$this->db->where('cot_id',$idCot);
+			$this->db->delete('cot_encabezado_cotizacion');
 		}
 	}
  ?>

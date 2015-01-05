@@ -401,3 +401,6 @@ textarea{
   float:right;
   margin-top:2%;
 }
+.txtDerecha{
+  text-align: right;
+}
