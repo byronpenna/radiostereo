@@ -30,12 +30,11 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='tipo_cot' class='form-control input-sm pequenios selectBlanco' >";
+			$r="";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->tip_id."'>".$valor->tip_tipo."</option>";
-				}
-				$r.="</select>";	
+				}	
 			}
 			return $r;
 		}
@@ -52,12 +51,11 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "<select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >";
+			$r= "";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
 					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
 				}
-				$r.="</select>";	
 			}
 			return $r;
 		}
@@ -154,6 +152,7 @@
 			$retorno 		= new stdClass();
 			$this->db->trans_start();
 			$flag 	= $this->insertHeaderCot($header);
+			$retorno->header = $flag;
 			if($flag){
 				$idEncCot = $this->db->insert_id();
 				foreach ($seccion as $valor) {
@@ -169,11 +168,15 @@
 					if(!isset($valor->txtIdRadio)){
 						$valor->txtIdRadio	=	null;
 					}
-					if($valor->pventa!=null && $valor->txtFechaFin!=null){
+					//if($valor->pventa!=null && $valor->txtFechaFin!=null){
 						$flag 		=	 $this->insertEncBloq($valor,$idEncCot);
+						$retorno->encBloq = $flag;
 						$idEncBloq	=	 $this->db->insert_id();
 						for ($i=0; $i < count($valor->precio); $i++) {
-						if($valor->precio!=-1){
+						//if($valor->precio!=-1){
+						if($valor->precio[$i]==-1){
+							$valor->precio[$i]="";
+						}
 							if(!isset($valor->txtIdRadio[$i])){
 								$valor->txtIdRadio[$i] 	= null;
 							}else if(!isset($valor->txtIdServ[$i])){
@@ -181,23 +184,26 @@
 							}else if(!isset($valor->txtIdSec[$i])){
 								$valor->txtIdSec[$i] 	= null;
 							}
-							if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
-								@$obj = $this->getObjDetalle($idEncBloq,$valor->txtIdServ[$i],$valor->txtIdRadio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i],$valor->txtIdSec[$i]);
-							$this->insertDetBloque($obj);
-							}
-					 	}
+					//		if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
+								@$obj = $this->getObjDetalle($idEncBloq,$valor->txtIdServ[$i],$valor->txtIdRadio[$i],$valor->precio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i],$valor->txtIdSec[$i]);
+							$retorno->detBloq = $this->insertDetBloque($obj);
+							//}
+					 //	}
 					}
-					}
+					//}
 				}
 			}
 			$this->db->trans_complete();
+
+			return $retorno;
 		}
 
-		public function getObjDetalle($idEncBloq,$idServ,$idRadio,$cantidad,$duracion,$subTotal,$secId){
+		public function getObjDetalle($idEncBloq,$idServ,$idRadio,$precio,$cantidad,$duracion,$subTotal,$secId){
 			$obj = new stdClass();
 			$obj->det_enc_id 	= $idEncBloq;
 			$obj->det_serv_id 	= $idServ;
 			$obj->det_rad_id 	= $idRadio;
+			$obj->det_pre_id 	= $precio;
 			$obj->det_cantidad 	= $cantidad;
 			$obj->det_duracion 	= $duracion;
 			$obj->det_subtotal 	= $subTotal;
@@ -240,6 +246,7 @@
 				'det_enc_id' 	=> $obj->det_enc_id,
 				'det_serv_id' 	=> $obj->det_serv_id,
 				'det_rad_id' 	=> $obj->det_rad_id,
+				'det_pre_id'	=> $obj->det_pre_id,
 				'det_cantidad' 	=> $obj->det_cantidad,
 				'det_duracion' 	=> $obj->det_duracion,
 				'det_subtotal' 	=> $obj->det_subtotal,

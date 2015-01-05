@@ -4,10 +4,19 @@
         tabla       = $(this).parents(".Tcalculo");
         calcularTotal(tr,tabla);  
     });
+    $(document).ready(function(){
+        $(".Tcalculo").each(function(i,val){
+             trs    = $(this).find("tr");
+             tabla  = $(this);
+             $.each(trs,function(ii,value){
+                calcularTotal($(this), tabla);
+             });  
+        });
+    });
 
 
-//obtener datos de cotizacion
-    $(document).on("click","#guardarCot",function(){
+    //obtener datos de cotizacion para editar
+    $(document).on("click","#editCot",function(){
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         valHeader = validarCotizacion($(".headerCot :input"));
@@ -18,7 +27,7 @@
             });
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-            addCotizacion(frmGlobal);
+            editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;
