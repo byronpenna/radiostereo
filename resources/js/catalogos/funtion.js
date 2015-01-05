@@ -400,16 +400,16 @@
 					<input name='txtApellido' class='txtApellido form-control' value='"+data.razonsocial+"'>\
 				</td></tr>\
 				<tr><td>NIT:</td><td>\
-					<input name='txtNIT' class='txtNIT form-control' value='"+data.nit+"'>\
+					<input name='txtNIT' class='txtNIT form-control SoloNumero NumNit' value='"+data.nit+"'>\
 				</td>\
 				<td>NRC</td><td>\
-					<input name='txtNRC' class='txtNRC form-control' value='"+data.nrc+"'>\
+					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"'>\
 				</td></tr>\
 				<tr><td>Dirección:</td><td>\
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
 				</td>\
 				<td>Telefono</td><td>\
-					<input name='txtTelefono' class='txtTelefono form-control' value='"+data.telefono+"'>\
+					<input name='txtTelefono' class='txtTelefono form-control NumTelefono SoloNumero' value='"+data.telefono+"'>\
 				</td></tr>\
 				<tr><td>Contacto</td><td>\
 					<input name='txtContacto' class='txtContacto form-control' value='"+data.contacto+"'>\
