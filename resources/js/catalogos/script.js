@@ -156,19 +156,19 @@ $(document).ready(function () {
 				createEditCliente(idcliente,tr);
 				$(".modificar").show()//se muestra el div de modificar;
 				$(".popup").bPopup({//codigo para el popup
-		           opacity: 0.9,
-		            modalColor: 'Lightgray',
-			        speed: 650,
-			        positionStyle: 'fixed' //'fixed' or 'absolute'
+		            easing: 'easeOutBack', //uses jQuery easing plugin
+		            opacity: 0.6,
+		            positionStyle: 'fixed' //'fixed' or 'absolute'
 				});
 			});
 			$(document).on("click",".btnGuardarCliente",function(){//funcion q me controla el evento onclik ala hora de modificar
 				tr = $(this).parents(".modificar");//ingreso a mi tr padre contenido en la vista
-				tr2 = $("table").find(".tbClientes").find("tr");
+				//tr2 = $("table").find(".tbClientes").find("tr");
 				frm = tr.find("input");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 				//console.log(frm);
-				saveEditCliente(frm,tr,tr2);
+				saveEditCliente(frm,tr);
+				location.reload();
 				$(".popup").hide();//ocultar div;
 				$(".popup").bPopup({//codigo para el popup
 			        closeClass:'.btnGuardarCliente',
