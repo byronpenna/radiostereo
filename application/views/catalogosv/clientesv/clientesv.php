@@ -34,15 +34,15 @@
 				</tr>
 				<tr>
 					<td><label for="NRC">NRC:</label></td>
-					<td><input type="text" name="txtNRC" id='txtNRC' class="vaciarinput SoloNumero form-control" required /></td>
+					<td><input type="text" name="txtNRC" id='txtNRC' class="vaciarinput SoloNumero form-control NumNrc" placeholder="000000-0" required /></td>
 					<td class="espacio"><label for="NIT">NIT:</label></td>
-					<td><input type="text" name="txtNIT" id='txtNIT' class="vaciarinput SoloNumero form-control" placeholder="0000-000000-000-0" required /></td>
+					<td><input type="text" name="txtNIT" id='txtNIT' class="vaciarinput SoloNumero form-control NumNit" placeholder="0000-000000-000-0" required /></td>
 				</tr>
 				<tr>
 					<td><label for="Direccion">Dirección:</label></td>
 					<td><input type="text" name="txtDireccion" id='txtDireccion' class="vaciarinput form-control" required /></td>
 					<td class="espacio"><label for="Telefono">Telefono:</label></td>
-					<td><input type="text" name="txtTelefono" id='txtTelefono' class="vaciarinput SoloNumero form-control" placeholder="0000-0000" required /></td>
+					<td><input type="text" name="txtTelefono" id='txtTelefono' class="vaciarinput SoloNumero form-control NumTelefono" placeholder="0000-0000" required /></td>
 				</tr>
 				<tr>
 					<td><label for="Contacto">Contacto:</label></td>

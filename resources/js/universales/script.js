@@ -119,11 +119,42 @@ $(document).ready(function(){
     });
 
     //validar numero telefonico
-    $(document).on("submit","#frmClientes",function() {
+        $(document).on("keypress",".NumTelefono",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length >= 8){
                 e.preventDefault();
-                form = serializeToJson($(this).serializeArray());
-                //agregarcliente(form);
-                //$("#frmClientes").hide();
-                console.log(form);
-    });
+            }
+        });
+         $(document).on("blur",".NumTelefono",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length < 8){
+                alertify.alert("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
+            }
+        });
+    //validar numero nit
+        $(document).on("keypress",".NumNit",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length >= 14){
+                e.preventDefault();
+            }
+        });
+        $(document).on("blur",".NumNit",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length < 14){
+                alertify.alert("Advertencia: El campo NIT debe contener 14 dígitos exactos");
+            }
+        });
+    //validar numero nrc
+        $(document).on("keypress",".NumNrc",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length >= 7){
+                e.preventDefault();
+            }
+        });  
+        $(document).on("blur",".NumNrc",function(e){
+            //console.log($(this).val().length);
+            if($(this).val().length < 7){
+                alertify.alert("Advertencia: El campo NRC debe contener 7 dígitos exactos");
+            }
+        });
 });
