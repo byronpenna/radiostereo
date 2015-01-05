@@ -162,7 +162,7 @@
 			$retorno = $this->GenerarRetorno($consulta, $clases, $campos);;
 			return $retorno;
 		}
-		public function selectCliente($idcliente)
+		public function selectCliente($idcliente)//extraer cliente para update
 		{
 			$this->db->trans_start();//inicia la transaccion
 				$query = $this->db->query("SELECT * FROM cli_cliente WHERE cli_id =  ".$idcliente) ;//
