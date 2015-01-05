@@ -45,10 +45,10 @@
                             <select name='programa' class='form-control input-sm selectBlanco' style='width:240px;height:28px;padding:0px;' >
                                 <?php echo $Prog;?>
                             </select></span></article>
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article>    
+                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article> -->
                     </article>
                     <article class="cuerpo">
-                        <table width="100%"  class="Tcalculo">
+                        <table width="100%"  class="Tcalculo"> 
                             <thead>
                             <tr>
                                 <td></td>
@@ -62,12 +62,26 @@
                             <?php echo $Servicios; ?>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
                             </tr>
                         </tfoot>
                         </table>
@@ -93,7 +107,7 @@
                     <h4 class="text-center">Cu&ntilde;a</h4>
                     <input type="hidden" name="txtIdSec" value="1" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>    
+                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>     -->
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -110,14 +124,28 @@
                             <?php echo $Radios; ?>
                             </tbody>
                             <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text"  class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter" >
                             <article class="fechaInicio">
@@ -141,7 +169,7 @@
                     <h4 class="text-center">Entrevista</h4>
                     <input type="hidden" name="txtIdSec" value="2" >
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
+                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>     -->
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -158,14 +186,28 @@
                             <?php echo $Radios; ?>
                             </tbody>
                             <tfoot>
-                            <tr>
-                                <td>Total</td>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter " >
                             <article class="fechaInicio">
@@ -189,7 +231,7 @@
                     <h4 class="text-center">Producci&oacute;n</h4>
                     <input type="hidden" name="txtIdSec" value="3">
                     <article class="contTitle">
-                        <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>    
+                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>     -->
                     </article>
                     <article class="cuerpo">
                         <table border=0 width="100%" rules="all" class="Tcalculo">
@@ -205,15 +247,29 @@
                             <tbody>
                             <?php echo $Radios; ?>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <td>Total</td>
+                           <tfoot>
+                            <tr class="txtDerecha">
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="text" name="" value="" class="form-control input-sm inAddCot total" readonly="true"></td>
+                                <td>Precio Sin Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
-                            </tfoot>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Descuento</td>
+                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                            </tr>
+                            <tr class="txtDerecha">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Precio de Venta</td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
+                            </tr>
+                        </tfoot>
                         </table>
                         <article class="fechasFooter">
                             <article class="fechaInicio">

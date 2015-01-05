@@ -43,5 +43,12 @@
 			$retorno 			= $cotizacionm->editarCotizacion($form);
 			echo json_encode($retorno);
 		}
+
+		public function eliminarCotizacion($idCot){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$cotizacionm = new cotizacionesm();
+			$cotizacionm->eliminarCot($idCot);
+			$this->index();
+		}
 	}
  ?>

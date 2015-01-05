@@ -22,8 +22,6 @@
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;
-                //alert(pathname);
-                //alert(window.location);
                 $(location).attr('href', pathname+'#cotHeader');
                 });
         }
