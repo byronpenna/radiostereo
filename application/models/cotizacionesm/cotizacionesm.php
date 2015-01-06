@@ -39,7 +39,7 @@
 									<td>".$row->cot_fecha_elaboracion."</td>
 									<td><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
 										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
-										<a href='' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-info' >Reporte</button>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-info' >Reporte</button>
 									</td>
 								 </tr>";
 				}
@@ -705,6 +705,14 @@
 			}
 			$this->db->where('cot_id',$idCot);
 			$this->db->delete('cot_encabezado_cotizacion');
+		}
+
+		public function getDatosCliente($id){
+			$this->db->trans_start();//inicia la transaccion
+			$query = $this->db->query("SELECT * FROM cli_cliente WHERE cli_id =  ".$id) ;//
+			$this->db->trans_complete();//finaliza la transaccion
+			$query = $query->result();
+			return $query[0];
 		}
 	}
  ?>
