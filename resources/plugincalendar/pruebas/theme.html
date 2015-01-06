@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
+<link href='../fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script src='../lang-all.js'></script>
+<script src='../pop_up.js'></script>
+
+<script>
+
+	$(document).ready(function() {
+
+       
+		$('#calendar').fullCalendar({
+			 windowResize: function(view) {
+        		
+    		},
+    		editable: true,
+    		contentHeight: 260,
+			theme: true,
+			lang: 'es',
+			dayNamesShort: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				month: false,
+				right: false
+			},
+				selectable: true,
+				selectHelper: true,
+				select: function(start, end) {
+					//var title = prompt('Ingrese el titulo de evento:');
+					var date = new Date();
+					var eventData;
+					//if (title) {
+						eventData = {
+							//title: title,
+							start: start,
+							end: end,
+							rendering: 'background',
+							color: '#ff9f89'
+						};
+						//$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+						//$('#calendar').fullCalendar('renderEvent', eventData, true);
+					//}
+ 					alert("La fecha seleccionada es: " + start.format('YYYY-MM-DD') + " al " + end.format());
+					
+					//$('#calendar').fullCalendar('unselect');
+				},
+			
+			eventLimit: true, // allow "more" link when too many events
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 10px;
+	}
+
+	#calendar {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+</style>
+</head>
+<body>
+	<a href="" ><img src="calendario.png"></a>
+		<button class="mostrar" >Calendario</button>
+	<div id='calendar'></div>
+
+</body>
+</html>

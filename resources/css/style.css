@@ -61,6 +61,16 @@ fieldset{
 	height: 450px;
 	background-color: white;
 }
+/*calendar*/
+.calendar{
+	height: 20px;
+	margin-left: 25%
+}
+#calendar {
+		max-width: 400px;
+		width: 300px;
+		margin: 0 auto;
+	}
 /*aliniamiento botoses
 .EditCliente{
 	margin-left: 45%;

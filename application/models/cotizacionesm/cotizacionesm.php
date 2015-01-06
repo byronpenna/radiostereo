@@ -357,7 +357,7 @@
                                     <span>
                                         <input type="text" name="txtFechaInicio" value="'.$query[0]->enc_fecha_inicio.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios  datepicker fi" required>
                                     </span>
-                            </article>        
+                            </article> 
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -367,7 +367,7 @@
                     </article>
                     </article>
                 </article>
-
+                
 			';	
 			return $r;
 		}
@@ -435,7 +435,7 @@
                                     <span>
                                         <input type="text" name="txtFechaInicio" value="'.$query[1]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker" required>
                                     </span>
-                            </article>        
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />       
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -497,7 +497,7 @@
                                     <span>
                                         <input type="text" name="txtFechaInicio" value="'.$query[2]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
-                            </article>        
+                            </article>  <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />   
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -559,7 +559,7 @@
                                     <span>
                                         <input type="text" name="txtFechaInicio"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_inicio.'" class="fi form-control input-sm medios  datepicker" required>
                                     </span>
-                            </article>        
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />    
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
