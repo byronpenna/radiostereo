@@ -355,9 +355,13 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[0]->enc_fecha_inicio.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios  datepicker fi" required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[0]->enc_fecha_inicio.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios  datepicker fi txtFechaInicio" required>
                                     </span>
-                            </article> 
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
+                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>
+                            <div id="contenedor1" class="conteCalendario">
+								<div class="calendar"></div>
+							</div>
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -433,9 +437,10 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[1]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker" required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[1]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker txtFechaInicio" required>
                                     </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />       
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />       
+                           
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -495,9 +500,10 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta</span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[2]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[2]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios  datepicker txtFechaInicio" required>
                                     </span>
-                            </article>  <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />   
+                            </article>  <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />   
+                            
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -557,9 +563,10 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_inicio.'" class="fi form-control input-sm medios  datepicker" required>
+                                        <input type="text" name="txtFechaInicio"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_inicio.'" class="fi form-control input-sm medios  datepicker txtFechaInicio" required>
                                     </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="calendar" />    
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />    
+                           
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
@@ -570,6 +577,7 @@
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las Produccion -->
+                
 			';
 			return $r;
 		}

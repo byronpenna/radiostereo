@@ -292,15 +292,12 @@
 						<td style='display:none'>\
 							<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
 						</td>\
-						<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
-						<td><button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
-							<button class='btn btn-sm btn-danger'>Eliminar</button>\
+						<td class='tdServicio'>"+data.dato+"</td>\
+						<td><center><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button></center>\
 						</td>\
 					  </tr>"
-				$(".vaciarinput").val("");
+				//$(".vaciarinput").val("");
 				$(".tbradio").prepend(tr);//ponemos el nuevo valor al principio
-				tr.empty().append(newtr);
-				//console.log(datos);
 				tr.empty().append(newtr);
 				//console.log(datos);
 			}

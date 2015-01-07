@@ -50,5 +50,10 @@
 			$cotizacionm->eliminarCot($idCot);
 			$this->index();
 		}
+		public function insertFecha()
+		{
+			$fecha 		= json_decode($_POST['fecha']);
+			echo $fecha;
+		}
 	}
  ?>
