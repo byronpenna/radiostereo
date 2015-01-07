@@ -52,27 +52,11 @@
 
 		public function printCotizacion($idCot){
 			$this->load->model("cotizacionesm/cotizacionesm");
-			// $this->load->model("catalogosm/catalogosm");
-			$cotizacionm 	= 	new Cotizacionesm();
-			$enc 			=	$cotizacionm->getEncCot($idCot);
-			$cli 	 		=	$cotizacionm->getDatosCliente($enc[0]->cot_cli_id);
-			$meses = array(
-				"Enero",
-				"Febrero",
-				"Marzo",
-				"Abril",
-				"Mayo",
-				"Junio",
-				"Julio",
-				"Agosto",
-				"Septiembre",
-				"Octubre",
-				"Noviembre",
-				"Diciembre");
-			$datos['Contacto'] = $cli->cli_contacto;
-			$datos['Empresa']	= $cli->cli_razon_social;
-			$datos['enc']			=	$enc;
-			$datos['fechaActual']	= 	"San Salvador,".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+			$cotizacionm 			= 	new Cotizacionesm();
+			$prog 					=	$cotizacionm->getProg($idCot);
+			$sec					=	$cotizacionm->getSec($idCot);
+			$datos['prog']			=	$prog;
+			$datos['sec']			=	$sec;
 			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
 		}
 

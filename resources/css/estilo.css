@@ -424,7 +424,7 @@ textarea{
   padding: auto;
   width: 50% auto;
 }
-.cont table{
+.cont .cont-table-report{
   text-align: left;
   margin-left:150px;
 }
