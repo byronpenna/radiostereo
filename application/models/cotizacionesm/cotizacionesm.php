@@ -826,7 +826,8 @@
 				$res ='
 				<b>'.$progId[0]->prog_nombre.'</b>
 					<table border=0 class="cont-table-report">
-						<tr>
+						<tr style="background:#3498db;">
+
 							<td>Servicio</td>
 							<td>Precio</td>
 							<td>Cantidad</td>
@@ -931,7 +932,10 @@
 					 	 $res.='<br>
 					 	 <br>
 					 	 <br>
-					 	 '.$enc->valorAgregado.'
+					 	 '.$enc->valorAgregado.'<br><br><br><br><br><br>
+					 	 Jose Garcia Calderon<br>
+					 	 Director de Ventas Grupo Radio Stereo<br>
+					 	 7890-9876
 		      	</div>
 		      </div>
 			</page>
