@@ -15,14 +15,12 @@
 
 <!-- Scripts Generales -->
 <script src="<?php echo base_url('resources/js/jquery-1.11.1.min.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/bootstrap.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/jquery-ui.js')?>" type="text/javascript" charset="utf-8"></script>
+<script src="<?php echo base_url('resources/js/bootstrap.js')?>" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="<?php echo base_url('resources/js/alertify.js')?>"></script>
 <script src="<?php echo base_url('resources/js/miscript.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/function.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/universales/script.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/catalogos/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/catalogos/pop_up.js')?>" type="text/javascript" charset="utf-8"></script>
-<script src="<?php echo base_url('resources/js/catalogos/script.js')?>" type="text/javascript" charset="utf-8"></script>
 <script src="<?php echo base_url('resources/js/catalogosjs/paging.js')?>" type="text/javascript" ></script><!--Paginacion-->
 <script src="<?php echo base_url('resources/js/catalogosjs/doSearch.js')?>" type="text/javascript" ></script><!--filtro busqueda-->
+<script src="<?php echo base_url('resources/js/catalogos/pop_up.js')?>" type="text/javascript" charset="utf-8"></script>

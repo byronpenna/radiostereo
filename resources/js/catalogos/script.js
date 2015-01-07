@@ -223,18 +223,5 @@ $(document).ready(function () {
 		            return false;
 				}
 				
-			});	
-		//calendar
-		//$("#contCalendar").hide();
-			//$(document).on("click",".calendar",function() {
-				//$("#contCalendar").show();
-				$("#contCalendar").bPopup({//codigo para el popup
-		            easing: 'easeOutBack', //uses jQuery easing plugin
-		            opacity: 0.6,
-		            positionStyle: 'fixed' //'fixed' or 'absolute'
-				});
-				$('#calendar').fullCalendar({
-					
-				});
-			//});
+			});
 });
