@@ -425,6 +425,10 @@ textarea{
   width: 50% auto;
 }
 .cont .cont-table-report{
-  text-align: left;
+  text-align: center;
   margin-left:150px;
+}
+.cont-secprint{
+  background:red;
+  margin-left:100px;
 }
