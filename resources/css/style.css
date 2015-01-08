@@ -73,7 +73,7 @@ fieldset{
 .conteCalendario{
 		/*margin: 40px 10px ;*/
 		margin-left: 12.5%;
-		margin-right: 15.7%;
+		margin-right: 15.5%;
 		margin-top: 6%;
 		margin-bottom: 4.5%;
 		padding: 0;
@@ -82,6 +82,9 @@ fieldset{
 		background-color: white;
 		padding: 5% 10% 5% 10%;
 		border-radius: 5px 5px 5px 5px;
+}
+.BtnAddEvent{
+	margin-top: 20px;
 }
 /*aliniamiento botoses
 .EditCliente{

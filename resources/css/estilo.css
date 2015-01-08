@@ -384,6 +384,7 @@ textarea{
 }
 .fechasFooter{
   margin-top:10px;
+  margin-bottom: 1.5%;
   width:100%;
 }
 .fechasFooter article{
@@ -394,7 +395,7 @@ textarea{
   vertical-align: top;
 }
 .fechaFin{
-  float:right;
+  margin-left: 25.8%;
 }
 #contBtnAddCot{
   width: 30%;
@@ -403,6 +404,9 @@ textarea{
 }
 .txtDerecha{
   text-align: right;
+}
+.tbody{
+  margin-left: 50px;
 }
 .img-reporte-header{
   width: 70%;
