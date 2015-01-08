@@ -424,11 +424,15 @@ textarea{
   padding: auto;
   width: 50% auto;
 }
-.cont .cont-table-report{
+table.cont-table-report{
   text-align: center;
-  margin-left:150px;
+  margin-left:100px;
+  width: 100%; 
+  border: none; 
+  background-color: #DDDDFF; 
+  border-bottom: solid 1mm #AAAADD; 
+  padding: 2mm;
 }
 .cont-secprint{
-  background:red;
-  margin-left:100px;
+  background:none;
 }

@@ -65,10 +65,10 @@
 			ob_start();
 			$this->load->view($vista, $obj);
 			$html=ob_get_clean();
-			$pdf = new HTML2PDF('P','A4','es', array(0, 0,0,0));  
+			$pdf = new HTML2PDF('P','A4','es', array(100, 100,100,100));  
 			$pdf->WriteHTML($html);
 			// $pdf->pdf->IncludeJS("print(true);");
-			$pdf->Output('cotizacion.pdf');	
+			$pdf->Output('Cotizacion.pdf');	
 		}
 	}
  ?>

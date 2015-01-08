@@ -39,7 +39,7 @@
 									<td>".$row->cot_fecha_elaboracion."</td>
 									<td><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
 										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-info' >Reporte</button>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button>
 									</td>
 								 </tr>";
 				}
@@ -827,7 +827,6 @@
 				<b>'.$progId[0]->prog_nombre.'</b>
 					<table border=0 class="cont-table-report">
 						<tr style="background:#3498db;">
-
 							<td>Servicio</td>
 							<td>Precio</td>
 							<td>Cantidad</td>
@@ -841,14 +840,14 @@
 					<table>
 						<tr>
 							<td>Total por Servicios</td>
-							<td>: $ '.$detalle->total.'</td>
+							<td>: $ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
 						<tr>
 							<td>
 								Descuento
 							</td>
 							<td>
-								: $ '.$detalle->descuento.'
+								: $ '.number_format($detalle->descuento,2,".",",").'
 							</td>
 						</tr>
 
@@ -857,7 +856,7 @@
 								Precio de Venta 
 							</td>
 							<td>
-								: $ '.$encBloq[0]->enc_precio_venta.'
+								: $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
 							</td>
 						</tr>
 					</table>
@@ -896,7 +895,7 @@
 					<td> $ 	'.$precio->pre_precio.'</td>
 					<td>	'.$valor->det_cantidad.'</td>
 					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.$valor->det_subtotal.'</td>
+					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
 				</tr>
 			';
 			$res->total+=$valor->det_subtotal;
@@ -912,34 +911,73 @@
 			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
 			if($enc){
 				$par =$this->getEnReporte($idCot,"enc_sec_id");
+
 				$res = '
-							<page backtop="35mm"> 
+							<page backtop="23mm" backleft="13mm" backright="10mm"> 
 		      				'.$this->getHeader().'
 		      				'.$this->getFooter().'
 		      				'.$enc->encabezado.'
 							'.$this->getDetBloqReporte($idCot).'';
-							// if(!$this->getDetBloqReporte($idCot)){
-							// 	$res .=$this->getDetBloqReporteSec($idCot);
-							// }else{
-
-							// 	if(count($par)<=1){
-							// 	$res .=$this->getDetBloqReporteSec($idCot);
-							// }else{
-							// 	$res .= '<page pageset="old"><div class="cont-secprint">'.$this->getDetBloqReporteSec($idCot).'</div></page>';
-							// }
-							// }
-							$res .=$this->getDetBloqReporteSec($idCot);
+							$gdb=$this->getDetBloqReporteSec($idCot);
+							$p=$this->getDetBloqReporte($idCot);
+							if(count($gdb)==1){
+								if($gdb[0]!=""){
+									$res .=	$gdb[0];
+								}
+							}else if(count($gdb)==3){
+								if($p!=null){
+									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
+									$res .=	$gdb[0];
+									$res .=	'<page pageset="old"><div class="cont-secprint">
+									'.$gdb[1];
+									$res .= '
+									'.$gdb[2].'</div></page><br><br><br><br>';
+								}
+								}else{
+									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
+									$res .=	$gdb[0];
+									$res .=	$gdb[1];
+									$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[2].'</div><br><br><br><br></page>';
+								}
+							}
+							}else if(count($gdb)==2){
+								if($p!=null){
+									if(isset($gdb[0]) && $gdb[0]!=""){
+										$res .=	$gdb[0];
+									}
+									if(isset($gdb[1]) && $gdb[1]!=""){
+										$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[1].'</div><br><br><br><br></page>';	
+									
+									}
+									if(isset($gdb[2]) && $gdb[2]!=""){
+										$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[2].'</div><br><br><br><br></page>';	
+									}
+									
+								}else{
+									if(isset($gdb[0]) && $gdb[0]!=""){
+										$res .=	$gdb[0];
+									}
+									if(isset($gdb[1]) && $gdb[1]!=""){
+										$res .=	$gdb[1];
+									
+									}
+									if(isset($gdb[2]) && $gdb[2]!=""){
+										$res .=	$gdb[2];
+									}
+							}
+							}
 					 	 $res.='<br>
-					 	 <br>
-					 	 <br>
-					 	 '.$enc->valorAgregado.'<br><br><br><br><br><br>
-					 	 Jose Garcia Calderon<br>
-					 	 Director de Ventas Grupo Radio Stereo<br>
-					 	 7890-9876
-		      	</div>
-		      </div>
-			</page>
-			';
+					 	<nobreak><p style="word-wrap:break-word;">'.$enc->valorAgregado.'</p></nobreak><br>
+								 	 Jose Garcia Calderon<br>
+								 	 Director de Ventas Grupo Radio Stereo<br>
+								 	 7890-9876
+					      	</div>
+					      </div>
+						</page>
+						';
 			}else{
 				$res="";
 			}
@@ -979,7 +1017,7 @@
 					<td> $ 	'.$precio->pre_precio.'</td>
 					<td>	'.$valor->det_cantidad.'</td>
 					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.$valor->det_subtotal.'</td>
+					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
 				</tr>
 			';
 			$res->total+=$valor->det_subtotal;
@@ -993,9 +1031,8 @@
 
 		public function getDetBloqReporteSec($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
-			$res="";
 			foreach ($encBloq as $i => $valor) {
-			if($encBloq){
+			if($valor){
 						$sql="SELECT  * FROM 
 						(sec_seccion s JOIN enc_encabezado_bloque e
 						ON s.sec_id=e.enc_sec_id)
@@ -1005,10 +1042,10 @@
 						$progId=$progId->result();
 						$this->db->trans_complete();
 						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
-						$res .=count($encBloq).'
-							'.$progId[0]->sec_nombre.' Id '.$progId[0]->sec_id.':<br>
-								<table border=1 class="cont-table-report">
-								<tr>
+						$res[$i]='<br>
+							<b>'.$progId[0]->sec_nombre.'</b>
+								<table border=0 class="cont-table-report">
+								<tr style="background:#3498db;">
 									<td>Radio</td>
 									<td>Precio</td>
 									<td>Cantidad</td>
@@ -1021,14 +1058,14 @@
 							<table>
 								<tr>
 									<td>Total por Servicios</td>
-									<td>: $ '.$detalle->total.'</td>
+									<td>: $ '.number_format($detalle->total,2,".",",").'</td>
 								</tr>
 								<tr>
 									<td>
 										Descuento
 									</td>
 									<td>
-										: $ '.$detalle->descuento.'
+										: $ '. number_format($detalle->descuento,2,".",",").'
 									</td>
 								</tr>
 
@@ -1037,16 +1074,21 @@
 										Precio de Venta 
 									</td>
 									<td>
-										: $ '.$valor->enc_precio_venta.'
+										: $ '.number_format($valor->enc_precio_venta,2,".",",").'
 									</td>
 								</tr>
 							</table>
 					';
-				}else{
-					$res="";
 				}
 			}
+			if(!isset($res)){
+				for ($i=0; $i <3 ; $i++) { 
+					$res[$i]="";	
+				}
+				
+			}
 			return $res;
+			
 		}
 
 
@@ -1063,7 +1105,7 @@
 		      				'.$this->getHeader().'
 		      				'.$this->getFooter().'
 		      				'.$enc->encabezado.'
-							'.$this->getDetBloqReporteSec($idCot).'
+
 					 	 <br>
 					 	 <br>
 					 	 <br>
