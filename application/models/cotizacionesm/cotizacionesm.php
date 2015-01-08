@@ -37,8 +37,9 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
+									<td><center><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
 										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a></center>
 									</td>
 								 </tr>";
 				}
@@ -222,6 +223,8 @@
 			$this->db->trans_complete();
 			return $query;
 		}
+
+		
 
 		public function getServiciosCot($idEncBloq){
 			$sql="SELECT * FROM 
@@ -690,6 +693,8 @@
 			return $query;
 		}
 
+		
+
 		public function getDetId($IdEnc){
 			$sql="SELECT  * FROM det_detalle_bloque WHERE det_enc_id = ".$IdEnc."";
 			$this->db->trans_start();
@@ -698,6 +703,8 @@
 			$this->db->trans_complete();
 			return $query;
 		}
+
+		
 
 		public function eliminarCot($idCot){
 			$encId=$this->getEncId($idCot);
@@ -712,6 +719,414 @@
 			}
 			$this->db->where('cot_id',$idCot);
 			$this->db->delete('cot_encabezado_cotizacion');
+		}
+
+		
+
+
+		
+
+//Aca se generan los reportes para los programas 
+		public function getEnReporte($IdCot,$campo){
+			$sql="SELECT  * FROM enc_encabezado_bloque 
+			WHERE (enc_cot_id = ".$IdCot.") AND (".$campo." is not null) AND  (enc_precio_venta >0) AND (enc_fecha_inicio>0) AND (enc_fecha_fin>0)";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;
+		}
+
+
+		public function getDetIdReporte($IdEnc,$campo){
+			$sql="SELECT  * FROM det_detalle_bloque 
+			WHERE (det_enc_id = ".$IdEnc.") AND (".$campo." is not null) AND (det_pre_id >0) AND (det_cantidad > 0) AND (det_subtotal > 0) ";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;
+		}
+
+		public function getDatosCliente($id){
+			$this->db->trans_start();//inicia la transaccion
+			$query = $this->db->query("SELECT * FROM cli_cliente WHERE cli_id =  ".$id) ;//
+			$this->db->trans_complete();//finaliza la transaccion
+			$query = $query->result();
+			return $query[0];
+		}
+
+
+		public function meses(){
+			$meses = array(
+				"Enero",
+				"Febrero",
+				"Marzo",
+				"Abril",
+				"Mayo",
+				"Junio",
+				"Julio",
+				"Agosto",
+				"Septiembre",
+				"Octubre",
+				"Noviembre",
+				"Diciembre");
+
+			return $meses;
+		}
+
+
+		public function getHeader(){
+			$header='
+					<page_header> 
+			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header"/>
+			           <div class="hr-reporte">
+			           </div>
+		      		</page_header> 
+			';
+			return $header;
+		}
+
+		public function getFooter(){
+			$footer='
+				<page_footer> 
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer"/>
+		      </page_footer> 
+			';
+
+			return $footer;
+		}
+
+		public function getEncCotReport($idCot){
+			$encCot = $this->getEncCot($idCot);
+			$meses = $this->meses();
+			$res = new stdClass();
+			date_default_timezone_set('America/El_Salvador');
+			$cli = $this->getDatosCliente($encCot[0]->cot_cli_id);
+			$fechaActual	= 	"San Salvador,".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
+			$res->encabezado='
+				<div class="cuerpo">
+		      	<div class="fechaActual">'.$fechaActual.'</div>
+		      	<div class="cont">
+		      		Licenciado (a)<br>
+					'.$cli->cli_contacto.'  <br>
+					'.$cli->cli_razon_social.' <br>
+					Presente <br>
+					Estimada (o)  Lic. (Licda.):<br><br>
+
+					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
+
+					Por este medio someto a su evaluación, presupuesto de inversión publicitaria.  A continuación el detalle:<br><br>
+			';
+			$res->valorAgregado = $encCot[0]->cot_valor_agregado;
+			return $res;
+		}
+
+		public function getDetBloqReporte($idCot){
+			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			if($encBloq){
+				$sql="SELECT  * FROM prog_programa WHERE prog_id = ".$encBloq[0]->enc_prog_id."";
+				$this->db->trans_start();
+				$progId=$this->db->query($sql);
+				$progId=$progId->result();
+				$this->db->trans_complete();
+				$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
+				$res ='
+				<b>'.$progId[0]->prog_nombre.'</b>
+					<table border=0 class="cont-table-report">
+						<tr style="background:#3498db;">
+							<td>Servicio</td>
+							<td>Precio</td>
+							<td>Cantidad</td>
+							<td>Duracion(Seg)</td>
+							<td>Sub Total</td>
+						</tr>
+						'.$detalle->servi.'
+						</table>
+					<br>
+					
+					<table>
+						<tr>
+							<td>Total por Servicios</td>
+							<td>: $ '.number_format($detalle->total,2,".",",").'</td>
+						</tr>
+						<tr>
+							<td>
+								Descuento
+							</td>
+							<td>
+								: $ '.number_format($detalle->descuento,2,".",",").'
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Precio de Venta 
+							</td>
+							<td>
+								: $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
+							</td>
+						</tr>
+					</table>
+			';
+			}else{
+				$res="";
+			}
+			return $res;
+		}
+
+		public function getPrecioReporte($id){
+			$sql="SELECT * FROM pre_precio
+				where pre_id=".$id."
+			";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$this->db->trans_complete();
+			$query=$query->result();
+			return $query[0];
+		}
+
+		public function getDetalleReporte($id,$pventa){
+			$rad = $this->getDetIdReporte($id,"det_serv_id");
+			$res = new stdClass();
+			$res->servi="";
+			$res->total=0;
+			foreach ($rad as $valor) {
+				$serv = $this->getServicios($valor->det_serv_id);
+				foreach ($serv as $row) {
+					$ser=$row->serv_nombre;
+				}
+				$precio = $this->getPrecioReporte($valor->det_pre_id);
+				$res->servi.='
+				<tr>
+					<td>'.$ser.'</td>
+					<td> $ 	'.$precio->pre_precio.'</td>
+					<td>	'.$valor->det_cantidad.'</td>
+					<td>	'.$valor->det_duracion.'</td>
+					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+				</tr>
+			';
+			$res->total+=$valor->det_subtotal;
+			}
+
+			$res->descuento = $res->total - $pventa;
+			
+			return $res;
+		}
+
+		public function getProg($idCot){
+			$enc = $this->getEncCotReport($idCot);
+			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			if($enc){
+				$par =$this->getEnReporte($idCot,"enc_sec_id");
+
+				$res = '
+							<page backtop="23mm" backleft="13mm" backright="10mm"> 
+		      				'.$this->getHeader().'
+		      				'.$this->getFooter().'
+		      				'.$enc->encabezado.'
+							'.$this->getDetBloqReporte($idCot).'';
+							$gdb=$this->getDetBloqReporteSec($idCot);
+							$p=$this->getDetBloqReporte($idCot);
+							if(count($gdb)==1){
+								if($gdb[0]!=""){
+									$res .=	$gdb[0];
+								}
+							}else if(count($gdb)==3){
+								if($p!=null){
+									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
+									$res .=	$gdb[0];
+									$res .=	'<page pageset="old"><div class="cont-secprint">
+									'.$gdb[1];
+									$res .= '
+									'.$gdb[2].'</div></page><br><br><br><br>';
+								}
+								}else{
+									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
+									$res .=	$gdb[0];
+									$res .=	$gdb[1];
+									$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[2].'</div><br><br><br><br></page>';
+								}
+							}
+							}else if(count($gdb)==2){
+								if($p!=null){
+									if(isset($gdb[0]) && $gdb[0]!=""){
+										$res .=	$gdb[0];
+									}
+									if(isset($gdb[1]) && $gdb[1]!=""){
+										$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[1].'</div><br><br><br><br></page>';	
+									
+									}
+									if(isset($gdb[2]) && $gdb[2]!=""){
+										$res .= '<page pageset="old"><div class="cont-secprint">
+									'.$gdb[2].'</div><br><br><br><br></page>';	
+									}
+									
+								}else{
+									if(isset($gdb[0]) && $gdb[0]!=""){
+										$res .=	$gdb[0];
+									}
+									if(isset($gdb[1]) && $gdb[1]!=""){
+										$res .=	$gdb[1];
+									
+									}
+									if(isset($gdb[2]) && $gdb[2]!=""){
+										$res .=	$gdb[2];
+									}
+							}
+							}
+					 	 $res.='<br>
+					 	<nobreak><p style="word-wrap:break-word;">'.$enc->valorAgregado.'</p></nobreak><br>
+								 	 Jose Garcia Calderon<br>
+								 	 Director de Ventas Grupo Radio Stereo<br>
+								 	 7890-9876
+					      	</div>
+					      </div>
+						</page>
+						';
+			}else{
+				$res="";
+			}
+			
+			return $res;
+		}
+
+
+		
+//a partir de aca estara todas las funciones para generar el reporte de las secciones 
+
+		public function getRadiosReporte($id){
+			$sql="SELECT * FROM rad_radio
+			WHERE rad_id=$id";
+			$this->db->trans_start();
+			$query=$this->db->query($sql);
+			$query=$query->result();
+			$this->db->trans_complete();
+			return $query;	
+		}
+
+
+		public function getDetalleReporteRad($id,$pventa){
+			$rad = $this->getDetIdReporte($id,"det_rad_id");
+			$res = new stdClass();
+			$res->servi="";
+			$res->total=0;
+			foreach ($rad as $valor) {
+				$serv = $this->getRadiosReporte($valor->det_rad_id);
+				foreach ($serv as $row) {
+					$ser=$row->rad_nombre;
+				}
+				$precio = $this->getPrecioReporte($valor->det_pre_id);
+				$res->servi.='
+				<tr>
+					<td>'.$ser.'</td>
+					<td> $ 	'.$precio->pre_precio.'</td>
+					<td>	'.$valor->det_cantidad.'</td>
+					<td>	'.$valor->det_duracion.'</td>
+					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+				</tr>
+			';
+			$res->total+=$valor->det_subtotal;
+			}
+
+			$res->descuento = $res->total - $pventa;
+			
+			return $res;
+		}
+		
+
+		public function getDetBloqReporteSec($idCot){
+			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
+			foreach ($encBloq as $i => $valor) {
+			if($valor){
+						$sql="SELECT  * FROM 
+						(sec_seccion s JOIN enc_encabezado_bloque e
+						ON s.sec_id=e.enc_sec_id)
+						WHERE sec_id = ".$valor->enc_sec_id."";
+						$this->db->trans_start();
+						$progId=$this->db->query($sql);
+						$progId=$progId->result();
+						$this->db->trans_complete();
+						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
+						$res[$i]='<br>
+							<b>'.$progId[0]->sec_nombre.'</b>
+								<table border=0 class="cont-table-report">
+								<tr style="background:#3498db;">
+									<td>Radio</td>
+									<td>Precio</td>
+									<td>Cantidad</td>
+									<td>Duracion(Seg)</td>
+									<td>Sub Total</td>
+								</tr>
+								'.$detalle->servi.'
+								</table>
+							<br>
+							<table>
+								<tr>
+									<td>Total por Servicios</td>
+									<td>: $ '.number_format($detalle->total,2,".",",").'</td>
+								</tr>
+								<tr>
+									<td>
+										Descuento
+									</td>
+									<td>
+										: $ '. number_format($detalle->descuento,2,".",",").'
+									</td>
+								</tr>
+
+								<tr>
+									<td>
+										Precio de Venta 
+									</td>
+									<td>
+										: $ '.number_format($valor->enc_precio_venta,2,".",",").'
+									</td>
+								</tr>
+							</table>
+					';
+				}
+			}
+			if(!isset($res)){
+				for ($i=0; $i <3 ; $i++) { 
+					$res[$i]="";	
+				}
+				
+			}
+			return $res;
+			
+		}
+
+
+
+		public function getSec($idCot){
+			$enc = $this->getEncCotReport($idCot);
+			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
+			$det = 		$this->getDetBloqReporteSec($idCot);
+			$res="";
+				if($encBloq){
+					foreach ($encBloq as $valor) {
+							$res .= '
+							<page backtop="30mm"> 
+		      				'.$this->getHeader().'
+		      				'.$this->getFooter().'
+		      				'.$enc->encabezado.'
+
+					 	 <br>
+					 	 <br>
+					 	 <br>
+					 	 '.$enc->valorAgregado.'
+		      	</div>
+		      </div>
+			</page>
+			';
+					}
+			}else{
+				$res="";
+			}
+			return $res;
 		}
 	}
  ?>
