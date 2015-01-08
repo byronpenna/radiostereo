@@ -30,7 +30,7 @@
                         <th>Razon Social</th>
                         <th>NIT</th>
                         <th>Fecha Creación</th>
-                        <th>Acción</th>
+                        <th><center>Acción</center></th>
                     </tr>
                 </thead>
                 <tbody>
