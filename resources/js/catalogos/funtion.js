@@ -303,41 +303,8 @@
 			}
 		});
 	}
-//funciones para el catalogo servicio
-	function agregarcliente(frm) {
-		$.ajax({
-			data:{
-				form: JSON.stringify(frm)
-			},
-			url:  getBaseURL() + "index.php/catalogosc/catalogosc/insert_cliente",
-			type: 	"POST",
-			success: function(datos) {
-				data = jQuery.parseJSON(datos);
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
-							</td>\
-							<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
-							<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
-							<td>\
-								<center>\
-									<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
-								</center>\
-							</td>\
-						  </tr>"
-					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
-					//console.log(frm);
-					$(".vaciarinput").val("");
-					// para input .val("") val()
-					// para divs .empty() text()
-				}
-			}
-		});
-	}
-//funciones para el catalogo servicio
+
+//funciones para el catalogo cliente
 	function agregarcliente(frm) {
 		$.ajax({
 			data:{
@@ -397,10 +364,10 @@
 					<input name='txtApellido' class='txtApellido form-control' value='"+data.razonsocial+"'>\
 				</td></tr>\
 				<tr><td>NIT:</td><td>\
-					<input name='txtNIT' class='txtNIT form-control SoloNumero NumNit' value='"+data.nit+"'>\
+					<input name='txtNIT' class='txtNIT form-control SoloNumero NumNit' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
 				</td>\
 				<td>NRC</td><td>\
-					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"'>\
+					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"' placeholder='000000-0'>\
 				</td></tr>\
 				<tr><td>Dirección:</td><td>\
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
