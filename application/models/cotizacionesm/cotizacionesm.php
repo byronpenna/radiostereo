@@ -369,7 +369,7 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
+                            <input type=\'text\' value=\'\' class=\'txtEvents\'>  
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
@@ -452,7 +452,7 @@
                                     <input type="text" name="txtFechaFin" value="'.$query[1]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
+                            <input type=\'text\' value=\'\' class=\'txtEvents\'>  
                     </article>
                     </article>
                 </article>
@@ -516,6 +516,7 @@
                                     <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd"  value="'.$query[2]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article><img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />    
+                    		<input type=\'text\' value=\'\' class=\'txtEvents\'>
                     </article>
                     </article>
                 </article>
@@ -579,6 +580,7 @@
                                     <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>  <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />  
+                    		<input type=\'text\' value=\'\' class=\'txtEvents\'>
                     </article>
                     </article>
                 </article>
