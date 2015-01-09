@@ -770,22 +770,16 @@
 
 		public function getHeader(){
 			$header='
-					<page_header> 
-			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header"/>
-			           <div class="hr-reporte">
-			           </div>
-		      		</page_header> 
+			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header" style="width:98%;top:-40px;position:fixed;"/>
+			           <hr style="position:fixed;top:90px;">
 			';
 			return $header;
 		}
 
 		public function getFooter(){
-			$footer='
-				<page_footer> 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer"/>
-		      </page_footer> 
+			$footer=' 
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:60px;position:fixed;"/>
 			';
-
 			return $footer;
 		}
 
@@ -797,14 +791,14 @@
 			$cli = $this->getDatosCliente($encCot[0]->cot_cli_id);
 			$fechaActual	= 	"San Salvador,".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
 			$res->encabezado='
-				<div class="cuerpo">
-		      	<div class="fechaActual">'.$fechaActual.'</div>
+				<div class="cuerpo" style="top:105px;position:fixed;height:990px;">
+		      	<div class="fechaActual" style="text-align:center;">'.$fechaActual.'</div>
 		      	<div class="cont">
 		      		Licenciado (a)<br>
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
 					Presente <br>
-					Estimada (o)  Lic. (Licda.):<br><br>
+					Estimada (o)  Lic. (Licda.).<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
 
@@ -823,9 +817,18 @@
 				$progId=$progId->result();
 				$this->db->trans_complete();
 				$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
+				$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
+				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
+				$periodo=$ffin-$fi;
+				$periodo=$periodo+1;
+				if($periodo>1){
+					$periodo=$periodo." meses";
+				}else{
+					$periodo=$periodo." mes";
+				}
 				$res ='
 				<b>'.$progId[0]->prog_nombre.'</b>
-					<table border=0 class="cont-table-report">
+					<table border=0  class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 						<tr style="background:#3498db;">
 							<td>Servicio</td>
 							<td>Precio</td>
@@ -838,6 +841,10 @@
 					<br>
 					
 					<table>
+						<tr>
+							<td>Período de Contratación</td>
+							<td>: ' .$periodo.'</td>
+						</tr>
 						<tr>
 							<td>Total por Servicios</td>
 							<td>: $ '.number_format($detalle->total,2,".",",").'</td>
@@ -891,7 +898,7 @@
 				$precio = $this->getPrecioReporte($valor->det_pre_id);
 				$res->servi.='
 				<tr>
-					<td>'.$ser.'</td>
+					<td style="text-align:left;">'.$ser.'</td>
 					<td> $ 	'.$precio->pre_precio.'</td>
 					<td>	'.$valor->det_cantidad.'</td>
 					<td>	'.$valor->det_duracion.'</td>
@@ -913,9 +920,9 @@
 				$par =$this->getEnReporte($idCot,"enc_sec_id");
 
 				$res = '
-							<page backtop="23mm" backleft="13mm" backright="10mm"> 
 		      				'.$this->getHeader().'
 		      				'.$this->getFooter().'
+		      				<article>
 		      				'.$enc->encabezado.'
 							'.$this->getDetBloqReporte($idCot).'';
 							$gdb=$this->getDetBloqReporteSec($idCot);
@@ -928,17 +935,17 @@
 								if($p!=null){
 									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
 									$res .=	$gdb[0];
-									$res .=	'<page pageset="old"><div class="cont-secprint">
+									$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
 									'.$gdb[1];
 									$res .= '
-									'.$gdb[2].'</div></page><br><br><br><br>';
+									'.$gdb[2].'</div>';
 								}
 								}else{
 									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
 									$res .=	$gdb[0];
 									$res .=	$gdb[1];
-									$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[2].'</div><br><br><br><br></page>';
+									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+									'.$gdb[2].'</div>';
 								}
 							}
 							}else if(count($gdb)==2){
@@ -947,13 +954,13 @@
 										$res .=	$gdb[0];
 									}
 									if(isset($gdb[1]) && $gdb[1]!=""){
-										$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[1].'</div><br><br><br><br></page>';	
+										$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+									'.$gdb[1].'</div>';	
 									
 									}
 									if(isset($gdb[2]) && $gdb[2]!=""){
-										$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[2].'</div><br><br><br><br></page>';	
+										$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+									'.$gdb[2].'</div>';	
 									}
 									
 								}else{
@@ -970,13 +977,15 @@
 							}
 							}
 					 	 $res.='<br>
-					 	<nobreak><p style="word-wrap:break-word;">'.$enc->valorAgregado.'</p></nobreak><br>
+					 	<p style="word-wrap:break-word;"><b>Valores Agregados</b><br>'.nl2br($enc->valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:150px;">
 								 	 Jose Garcia Calderon<br>
 								 	 Director de Ventas Grupo Radio Stereo<br>
 								 	 7890-9876
+								 	 </article>
 					      	</div>
 					      </div>
-						</page>
+					      <article>
 						';
 			}else{
 				$res="";
@@ -986,7 +995,6 @@
 		}
 
 
-		
 //a partir de aca estara todas las funciones para generar el reporte de las secciones 
 
 		public function getRadiosReporte($id){
@@ -1013,7 +1021,7 @@
 				$precio = $this->getPrecioReporte($valor->det_pre_id);
 				$res->servi.='
 				<tr>
-					<td>'.$ser.'</td>
+					<td style="text-align:left;">'.$ser.'</td>
 					<td> $ 	'.$precio->pre_precio.'</td>
 					<td>	'.$valor->det_cantidad.'</td>
 					<td>	'.$valor->det_duracion.'</td>
@@ -1042,10 +1050,19 @@
 						$progId=$progId->result();
 						$this->db->trans_complete();
 						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
+						$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
+						$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
+						$periodo=$ffin-$fi;
+						$periodo=$periodo+1;
+						if($periodo>1){
+							$periodo=$periodo." meses";
+						}else{
+							$periodo=$periodo." mes";
+						}
 						$res[$i]='<br>
 							<b>'.$progId[0]->sec_nombre.'</b>
-								<table border=0 class="cont-table-report">
-								<tr style="background:#3498db;">
+								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
+								<tr style="background:#3498db;" ">
 									<td>Radio</td>
 									<td>Precio</td>
 									<td>Cantidad</td>
@@ -1056,6 +1073,10 @@
 								</table>
 							<br>
 							<table>
+								<tr>
+									<td>Período de Contratación</td>
+									<td>: ' .$periodo.'</td>
+								</tr>
 								<tr>
 									<td>Total por Servicios</td>
 									<td>: $ '.number_format($detalle->total,2,".",",").'</td>

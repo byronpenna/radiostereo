@@ -62,13 +62,20 @@
 
 		public function Reporte($vista,$obj){
 			include_once(APPPATH.'plugins/pdf/html2pdf.class.php');
-			ob_start();
+			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
+			 ob_start();
 			$this->load->view($vista, $obj);
 			$html=ob_get_clean();
-			$pdf = new HTML2PDF('P','A4','es', array(100, 100,100,100));  
-			$pdf->WriteHTML($html);
-			// $pdf->pdf->IncludeJS("print(true);");
-			$pdf->Output('Cotizacion.pdf');	
+			$mipdf = new DOMPDF();
+			$mipdf ->set_paper("A4", "portrait");
+			$mipdf ->load_html($html);
+			$mipdf ->render();
+			$mipdf ->stream('Cotizacion.pdf' ,array("Attachment" => 0));
+			// $html=ob_get_clean();
+			// $pdf = new HTML2PDF('P','A4','es', array(100, 100,100,100));  
+			// $pdf->WriteHTML($html);
+			// // $pdf->pdf->IncludeJS("print(true);");
+			// $pdf->Output('Cotizacion.pdf');	
 		}
 	}
  ?>

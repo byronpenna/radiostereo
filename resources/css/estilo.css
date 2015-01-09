@@ -401,38 +401,3 @@ textarea{
   float:right;
   margin-top:2%;
 }
-.txtDerecha{
-  text-align: right;
-}
-.img-reporte-header{
-  width: 70%;
-  margin-left:125px;
-  margin-top:-25px;
-}
-.img-reporte-footer{
-  width: 100%;
-}
-.hr-reporte{
-  width: 90%;
-  height: 0px;
-  margin-left:44px;
-  margin-top:22px;
-  background: #000000;
-}
-.fechaActual{
-  margin:auto;
-  padding: auto;
-  width: 50% auto;
-}
-table.cont-table-report{
-  text-align: center;
-  margin-left:100px;
-  width: 100%; 
-  border: none; 
-  background-color: #DDDDFF; 
-  border-bottom: solid 1mm #AAAADD; 
-  padding: 2mm;
-}
-.cont-secprint{
-  background:none;
-}
