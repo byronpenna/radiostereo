@@ -3,7 +3,7 @@
 	* 
 	*/
 	include_once(APPPATH.'controllers/padre.php');
-	class perfil extends padre
+	class perfilc extends padre
 	{
 		
 		function __construct()
@@ -16,9 +16,11 @@
 			$this->load->model('usuariom/usuariom');
 			$usuariom = new Usuariom();
 			$tabla = new stdClass();
+			$tabla->id = $_SESSION['iduser'];
+			$tabla->clientes = $usuariom->getPerfil($tabla->id);
 			$datos['tabla'] = $tabla;
 			$datos['Titulo']="..::Perfil usuario::..";
-			$this->load->view('usuariov/perfil', $datos);
+			$this->load->view('usuariov/perfilv', $datos);
 		}
 	}
  ?>
