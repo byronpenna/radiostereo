@@ -369,7 +369,7 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input type=\'text\' value=\'\' class=\'txtEvents\'>  
+                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
@@ -451,7 +451,8 @@
                                 <span>
                                     <input type="text" name="txtFechaFin" value="'.$query[1]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />   
+                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
+                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
                     </article>
                     </article>
                 </article>
