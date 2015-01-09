@@ -3,18 +3,11 @@ $(document).ready(function() {
 	
 	$(document).on("click",".imagen",function() {
 		fechaInicio = $(this).parents(".cuerpo").find(".txtFechaInicio").val();
-		eventos = $(this).parents(".cuerpo").find(".txtEvents").val();//localizo los eventos guardados en el textbox
-		eventos = eventos.split(",");//separar los en forma de arreglo x comas
+		eventos 	= $(this).parents(".cuerpo").find(".txtEvents").val();//localizo los eventos guardados en el textbox
+		eventos 	= eventos.split(",");//separar los en forma de arreglo x comas
 		var eventosCalendar;
 		if($(this).parents(".cuerpo").find(".txtEvents").val() != ""){
-			eventosCalendar = new Array();
-			$.each(eventos,function(i,val){//construyo el arreglo de objetos
-				eventosCalendar[i] = new Object();
-				//eventosCalendar[i].title = null;
-				eventosCalendar[i].start = val;
-				eventosCalendar[i].overlap= false;
-				eventosCalendar[i].color = "red";
-			});
+			eventosCalendar = putEvents(eventos);
 		}else{
 			eventosCalendar = null;
 		}

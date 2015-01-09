@@ -1,3 +1,16 @@
+// byron 
+	function putEvents(eventos){
+		eventosCalendar = new Array();
+		$.each(eventos,function(i,val){//construyo el arreglo de objetos
+			eventosCalendar[i] = new Object();
+			//eventosCalendar[i].title = null;
+			eventosCalendar[i].start = val;
+			eventosCalendar[i].overlap= false;
+			eventosCalendar[i].color = "red";
+		});
+		return eventosCalendar;
+	}
+// ######
 function validarEvento (txtEvento,start,end) {//validar coma
 	
 	if(txtEvento.val() == ""){
@@ -14,7 +27,7 @@ function validarEvento (txtEvento,start,end) {//validar coma
 }
 
 function getCalendar(selector,fechaInicio,eventos,txtEvento){
-		selector.fullCalendar( 'destroy' );
+		
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -34,33 +47,44 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 			selectable: true,
 			selectHelper: true,
 			events: eventos,
+			
 			select: function(start, end,allday,jsEvent) {
-				
+				// console.log($(this).parents(".cuerpo").find(".txtEvents").val());
+				index = start.format('YYYY-MM-DD');
+				index2 = end.format();
 				var eventData;
-					eventData = {
-						start: start,
-						//end: end,
-						color: 'red'
-					};
-					 // stick? = true
-					index = start.format('YYYY-MM-DD');
-					index2 = end.format();
-					console.log(index);
-					console.log(index2);
-					console.log("INDEXOF ",txtEvento.val().indexOf(index));
-					console.log("el id del evento es:",jsEvent);
-					if (txtEvento.val().indexOf(index) == -1) {
-						console.log("entro if");
-						contenidoEventos = validarEvento(txtEvento, start)//se llama la funcion que quita la primera coma
-						txtEvento.val(contenidoEventos);//se colocala fecha en el textbox
-						selector.fullCalendar('renderEvent', eventData, true);
-						//console.log(contenidoEventos);
-					}else{
-						console.log("entro al else");
-						ev = txtEvento.val();
-						console.log("ev",ev);
-						txtEvento.val(txtEvento.val().replace(ev,""));
-					}			
+				eventData = {
+					title: 'hola',
+					start: start,
+					//end: end,
+
+					color: 'red'
+				};
+				if (txtEvento.val().indexOf(index) == -1) {
+					contenidoEventos = validarEvento(txtEvento, start)//se llama la funcion que quita la primera coma
+					txtEvento.val(contenidoEventos);//se colocala fecha en el textbox
+					selector.fullCalendar('renderEvent', eventData, true);
+					//console.log(contenidoEventos);
+				}else{
+					ev = index;
+					txtEvento.val(txtEvento.val().replace(ev,""));
+				}
+				selector.fullCalendar( 'removeEvents' );
+				eventosActudales = $(".txtEvents").val().split(",");
+				var eventosCalendar;
+				if($(".txtEvents").val() != ""){
+					eventosCalendar = putEvents(eventosActudales);
+					$.each(eventosCalendar,function(i,val){
+						console.log("el valor es:",val);
+						selector.fullCalendar('renderEvent', val, true);
+					});
+				}else{
+					eventosCalendar = null;
+				}
+				
+				
+				console.log("fecha ingresada: ",index);	
+							
 			},
 			eventClick: function(eventos){
    					selector.fullCalendar('removeEvents',eventos._id);
