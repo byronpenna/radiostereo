@@ -33,7 +33,7 @@
 			}
 			return $retorno;
 		}
-		public function getPerfil()
+		public function getPerfil($id)
 		{
 			$datos = $this->selectUser();
 			$retorno = "";

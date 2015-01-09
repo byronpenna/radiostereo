@@ -9,6 +9,6 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
-	<h1>Solicitudes en mantenimiento</h1>
+	
 </body>
 </html>
