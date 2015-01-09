@@ -27,6 +27,7 @@
             </li>
             <li><a href="<?php echo site_url('solicitudesc/solicitudesc'); ?>">Solicitudes</a></li>
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc'); ?>">Cotizaciones</a></li>
+            <li><a href="">Perfil Usuario</a></li>
         </ul>
         
         <ul class="nav navbar-nav navbar-right">

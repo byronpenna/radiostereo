@@ -26,11 +26,17 @@
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
 								<td class='tdContraUser'>".$row->usu_password."</td>
+								<td class='tdContraUser'>".$row->usu_firma."</td>
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>
 							</tr>";
 			}
 			return $retorno;
+		}
+		public function getPerfil()
+		{
+			$datos = $this->selectUser();
+			$retorno = "";
 		}
 		public function update_userdb($dato)
 		{
