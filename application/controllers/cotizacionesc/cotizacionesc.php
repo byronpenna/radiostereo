@@ -19,6 +19,25 @@
 			$this->load->view('cotizacion/cotizacionesv/cotizacionesv', $datos);
 		}
 
+		public function aprobarCot(){
+			$this->load->model('cotizacionesm/cotizacionesm');
+			$Cotizacionesm 		=	 new Cotizacionesm();
+			$tabla 				=	 new stdClass();
+			$tabla->cotizacion 	=	 $Cotizacionesm->obtenerCotizacionesAprobar();
+			$datos['tabla'] 	= 	 $tabla;			
+			$datos['Titulo']	=	 "Aprobar Cotizaciones";
+			$this->load->view('cotizacion/aprobarCot', $datos);	
+		}
+
+		public function recibeAprobados(){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$form 				= json_decode($_POST['form']);
+			$retorno 			= new stdClass();
+			$cotizacionm 		= new cotizacionesm();
+			$retorno 			= $cotizacionm->aprobarCotizaciones($form);
+			echo json_encode($retorno);
+		}
+
 		public function editarCotizacion($idCot){
 			$this->load->model('cotizacionesm/cotizacionesm');
 			$Cotizacionesm 			= 	new Cotizacionesm();

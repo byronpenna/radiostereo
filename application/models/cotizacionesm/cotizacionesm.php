@@ -12,7 +12,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_id DESC";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_encabezado_cotizacion.cot_est_id=1 ORDER BY cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -35,8 +35,7 @@
 							ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 							ON enc.enc_id=det.det_enc_id
 							WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0
-							AND cot.cot_id=".$row->cot_id."
-					";
+							AND cot.cot_id=".$row->cot_id."";
 					$this->db->trans_start();
 					$count = $this->db->query($sql);
 					$this->db->trans_complete();
@@ -61,6 +60,51 @@
 			
 			return $retorno;
 		}
+
+
+		public function getCotApro(){
+			$sql="select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
+					((cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
+					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
+					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
+					ON cot.cot_cli_id=cli.cli_id
+					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id=1
+					ORDER BY cot_id DESC";
+					$this->db->trans_start();
+					$query = $this->db->query($sql);
+					$this->db->trans_complete();
+					$datos = $query->result();
+					if($query->num_rows()>0){
+						$res=$datos;
+					}else{
+						$res="nada";
+					}
+				return $res;
+		}
+
+		public function obtenerCotizacionesAprobar(){
+			$datos = $this->getCotApro();
+			if($datos!="nada"){
+					$retorno = "";
+				foreach ($datos as $row) {
+					$retorno .= "<tr class='styleTR'>
+									<td><center><input type='checkbox' name='cotApro' value='".$row->cot_id."' /></center></td>
+									<td>".$row->cli_nombres."</td>
+									<td>".$row->cli_razon_social."</td>
+									<td>".$row->cli_nit."</td>
+									<td>".$row->cot_fecha_elaboracion."</td>
+									<td><center>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>
+										</center></td></tr>";
+				}
+			}else{
+				$retorno="Aun No se ha generado ninguna cotizacion";
+			}
+			
+			return $retorno;
+		}
+		
+
 
 		public function getEncCot($id){
 			$sql="SELECT * FROM cot_encabezado_cotizacion WHERE cot_id=".$id."";
@@ -928,7 +972,7 @@
 
 		public function getProg($idCot){
 			$enc = $this->getEncCotReport($idCot);
-			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
+			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
 			$this->db->trans_start();
 			$cot=$this->db->query($sql);
 			$cot=$cot->result();
@@ -1195,6 +1239,32 @@
 				}
 				
 			}
+			return $res;
+		}
+
+
+
+		//Aprobar Cotizaciones
+		public function aprobarCotizaciones($frm){
+			$seleccionado = $frm;
+			foreach ($seleccionado as $row) {
+				$flag = $this->updateEstadoCot($row);
+				if($flag){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+
+
+
+		public function updateEstadoCot($idCot){
+			$tabla 			= array(
+				'cot_est_id'			=> 2
+				);
+			$this->db->where('cot_id',$idCot);
+			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
 			return $res;
 		}
 	}
