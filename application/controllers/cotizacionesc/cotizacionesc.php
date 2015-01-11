@@ -54,14 +54,11 @@
 			$this->load->model("cotizacionesm/cotizacionesm");
 			$cotizacionm 			= 	new Cotizacionesm();
 			$prog 					=	$cotizacionm->getProg($idCot);
-			$sec					=	$cotizacionm->getSec($idCot);
 			$datos['prog']			=	$prog;
-			$datos['sec']			=	$sec;
 			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
 		}
 
 		public function Reporte($vista,$obj){
-			include_once(APPPATH.'plugins/pdf/html2pdf.class.php');
 			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
 			 ob_start();
 			$this->load->view($vista, $obj);
@@ -71,11 +68,6 @@
 			$mipdf ->load_html($html);
 			$mipdf ->render();
 			$mipdf ->stream('Cotizacion.pdf' ,array("Attachment" => 0));
-			// $html=ob_get_clean();
-			// $pdf = new HTML2PDF('P','A4','es', array(100, 100,100,100));  
-			// $pdf->WriteHTML($html);
-			// // $pdf->pdf->IncludeJS("print(true);");
-			// $pdf->Output('Cotizacion.pdf');	
 		}
 	}
  ?>

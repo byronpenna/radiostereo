@@ -12,8 +12,13 @@
                 calcularTotal($(this), tabla);
              });  
         });
-    });
 
+        $(".vacEditCot :input").each(function(i,val){
+            if($(this).val()==0 || $(this).val()==""){
+                $(this).val(" ");
+            }
+        });
+    });
 
     //obtener datos de cotizacion para editar
     $(document).on("click","#editCot",function(){

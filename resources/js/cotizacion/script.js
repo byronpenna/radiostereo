@@ -5,7 +5,7 @@
         calcularTotal(tr,tabla);  
     });
 
-
+    
 //obtener datos de cotizacion
     $(document).on("click","#guardarCot",function(){
         frmGlobal   = new Object();

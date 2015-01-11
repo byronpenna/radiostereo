@@ -12,7 +12,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente on cli_id=cot_cli_id";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -26,10 +26,21 @@
 		public function getCotizacion()
 		{
 			$datos = $this->SelectCotizacion();
-			
 			if($datos!="nada"){
 					$retorno = "";
 				foreach ($datos as $row) {
+					$sql="
+							select det.det_id  from 
+							(cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
+							ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
+							ON enc.enc_id=det.det_enc_id
+							WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0
+							AND cot.cot_id=".$row->cot_id."
+					";
+					$this->db->trans_start();
+					$count = $this->db->query($sql);
+					$this->db->trans_complete();
+					$count = $count->result();
 					$retorno .= "<tr class='styleTR'>
 									<td style='display:none'>".$row->cot_id."</td>
 									<td style='display:none'>".$row->cli_id."</td>
@@ -37,11 +48,12 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td><center><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a></center>
-									</td>
-								 </tr>";
+									<td><center style='float:left;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>";	
+										if(count($count)>0){
+											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>";
+										}						
+									$retorno .= "</center></td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
@@ -239,13 +251,8 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal || !$valor->det_pre_id){
-						$valor->det_cantidad 	=	"";
-						$valor->det_duracion 	=	"";
-						$valor->det_subtotal 	=	"";
-						$valor->det_pre_id 		=	"";
-					}
-				$res.="<tr>
+					
+				$res.="<tr class='vacEditCot'>
 						<td><input type='hidden' value='".$valor->det_serv_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
@@ -272,12 +279,8 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal){
-						$valor->det_cantidad="";
-						$valor->det_duracion="";
-						$valor->det_subtotal="";
-					}
-				$res.="<tr>
+					
+				$res.="<tr class='vacEditCot'>
 						<td><input type='hidden' value='".$valor->det_rad_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
@@ -810,6 +813,7 @@
 
 		public function getDetBloqReporte($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			$res = new stdClass();
 			if($encBloq){
 				$sql="SELECT  * FROM prog_programa WHERE prog_id = ".$encBloq[0]->enc_prog_id."";
 				$this->db->trans_start();
@@ -826,8 +830,8 @@
 				}else{
 					$periodo=$periodo." mes";
 				}
-				$res ='
-				<b>'.$progId[0]->prog_nombre.'</b>
+				$res->servic ='
+				<b>Programa :'.$progId[0]->prog_nombre.'</b>
 					<table border=0  class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 						<tr style="background:#3498db;">
 							<td>Servicio</td>
@@ -838,8 +842,6 @@
 						</tr>
 						'.$detalle->servi.'
 						</table>
-					<br>
-					
 					<table>
 						<tr>
 							<td>Período de Contratación</td>
@@ -857,7 +859,6 @@
 								: $ '.number_format($detalle->descuento,2,".",",").'
 							</td>
 						</tr>
-
 						<tr>
 							<td>
 								Precio de Venta 
@@ -868,8 +869,10 @@
 						</tr>
 					</table>
 			';
+			$res->contador=$detalle->contador;
 			}else{
-				$res="";
+				$res->servic="";
+				$res->contador=0;
 			}
 			return $res;
 		}
@@ -890,102 +893,176 @@
 			$res = new stdClass();
 			$res->servi="";
 			$res->total=0;
-			foreach ($rad as $valor) {
-				$serv = $this->getServicios($valor->det_serv_id);
-				foreach ($serv as $row) {
-					$ser=$row->serv_nombre;
+			if($rad){
+					foreach ($rad as $valor) {
+					$serv = $this->getServicios($valor->det_serv_id);
+					foreach ($serv as $row) {
+						$ser=$row->serv_nombre;
+					}
+					$precio = $this->getPrecioReporte($valor->det_pre_id);
+					$res->contador = count($rad);
+					$res->servi.='
+					<tr>
+						<td style="text-align:left;">'.$ser.'
+						</td>
+						<td> $ 	'.$precio->pre_precio.'</td>
+						<td>	'.$valor->det_cantidad.'</td>
+						<td>	'.$valor->det_duracion.'</td>
+						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+					</tr>
+				';
+				$res->total+=$valor->det_subtotal;
 				}
-				$precio = $this->getPrecioReporte($valor->det_pre_id);
-				$res->servi.='
-				<tr>
-					<td style="text-align:left;">'.$ser.'</td>
-					<td> $ 	'.$precio->pre_precio.'</td>
-					<td>	'.$valor->det_cantidad.'</td>
-					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-				</tr>
-			';
-			$res->total+=$valor->det_subtotal;
-			}
 
-			$res->descuento = $res->total - $pventa;
+				$res->descuento = $res->total - $pventa;
+				
+			}else{
+				$res->contador=0;
+				$res->servi="";
+				$res->total=0;
+				$res->descuento=0;
+			}
 			
 			return $res;
 		}
 
 		public function getProg($idCot){
 			$enc = $this->getEncCotReport($idCot);
-			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
+			$this->db->trans_start();
+			$cot=$this->db->query($sql);
+			$cot=$cot->result();
+			$this->db->trans_complete();
+			$gdb=$this->getDetBloqReporteSec($idCot);
+			$p=$this->getDetBloqReporte($idCot);
 			if($enc){
-				$par =$this->getEnReporte($idCot,"enc_sec_id");
-
 				$res = '
 		      				'.$this->getHeader().'
 		      				'.$this->getFooter().'
 		      				<article>
-		      				'.$enc->encabezado.'
-							'.$this->getDetBloqReporte($idCot).'';
-							$gdb=$this->getDetBloqReporteSec($idCot);
-							$p=$this->getDetBloqReporte($idCot);
-							if(count($gdb)==1){
-								if($gdb[0]!=""){
-									$res .=	$gdb[0];
-								}
-							}else if(count($gdb)==3){
+		      				'.$enc->encabezado;
+		      				if($gdb->contador[0]>1 && $p->contador > 1){
+								$res.='<br><br>';
+							}
+							$res.= $p->servic;
+
+							if(count($gdb->radios)==1){
 								if($p!=null){
-									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
-									$res .=	$gdb[0];
-									$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb[1];
-									$res .= '
-									'.$gdb[2].'</div>';
-								}
+									if($gdb->radios[0]!=""){
+										if($p->contador > 1 && $gdb->contador[0] > 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}elseif($p->contador == 1 && $gdb->contador[0] > 1 || $p->contador > 1 && $gdb->contador[0] == 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}
+										$res .=	$gdb->radios[0];
+									}
 								}else{
-									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
-									$res .=	$gdb[0];
-									$res .=	$gdb[1];
+									if($gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
+									}
+								}
+							}else if(count($gdb->radios)==3){
+								if($p!=null){
+									if($p->contador >=1){
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1];
+											$res .= '
+											'.$gdb->radios[2].'</div>';
+										}
+									}else{
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	$gdb->radios[1];
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';
+										}
+									}
+									
+								}else{
+									if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+									$res .=	$gdb->radios[0];
+									$res .=	$gdb->radios[1];
 									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb[2].'</div>';
+									'.$gdb->radios[2].'</div>';
 								}
 							}
-							}else if(count($gdb)==2){
+							}else if(count($gdb->radios)==2){
 								if($p!=null){
-									if(isset($gdb[0]) && $gdb[0]!=""){
-										$res .=	$gdb[0];
+									if($p->contador >= 1){
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
+									}else{
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[0]) && isset($gdb->radios[1])){
+											if($gdb->radios[0]!="" && $gdb->radios[1]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[1] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}else if(isset($gdb->radios[0]) && isset($gdb->radios[2])){
+											if($gdb->radios[0]!="" && $gdb->radios[2]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[2] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '</div><div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '</div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
 									}
-									if(isset($gdb[1]) && $gdb[1]!=""){
-										$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb[1].'</div>';	
-									
-									}
-									if(isset($gdb[2]) && $gdb[2]!=""){
-										$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb[2].'</div>';	
-									}
-									
 								}else{
-									if(isset($gdb[0]) && $gdb[0]!=""){
-										$res .=	$gdb[0];
+									if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
 									}
-									if(isset($gdb[1]) && $gdb[1]!=""){
-										$res .=	$gdb[1];
+									if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+										$res .=	$gdb->radios[1];
 									
 									}
-									if(isset($gdb[2]) && $gdb[2]!=""){
-										$res .=	$gdb[2];
+									if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+										$res .=	$gdb->radios[2];
 									}
 							}
+							}
+							if(!$enc->valorAgregado){
+								$valorAgregado="Sin Beneficios";
+							}else{
+								$valorAgregado=$enc->valorAgregado;
 							}
 					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;"><b>Valores Agregados</b><br>'.nl2br($enc->valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:150px;">
-								 	 Jose Garcia Calderon<br>
-								 	 Director de Ventas Grupo Radio Stereo<br>
-								 	 7890-9876
+					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:231px;">
+								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
+								 		Esperando poder servirles muy pronto, me despido.<br><br>
+
+										Atentamente,<br><br>
+
+									 	 Jose Garcia Calderon<br>
+									 	 Director de Ventas Grupo Radio Stereo<br>
+									 	 7890-9876
 								 	 </article>
 					      	</div>
 					      </div>
-					      <article>
+					      </article>
 						';
 			}else{
 				$res="";
@@ -1013,12 +1090,14 @@
 			$res = new stdClass();
 			$res->servi="";
 			$res->total=0;
-			foreach ($rad as $valor) {
+			if($rad){
+				foreach ($rad as $valor) {
 				$serv = $this->getRadiosReporte($valor->det_rad_id);
 				foreach ($serv as $row) {
 					$ser=$row->rad_nombre;
 				}
 				$precio = $this->getPrecioReporte($valor->det_pre_id);
+				$res->contador = count($rad);
 				$res->servi.='
 				<tr>
 					<td style="text-align:left;">'.$ser.'</td>
@@ -1030,15 +1109,21 @@
 			';
 			$res->total+=$valor->det_subtotal;
 			}
-
 			$res->descuento = $res->total - $pventa;
-			
+			}else{
+				$res->contador=0;
+				$res->servi="";
+				$res->total=0;
+				$res->descuento=0;
+			}
+				
 			return $res;
 		}
 		
 
 		public function getDetBloqReporteSec($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
+			$res = new stdClass();
 			foreach ($encBloq as $i => $valor) {
 			if($valor){
 						$sql="SELECT  * FROM 
@@ -1050,8 +1135,8 @@
 						$progId=$progId->result();
 						$this->db->trans_complete();
 						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
-						$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
-						$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
+						$fi=substr($valor->enc_fecha_inicio,"5","2");
+						$ffin=substr($valor->enc_fecha_fin,"5","2");
 						$periodo=$ffin-$fi;
 						$periodo=$periodo+1;
 						if($periodo>1){
@@ -1059,7 +1144,8 @@
 						}else{
 							$periodo=$periodo." mes";
 						}
-						$res[$i]='<br>
+						$res->contador[$i]=$detalle->contador;
+						$res->radios[$i]='<br>
 							<b>'.$progId[0]->sec_nombre.'</b>
 								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 								<tr style="background:#3498db;" ">
@@ -1102,42 +1188,12 @@
 					';
 				}
 			}
-			if(!isset($res)){
-				for ($i=0; $i <3 ; $i++) { 
-					$res[$i]="";	
+			if(!isset($res->radios)){
+				for ($i=0; $i < 3 ; $i++) { 
+					$res->radios[$i]="";	
+					$res->contador[$i]="";
 				}
 				
-			}
-			return $res;
-			
-		}
-
-
-
-		public function getSec($idCot){
-			$enc = $this->getEncCotReport($idCot);
-			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
-			$det = 		$this->getDetBloqReporteSec($idCot);
-			$res="";
-				if($encBloq){
-					foreach ($encBloq as $valor) {
-							$res .= '
-							<page backtop="30mm"> 
-		      				'.$this->getHeader().'
-		      				'.$this->getFooter().'
-		      				'.$enc->encabezado.'
-
-					 	 <br>
-					 	 <br>
-					 	 <br>
-					 	 '.$enc->valorAgregado.'
-		      	</div>
-		      </div>
-			</page>
-			';
-					}
-			}else{
-				$res="";
 			}
 			return $res;
 		}
