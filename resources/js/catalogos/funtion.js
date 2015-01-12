@@ -519,3 +519,43 @@
 				}
 			});	
 	}
+function createEditFirma (tr) {
+	iduser = tr.find(".InputIdUser").val();
+	user = tr.find(".tdNombreUser").text();
+	firma = tr.find(".tdAlgoUser").text();
+	newtr = "\
+				<td style='display:none'>\
+					<textarea name='txtIdUser' cols='2' rows='1' class='form-control'>"+iduser+"</textarea>\
+				</td>\
+				<td>"+user+"</td>\
+				<td>\
+					<textarea name='txtfirma' cols='20' rows='3' class='form-control'>"+firma+"</textarea>\
+				</td>\
+				<td>\
+					<input type='button' class='btnGuardarFirma btn btn-m btn-success btnAddCot' value='Guardar' />\
+				</td>";
+				tr.empty().append(newtr);
+	//console.log("id-> ",iduser,user);
+}
+function saveFirma (frm, tr) {
+	$.ajax({
+				data:{
+					form: JSON.stringify(frm)
+				},
+				url: getBaseURL() + "index.php/usuario/perfilc/updatefirma",
+				type: "POST",
+				success: function(datos) {
+					iduser = tr.find(".InputIdUser").val();
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					newtr = "\
+						<td style='display:none'>\
+							<input name='txtIdUser' value='"+iduser+"' class='InputIdUser'>\
+						</td>\
+						<td class='tdNombreUser'>"+data.dato1+"</td>\
+						<td class='tdAlgoUser'>"+data.dato2+"</td>\
+						";//creamos el nuevo fila
+					tr.empty().append(newtr);
+					// console.log(datos);
+				}
+			});
+}

@@ -209,6 +209,17 @@ $(document).ready(function () {
 				//console.log(frm);
 				saveEditUser(frm,tr);
 			});	
+			$(document).on("click",".EditFirma",function() {
+				tr = $(this).parents("tr");
+				createEditFirma(tr);
+			});
+			$(document).on("click",".btnGuardarFirma",function() {
+				tr = $(this).parents("tr");
+				frm = tr.find("textarea");//encuentro el valor contenido en el input
+				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+				//console.log(frm);
+				saveFirma(frm,tr);
+			});
 			$(document).on("click",".DeleteUser",function(){//funcion q me controla el evento onclik ala hora de modificar
 				 if (confirm("Advertencia: Si elimina el Usuario eliminara toda la información\
 				 				relacionada con el. ¿Aun asi desea continuar?")){

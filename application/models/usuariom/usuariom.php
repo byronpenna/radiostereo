@@ -33,10 +33,36 @@
 			}
 			return $retorno;
 		}
+		public function getUser($id)
+		{
+			$query = "SELECT * FROM usu_usuario WHERE usu_id=".$id;
+			$this->db->trans_start();
+				$query = $this->db->query($query);
+			$this->db->trans_complete();
+			$dato = $query->result();
+			return $dato;
+		}
 		public function getPerfil($id)
 		{
-			$datos = $this->selectUser();
-			$retorno = "";
+			$dato = $this->getUser($id);
+			$retorno ="";
+			if($dato[0]->usu_firma==null){
+				$mensaje="Aun no posee firma";
+			}else{
+				$mensaje=$dato[0]->usu_firma;
+			}
+			foreach ($dato as $row) {
+				$retorno.="<tr>
+							<td style='display:none'><input value='".$row->usu_id."' class='InputIdUser'></td>
+							<td class='tdNombreUser'>".$row->usu_nombre."</td>
+							<td class='tdAlgoUser'>".$mensaje."</td>";
+							if($mensaje == "Aun no posee firma"){
+								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Agregar Firma</button></td>";
+							}
+						  	$retorno.= "</tr>";
+			}
+			
+			return $retorno;
 		}
 		public function update_userdb($dato)
 		{
@@ -73,16 +99,42 @@
 			$this->db->trans_complete();
 			if($this->db->trans_status() === true){
 				if($flag){
-					$retorno->estado = true;
-					$retorno->mensaje = "Eliminado con exito";
+					$retorno->estado 	= true;
+					$retorno->mensaje 	= "Eliminado con exito";
 				}else{
-					$retorno->estado = false;
-					$msg = $this->db->_error_message();
-					$retorno->mensaje = $msg;
+					$retorno->estado 	= false;
+					$msg 				= $this->db->_error_message();
+					$retorno->mensaje 	= $msg;
 				}
 			}else{
 				$retorno->estado = false;
 				$retorno->mensaje = "Se ha producido un Error al Eliminar";
+			}
+			return $retorno;
+		}
+		public function updatefirma($datos)
+		{
+			$data 		= array('usu_firma' => $datos->txtfirma);
+			$retorno 	= new stdClass();
+			$this->db->trans_start();
+				$this->db->where('usu_id', $datos->txtIdUser);
+				$flag = $this->db->update('usu_usuario', $data);
+			$this->db->trans_complete();
+			$nombre = $this->getUser($datos->txtIdUser);;
+			if($this->db->trans_status() === true){
+				if($flag){
+					$retorno->estado 	= true;
+					$retorno->mensaje	= "Modificado con exito";
+					$retorno->dato1 	= $nombre[0]->usu_nombre;//retorno el nuevo valor	
+					$retorno->dato2 	= $datos->txtfirma;
+				}else{
+					$retorno->estado 	= false;
+					$msg 				= $this->db->_error_message();
+					$retorno->mensaje 	= $msg;
+				}
+			}else{
+				$retorno->estado = false;
+				$retorno->mensaje = "Se ha producido un Error al modificar";
 			}
 			return $retorno;
 		}
