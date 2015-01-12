@@ -3,6 +3,6 @@ $(document).on("click",".apCot",function(){
 	$(".dataApo :checked").each(function(i,val){
 		seleccionados[i] = serializeToJson($(this).serializeArray());
 	});
-
-	obtenerDatosAprobados(seleccionados);
+	console.log(seleccionados);
+	// obtenerDatosAprobados(seleccionados);
 });

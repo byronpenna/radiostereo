@@ -79,7 +79,7 @@
 
 		public function Reporte($vista,$obj){
 			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
-			 ob_start();
+			ob_start();
 			$this->load->view($vista, $obj);
 			$html=ob_get_clean();
 			$mipdf = new DOMPDF();

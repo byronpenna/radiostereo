@@ -979,13 +979,14 @@
 			$this->db->trans_complete();
 			$gdb=$this->getDetBloqReporteSec($idCot);
 			$p=$this->getDetBloqReporte($idCot);
+		
 			if($enc){
 				$res = '
-		      				'.$this->getHeader().'
-		      				'.$this->getFooter().'
+							'.$this->getHeader().'
+		      				'.$this->getFooter().'      				
 		      				<article>
 		      				'.$enc->encabezado;
-		      				if($gdb->contador[0]>1 && $p->contador > 1){
+		      				if($gdb->contador>1 && $p->contador > 1){
 								$res.='<br><br>';
 							}
 							$res.= $p->servic;
@@ -1235,7 +1236,7 @@
 			if(!isset($res->radios)){
 				for ($i=0; $i < 3 ; $i++) { 
 					$res->radios[$i]="";	
-					$res->contador[$i]="";
+					$res->contador="";
 				}
 				
 			}
