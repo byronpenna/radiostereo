@@ -424,7 +424,7 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input type=\'text\' value=\'\' class=\'txtEvents\'>  
+                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
@@ -524,7 +524,7 @@
                                     <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
-                            <input type=\'text\' value=\'\' class=\'txtEvents\'>  
+                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
                     </article>
                     </article>
                 </article>
@@ -887,7 +887,14 @@
 			$this->db->trans_complete();
 			$gdb=$this->getDetBloqReporteSec($idCot);
 			$p=$this->getDetBloqReporte($idCot);
-		
+			
+
+			// consulta para traer la firma del usuario
+			$que="select * from usu_usuario where usu_id =".$_SESSION['iduser']." ";
+			$this->db->trans_start();
+			$firma=$this->db->query($que);
+			$firma=$firma->result();
+			$this->db->trans_complete();
 			if($enc){
 				$res = '
 							'.$this->getHeader().'
@@ -1007,12 +1014,9 @@
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 
-										Atentamente,<br><br>
-
-									 	 Jose Garcia Calderon<br>
-									 	 Director de Ventas Grupo Radio Stereo<br>
-									 	 7890-9876
-								 	 </article>
+										Atentamente,<br><br> ';
+								$res.=  nl2br($firma[0]->usu_firma);
+							$res.= '	</article>
 					      	</div>
 					      </div>
 					      </article>
