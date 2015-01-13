@@ -25,7 +25,7 @@
                 <li><a href="<?php echo site_url('clientesc/clientesc'); ?>">Clientes</a></li>
               </ul>
             </li>
-            <li><a href="<?php echo site_url('solicitudesc/solicitudesc'); ?>">Solicitudes</a></li>
+            <!--<li><a href="<?php echo site_url('solicitudesc/solicitudesc'); ?>">Solicitudes</a></li>-->
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc'); ?>">Cotizaciones</a></li>
             <li><a href="<?php echo site_url('usuario/perfilc'); ?>">Firma Usuario</a></li>
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc/aprobarCot'); ?>">Aprobar Cotizaciones</a></li>
