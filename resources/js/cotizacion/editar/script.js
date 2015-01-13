@@ -12,8 +12,13 @@
                 calcularTotal($(this), tabla);
              });  
         });
-    });
 
+        $(".vacEditCot :input").each(function(i,val){
+            if($(this).val()==0 || $(this).val()==""){
+                $(this).val(" ");
+            }
+        });
+    });
 
     //obtener datos de cotizacion para editar
     $(document).on("click","#editCot",function(){
@@ -27,6 +32,7 @@
             });
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
+            console.log(frmGlobal);
             editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 

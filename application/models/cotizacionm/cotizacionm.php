@@ -51,11 +51,10 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
-			$r= "";
 			if($datos->validacion===true){
-				foreach ($query as $key => $valor) {
-					$r.="<option value='".$valor->est_id."'>".$valor->est_estado."</option>";
-				}
+					$r ="<input type='text' value='".$query[0]->est_estado."' class='form-control input-sm pequenios' readonly='true'  />
+						<input type='hidden' value='".$query[0]->est_id."' name='estado_cot' />
+						";
 			}
 			return $r;
 		}
@@ -120,9 +119,9 @@
 				$res.="<tr>
 						<td><input type='hidden' value='".$valor->serv_id."' name='txtIdServ' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='txtCantidad'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
-                                <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
-                                <td><input type='text' name='txtSubTotal' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
+                                <td><input type='text' name='txtCantidad' value='&nbsp;'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
+                                <td><input type='text' name='txtSubTotal' value='&nbsp;' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	
@@ -137,9 +136,9 @@
 				$res.="<tr>
 						<td><input type='hidden' name='txtIdRadio' value='".$valor->rad_id."' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
-                                <td><input type='text' name='txtCantidad'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
-                                <td><input type='text' name='txtDuracion'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
-                                <td><input type='text' name='txtSubTotal'  class='form-control input-sm inAddCot subTotal' placeholder='$' readonly='true'></td>
+                                <td><input type='text' name='txtCantidad' value='&nbsp;'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
+                                <td><input type='text' name='txtSubTotal' value='&nbsp;'  class='form-control input-sm inAddCot subTotal' placeholder='$' readonly='true'></td>
 					</tr>";
 			}	
 			return $res;	
@@ -192,7 +191,13 @@
 					}
 					//}
 				}
+
+				$cli = $this->getDatosCliente($header->txtidCliente);
+				if(!$cli->cli_usu_id){
+					$this->asignarCliUsu($header->txtidCliente,$header->idUsuario);	
+				}
 			}
+
 			$this->db->trans_complete();
 
 			return $retorno;
@@ -209,6 +214,15 @@
 			$obj->det_subtotal 	= $subTotal;
 			$obj->det_sec_id 	= $secId;
 			return $obj;
+		}
+
+		public function asignarCliUsu($idCli,$idUsu){
+			$tabla 			= array(
+				'cli_usu_id'	=> $idUsu
+				);
+			$this->db->where('cli_id',$idCli);
+			$res=$this->db->update('cli_cliente',$tabla);
+			return $res;
 		}
 
 		public function insertHeaderCot($obj){

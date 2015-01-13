@@ -5,7 +5,7 @@
         calcularTotal(tr,tabla);  
     });
 
-
+    
 //obtener datos de cotizacion
     $(document).on("click","#guardarCot",function(){
         frmGlobal   = new Object();
@@ -20,9 +20,8 @@
             frmGlobal.headerCot = headerCot;
             addCotizacion(frmGlobal);
         }else{
-            alertify.alert(valHeader.mensaje, function () { 
+            alertify.error(valHeader.mensaje);
                 var pathname = window.location.pathname;
                 $(location).attr('href', pathname+'#cotHeader');
-                });
         }
     });
