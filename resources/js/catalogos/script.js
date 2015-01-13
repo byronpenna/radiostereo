@@ -235,4 +235,12 @@ $(document).ready(function () {
 				}
 				
 			});
+
+
+
+
+			//funcion click para obtener 
+			// $(document).on("#","",function(){
+
+			// });
 });
