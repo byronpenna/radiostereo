@@ -6,7 +6,7 @@
 			//eventosCalendar[i].title = "hola";
 			eventosCalendar[i].start = val;
 			eventosCalendar[i].overlap= false;
-			eventosCalendar[i].color = "#11A631";
+			eventosCalendar[i].color = "#2B87CD";
 		});
 		return eventosCalendar;
 	}
@@ -28,7 +28,7 @@ function alguito () {
 	// body...
 }
 function getCalendar(selector,fechaInicio,eventos,txtEvento){
-		
+		selector.fullCalendar("destroy");
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -68,10 +68,12 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 					ev = index;
 					txtEvento.val(txtEvento.val().replace(ev," "));
 				}
-				selector.fullCalendar( 'removeEvents' );
-				eventosActudales = $(".txtEvents").val().split(",");
+				 //selector.fullCalendar( 'removeEvents' );
+				eventosActudales = txtEvento.val().split(",");
 				var eventosCalendar;
-				if($(".txtEvents").val() != ""){
+				if (eventosActudales.indexOf(index) != -1) {//con este if se quita la lentitud de los eventos al hacer click en el dia
+					selector.fullCalendar( 'removeEvents' );
+					if(txtEvento.val() != ""){
 					eventosCalendar = putEvents(eventosActudales);
 					$.each(eventosCalendar,function(i,val){
 						console.log("el valor es:",val);
@@ -80,9 +82,13 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 				}else{
 					eventosCalendar = null;
 				}
+				}else{
+					console.log("fecha ingresada: ",index);	
+				}
 				
 				
-				console.log("fecha ingresada: ",index);	
+				
+				// console.log("fecha ingresada: ",index);	
 							
 			},
 			// eventClick: function(eventos){

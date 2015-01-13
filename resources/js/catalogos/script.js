@@ -221,18 +221,18 @@ $(document).ready(function () {
 				saveFirma(frm,tr);
 			});
 			$(document).on("click",".DeleteUser",function(){//funcion q me controla el evento onclik ala hora de modificar
-				 if (confirm("Advertencia: Si elimina el Usuario eliminara toda la información\
-				 				relacionada con el. ¿Aun asi desea continuar?")){
-				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
 					frm = tr.find("input");//encuentro el valor contenido en el input
 					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
-					//console.log(frm);
-					DeleteUser(frm,tr);
-		            return true;
-		         }
-		         else{
-		            return false;
-				}
-				
+				 	console.log(frm);
+				 	mensaje = "Advertencia: Si elimina el Usuario eliminara toda la información relacionada con el. ¿Aun asi desea continuar?"
+					alertify.confirm(mensaje,function(e) {
+				 					if (e) {
+										DeleteUser(frm,tr);
+				 					}else{
+				 						//console.log("no");
+				 						location.reload();
+				 					}
+				 				});
 			});
 });

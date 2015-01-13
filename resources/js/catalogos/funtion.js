@@ -436,18 +436,19 @@
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtIdUser' value='"+data.last_id+"' class='inputUserID'>\
-							</td>\
-							<td class='tdNombreUser'>"+frm.txtuser+"</td>\
-							<td class='tdContraUser'>"+frm.txtpassword+"</td>\
-							<td style='display:none' class='tdCopaniaId'>"+frm.txtIdCompania+"</td>\
-							<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>\
-						  </tr>"
-					$(".tbUsuario").prepend(tr);//ponemos el nuevo valor al principio
-					//console.log(datos);
-					$(".vaciarinput").val("");
+					location.reload();
+					// tr = "<tr class='styleTR'>\
+					// 		<td style='display:none'>\
+					// 			<input name='txtIdUser' value='"+data.last_id+"' class='inputUserID'>\
+					// 		</td>\
+					// 		<td class='tdNombreUser'>"+frm.txtuser+"</td>\
+					// 		<td class='tdContraUser'>"+frm.txtpassword+"</td>\
+					// 		<td style='display:none' class='tdCopaniaId'>"+frm.txtIdCompania+"</td>\
+					// 		<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>\
+					// 	  </tr>"
+					// $(".tbUsuario").prepend(tr);//ponemos el nuevo valor al principio
+					// //console.log(datos);
+					// $(".vaciarinput").val("");
 					// para input .val("") val()
 					// para divs .empty() text()
 				}
@@ -491,11 +492,12 @@
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
 						<td class='tdContraUser'>"+data.dato2+"</td>\
+						<td class='tdFirmaUser'>"+data.dato3+"</td>\
 						<td>\
 							<button class='EditUsuario btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
 					tr.empty().append(newtr);
-					//console.log(datos);
+					console.log(datos);
 				}
 			});
 	}

@@ -31,7 +31,7 @@
 					<td><input type="text" name="txtIdCompania" class="form-control" value="1" required /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
+					<td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
 		</form>
@@ -47,7 +47,7 @@
                                 <tr>
                                    <th>Usuario</th>
                                    <th>Password</th>
-                                   <th>Firma</th>
+                                   <!--<th>Firma</th>-->
 									<th>Acción</th>
                                 </tr>
                             </thead>
