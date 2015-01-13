@@ -407,3 +407,21 @@ textarea{
   margin-top:-50px;
   margin-right:40px;
 }
+#addprod{
+  overflow: hidden;
+  width:100%;
+}
+#contaddprod {
+  width:80%;
+  
+}
+#contaddprod input[type="text"]{
+  vertical-align: top;
+  margin:0.5em;
+}
+#contaddprod select {
+  margin:0.5em;
+}
+#contaddprod tr{
+  padding:20em;
+}
