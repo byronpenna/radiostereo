@@ -9,10 +9,12 @@
 		{
 			parent::__construct();
 		}
+
+		// hacemos la consulta para traer las cotizaciones y mostrarlas al dar click en la opcion del menu cotizaciones
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente on cli_id=cot_cli_id";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_encabezado_cotizacion.cot_est_id=1 ORDER BY cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -23,13 +25,25 @@
 			}
 			return $res;
 		}
+
+		// generamos la tabla que muestra las cotizaciones
 		public function getCotizacion()
 		{
 			$datos = $this->SelectCotizacion();
-			
 			if($datos!="nada"){
 					$retorno = "";
 				foreach ($datos as $row) {
+					$sql="
+							select det.det_id  from 
+							(cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
+							ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
+							ON enc.enc_id=det.det_enc_id
+							WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0
+							AND cot.cot_id=".$row->cot_id."";
+					$this->db->trans_start();
+					$count = $this->db->query($sql);
+					$this->db->trans_complete();
+					$count = $count->result();
 					$retorno .= "<tr class='styleTR'>
 									<td style='display:none'>".$row->cot_id."</td>
 									<td style='display:none'>".$row->cli_id."</td>
@@ -37,11 +51,12 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td><center><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a></center>
-									</td>
-								 </tr>";
+									<td><center style='float:left;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>";	
+										if(count($count)>0){
+											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>";
+										}						
+									$retorno .= "</center></td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
@@ -50,6 +65,54 @@
 			return $retorno;
 		}
 
+		// hacemos la consulta para obtener todas las cotizaciones que tienen lleno un detalle y asi mostrarlas al dar clickk 
+		// sobre la opcion del menu aprobar cotizaciones
+		public function getCotApro(){
+			$sql="select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
+					((cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
+					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
+					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
+					ON cot.cot_cli_id=cli.cli_id
+					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id=1
+					ORDER BY cot_id DESC";
+					$this->db->trans_start();
+					$query = $this->db->query($sql);
+					$this->db->trans_complete();
+					$datos = $query->result();
+					if($query->num_rows()>0){
+						$res=$datos;
+					}else{
+						$res="nada";
+					}
+				return $res;
+		}
+
+
+		// generamos la estructura de la tabla donde se muestra el listado de cotizaciones que se pueden aprobar
+		public function obtenerCotizacionesAprobar(){
+			$datos = $this->getCotApro();
+			if($datos!="nada"){
+					$retorno = "";
+				foreach ($datos as $row) {
+					$retorno .= "<tr class='styleTR'>
+									<td><center><input type='checkbox' name='cotApro' value='".$row->cot_id."' /></center></td>
+									<td>".$row->cli_nombres."</td>
+									<td>".$row->cli_razon_social."</td>
+									<td>".$row->cli_nit."</td>
+									<td>".$row->cot_fecha_elaboracion."</td>
+									<td><center>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>
+										</center></td></tr>";
+				}
+			}else{
+				$retorno="Aun No se ha generado ninguna cotizacion";
+			}
+			
+			return $retorno;
+		}
+		
+
+		// obtenemos el encabezado de la cotizacion dependiendo del cot_id
 		public function getEncCot($id){
 			$sql="SELECT * FROM cot_encabezado_cotizacion WHERE cot_id=".$id."";
 			$this->db->trans_start();
@@ -59,6 +122,8 @@
 			return $query;
 		}
 
+
+		// obtenemos el tipo de cotizacion dependiendo del cot_id
 		public function getTipoCotizacion($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
@@ -84,11 +149,11 @@
 			return $r;
 		}
 
-
+		// obtenemos el estado de la cotizacion dependiendo del cot_id
 		public function estCot($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
-			$sql="SELECT * FROM est_estado";
+			$sql="SELECT * FROM est_estado WHERE est_id = ".$id."";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
 			if($query->num_rows()>0){
@@ -99,17 +164,15 @@
 			$r= "";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
-					if($valor->est_id==$id){
-						$s="selected";
-					}else{
-						$s="";
-					}
-					$r.="<option value='".$valor->est_id."' $s>".$valor->est_estado."</option>";
+					$r.="<input value='".$valor->est_estado."' type='text' class='form-control input-sm pequenios ' readonly='true'/>
+						<input type='hidden' name='estado_cot' value='".$valor->est_id."' />";
 				}
 			}
 			return $r;
 		}
 
+
+		// obtenemos el encabezado de la cotizacion para mostrarlo en la parte de editar cotizacion
 		public function getHeaderCot($idEncCot){
 			$header =$this->getEncCot($idEncCot);
 			$this->load->model('cotizacionm/cotizacionm');
@@ -130,9 +193,7 @@
                         </select>   
                     </span></p>
                     <p>Estado de Cotizacion <span>
-                        <select name="estado_cot" class="form-control input-sm pequenios " >
                             '.$this->estCot($row->cot_est_id).'
-                        </select>
                     </span></p>
                 </article>
                 <article>
@@ -145,6 +206,7 @@
 		}
 
 
+		// recogemos el valor agregado para mostrarlo en la parte de editar cotizacion
 		public function getValorAgregado($idEncCot){
 			$header =$this->getEncCot($idEncCot);
 			foreach ($header as $row) {
@@ -160,6 +222,7 @@
 			return $res;
 		}
 
+		// hacemos una cosulta para obtener todos los datos del encabezado del bloque
 		public function queryEncBloque($idCot){
 			$sql="SELECT * FROM enc_encabezado_bloque WHERE enc_cot_id=".$idCot."";
 			$this->db->trans_start();
@@ -170,7 +233,7 @@
 		}
 
 		
-
+		// obtenemos los precios que traiga la consulta para mostrarlos en la parte de editar la cotizacion
 		public function getPrecios($idPre){
 			$datos = new stdClass();
 			$datos->validacion=false;
@@ -196,6 +259,7 @@
 			return $res;
 		}
 
+		// obtenemos el nombre de los programas que trae la cotizacion a editar
 		public function prog($idProg){
 			$this->load->model("cotizacionm/cotizacionm");
 			$cotizacionm = new cotizacionm();
@@ -213,7 +277,7 @@
 
 		}
 
-
+		// obtenemos los servicios que trae la cotizacion para mostrarlos en la pagina de editar cotizacion
 		public function getServicios($id){
 			$sql="SELECT serv_nombre FROM serv_servicio
 			WHERE serv_id=$id";
@@ -225,7 +289,7 @@
 		}
 
 		
-
+		// generamos la tabla a partir de la consulta que nos trae los serviicos de cada cotizacion
 		public function getServiciosCot($idEncBloq){
 			$sql="SELECT * FROM 
 				det_detalle_bloque join serv_servicio
@@ -239,13 +303,8 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal || !$valor->det_pre_id){
-						$valor->det_cantidad 	=	"";
-						$valor->det_duracion 	=	"";
-						$valor->det_subtotal 	=	"";
-						$valor->det_pre_id 		=	"";
-					}
-				$res.="<tr>
+					
+				$res.="<tr class='vacEditCot'>
 						<td><input type='hidden' value='".$valor->det_serv_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
@@ -258,7 +317,7 @@
 		}
 
 
-
+		// obtenemos las radios que trae la cotizacion que vamos a editar  y las mostramos en una tabla 
 		public function getRadiosCot($idEncBloq){
 			$sql="SELECT * FROM 
 				det_detalle_bloque join rad_radio
@@ -272,12 +331,8 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					if(!$valor->det_cantidad || !$valor->det_duracion || !$valor->det_subtotal){
-						$valor->det_cantidad="";
-						$valor->det_duracion="";
-						$valor->det_subtotal="";
-					}
-				$res.="<tr>
+					
+				$res.="<tr class='vacEditCot'>
 						<td><input type='hidden' value='".$valor->det_rad_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
                                 <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
@@ -294,7 +349,7 @@
 
 
 
-
+		// obtenemos el encabezado de la parte de programas para mostrarlo en la parte de cotizaciones 
 		public function encProg($idCot){
 			$query = $this->queryEncBloque($idCot);
 			if($query[0]->enc_prog_id && $query[0]->enc_precio_venta && $query[0]->enc_fecha_inicio && $query[0]->enc_fecha_fin){
@@ -381,6 +436,20 @@
 			return $r;
 		}
 
+		public function getNombreSec($idSec){
+			$sql="
+				select * from sec_seccion
+				where sec_id = ".$idSec.";
+			";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$query = $query->result();
+			$this->db->trans_complete();
+			return $query;
+
+
+		}
+
 
 
 		public function encRadios($idCot){
@@ -392,12 +461,15 @@
 					$valor->enc_fecha_inicio="";
 				}
 			}
-			$r='
+			$r="";
+			for ($i=1; $i <= 3; $i++) { 
+				$sec = $this->getNombreSec($i); 
+				$r .='
 				<!-- Contenedor para las Cuñas -->
                 <article id="conProgra"  class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[1]->enc_id.'" />
-                    <h4 class="text-center">Cu&ntilde;a</h4>
-                    <input type="hidden" name="txtIdSec" value="1" >
+                <input type="hidden" name="txtIdEncabezado" value="'.$query[$i]->enc_id.'" />
+                    <h4 class="text-center">'.$sec[0]->sec_nombre.'</h4>
+                    <input type="hidden" name="txtIdSec" value="'.$i.'" >
                     <article class="contTitle">
                     </article>
                     <article class="cuerpo">
@@ -412,7 +484,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            '.$this->getRadiosCot($query[1]->enc_id).'
+                            '.$this->getRadiosCot($query[$i]->enc_id).'
                             </tbody>
                             <tfoot>
                             <tr class="txtDerecha">
@@ -434,7 +506,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[1]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[$i]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
                             </tr>
                         </tfoot>
                         </table>
@@ -442,14 +514,14 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[1]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker txtFechaInicio" required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[$i]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                            
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
-                                    <input type="text" name="txtFechaFin" value="'.$query[1]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
+                                    <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
                             <input type=\'text\' value=\'\' class=\'txtEvents\'>  
@@ -457,140 +529,10 @@
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
-                <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra" class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[2]->enc_id.'" />
-                    <h4 class="text-center">Entrevista</h4>
-                    <input type="hidden" name="txtIdSec" value="2" >
-                    <article class="contTitle">
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Precio</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            '.$this->getRadiosCot($query[2]->enc_id).'
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Dcto</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[2]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter " >
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[2]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios  datepicker txtFechaInicio" required>
-                                    </span>
-                            </article>     
-                            
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd"  value="'.$query[2]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article><img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />    
-                    		<input type=\'text\' value=\'\' class=\'txtEvents\'>
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las entrevistas -->
-                <!-- Contenedor para las Producciones -->
-                <article id="conProgra"  class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[3]->enc_id.'" />
-                    <h4 class="text-center">Producci&oacute;n</h4>
-                    <input type="hidden" name="txtIdSec" value="3">
-                    <article class="contTitle">
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Precio</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            '.$this->getRadiosCot($query[3]->enc_id).'
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Dcto</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[3]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter">
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta </span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_inicio.'" class="fi form-control input-sm medios  datepicker txtFechaInicio" required>
-                                    </span>
-                            </article>     
-                           
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>  <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" />  
-                    		<input type=\'text\' value=\'\' class=\'txtEvents\'>
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las Produccion -->
-                
-			';
+			';	
+			}
 			return $r;
 		}
-
-
 
 		public  function editarCotizacion($frm){
 			$header 		= 	$frm->headerCot;
@@ -783,22 +725,16 @@
 
 		public function getHeader(){
 			$header='
-					<page_header> 
-			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header"/>
-			           <div class="hr-reporte">
-			           </div>
-		      		</page_header> 
+			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header" style="width:98%;top:-40px;position:fixed;"/>
+			           <hr style="position:fixed;top:90px;">
 			';
 			return $header;
 		}
 
 		public function getFooter(){
-			$footer='
-				<page_footer> 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer"/>
-		      </page_footer> 
+			$footer=' 
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:60px;position:fixed;"/>
 			';
-
 			return $footer;
 		}
 
@@ -810,14 +746,14 @@
 			$cli = $this->getDatosCliente($encCot[0]->cot_cli_id);
 			$fechaActual	= 	"San Salvador,".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
 			$res->encabezado='
-				<div class="cuerpo">
-		      	<div class="fechaActual">'.$fechaActual.'</div>
+				<div class="cuerpo" style="top:105px;position:fixed;height:990px;">
+		      	<div class="fechaActual" style="text-align:center;">'.$fechaActual.'</div>
 		      	<div class="cont">
 		      		Licenciado (a)<br>
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
 					Presente <br>
-					Estimada (o)  Lic. (Licda.):<br><br>
+					Estimada (o)  Lic. (Licda.).<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
 
@@ -829,6 +765,7 @@
 
 		public function getDetBloqReporte($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			$res = new stdClass();
 			if($encBloq){
 				$sql="SELECT  * FROM prog_programa WHERE prog_id = ".$encBloq[0]->enc_prog_id."";
 				$this->db->trans_start();
@@ -836,9 +773,18 @@
 				$progId=$progId->result();
 				$this->db->trans_complete();
 				$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
-				$res ='
-				<b>'.$progId[0]->prog_nombre.'</b>
-					<table border=0 class="cont-table-report">
+				$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
+				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
+				$periodo=$ffin-$fi;
+				$periodo=$periodo+1;
+				if($periodo>1){
+					$periodo=$periodo." meses";
+				}else{
+					$periodo=$periodo." mes";
+				}
+				$res->servic ='
+				<b>Programa :'.$progId[0]->prog_nombre.'</b>
+					<table border=0  class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 						<tr style="background:#3498db;">
 							<td>Servicio</td>
 							<td>Precio</td>
@@ -848,9 +794,11 @@
 						</tr>
 						'.$detalle->servi.'
 						</table>
-					<br>
-					
 					<table>
+						<tr>
+							<td>Período de Contratación</td>
+							<td>: ' .$periodo.'</td>
+						</tr>
 						<tr>
 							<td>Total por Servicios</td>
 							<td>: $ '.number_format($detalle->total,2,".",",").'</td>
@@ -863,7 +811,6 @@
 								: $ '.number_format($detalle->descuento,2,".",",").'
 							</td>
 						</tr>
-
 						<tr>
 							<td>
 								Precio de Venta 
@@ -874,8 +821,10 @@
 						</tr>
 					</table>
 			';
+			$res->contador=$detalle->contador;
 			}else{
-				$res="";
+				$res->servic="";
+				$res->contador=0;
 			}
 			return $res;
 		}
@@ -896,100 +845,177 @@
 			$res = new stdClass();
 			$res->servi="";
 			$res->total=0;
-			foreach ($rad as $valor) {
-				$serv = $this->getServicios($valor->det_serv_id);
-				foreach ($serv as $row) {
-					$ser=$row->serv_nombre;
+			if($rad){
+					foreach ($rad as $valor) {
+					$serv = $this->getServicios($valor->det_serv_id);
+					foreach ($serv as $row) {
+						$ser=$row->serv_nombre;
+					}
+					$precio = $this->getPrecioReporte($valor->det_pre_id);
+					$res->contador = count($rad);
+					$res->servi.='
+					<tr>
+						<td style="text-align:left;">'.$ser.'
+						</td>
+						<td> $ 	'.$precio->pre_precio.'</td>
+						<td>	'.$valor->det_cantidad.'</td>
+						<td>	'.$valor->det_duracion.'</td>
+						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+					</tr>
+				';
+				$res->total+=$valor->det_subtotal;
 				}
-				$precio = $this->getPrecioReporte($valor->det_pre_id);
-				$res->servi.='
-				<tr>
-					<td>'.$ser.'</td>
-					<td> $ 	'.$precio->pre_precio.'</td>
-					<td>	'.$valor->det_cantidad.'</td>
-					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-				</tr>
-			';
-			$res->total+=$valor->det_subtotal;
-			}
 
-			$res->descuento = $res->total - $pventa;
+				$res->descuento = $res->total - $pventa;
+				
+			}else{
+				$res->contador=0;
+				$res->servi="";
+				$res->total=0;
+				$res->descuento=0;
+			}
 			
 			return $res;
 		}
 
 		public function getProg($idCot){
 			$enc = $this->getEncCotReport($idCot);
-			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
+			$this->db->trans_start();
+			$cot=$this->db->query($sql);
+			$cot=$cot->result();
+			$this->db->trans_complete();
+			$gdb=$this->getDetBloqReporteSec($idCot);
+			$p=$this->getDetBloqReporte($idCot);
+		
 			if($enc){
-				$par =$this->getEnReporte($idCot,"enc_sec_id");
-
 				$res = '
-							<page backtop="23mm" backleft="13mm" backright="10mm"> 
-		      				'.$this->getHeader().'
-		      				'.$this->getFooter().'
-		      				'.$enc->encabezado.'
-							'.$this->getDetBloqReporte($idCot).'';
-							$gdb=$this->getDetBloqReporteSec($idCot);
-							$p=$this->getDetBloqReporte($idCot);
-							if(count($gdb)==1){
-								if($gdb[0]!=""){
-									$res .=	$gdb[0];
-								}
-							}else if(count($gdb)==3){
+							'.$this->getHeader().'
+		      				'.$this->getFooter().'      				
+		      				<article>
+		      				'.$enc->encabezado;
+		      				if($gdb->contador>1 && $p->contador > 1){
+								$res.='<br><br>';
+							}
+							$res.= $p->servic;
+
+							if(count($gdb->radios)==1){
 								if($p!=null){
-									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
-									$res .=	$gdb[0];
-									$res .=	'<page pageset="old"><div class="cont-secprint">
-									'.$gdb[1];
-									$res .= '
-									'.$gdb[2].'</div></page><br><br><br><br>';
-								}
+									if($gdb->radios[0]!=""){
+										if($p->contador > 1 && $gdb->contador[0] > 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}elseif($p->contador == 1 && $gdb->contador[0] > 1 || $p->contador > 1 && $gdb->contador[0] == 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}
+										$res .=	$gdb->radios[0];
+									}
 								}else{
-									if($gdb[0]!="" && $gdb[1]!="" && $gdb[2]!=""){
-									$res .=	$gdb[0];
-									$res .=	$gdb[1];
-									$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[2].'</div><br><br><br><br></page>';
+									if($gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
+									}
+								}
+							}else if(count($gdb->radios)==3){
+								if($p!=null){
+									if($p->contador >=1){
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1];
+											$res .= '
+											'.$gdb->radios[2].'</div>';
+										}
+									}else{
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	$gdb->radios[1];
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';
+										}
+									}
+									
+								}else{
+									if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+									$res .=	$gdb->radios[0];
+									$res .=	$gdb->radios[1];
+									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+									'.$gdb->radios[2].'</div>';
 								}
 							}
-							}else if(count($gdb)==2){
+							}else if(count($gdb->radios)==2){
 								if($p!=null){
-									if(isset($gdb[0]) && $gdb[0]!=""){
-										$res .=	$gdb[0];
+									if($p->contador >= 1){
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
+									}else{
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[0]) && isset($gdb->radios[1])){
+											if($gdb->radios[0]!="" && $gdb->radios[1]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[1] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}else if(isset($gdb->radios[0]) && isset($gdb->radios[2])){
+											if($gdb->radios[0]!="" && $gdb->radios[2]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[2] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '<div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '<div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
 									}
-									if(isset($gdb[1]) && $gdb[1]!=""){
-										$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[1].'</div><br><br><br><br></page>';	
-									
-									}
-									if(isset($gdb[2]) && $gdb[2]!=""){
-										$res .= '<page pageset="old"><div class="cont-secprint">
-									'.$gdb[2].'</div><br><br><br><br></page>';	
-									}
-									
 								}else{
-									if(isset($gdb[0]) && $gdb[0]!=""){
-										$res .=	$gdb[0];
+									if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
 									}
-									if(isset($gdb[1]) && $gdb[1]!=""){
-										$res .=	$gdb[1];
+									if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+										$res .=	$gdb->radios[1];
 									
 									}
-									if(isset($gdb[2]) && $gdb[2]!=""){
-										$res .=	$gdb[2];
+									if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+										$res .=	$gdb->radios[2];
 									}
 							}
+							}
+							if(!$enc->valorAgregado){
+								$valorAgregado="Sin Beneficios";
+							}else{
+								$valorAgregado=$enc->valorAgregado;
 							}
 					 	 $res.='<br>
-					 	<nobreak><p style="word-wrap:break-word;">'.$enc->valorAgregado.'</p></nobreak><br>
-								 	 Jose Garcia Calderon<br>
-								 	 Director de Ventas Grupo Radio Stereo<br>
-								 	 7890-9876
+					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:231px;">
+								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
+								 		Esperando poder servirles muy pronto, me despido.<br><br>
+
+										Atentamente,<br><br>
+
+									 	 Jose Garcia Calderon<br>
+									 	 Director de Ventas Grupo Radio Stereo<br>
+									 	 7890-9876
+								 	 </article>
 					      	</div>
 					      </div>
-						</page>
+					      </article>
 						';
 			}else{
 				$res="";
@@ -999,7 +1025,6 @@
 		}
 
 
-		
 //a partir de aca estara todas las funciones para generar el reporte de las secciones 
 
 		public function getRadiosReporte($id){
@@ -1018,15 +1043,17 @@
 			$res = new stdClass();
 			$res->servi="";
 			$res->total=0;
-			foreach ($rad as $valor) {
+			if($rad){
+				foreach ($rad as $valor) {
 				$serv = $this->getRadiosReporte($valor->det_rad_id);
 				foreach ($serv as $row) {
 					$ser=$row->rad_nombre;
 				}
 				$precio = $this->getPrecioReporte($valor->det_pre_id);
+				$res->contador = count($rad);
 				$res->servi.='
 				<tr>
-					<td>'.$ser.'</td>
+					<td style="text-align:left;">'.$ser.'</td>
 					<td> $ 	'.$precio->pre_precio.'</td>
 					<td>	'.$valor->det_cantidad.'</td>
 					<td>	'.$valor->det_duracion.'</td>
@@ -1035,15 +1062,21 @@
 			';
 			$res->total+=$valor->det_subtotal;
 			}
-
 			$res->descuento = $res->total - $pventa;
-			
+			}else{
+				$res->contador=0;
+				$res->servi="";
+				$res->total=0;
+				$res->descuento=0;
+			}
+				
 			return $res;
 		}
 		
 
 		public function getDetBloqReporteSec($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
+			$res = new stdClass();
 			foreach ($encBloq as $i => $valor) {
 			if($valor){
 						$sql="SELECT  * FROM 
@@ -1055,10 +1088,20 @@
 						$progId=$progId->result();
 						$this->db->trans_complete();
 						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
-						$res[$i]='<br>
+						$fi=substr($valor->enc_fecha_inicio,"5","2");
+						$ffin=substr($valor->enc_fecha_fin,"5","2");
+						$periodo=$ffin-$fi;
+						$periodo=$periodo+1;
+						if($periodo>1){
+							$periodo=$periodo." meses";
+						}else{
+							$periodo=$periodo." mes";
+						}
+						$res->contador[$i]=$detalle->contador;
+						$res->radios[$i]='<br>
 							<b>'.$progId[0]->sec_nombre.'</b>
-								<table border=0 class="cont-table-report">
-								<tr style="background:#3498db;">
+								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
+								<tr style="background:#3498db;" ">
 									<td>Radio</td>
 									<td>Precio</td>
 									<td>Cantidad</td>
@@ -1069,6 +1112,10 @@
 								</table>
 							<br>
 							<table>
+								<tr>
+									<td>Período de Contratación</td>
+									<td>: ' .$periodo.'</td>
+								</tr>
 								<tr>
 									<td>Total por Servicios</td>
 									<td>: $ '.number_format($detalle->total,2,".",",").'</td>
@@ -1094,43 +1141,46 @@
 					';
 				}
 			}
-			if(!isset($res)){
-				for ($i=0; $i <3 ; $i++) { 
-					$res[$i]="";	
+			if(!isset($res->radios)){
+				for ($i=0; $i < 3 ; $i++) { 
+					$res->radios[$i]="";	
+					$res->contador="";
 				}
 				
 			}
 			return $res;
-			
 		}
 
 
 
-		public function getSec($idCot){
-			$enc = $this->getEncCotReport($idCot);
-			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
-			$det = 		$this->getDetBloqReporteSec($idCot);
-			$res="";
-				if($encBloq){
-					foreach ($encBloq as $valor) {
-							$res .= '
-							<page backtop="30mm"> 
-		      				'.$this->getHeader().'
-		      				'.$this->getFooter().'
-		      				'.$enc->encabezado.'
+		//Aprobar Cotizaciones
 
-					 	 <br>
-					 	 <br>
-					 	 <br>
-					 	 '.$enc->valorAgregado.'
-		      	</div>
-		      </div>
-			</page>
-			';
-					}
-			}else{
-				$res="";
+		public function aprobarCotizaciones($frm){
+			$seleccionado 	= 	$frm;
+			$r  			= 	new stdClass();
+			$r->contador 	= 	count($seleccionado);
+			foreach ($seleccionado as $valor) {
+				$flag  	= 	$this->updateEstadoCot($valor->cotApro);
+				if($flag){
+					$r->res 	=  	true;
+				}else{
+					$r->res 	= 	false;
+					break;
+				}
 			}
+
+			return $r;
+
+		}
+
+
+
+		public function updateEstadoCot($idCot){
+			$tabla 			= array(
+				'cot_est_id'			=> 2
+				);
+			$this->db->where('cot_id',$idCot);
+			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
 			return $res;
 		}
 	}

@@ -9,13 +9,16 @@
          success: function(data){
            var datos = jQuery.parseJSON(data);
            if(datos.header && datos.encBloq && datos.detBloq){
-              alertify.alert("Datos Ingresados Correctamente", function () {
+              alertify.success("Datos Ingresados Correctamente");
+               setTimeout(function() {
                     window.location=getBaseURL()+"cotizacionesc/cotizacionesc";
-                });
+                }, 1000);
+                    
            }else{
-           alertify.alert("Ha salido algo mal,por favor intente de nuevo", function () {
-                    location.reload();
-                }); 
+           alertify.error("Ha salido algo mal,por favor intente de nuevo");
+                    setTimeout(function() {
+                      location.reload(); 
+                }, 1000);
            }
           }
      });

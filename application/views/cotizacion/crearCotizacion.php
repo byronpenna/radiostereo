@@ -27,9 +27,7 @@
                         </select>   
     				</span></p>
     				<p>Estado de Cotizacion <span>
-                        <select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >
         					<?php echo $EstadoCot; ?>
-                        </select>
     				</span></p>
     			</article>
     			<article>

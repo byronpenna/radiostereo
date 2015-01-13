@@ -19,6 +19,25 @@
 			$this->load->view('cotizacion/cotizacionesv/cotizacionesv', $datos);
 		}
 
+		public function aprobarCot(){
+			$this->load->model('cotizacionesm/cotizacionesm');
+			$Cotizacionesm 		=	 new Cotizacionesm();
+			$tabla 				=	 new stdClass();
+			$tabla->cotizacion 	=	 $Cotizacionesm->obtenerCotizacionesAprobar();
+			$datos['tabla'] 	= 	 $tabla;			
+			$datos['Titulo']	=	 "Aprobar Cotizaciones";
+			$this->load->view('cotizacion/aprobarCot', $datos);	
+		}
+
+		public function recibeAprobados(){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$form 				= json_decode($_POST['form']);
+			$retorno 			= new stdClass();
+			$cotizacionm 		= new cotizacionesm();
+			$retorno 			= $cotizacionm->aprobarCotizaciones($form);
+			echo json_encode($retorno);
+		}
+
 		public function editarCotizacion($idCot){
 			$this->load->model('cotizacionesm/cotizacionesm');
 			$Cotizacionesm 			= 	new Cotizacionesm();
@@ -54,21 +73,20 @@
 			$this->load->model("cotizacionesm/cotizacionesm");
 			$cotizacionm 			= 	new Cotizacionesm();
 			$prog 					=	$cotizacionm->getProg($idCot);
-			$sec					=	$cotizacionm->getSec($idCot);
 			$datos['prog']			=	$prog;
-			$datos['sec']			=	$sec;
 			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
 		}
 
 		public function Reporte($vista,$obj){
-			include_once(APPPATH.'plugins/pdf/html2pdf.class.php');
+			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
 			ob_start();
 			$this->load->view($vista, $obj);
 			$html=ob_get_clean();
-			$pdf = new HTML2PDF('P','A4','es', array(100, 100,100,100));  
-			$pdf->WriteHTML($html);
-			// $pdf->pdf->IncludeJS("print(true);");
-			$pdf->Output('Cotizacion.pdf');	
+			$mipdf = new DOMPDF();
+			$mipdf ->set_paper("A4", "portrait");
+			$mipdf ->load_html($html);
+			$mipdf ->render();
+			$mipdf ->stream('Cotizacion.pdf' ,array("Attachment" => 0));
 		}
 	}
  ?>
