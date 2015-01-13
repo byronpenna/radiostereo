@@ -78,6 +78,8 @@
 							<td class='tdAlgoUser'>".$mensaje."</td>";
 							if($mensaje == "Aun no posee firma"){
 								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Agregar Firma</button></td>";
+							}elseif ($mensaje != "Aun no posee firma") {
+								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Editar</button></td>";
 							}
 						  	$retorno.= "</tr>";
 			}

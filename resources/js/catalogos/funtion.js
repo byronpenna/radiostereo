@@ -519,13 +519,14 @@
 				}
 			});	
 	}
+
 function createEditFirma (tr) {
 	iduser = tr.find(".InputIdUser").val();
 	user = tr.find(".tdNombreUser").text();
 	firma = tr.find(".tdAlgoUser").text();
 	newtr = "\
 				<td style='display:none'>\
-					<textarea name='txtIdUser' cols='2' rows='1' class='form-control'>"+iduser+"</textarea>\
+					<textarea name='txtIdUser' cols='2' rows='1' class='form-control InputIdUser'>"+iduser+"</textarea>\
 				</td>\
 				<td>"+user+"</td>\
 				<td>\
@@ -553,9 +554,10 @@ function saveFirma (frm, tr) {
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
 						<td class='tdAlgoUser'>"+data.dato2+"</td>\
+						<td><button class='EditFirma btn btn-sm btn-primary'>Editar</button></td>\
 						";//creamos el nuevo fila
 					tr.empty().append(newtr);
-					// console.log(datos);
+					// console.log(iduser);
 				}
 			});
 }
