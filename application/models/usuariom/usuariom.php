@@ -75,7 +75,7 @@
 				$retorno.="<tr>
 							<td style='display:none'><input value='".$row->usu_id."' class='InputIdUser'></td>
 							<td class='tdNombreUser'>".$row->usu_nombre."</td>
-							<td class='tdAlgoUser'>".$mensaje."</td>";
+							<td class='tdAlgoUser'>".nl2br($mensaje)."</td>";
 							if($mensaje == "Aun no posee firma"){
 								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Agregar Firma</button></td>";
 							}elseif ($mensaje != "Aun no posee firma") {
