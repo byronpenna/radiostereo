@@ -9,17 +9,17 @@
 		{
 			parent::__construct();
 		}
-		public function selectUser()
+		public function selectUser($tabla)
 		{
 			$this->db->trans_start();
-				$query = $this->db->get('usu_usuario');
+				$query = $this->db->get($tabla);
 			$this->db->trans_complete();
 			$query = $query->result();
 			return $query;
 		}
 		public function getTablaUser()
 		{
-			$datos = $this->selectUser();
+			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
 				$retorno .="<tr class='styleTR'>
@@ -41,6 +41,26 @@
 			$this->db->trans_complete();
 			$dato = $query->result();
 			return $dato;
+		}
+		public function get_user_rol()
+		{
+			$datos = $this->selectUser('usu_usuario');
+			$retorno = "";
+			foreach ($datos as $row) {
+				$retorno .= "<input type='text' value='".$row->usu_id."' class='InputUserId' name='txtIdUser' style='display:none'>
+							<input type='checkbox' value='".$row->usu_nombre."' name='txtUser' class='InputUser'>".$row->usu_nombre."
+							<br>";
+			}
+			return $retorno;
+		}
+		public function get_rol()
+		{
+			$datos = $this->selectUser('rol_usuario');
+			$retorno = "";
+			foreach ($datos as $row) {
+				$retorno .= "<option value='".$row->rol_id."'>".$row->rol_nombre."</option>";
+			}
+			return $retorno;
 		}
 		public function getPerfil($id)
 		{

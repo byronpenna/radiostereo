@@ -33,6 +33,14 @@ fieldset{
 }
 .thead > th{
 }
+.tableUser{
+	width: 25%;
+	height: 100px;
+}
+.tableRol{
+	width: 25%;
+	height: 100px;
+}
 /*input busqueda*/
 #searchTerm{
 	width: 25%;

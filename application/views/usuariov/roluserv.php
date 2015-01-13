@@ -11,17 +11,23 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
-	
+	</select>
 	<fieldset class="fieldClientes well" id="fieldClientes">
-                    	<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
-							<thead class="thead">
-								
-							</thead>
-							<tbody class='tbClientes'>
-								<?php //echo $tabla->clientes ?>
-								<h1>Rol Usuario</h1>
-							</tbody>
-						</table>
+		
+		<div class="tableUser styleTR">
+			<h4 class="thead">Usuarios</h4>
+			<?php echo $tabla->usuario; ?>	
+		</div>
+		<div class="tableRol styleTR">
+			<h4 class="thead">Rol</h4>
+			<select name="txtRol" class="form-control selectBlanco">
+				<?php echo $tabla->rol; ?>
+			</select>
+		</div>
+		<div class="tableRolAsignado styleTR">
+			<h4 class="thead">Roles Asignados</h4>
+				 <?php //echo $tabla->rol; ?>
+		</div>
 	</fieldset>
 </body>
 </html>

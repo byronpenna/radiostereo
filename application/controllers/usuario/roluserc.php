@@ -12,10 +12,13 @@
 		}
 		public function index()
 		{
-			$this->load->model('catalogosm/catalogosm');
-			$Catalogosm = new Catalogosm();
+			$this->load->model('usuariom/usuariom');
+			$Usuariom = new Usuariom();
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
 			$tabla->id = $_SESSION['iduser'];
+			$tabla->usuario = $Usuariom->get_user_rol();
+			$tabla->rol 	= $Usuariom->get_rol();
+			$datos['tabla'] = $tabla;
 			$datos['Titulo']="..::Rol Usuario::..";
 			$this->load->view('usuariov/roluserv',$datos);
 		}
