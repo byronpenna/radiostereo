@@ -32,6 +32,7 @@
             });
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
+            console.log(frmGlobal);
             editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 

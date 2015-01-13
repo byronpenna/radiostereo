@@ -3,6 +3,10 @@ $(document).on("click",".apCot",function(){
 	$(".dataApo :checked").each(function(i,val){
 		seleccionados[i] = serializeToJson($(this).serializeArray());
 	});
-	console.log(seleccionados);
-	// obtenerDatosAprobados(seleccionados);
+	if(seleccionados==0){
+		alertify.error("Debe Seleccionar al menos una cotizacion");
+	}else{
+		obtenerDatosAprobados(seleccionados);
+	}
+	
 });

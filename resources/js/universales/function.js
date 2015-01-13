@@ -75,10 +75,9 @@ function getBaseURL() {
           descuento.val("");
         }
         }else{
-          alertify.alert("El precio de venta no puede ser mayor que el precio sin descuento", function () {
+          alertify.error("El precio de venta no puede ser mayor que el precio sin descuento");
                     pventa.val("");
-                    descuento.val("");
-                }); 
+                    descuento.val(""); 
         }
     }
 }

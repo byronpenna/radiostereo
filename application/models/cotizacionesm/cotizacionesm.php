@@ -9,6 +9,8 @@
 		{
 			parent::__construct();
 		}
+
+		// hacemos la consulta para traer las cotizaciones y mostrarlas al dar click en la opcion del menu cotizaciones
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
@@ -23,6 +25,8 @@
 			}
 			return $res;
 		}
+
+		// generamos la tabla que muestra las cotizaciones
 		public function getCotizacion()
 		{
 			$datos = $this->SelectCotizacion();
@@ -61,7 +65,8 @@
 			return $retorno;
 		}
 
-
+		// hacemos la consulta para obtener todas las cotizaciones que tienen lleno un detalle y asi mostrarlas al dar clickk 
+		// sobre la opcion del menu aprobar cotizaciones
 		public function getCotApro(){
 			$sql="select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
 					((cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
@@ -82,6 +87,8 @@
 				return $res;
 		}
 
+
+		// generamos la estructura de la tabla donde se muestra el listado de cotizaciones que se pueden aprobar
 		public function obtenerCotizacionesAprobar(){
 			$datos = $this->getCotApro();
 			if($datos!="nada"){
@@ -105,7 +112,7 @@
 		}
 		
 
-
+		// obtenemos el encabezado de la cotizacion dependiendo del cot_id
 		public function getEncCot($id){
 			$sql="SELECT * FROM cot_encabezado_cotizacion WHERE cot_id=".$id."";
 			$this->db->trans_start();
@@ -115,6 +122,8 @@
 			return $query;
 		}
 
+
+		// obtenemos el tipo de cotizacion dependiendo del cot_id
 		public function getTipoCotizacion($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
@@ -140,11 +149,11 @@
 			return $r;
 		}
 
-
+		// obtenemos el estado de la cotizacion dependiendo del cot_id
 		public function estCot($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
-			$sql="SELECT * FROM est_estado";
+			$sql="SELECT * FROM est_estado WHERE est_id = ".$id."";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
 			if($query->num_rows()>0){
@@ -155,17 +164,15 @@
 			$r= "";
 			if($datos->validacion===true){
 				foreach ($query as $key => $valor) {
-					if($valor->est_id==$id){
-						$s="selected";
-					}else{
-						$s="";
-					}
-					$r.="<option value='".$valor->est_id."' $s>".$valor->est_estado."</option>";
+					$r.="<input value='".$valor->est_estado."' type='text' class='form-control input-sm pequenios ' readonly='true'/>
+						<input type='hidden' name='estado_cot' value='".$valor->est_id."' />";
 				}
 			}
 			return $r;
 		}
 
+
+		// obtenemos el encabezado de la cotizacion para mostrarlo en la parte de editar cotizacion
 		public function getHeaderCot($idEncCot){
 			$header =$this->getEncCot($idEncCot);
 			$this->load->model('cotizacionm/cotizacionm');
@@ -186,9 +193,7 @@
                         </select>   
                     </span></p>
                     <p>Estado de Cotizacion <span>
-                        <select name="estado_cot" class="form-control input-sm pequenios " >
                             '.$this->estCot($row->cot_est_id).'
-                        </select>
                     </span></p>
                 </article>
                 <article>
@@ -201,6 +206,7 @@
 		}
 
 
+		// recogemos el valor agregado para mostrarlo en la parte de editar cotizacion
 		public function getValorAgregado($idEncCot){
 			$header =$this->getEncCot($idEncCot);
 			foreach ($header as $row) {
@@ -216,6 +222,7 @@
 			return $res;
 		}
 
+		// hacemos una cosulta para obtener todos los datos del encabezado del bloque
 		public function queryEncBloque($idCot){
 			$sql="SELECT * FROM enc_encabezado_bloque WHERE enc_cot_id=".$idCot."";
 			$this->db->trans_start();
@@ -226,7 +233,7 @@
 		}
 
 		
-
+		// obtenemos los precios que traiga la consulta para mostrarlos en la parte de editar la cotizacion
 		public function getPrecios($idPre){
 			$datos = new stdClass();
 			$datos->validacion=false;
@@ -252,6 +259,7 @@
 			return $res;
 		}
 
+		// obtenemos el nombre de los programas que trae la cotizacion a editar
 		public function prog($idProg){
 			$this->load->model("cotizacionm/cotizacionm");
 			$cotizacionm = new cotizacionm();
@@ -269,7 +277,7 @@
 
 		}
 
-
+		// obtenemos los servicios que trae la cotizacion para mostrarlos en la pagina de editar cotizacion
 		public function getServicios($id){
 			$sql="SELECT serv_nombre FROM serv_servicio
 			WHERE serv_id=$id";
@@ -281,7 +289,7 @@
 		}
 
 		
-
+		// generamos la tabla a partir de la consulta que nos trae los serviicos de cada cotizacion
 		public function getServiciosCot($idEncBloq){
 			$sql="SELECT * FROM 
 				det_detalle_bloque join serv_servicio
@@ -309,7 +317,7 @@
 		}
 
 
-
+		// obtenemos las radios que trae la cotizacion que vamos a editar  y las mostramos en una tabla 
 		public function getRadiosCot($idEncBloq){
 			$sql="SELECT * FROM 
 				det_detalle_bloque join rad_radio
@@ -341,7 +349,7 @@
 
 
 
-
+		// obtenemos el encabezado de la parte de programas para mostrarlo en la parte de cotizaciones 
 		public function encProg($idCot){
 			$query = $this->queryEncBloque($idCot);
 			if($query[0]->enc_prog_id && $query[0]->enc_precio_venta && $query[0]->enc_fecha_inicio && $query[0]->enc_fecha_fin){
@@ -422,6 +430,20 @@
 			return $r;
 		}
 
+		public function getNombreSec($idSec){
+			$sql="
+				select * from sec_seccion
+				where sec_id = ".$idSec.";
+			";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$query = $query->result();
+			$this->db->trans_complete();
+			return $query;
+
+
+		}
+
 
 
 		public function encRadios($idCot){
@@ -433,12 +455,15 @@
 					$valor->enc_fecha_inicio="";
 				}
 			}
-			$r='
+			$r="";
+			for ($i=1; $i <= 3; $i++) { 
+				$sec = $this->getNombreSec($i); 
+				$r .='
 				<!-- Contenedor para las Cuñas -->
                 <article id="conProgra"  class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[1]->enc_id.'" />
-                    <h4 class="text-center">Cu&ntilde;a</h4>
-                    <input type="hidden" name="txtIdSec" value="1" >
+                <input type="hidden" name="txtIdEncabezado" value="'.$query[$i]->enc_id.'" />
+                    <h4 class="text-center">'.$sec[0]->sec_nombre.'</h4>
+                    <input type="hidden" name="txtIdSec" value="'.$i.'" >
                     <article class="contTitle">
                     </article>
                     <article class="cuerpo">
@@ -453,7 +478,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            '.$this->getRadiosCot($query[1]->enc_id).'
+                            '.$this->getRadiosCot($query[$i]->enc_id).'
                             </tbody>
                             <tfoot>
                             <tr class="txtDerecha">
@@ -475,7 +500,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[1]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
+                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[$i]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
                             </tr>
                         </tfoot>
                         </table>
@@ -483,144 +508,21 @@
                             <article class="fechaInicio">
                                     <span>Inicio de Pauta </span>    
                                     <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[1]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker" required>
+                                        <input type="text" name="txtFechaInicio" value="'.$query[$i]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios datepicker" required>
                                     </span>
                             </article>        
                             <article class="fechaFin" >
                                 <span >Fin de Pauta</span>    
                                 <span>
-                                    <input type="text" name="txtFechaFin" value="'.$query[1]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
+                                    <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>    
                     </article>
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
-                <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra" class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[2]->enc_id.'" />
-                    <h4 class="text-center">Entrevista</h4>
-                    <input type="hidden" name="txtIdSec" value="2" >
-                    <article class="contTitle">
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Precio</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            '.$this->getRadiosCot($query[2]->enc_id).'
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Dcto</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[2]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter " >
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio" value="'.$query[2]->enc_fecha_inicio.'"  placeholder="aaaa-mm-dd" class="fi form-control input-sm medios  datepicker" required>
-                                    </span>
-                            </article>        
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd"  value="'.$query[2]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>    
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las entrevistas -->
-                <!-- Contenedor para las Producciones -->
-                <article id="conProgra"  class="conProgra">
-                <input type="hidden" name="txtIdEncabezado" value="'.$query[3]->enc_id.'" />
-                    <h4 class="text-center">Producci&oacute;n</h4>
-                    <input type="hidden" name="txtIdSec" value="3">
-                    <article class="contTitle">
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Precio</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            '.$this->getRadiosCot($query[3]->enc_id).'
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Dcto</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[3]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter">
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta </span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_inicio.'" class="fi form-control input-sm medios  datepicker" required>
-                                    </span>
-                            </article>        
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="aaaa-mm-dd" value="'.$query[3]->enc_fecha_fin.'" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>    
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las Produccion -->
-			';
+			';	
+			}
 			return $r;
 		}
 
@@ -1066,12 +968,12 @@
 											}
 										}
 										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-											$res .= '</div><div class="cont-secprint">
+											$res .= '<div class="cont-secprint">
 											'.$gdb->radios[1].'</div>';	
 										
 										}
 										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-											$res .= '</div><div class="cont-secprint">
+											$res .= '<div class="cont-secprint">
 											'.$gdb->radios[2].'</div>';	
 										}
 									}
@@ -1246,16 +1148,23 @@
 
 
 		//Aprobar Cotizaciones
+
 		public function aprobarCotizaciones($frm){
-			$seleccionado = $frm;
-			foreach ($seleccionado as $row) {
-				$flag = $this->updateEstadoCot($row);
+			$seleccionado 	= 	$frm;
+			$r  			= 	new stdClass();
+			$r->contador 	= 	count($seleccionado);
+			foreach ($seleccionado as $valor) {
+				$flag  	= 	$this->updateEstadoCot($valor->cotApro);
 				if($flag){
-					return true;
+					$r->res 	=  	true;
 				}else{
-					return false;
+					$r->res 	= 	false;
+					break;
 				}
 			}
+
+			return $r;
+
 		}
 
 

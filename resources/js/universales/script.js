@@ -82,15 +82,13 @@ $(document).ready(function(){
         var ffin = padre.find(".ffin");
         var fechaSeleccionada = fi.val(); 
         if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)<$.datepicker.parseDate('yy-mm-dd', fActual)){
-            alertify.alert("La fecha de inicio no puede ser menor que la fecha actual", function () {
-                    fi.val(fActual);        
-                });
+            alertify.error("La fecha de inicio no puede ser menor que la fecha actual");
+                    fi.val(fActual);
         }
         if(ffin.val()){
             if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)>$.datepicker.parseDate('yy-mm-dd', ffin.val())){
-                alertify.alert("Ha cambiado la fecha de inicio, por lo tanto la fecha de fin debe cambiar",function(){
+                alertify.error("Ha cambiado la fecha de inicio, por lo tanto la fecha de fin debe cambiar");
                     ffin.val("");   
-                });
             }
         }
     });
@@ -106,9 +104,8 @@ $(document).ready(function(){
         var fechaInicio = hijoo.val()
         if(fechaInicio){
             if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada) < $.datepicker.parseDate('yy-mm-dd', fechaInicio)){
-                alertify.alert("La fecha de fin no puede ser menor que la fecha de inicio",function(){
+                alertify.error("La fecha de fin no puede ser menor que la fecha de inicio");
                     hijo.val("");
-                });
             }
         }
     });
@@ -128,7 +125,7 @@ $(document).ready(function(){
          $(document).on("blur",".NumTelefono",function(e){
             //console.log($(this).val().length);
             if($(this).val().length < 8){
-                alertify.alert("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
+                alertify.error("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
             }
         });
     //validar numero nit
@@ -141,7 +138,7 @@ $(document).ready(function(){
         $(document).on("blur",".NumNit",function(e){
             //console.log($(this).val().length);
             if($(this).val().length < 14){
-                alertify.alert("Advertencia: El campo NIT debe contener 14 dígitos exactos");
+                alertify.error("Advertencia: El campo NIT debe contener 14 dígitos exactos");
             }
         });
     //validar numero nrc
@@ -154,7 +151,7 @@ $(document).ready(function(){
         $(document).on("blur",".NumNrc",function(e){
             //console.log($(this).val().length);
             if($(this).val().length < 7){
-                alertify.alert("Advertencia: El campo NRC debe contener 7 dígitos exactos");
+                alertify.error("Advertencia: El campo NRC debe contener 7 dígitos exactos");
             }
         });
 });

@@ -7,14 +7,23 @@ function obtenerDatosAprobados(frm){
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-           if(datos==true){
-              alertify.alert("Se han Aprobado las cotizaciones seleccionadas", function () {
-                    location.reload();
-                });
+           if(datos.res==true){
+            if(datos.contador<=1){
+              alertify.success("Se ha Aprobado <b>"+datos.contador+"</b> cotizacion seleccionada");
+              setTimeout(function() {
+                location.reload();
+              }, 2000);
+            }else{
+              alertify.success("Se han Aprobado <b>"+datos.contador+"</b> cotizaciones seleccionadas");
+              setTimeout(function() {
+                location.reload();
+              }, 2000);
+            }
            }else{
-           alertify.alert("Ha salido algo mal,por favor intente de nuevo", function () {
-                    location.reload();
-                }); 
+           alertify.error("Ha salido algo mal,por favor intente de nuevo");
+           setTimeout(function() {
+                location.reload();
+           }, 2000);
            }
           }
      });
