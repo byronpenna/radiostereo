@@ -60,23 +60,23 @@
 					<td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
-			<!-- <table id="contaddprod" >
-				<thead>
-					<tr>
-						<td colspan=2>Productos</td>
-						<td></td>
-					</tr>
-				</thead>
-				<tr >
-					<td ><input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
-					<td><input type="button" name="" value=">"   id="addP" ><input type="button" name="" value="<" id="delP"></td>
-					<td width="1100px">
-						<select name="selprod" multiple="multiple" size="10" id="addprod">
-							<option value="opcion1">opcion 1</option>
-						</select>
-					</td>
-				</tr>
-			</table> -->
+<table id="contaddprod" >
+	<thead>
+		<tr>
+			<td colspan=2>Productos</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tr >
+		<td ><input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
+		<td><input type="button" name="" value=">"   id="addP" ><input type="button" name="" value="<" id="delP"></td>
+		<td width="1100px">
+			<select name="selprod" multiple="multiple" size="10" id="addprod">
+				<option value="opcion1">opcion 1</option>
+			</select>
+		</td>
+	</tr>
+</table>
 		</form>
 		<div id="contenido">
             <div class="midBox1">	
