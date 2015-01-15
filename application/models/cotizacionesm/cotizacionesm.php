@@ -1109,8 +1109,13 @@
 							$periodo=$periodo." mes";
 						}
 						$res->contador[$i]=$detalle->contador;
+						if($progId[0]->sec_nombre=="Cuña"){
+							$SecNom = "Cuña Rotativa";
+						}else{
+							$SecNom = $progId[0]->sec_nombre;
+						}
 						$res->radios[$i]='<br>
-							<b>'.$progId[0]->sec_nombre.'</b>
+							<b>'.$SecNom.'</b>
 								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 								<tr style="background:#3498db;" ">
 									<td>Radio</td>
