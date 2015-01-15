@@ -64,7 +64,9 @@
 				'cli_telefono'		=> $form->txtTelefono,
 				'cli_contacto'		=> $form->txtContacto,
 				'cli_correo'		=> $form->txtCorreo,
-				'cli_usu_id'		=>$form->txtIdUser);
+				'cli_usu_id'		=>$form->txtIdUser,
+				'cli_titulo'		=>$form->txtTitulo
+				);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			echo json_encode($mensaje);
 		}

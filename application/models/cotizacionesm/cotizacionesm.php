@@ -749,11 +749,17 @@
 				<div class="cuerpo" style="top:105px;position:fixed;height:990px;">
 		      	<div class="fechaActual" style="text-align:center;">'.$fechaActual.'</div>
 		      	<div class="cont">
-		      		Licenciado (a)<br>
+		      		'.$cli->cli_titulo.'<br>
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
-					Presente <br>
-					Estimada (o)  Lic. (Licda.).<br><br>
+					Presente <br> ';
+					if(substr($cli->cli_titulo, -1)=="o"){
+						$sal="Estimado";
+						}else{
+							$sal="Estimada";
+						}
+
+					$res->encabezado .= $sal.' '.$cli->cli_titulo.'.<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
 
@@ -787,7 +793,7 @@
 					<table border=0  class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 						<tr style="background:#3498db;">
 							<td>Servicio</td>
-							<td>Precio</td>
+							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
@@ -1008,9 +1014,10 @@
 							}else{
 								$valorAgregado=$enc->valorAgregado;
 							}
+							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
 					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:231px;">
+								 	 <article style="position:fixed;bottom:251px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 
@@ -1107,7 +1114,7 @@
 								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
 								<tr style="background:#3498db;" ">
 									<td>Radio</td>
-									<td>Precio</td>
+									<td>Costo Por Segundo</td>
 									<td>Cantidad</td>
 									<td>Duracion(Seg)</td>
 									<td>Sub Total</td>

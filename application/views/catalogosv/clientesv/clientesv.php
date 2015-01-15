@@ -52,6 +52,10 @@
 					<td class="espacio"><label for="Correo">Correo:</label></td>
 					<td><input type="email" name="txtCorreo" id='txtCorreo' class="vaciarinput form-control" placeholder="ejemplo@gmail.com" required /></td>
 				</tr>
+				<tr>
+					<td><label for="Contacto">Titulo de Contacto:</label></td>
+					<td><input type="text" name="txtTitulo" id='txtTitulo' class="vaciarinput form-control" placeholder="Ej:Ingeniero" required /></td>
+				</tr>
 				<tr style='display:none'>
 					<td><label for="iduser">Id Usuario:</label></td>
 					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" required /></td>
@@ -77,7 +81,6 @@
 		</td>
 	</tr>
 </table>
->>>>>>> origin/master
 		</form>
 		<div id="contenido">
             <div class="midBox1">	
@@ -95,6 +98,7 @@
 									<th>Nombre</th>
 									<th>Razon Social</th>
 									<th>NIT</th>
+									<th>Titulo</th>
 									<th>Acción</th>
 								</tr>
 							</thead>

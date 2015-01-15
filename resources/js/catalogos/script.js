@@ -147,6 +147,8 @@ $(document).ready(function () {
 				$("#frmClientes").hide();
 				//console.log(form);
 			});
+
+			
 			//funciones para editar cliente
 			$(".popup").hide()//se oculta el div de modificar;
 			$(document).on("click",".EditCliente",function() {//obtiene la fila con los datos
