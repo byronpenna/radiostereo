@@ -61,7 +61,7 @@
 					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" required /></td>
 				</tr>
 				<tr>
-									<td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
+					<td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
 <table id="contaddprod" >
@@ -72,11 +72,15 @@
 		</tr>
 	</thead>
 	<tr >
-		<td ><input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
-		<td><input type="button" name="" value=">"   id="addP" ><input type="button" name="" value="<" id="delP"></td>
+		<td >
+			<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
+		<td>
+			<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
+			<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
+		</td>
 		<td width="1100px">
 			<select name="selprod" multiple="multiple" size="10" id="addprod">
-				<option value="opcion1">opcion 1</option>
+				
 			</select>
 		</td>
 	</tr>

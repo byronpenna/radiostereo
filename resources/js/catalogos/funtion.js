@@ -1,3 +1,22 @@
+function addOption(){
+	txt = $("#inprod").val();
+	if(txt != ""){
+		optionAgregar = "<option value='"+txt+"'>"+txt+"</option>";
+		console.log(optionAgregar);
+		$("#addprod").append(optionAgregar);
+	}else{
+		alertify.error("rellene el campo por favor");
+	}	
+}
+function removeOption(){
+	optionVal = $("#addprod option:selected");
+	if(!(optionVal.val() == undefined) ){
+		optionVal.remove();
+	}else{
+		alertify.error("Debe seleccionar una opcion");
+	}
+	
+}
 //funciones para el catalogo programa
 	function createControlsEdit(tr){//funcion que me cargara el dato a editar
 		idPrograma = tr.find(".inputProgramId").val();//busca el id del programa por medio de una clase y se encuentra en la vista

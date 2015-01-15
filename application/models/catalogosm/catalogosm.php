@@ -9,7 +9,12 @@
 		{
 			parent::__construct();
 		}
-		
+		public function insertCliente($data){
+			$this->db->trans_start();
+				$flag = $this->db->insert_batch("pro_producto",$data);
+			$this->db->trans_complete();
+			return $flag;
+		}
 		//inicio insert catalogos
 		public function add_catalogos($tabla,$vect)//recibe el nombre de la tabla y un vector con los satos
 		{

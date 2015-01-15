@@ -18,6 +18,37 @@
 			echo json_encode($mensaje);
 			// print_r($frm);
 		}
+		public function insert_cliente()
+		{
+			
+			//vars
+			$form = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$data = array(
+				'cli_nombres' 		=> $form->txtnombcliente,
+				'cli_razon_social' 	=> $form->txtapellido,
+				'cli_nrc'			=> $form->txtNRC,
+				'cli_nit'			=> $form->txtNIT,
+				'cli_direccion'		=> $form->txtDireccion,
+				'cli_telefono'		=> $form->txtTelefono,
+				'cli_contacto'		=> $form->txtContacto,
+				'cli_correo'		=> $form->txtCorreo,
+				'cli_usu_id'		=>$form->txtIdUser,
+				'cli_titulo'		=>$form->txtTitulo
+				);
+			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
+			// agregar programas
+				$data = array();
+				foreach ($form->programas as $key => $value) {
+					$data[$key] = array(
+						'pro_cli_id' 		=> $mensaje->last_id, 
+						'pro_nomb_producto'	=> $value
+					);
+				}
+				$Catalogosm->insertCliente($data);
+			echo json_encode($mensaje);
+		}
 		public function insert_precio()
 		{
 			//vars
@@ -49,27 +80,7 @@
 			$mensaje = $Catalogosm->add_catalogos('rad_radio',$data);
 			echo json_encode($mensaje);
 		}
-		public function insert_cliente()
-		{
-			//vars
-			$form = json_decode($_POST["form"]);
-			$this->load->model('catalogosm/catalogosm');
-			$Catalogosm = new Catalogosm();
-			$data = array(
-				'cli_nombres' 		=> $form->txtnombcliente,
-				'cli_razon_social' 	=> $form->txtapellido,
-				'cli_nrc'			=> $form->txtNRC,
-				'cli_nit'			=> $form->txtNIT,
-				'cli_direccion'		=> $form->txtDireccion,
-				'cli_telefono'		=> $form->txtTelefono,
-				'cli_contacto'		=> $form->txtContacto,
-				'cli_correo'		=> $form->txtCorreo,
-				'cli_usu_id'		=>$form->txtIdUser,
-				'cli_titulo'		=>$form->txtTitulo
-				);
-			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
-			echo json_encode($mensaje);
-		}
+
 		//aqui comienzan los metodos q me mandaran al modelo los datos a modificar
 		public function update_programa()
 		{

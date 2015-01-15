@@ -5,6 +5,15 @@ $(document).ready(function () {
 			$("#frmClientes").slideToggle(175);
 		})
 	// eventos
+		// click 
+			$(document).on("click",".btnActionMultiple",function(){
+				direccion = $(this).attr("direccion"); // 1 derecha, 0 izquierda
+				if(direccion == 1){
+					addOption();
+				}else if(direccion == 0){
+					removeOption();
+				}
+			});
 		// submit
 			$(document).on("submit","#frmPrograma",function(e){
 				e.preventDefault();
@@ -122,7 +131,7 @@ $(document).ready(function () {
 				tr = $(this).parents("tr");
 				frm = tr.find("input");
 				frm = serializeToJson(frm.serializeArray());
-				//console.log(frm);
+				// console.log(frm);
 				savenewServicio(frm,tr);
 			});
 			$(document).on("click",".DeleteServi",function(){//funcion q me controla el evento onclik ala hora de eliminar
@@ -142,10 +151,22 @@ $(document).ready(function () {
 		//submit agregar cliente
 			$(document).on("submit","#frmClientes",function(e) {
 				e.preventDefault();
-				form = serializeToJson($(this).serializeArray());
-				agregarcliente(form);
-				$("#frmClientes").hide();
-				//console.log(form);
+				form 		= serializeToJson($(this).serializeArray());
+				options 	= $('#addprod option');
+				var values = $.map(options ,function(option) {
+				    return option.value;
+				});
+				if(values.length){
+					form.programas = values;	
+					agregarcliente(form);
+					$("#frmClientes").hide();	
+				}else{
+					alertify.error("Agregue por lo menos un programa");
+				}
+				
+
+				
+				console.log(form);
 			});
 
 			
