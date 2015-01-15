@@ -31,7 +31,12 @@
     				</span></p>
     			</article>
     			<article>
-    				<p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
+    				<p>Fecha de Creacion <span><input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
+                    <p>Producto <span>
+                        <select name='prod' class='form-control input-sm medios selectBlanco' >
+                            <?php echo $Producto; ?>
+                        </select>   
+                    </span></p>
     			</article>
     		</article>
 			<section id="contCotSer">
@@ -100,196 +105,9 @@
                     </article>
                 </article>
                 <!-- Finaliza Contenedor para los programas -->
-                <!-- Contenedor para las Cuñas -->
-                <article id="conProgra"  class="conProgra">
-                    <h4 class="text-center">Cu&ntilde;a</h4>
-                    <input type="hidden" name="txtIdSec" value="1" >
-                    <article class="contTitle">
-                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$" required></span></article>     -->
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Costo Por Segundo</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Cuñas Diarias</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php echo $Radios; ?>
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter" >
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta </span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios datepicker fechaCreacion" required>
-                                    </span>
-                            </article>        
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>    
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las cuñas -->
-                <!-- Contenedor para las Entrevistas -->
-                <article id="conProgra" class="conProgra">
-                    <h4 class="text-center">Entrevista</h4>
-                    <input type="hidden" name="txtIdSec" value="2" >
-                    <article class="contTitle">
-                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>     -->
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Costo Por Segundo</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php echo $Radios; ?>
-                            </tbody>
-                            <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter " >
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta</span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker fechaCreacion" required>
-                                    </span>
-                            </article>        
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>    
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las entrevistas -->
-                <!-- Contenedor para las Producciones -->
-                <article id="conProgra"  class="conProgra">
-                    <h4 class="text-center">Producci&oacute;n</h4>
-                    <input type="hidden" name="txtIdSec" value="3">
-                    <article class="contTitle">
-                        <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"  required></span></article>     -->
-                    </article>
-                    <article class="cuerpo">
-                        <table border=0 width="100%" rules="all" class="Tcalculo">
-                            <thead>
-                            <tr>
-                                <td></td>
-                                <td><p>Costo Por Segundo</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
-                                <td><p>Sub Total</p></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php echo $Radios; ?>
-                            </tbody>
-                           <tfoot>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio Sin Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Descuento</td>
-                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
-                            </tr>
-                            <tr class="txtDerecha">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Precio de Venta</td>
-                                <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" name="pventa"  placeholder="$"></td>
-                            </tr>
-                        </tfoot>
-                        </table>
-                        <article class="fechasFooter">
-                            <article class="fechaInicio">
-                                    <span>Inicio de Pauta </span>    
-                                    <span>
-                                        <input type="text" name="txtFechaInicio"  placeholder="dd-mm-aaaa" class="fi form-control input-sm medios  datepicker fechaCreacion" required>
-                                    </span>
-                            </article>        
-                            <article class="fechaFin" >
-                                <span >Fin de Pauta</span>    
-                                <span>
-                                    <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
-                                </span>
-                            </article>    
-                    </article>
-                    </article>
-                </article>
-                <!-- Finaliza contenedor de las Produccion -->
+                <!-- inicia la parte de secciones --> 
+                    <?php echo $Secciones; ?>
+                <!-- termina la parte de secciones -->
                 <!-- Contenedor para los Valores Agregados -->
                 <article id="conProgra" class="headerCot" >
                     <h4  class="text-center">Valores Agregados</h4>
