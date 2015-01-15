@@ -154,7 +154,17 @@
 			$retorno->header = $flag;
 			if($flag){
 				$idEncCot = $this->db->insert_id();
-				foreach ($seccion as $valor) {
+				foreach ($seccion as $i  => $valor) {
+					$replace = str_replace("$","",$valor->total);
+					$total = str_replace(" ", "", $replace);
+					if($total > 0){
+						$calculo = $valor->descuento/$total;
+						if($calculo  < 0.30){
+							$this->load->model("cotizacionesm/cotizacionesm");
+							$cotizacionesm = new Cotizacionesm();
+							$cotizacionesm->updateEstadoCot($idEncCot);
+						}
+					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -213,6 +223,7 @@
 			$obj->det_duracion 	= $duracion;
 			$obj->det_subtotal 	= $subTotal;
 			$obj->det_sec_id 	= $secId;
+
 			return $obj;
 		}
 
@@ -264,9 +275,10 @@
 				'det_cantidad' 	=> $obj->det_cantidad,
 				'det_duracion' 	=> $obj->det_duracion,
 				'det_subtotal' 	=> $obj->det_subtotal,
-				'det_sec_id'	=> $obj->det_sec_id 	
+				'det_sec_id'	=> $obj->det_sec_id
 				);
 			$res = $this->db->insert('det_detalle_bloque',$tabla);
+			
 			return $res;
 		}
 	}

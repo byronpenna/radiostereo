@@ -72,7 +72,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -134,7 +134,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -196,7 +196,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -258,7 +258,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>

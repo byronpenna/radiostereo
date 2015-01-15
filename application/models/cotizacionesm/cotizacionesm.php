@@ -14,7 +14,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_encabezado_cotizacion.cot_est_id=1 ORDER BY cot_id DESC";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
