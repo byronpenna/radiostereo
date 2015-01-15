@@ -103,7 +103,7 @@
 								<td class='".$clases['class2']."'>".$row->$campo[1]."</td>
 								<td>
 									<center>
-										<button class='".$clases['class3']."'>Editar</button>
+										<a class='".$clases['class3']."'>Editar</a>
 									</center>
 								</td>
 							</tr>";
@@ -206,7 +206,7 @@
 								<td class='tdTelefono ocultar'>".$row->cli_telefono."</td>
 								<td class='tdContacto ocultar'>".$row->cli_contacto."</td>
 								<td class='tdCorreo ocultar'>".$row->cli_correo."</td>
-								<td><button class='EditCliente btn btn-sm btn-primary button' data-type='zoomout'>Editar</button>
+								<td><a class='EditCliente btn btn-sm btn-primary button' data-type='zoomout'>Editar</a>
 								</td>
 							</tr>";
 			}

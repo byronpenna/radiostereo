@@ -29,6 +29,7 @@ function getBaseURL() {
     total       = tabla.find(".total");
     descuento   = tabla.find(".descuento");
     pventa      = tabla.find(".pventa");
+    // diarias     = tabla.find(".txtDiarias");
     try{
         var valsin = select.replace("$","");
     }catch(err){
@@ -40,8 +41,12 @@ function getBaseURL() {
     if(duracion.val()==0){
         duracion.val("");
     }
+    // if(diarias.val()==0){
+    //   diarias.val("");
+    // }
     valCantidad = cantidad.val();
     valDuracion = duracion.val();
+    // valDiarias  = diarias.val();
     res=0;
     res=valsin*valCantidad*valDuracion;
     if(res!=0){

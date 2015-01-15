@@ -120,6 +120,7 @@
 						<td><input type='hidden' value='".$valor->serv_id."' name='txtIdServ' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad' value='&nbsp;'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                
                                 <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
                                 <td><input type='text' name='txtSubTotal' value='&nbsp;' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
@@ -137,6 +138,7 @@
 						<td><input type='hidden' name='txtIdRadio' value='".$valor->rad_id."' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad' value='&nbsp;'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                
                                 <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
                                 <td><input type='text' name='txtSubTotal' value='&nbsp;'  class='form-control input-sm inAddCot subTotal' placeholder='$' readonly='true'></td>
 					</tr>";

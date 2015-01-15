@@ -11,7 +11,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_id DESC";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_est_id";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -25,7 +25,14 @@
 
 
 		//obtenemos el estado de la cotizacion para mostrarlo en la parte de cotizaciones
-		
+		public function queryEstado($id){
+			$sql="SELECT * FROM est_estado WHERE est_id=".$id."";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			return $query[0];
+		}
 
 		// generamos la tabla que muestra las cotizaciones
 		public function getCotizacion()
@@ -52,12 +59,13 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td><center style='float:left;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Editar</button></a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-danger' >Eliminar</button></a>";	
+									<td style='width:35%;'><center style='float:left;margin-left:100px;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-danger'>Eliminar</a>";	
 										if(count($count)>0){
-											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>";
-										}						
-									$retorno .= "</center></td></tr>";
+											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
+										}		
+										$estado=$this->queryEstado($row->cot_est_id);				
+									$retorno .= "</center><article style='float:right;'>".$estado->est_estado."</article></td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
@@ -102,7 +110,7 @@
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
 									<td><center>
-										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank'><button class='btn btn-sm btn-info' >Reporte</button></a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>
 										</center></td></tr>";
 				}
 			}else{
@@ -763,8 +771,6 @@
 					$res->encabezado .= $sal.' '.$cli->cli_titulo.'.<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
-
-					Por este medio someto a su evaluación, presupuesto de inversión publicitaria.  A continuación el detalle:<br><br>
 			';
 			$res->valorAgregado = $encCot[0]->cot_valor_agregado;
 			return $res;
@@ -789,9 +795,15 @@
 				}else{
 					$periodo=$periodo." mes";
 				}
+				$res->exp = '
+					Por este medio someto a su evaluación, presupuesto de inversión publicitaria en el Programa : 
+					<b>'.$progId[0]->prog_nombre.'</b>
+					para la campaña de (Nombre de producto).  A continuación el detalle:<br><br>
+					';
 				$res->servic ='
 				<b>Programa :'.$progId[0]->prog_nombre.'</b>
-					<table border=0  class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
+				<br><br>
+					<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
 						<tr style="background:#3498db;">
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
@@ -799,8 +811,11 @@
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
+						<tbody style="background:rgb(150,202,197);">
 						'.$detalle->servi.'
+						</tbody>
 						</table>
+						<br>
 					<table>
 						<tr>
 							<td>Período de Contratación</td>
@@ -827,11 +842,13 @@
 							</td>
 						</tr>
 					</table>
+
 			';
 			$res->contador=$detalle->contador;
 			}else{
 				$res->servic="";
 				$res->contador=0;
+				$res->exp="";
 			}
 			return $res;
 		}
@@ -907,10 +924,11 @@
 							'.$this->getHeader().'
 		      				'.$this->getFooter().'      				
 		      				<article>
-		      				'.$enc->encabezado;
+		      				'.$enc->encabezado.'';
 		      				if($gdb->contador>1 && $p->contador > 1){
 								$res.='<br><br>';
 							}
+							$res.= $p->exp;
 							$res.= $p->servic;
 
 							if(count($gdb->radios)==1){
@@ -1054,15 +1072,19 @@
 			$rad = $this->getDetIdReporte($id,"det_rad_id");
 			$res = new stdClass();
 			$res->servi="";
+			$res->detRadios="";
 			$res->total=0;
 			if($rad){
 				foreach ($rad as $valor) {
 				$serv = $this->getRadiosReporte($valor->det_rad_id);
-				foreach ($serv as $row) {
+				foreach ($serv as $i => $row) {
 					$ser=$row->rad_nombre;
 				}
 				$precio = $this->getPrecioReporte($valor->det_pre_id);
 				$res->contador = count($rad);
+					$nomRadio = $this->getRadiosReporte($valor->det_rad_id);
+					$res->detRadios .= $nomRadio[0]->rad_nombre.',';
+				
 				$res->servi.='
 				<tr>
 					<td style="text-align:left;">'.$ser.'</td>
@@ -1080,6 +1102,7 @@
 				$res->servi="";
 				$res->total=0;
 				$res->descuento=0;
+				$res->detRadios="";
 			}
 				
 			return $res;
@@ -1115,9 +1138,11 @@
 						}else{
 							$SecNom = $progId[0]->sec_nombre;
 						}
+
+						
 						$res->radios[$i]='<br>
-							<b>'.$SecNom.'</b>
-								<table border=0 class="cont-table-report" style="width:100%;text-align:center;"  cellspacing="0">
+							<b>Servicio Ofertado :'.$SecNom.''.$detalle->contador.'</b>
+								<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
 								<tr style="background:#3498db;" ">
 									<td>Radio</td>
 									<td>Costo Por Segundo</td>
@@ -1125,7 +1150,9 @@
 									<td>Duracion(Seg)</td>
 									<td>Sub Total</td>
 								</tr>
+								<tbody style="background:rgb(150,202,197);">
 								'.$detalle->servi.'
+								</tbody>
 								</table>
 							<br>
 							<table>

@@ -114,6 +114,7 @@
                                 <td></td>
                                 <td><p>Costo Por Segundo</p></td>
                                 <td><p>Cantidad</p></td>
+                                <td><p>Cuñas Diarias</p></td>
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
@@ -126,6 +127,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td>Precio Sin Descuento</td>
                                 <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
@@ -133,10 +135,12 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
                                 <td>Descuento</td>
                                 <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
