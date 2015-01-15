@@ -26,7 +26,7 @@
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
 								<td class='tdContraUser'>".$row->usu_password."</td>
-								<td class='tdContraUser'>".$row->usu_firma."</td>
+								<!--<td class='tdFirmaUser'>".$row->usu_firma."</td>-->
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>
 							</tr>";
@@ -95,12 +95,15 @@
 				$this->db->where('usu_id', $dato->txtIdUser);
 				$flag = $this->db->update('usu_usuario', $data);
 			$this->db->trans_complete();
+			$firma = $this->getUser($dato->txtIdUser);
+			$algo = $firma[0]->usu_firma;
 			if($this->db->trans_status() === true){
 				if($flag){
 					$retorno->estado = true;
 					$retorno->mensaje = "Modificado con exito";
 					$retorno->dato1 = $dato->txtNombUser;//retorno el nuevo valor	
 					$retorno->dato2 = $encirpt;
+					$retorno->dato3 = $algo;
 				}else{
 					$retorno->estado = false;
 					$msg = $this->db->_error_message();
