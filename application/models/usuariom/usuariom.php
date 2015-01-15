@@ -28,7 +28,7 @@
 								<td class='tdContraUser'>".$row->usu_password."</td>
 								<!--<td class='tdFirmaUser'>".$row->usu_firma."</td>-->
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
-								<td><button class='EditUsuario btn btn-sm btn-primary'>Editar</button></td>
+								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>
 							</tr>";
 			}
 			return $retorno;
@@ -77,9 +77,9 @@
 							<td class='tdNombreUser'>".$row->usu_nombre."</td>
 							<td class='tdAlgoUser'>".nl2br($mensaje)."</td>";
 							if($mensaje == "Aun no posee firma"){
-								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Agregar Firma</button></td>";
+								$retorno.="<td><a class='EditFirma btn btn-sm btn-primary'>Agregar Firma</a></td>";
 							}elseif ($mensaje != "Aun no posee firma") {
-								$retorno.="<td><button class='EditFirma btn btn-sm btn-primary'>Editar</button></td>";
+								$retorno.="<td><a class='EditFirma btn btn-sm btn-primary'>Editar</a></td>";
 							}
 						  	$retorno.= "</tr>";
 			}

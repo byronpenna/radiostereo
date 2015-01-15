@@ -25,7 +25,7 @@
 		            <form>
 		                <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Search" />
 		            </form>
-                    <button class='btn btn-sm btn-success apCot'  >Aprobar Seleccionados</button>
+                    <a class='btn btn-sm btn-success apCot'  >Aprobar Seleccionados</a>
             <table id="resultados" class="table dataApo" >
                 <thead class="thead">
                     <tr>

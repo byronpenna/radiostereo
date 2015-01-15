@@ -29,7 +29,7 @@
 								<td>".$row->cli_razon_social."</td>
 								<td>".$row->cli_nit."</td>
 								<td style='display:none;'>".$row->cli_usu_id."</td>
-								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion/'.$row->cli_id.'') ."' style='text-decoration:none;color:#FFFFFF;'><button class='btn btn-sm btn-primary' >Cotizacion</button></a></td>
+								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion/'.$row->cli_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Cotizacion</a></td>
 							</tr>";
 			}
 			return $retorno;

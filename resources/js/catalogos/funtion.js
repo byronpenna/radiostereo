@@ -385,6 +385,7 @@
 			url:  getBaseURL() + "index.php/catalogosc/catalogosc/insert_cliente",
 			type: 	"POST",
 			success: function(datos) {
+				console.log(datos);
 				data = jQuery.parseJSON(datos);
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
@@ -396,6 +397,7 @@
 							<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
 							<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
 							<td class='tdNIT'>"+frm.txtNIT+"</td>\
+							<td class='tdTitulo'>"+frm.txtTitulo+"</td>\
 							<td class='tdNRC ocultar'>"+frm.txtNRC+"</td>\
 							<td class='tdDireccion ocultar'>"+frm.txtDireccion+"</td>\
 							<td class='tdTelefono ocultar'>"+frm.txtTelefono+"</td>\
@@ -452,6 +454,9 @@
 				</td>\
 				<td>Correo</td><td>\
 					<input name='txtCorreo' class='txtCorreo form-control' value='"+data.correo+"'>\
+				</td></tr>\
+				<tr><td>Titulo de Contacto</td><td>\
+					<input name='txtTitulo' class='txtTitulo form-control' value='"+data.titulo+"'>\
 				</td></tr>\
 				<tr><td colspan='2'>\
 					<center>\

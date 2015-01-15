@@ -139,6 +139,8 @@ $(document).ready(function () {
 				$("#frmClientes").hide();
 				//console.log(form);
 			});
+
+			
 			//funciones para editar cliente
 			$(".popup").hide()//se oculta el div de modificar;
 			$(document).on("click",".EditCliente",function() {//obtiene la fila con los datos
@@ -210,7 +212,13 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".DeleteUser",function(){//funcion q me controla el evento onclik ala hora de modificar
 					tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+
 					frm = Serializar(tr);
+
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+
+
 				 	console.log(frm);
 				 	mensaje = "Advertencia: Si elimina el Usuario eliminara toda la información relacionada con el. ¿Aun asi desea continuar?"
 					alertify.confirm(mensaje,function(e) {

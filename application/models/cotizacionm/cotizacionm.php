@@ -120,6 +120,7 @@
 						<td><input type='hidden' value='".$valor->serv_id."' name='txtIdServ' />".$valor->serv_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad' value='&nbsp;'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
+                                
                                 <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
                                 <td><input type='text' name='txtSubTotal' value='&nbsp;' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
@@ -137,6 +138,7 @@
 						<td><input type='hidden' name='txtIdRadio' value='".$valor->rad_id."' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios()."</td>
                                 <td><input type='text' name='txtCantidad' value='&nbsp;'  class='form-control input-sm inAddCot SoloNumero txtCantidad blur'></td>
+                                
                                 <td><input type='text' name='txtDuracion' value='&nbsp;'  placeholder='Segundos' class='form-control input-sm inAddCot SoloNumero txtDuracion blur' ></td>
                                 <td><input type='text' name='txtSubTotal' value='&nbsp;'  class='form-control input-sm inAddCot subTotal' placeholder='$' readonly='true'></td>
 					</tr>";
@@ -154,7 +156,17 @@
 			$retorno->header = $flag;
 			if($flag){
 				$idEncCot = $this->db->insert_id();
-				foreach ($seccion as $valor) {
+				foreach ($seccion as $i  => $valor) {
+					$replace = str_replace("$","",$valor->total);
+					$total = str_replace(" ", "", $replace);
+					if($total > 0){
+						$calculo = $valor->descuento/$total;
+						if($calculo  < 0.30){
+							$this->load->model("cotizacionesm/cotizacionesm");
+							$cotizacionesm = new Cotizacionesm();
+							$cotizacionesm->updateEstadoCot($idEncCot);
+						}
+					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -213,6 +225,7 @@
 			$obj->det_duracion 	= $duracion;
 			$obj->det_subtotal 	= $subTotal;
 			$obj->det_sec_id 	= $secId;
+
 			return $obj;
 		}
 
@@ -264,9 +277,10 @@
 				'det_cantidad' 	=> $obj->det_cantidad,
 				'det_duracion' 	=> $obj->det_duracion,
 				'det_subtotal' 	=> $obj->det_subtotal,
-				'det_sec_id'	=> $obj->det_sec_id 	
+				'det_sec_id'	=> $obj->det_sec_id
 				);
 			$res = $this->db->insert('det_detalle_bloque',$tabla);
+			
 			return $res;
 		}
 	}
