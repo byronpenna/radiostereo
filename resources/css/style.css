@@ -64,9 +64,9 @@ fieldset{
 	display: none;
 }
 .popup{
-	margin-top: 4%;
+	margin-top: 0;
 	width: 50%;
-	height: 450px;
+	height: 750px;
 	background-color: white;
 }
 /*calendar*/

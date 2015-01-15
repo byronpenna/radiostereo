@@ -3,17 +3,18 @@
 <head>
 	<?php 
 	//cargamos el head
-		$this->load->view("estructura/head.php");
+	$this->load->view("estructura/head.php");
 	?>
 	<script src="<?php echo base_url('resources/js/catalogos/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
-    <script src="<?php echo base_url('resources/js/catalogos/script.js')?>" type="text/javascript" charset="utf-8"></script>
+	<script src="<?php echo base_url('resources/js/catalogos/script.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<!--cargamos el menu-->
 	<?php 
-		$this->load->view("estructura/menu.php");
+	$this->load->view("estructura/menu.php");
 	?>
 	<div class="popup well"><!--pop up para modificar-->
+		
 		<table class="table">
 			<thead>
 				<h3><b>Datos Cliente</b></h3>
@@ -21,6 +22,26 @@
 			<tbody class='tbClientes2 modificar'>
 				
 			</tbody>
+		</table>
+		<table id="contaddprod" >
+			<thead>
+				<tr>
+					<td colspan=2>Productos</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tr class='contendorMultiple modalContenedorMultiple' >
+				<td >
+					<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
+					<td>
+						<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
+						<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
+					</td>
+					<td width="1100px">
+						<select name="selprod" multiple="multiple" size="10" id="addprod">
+						</select>
+					</td>
+				</tr>
 		</table>
 	</div>
 	<fieldset class="fieldClientes well" id="fieldClientes">
@@ -61,42 +82,45 @@
 					<td><input type="text" name="txtIdUser" class="form-control" value="<?php echo $tabla->id; ?>" required /></td>
 				</tr>
 				<tr>
+					<!-- <td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td> -->
+				</tr>
+			</table>
+			<table id="contaddprod" >
+			<thead>
+				<tr>
+					<td colspan=2>Productos</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tr class='contendorMultiple' >
+				<td >
+					<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
+					<td>
+						<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
+						<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
+					</td>
+					<td width="1100px">
+						<select name="selprod" multiple="multiple" size="10" id="addprod">
+
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td colspan="2"><br><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
 				</tr>
 			</table>
-<table id="contaddprod" >
-	<thead>
-		<tr>
-			<td colspan=2>Productos</td>
-			<td></td>
-		</tr>
-	</thead>
-	<tr >
-		<td >
-			<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
-		<td>
-			<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
-			<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
-		</td>
-		<td width="1100px">
-			<select name="selprod" multiple="multiple" size="10" id="addprod">
-				
-			</select>
-		</td>
-	</tr>
-</table>
-		</form>
-		<div id="contenido">
-            <div class="midBox1">	
-                <div class="midBox1Top">
-                    <h3></h3>		 				 
-                 </div>
-                 	<div class="datagrid">
-                        <form>
-                            <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Cliente" />
-                        </form>
-                        <br />
-                    	<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
+			</form>
+			<div id="contenido">
+				<div class="midBox1">	
+					<div class="midBox1Top">
+						<h3></h3>		 				 
+					</div>
+					<div class="datagrid">
+						<form>
+							<b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Cliente" />
+						</form>
+						<br />
+						<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
 							<thead class="thead">
 								<tr>
 									<th>Nombre</th>
@@ -111,16 +135,16 @@
 								
 							</tbody>
 						</table>
-			<div style="border: 2px;" id="NavPosicion"></div>
-                    </div>
-                    <script type="text/javascript">
-                    var pager = new Pager('resultados', 10);
-                    pager.init();
-                    pager.showPageNav('pager', 'NavPosicion');
-                    pager.showPage(1);
-                                    </script>
-                </div>
-            </div>
-	</fieldset>
-</body>
-</html>
+						<div style="border: 2px;" id="NavPosicion"></div>
+					</div>
+					<script type="text/javascript">
+						var pager = new Pager('resultados', 10);
+						pager.init();
+						pager.showPageNav('pager', 'NavPosicion');
+						pager.showPage(1);
+					</script>
+				</div>
+			</div>
+		</fieldset>
+	</body>
+	</html>

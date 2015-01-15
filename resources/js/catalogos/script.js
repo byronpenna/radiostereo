@@ -8,10 +8,11 @@ $(document).ready(function () {
 		// click 
 			$(document).on("click",".btnActionMultiple",function(){
 				direccion = $(this).attr("direccion"); // 1 derecha, 0 izquierda
+				console.log("entro");
 				if(direccion == 1){
-					addOption();
+					addOption($(this));
 				}else if(direccion == 0){
-					removeOption();
+					removeOption($(this));
 				}
 			});
 		// submit
@@ -162,10 +163,7 @@ $(document).ready(function () {
 					$("#frmClientes").hide();	
 				}else{
 					alertify.error("Agregue por lo menos un programa");
-				}
-				
-
-				
+				}				
 				console.log(form);
 			});
 
@@ -189,7 +187,15 @@ $(document).ready(function () {
 				//tr2 = $("table").find(".tbClientes").find("tr");
 				frm = tr.find("input");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
-				//console.log(frm);
+
+				// #############
+					options 	= $('#addprod option');
+					var values = $.map(options ,function(option) {
+					    return option.value;
+					});
+				frm.productos = values;
+
+				console.log("formulario",frm);
 				saveEditCliente(frm,tr);
 				location.reload();
 				$(".popup").hide();//ocultar div;

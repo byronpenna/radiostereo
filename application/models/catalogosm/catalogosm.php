@@ -9,11 +9,25 @@
 		{
 			parent::__construct();
 		}
+		public function getProductosFromCliente($clienteId){
+			$sql = "SELECT * FROM `pro_producto` where pro_cli_id = ".$clienteId.";";
+			$this->db->trans_start();
+				$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$retorno = $query->result();
+			return $retorno;
+		}
 		public function insertCliente($data){
 			$this->db->trans_start();
 				$flag = $this->db->insert_batch("pro_producto",$data);
 			$this->db->trans_complete();
 			return $flag;
+		}
+		public function deleteProductosClientes($idCliente){
+			$this->db->trans_start();
+				$data = array('pro_cli_id' => $idCliente );
+				$this->db->delete("pro_producto",$data);
+			$this->db->trans_complete();
 		}
 		//inicio insert catalogos
 		public function add_catalogos($tabla,$vect)//recibe el nombre de la tabla y un vector con los satos

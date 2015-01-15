@@ -137,6 +137,15 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->update_clientedb($updatfrm);
+			$Catalogosm->deleteProductosClientes($updatfrm->txtidcliente);
+			$data = array();
+			foreach ($updatfrm->productos as $key => $value) {
+				$data[$key] = array(
+					'pro_cli_id' 		=> $updatfrm->txtidcliente, 
+					'pro_nomb_producto'	=> $value
+				);
+			}
+			$Catalogosm->insertCliente($data);
 			echo json_encode($mensaje);
 		}
 		public function get_Cliente()
@@ -144,7 +153,9 @@
 			$idCliente = json_decode($_POST["id"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
-			$datos = $Catalogosm->RetornarUpdate($idCliente);
+			$datos 		= $Catalogosm->RetornarUpdate($idCliente);
+			$productos 	= $Catalogosm->getProductosFromCliente($idCliente);
+			$datos->productos = $productos;
 			echo json_encode($datos);
 		}
 		public function index()//carga la vista

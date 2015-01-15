@@ -1,15 +1,17 @@
-function addOption(){
-	txt = $("#inprod").val();
+function addOption(selector){
+	// txt = $("#inprod").val();
+	txt = selector.parents(".contendorMultiple").find("#inprod").val();
+	console.log("el valor txt:",txt);
 	if(txt != ""){
 		optionAgregar = "<option value='"+txt+"'>"+txt+"</option>";
-		console.log(optionAgregar);
-		$("#addprod").append(optionAgregar);
+		selector.parents(".contendorMultiple").find("#addprod").append(optionAgregar);
 	}else{
 		alertify.error("rellene el campo por favor");
 	}	
 }
-function removeOption(){
-	optionVal = $("#addprod option:selected");
+function removeOption(selector){
+	// optionVal = $("#addprod option:selected");
+	optionVal = selector.parents(".contendorMultiple").find("#addprod option:selected");
 	if(!(optionVal.val() == undefined) ){
 		optionVal.remove();
 	}else{
@@ -410,8 +412,14 @@ function removeOption(){
 						<input type='button' class='btnGuardarCliente btn btn-m btn-success btnAddCot' value='Guardar' />\
 						<button class='DeleteClient btn btn-m btn-danger'>Eliminar</button>\
 					</center>\
-				</td></tr>";
+				</td></tr>\
+				";
 				//tr.empty().append(newtr);
+				opciones = "";
+				$.each(data.productos,function(i,val){
+					opciones += "<option value='"+val.pro_nomb_producto+"'>"+val.pro_nomb_producto+"</option>";
+				});
+				$(".modalContenedorMultiple").find("#addprod").empty().append(opciones);
 				$(".modificar").empty().append(newtr);
 			}
 		});	
