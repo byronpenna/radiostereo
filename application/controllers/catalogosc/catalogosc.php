@@ -20,7 +20,7 @@
 		}
 		public function insert_cliente()
 		{
-			
+			// weeeeeeee
 			//vars
 			$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
