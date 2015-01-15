@@ -376,7 +376,7 @@
                             <thead>
                             <tr>
                                 <td></td>
-                                <td><p>Precio</p></td>
+                                <td><p>Costo Por Segundo</p></td>
                                 <td><p>Cantidad</p></td>
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
@@ -477,7 +477,7 @@
                             <thead>
                             <tr>
                                 <td></td>
-                                <td><p>Precio</p></td>
+                                <td><p>Costo Por Segundo</p></td>
                                 <td><p>Cantidad</p></td>
                                 <td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
