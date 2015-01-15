@@ -77,6 +77,28 @@
 			}
 		});
 	}
+	function DeletePrograma (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/catalogosc/catalogosc/delete_programa",
+				type: "POST",
+				success: function(datos) {
+					//console.log(datos);
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+						//console.log(data);
+						// para input .val("") val()
+						// para divs .empty() text()
+					}
+				}
+			});	
+	}
+
 //funciones para el catalogo radios
 	function agregarradio(frm) {//funcion que manda los datos de radio al controlador
 		$.ajax({
@@ -152,6 +174,23 @@
 			}
 		});
 	}
+	function DeleteRadio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/radiosc/radiosc/delete_radio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
 //funciones para el catalogo precios
 	function agregarPrecio(frm) {//funcion que manda los datos de precio al controlador
 		$.ajax({
@@ -226,6 +265,23 @@
 				//console.log(datos);
 			}
 		});
+	}
+	function DeletePrecio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/preciosc/preciosc/delete_precio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
 	}
 //funciones para el catalogo servicio
 	function agregarservicio(form) {//funcion que manda los datos del servicio al controlador
@@ -303,7 +359,23 @@
 			}
 		});
 	}
-
+	function DeleteServicio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/servicioc/servicioc/delete_servicio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
 //funciones para el catalogo cliente
 	function agregarcliente(frm) {
 		$.ajax({
@@ -422,6 +494,23 @@
 				//console.log(datos);
 			}
 		});
+	}
+	function DeleteCliente (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/clientesc/clientesc/delete_cliente",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						location.reload();
+					}
+				}
+			});	
 	}
 //funciones para el usuarios
 	function agregarusuario (frm) {
@@ -562,4 +651,10 @@ function saveFirma (frm, tr) {
 					// console.log(iduser);
 				}
 			});
+}
+//funcion q retorna el mensaje para delete catalogos
+function Serializar (tr) {
+	frm = tr.find("input");//encuentro el valor contenido en el input
+	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+	return frm;
 }
