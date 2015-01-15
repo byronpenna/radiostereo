@@ -1,7 +1,4 @@
 <?php 
-	/**
-	* 
-	*/
 	class Cotizacionesm extends CI_Model
 	{
 		
@@ -25,6 +22,10 @@
 			}
 			return $res;
 		}
+
+
+		//obtenemos el estado de la cotizacion para mostrarlo en la parte de cotizaciones
+		
 
 		// generamos la tabla que muestra las cotizaciones
 		public function getCotizacion()
