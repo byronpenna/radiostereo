@@ -181,6 +181,28 @@
 		}
 
 
+
+
+		public function getProdCliEdit($idCli,$idProd){
+			$sql="SELECT * FROM pro_producto
+				WHERE pro_cli_id = ".$idCli."";
+				$this->db->trans_start();
+				$query = $this->db->query($sql);
+				$query = $query->result();
+				$res="";
+				foreach ($query as $row) {
+					if($row->pro_id==$idProd){
+						$se="selected";
+					}else{
+						$se="";
+					}
+				$res .= "<option value='".$row->pro_id."' $se >".$row->pro_nomb_producto."</option>";
+			}
+
+			return $res;
+		}
+
+
 		// obtenemos el encabezado de la cotizacion para mostrarlo en la parte de editar cotizacion
 		public function getHeaderCot($idEncCot){
 			$header =$this->getEncCot($idEncCot);
@@ -206,7 +228,12 @@
                     </span></p>
                 </article>
                 <article>
-                    <p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
+                    <p>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
+                	<p>Producto <span>
+                        <select name="prod" class="form-control input-sm medios" >
+                            '.$this->getProdCliEdit($row->cot_cli_id,$row->cot_pro_id).'
+                        </select>   
+                    </span></p>
                 </article>
             </article>
 				';
@@ -407,7 +434,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -508,7 +535,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -552,6 +579,14 @@
 			$retorno->header = $flag;
 			if($flag){
 				foreach ($seccion as $valor) {
+					$replace = str_replace("$","",$valor->total);
+					$total = str_replace(" ", "", $replace);
+					if($total > 0){
+						$calculo = $valor->descuento/$total;
+						if($calculo  < 0.30){							
+							$this->updateEstadoCot($header->idCot);
+						}
+					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -595,7 +630,8 @@
 			$tabla 			= array(
 				'cot_valor_agregado'	=> $obj->txtValorAgregado,
 				'cot_tip_id'			=> $obj->tipo_cot,
-				'cot_est_id'			=> $obj->estado_cot
+				'cot_est_id'			=> $obj->estado_cot,
+				'cot_pro_id'			=> $obj->prod
 				);
 			$this->db->where('cot_id',$obj->idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
@@ -776,6 +812,16 @@
 			return $res;
 		}
 
+		public function getProdCli($idProd){
+			$sql="SELECT * FROM pro_producto
+				WHERE pro_id = ".$idProd."";
+				$this->db->trans_start();
+				$query = $this->db->query($sql);
+				$query = $query->result();
+
+			return $query;
+		}
+
 		public function getDetBloqReporte($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
 			$res = new stdClass();
@@ -790,6 +836,8 @@
 				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
 				$periodo=$ffin-$fi;
 				$periodo=$periodo+1;
+				$encCot = $this->getEncCot($idCot);
+				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
 				if($periodo>1){
 					$periodo=$periodo." meses";
 				}else{
@@ -798,20 +846,20 @@
 				$res->exp = '
 					Por este medio someto a su evaluación, presupuesto de inversión publicitaria en el Programa : 
 					<b>'.$progId[0]->prog_nombre.'</b>
-					para la campaña de (Nombre de producto).  A continuación el detalle:<br><br>
+					para la campaña de <b>'.$prod[0]->pro_nomb_producto.'</b>.  A continuación el detalle:<br><br>
 					';
 				$res->servic ='
 				<b>Programa :'.$progId[0]->prog_nombre.'</b>
 				<br><br>
-					<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
-						<tr style="background:#3498db;">
+					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
+						<tr style="background:#9CC2E5;">
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
-						<tbody style="background:rgb(150,202,197);">
+						<tbody style="background:#BFBFBF;">
 						'.$detalle->servi.'
 						</tbody>
 						</table>
@@ -929,6 +977,7 @@
 								$res.='<br><br>';
 							}
 							$res.= $p->exp;
+							$res.= $gdb->exp;
 							$res.= $p->servic;
 
 							if(count($gdb->radios)==1){
@@ -1064,7 +1113,7 @@
 			$query=$this->db->query($sql);
 			$query=$query->result();
 			$this->db->trans_complete();
-			return $query;	
+			return $query;
 		}
 
 
@@ -1075,26 +1124,33 @@
 			$res->detRadios="";
 			$res->total=0;
 			if($rad){
-				foreach ($rad as $valor) {
+			foreach ($rad as $key => $valor) {
 				$serv = $this->getRadiosReporte($valor->det_rad_id);
 				foreach ($serv as $i => $row) {
 					$ser=$row->rad_nombre;
 				}
-				$precio = $this->getPrecioReporte($valor->det_pre_id);
-				$res->contador = count($rad);
-					$nomRadio = $this->getRadiosReporte($valor->det_rad_id);
-					$res->detRadios .= $nomRadio[0]->rad_nombre.',';
-				
-				$res->servi.='
-				<tr>
-					<td style="text-align:left;">'.$ser.'</td>
-					<td> $ 	'.$precio->pre_precio.'</td>
-					<td>	'.$valor->det_cantidad.'</td>
-					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-				</tr>
-			';
-			$res->total+=$valor->det_subtotal;
+					$precio = $this->getPrecioReporte($valor->det_pre_id);
+					$res->contador = count($rad);
+						$nomRadio = $this->getRadiosReporte($valor->det_rad_id);
+						if($res->contador <= 1){
+							$res->detRadios = $nomRadio[0]->rad_nombre;
+						}else{
+							if($key == 0){
+								$res->detRadios .= $nomRadio[0]->rad_nombre;	
+							}else{
+								$res->detRadios .= ", ".$nomRadio[0]->rad_nombre;	
+							}
+						}
+					$res->servi.='
+					<tr>
+						<td style="text-align:left;">'.$ser.'</td>
+						<td> $ 	'.$precio->pre_precio.'</td>
+						<td>	'.$valor->det_cantidad.'</td>
+						<td>	'.$valor->det_duracion.'</td>
+						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+					</tr>
+				';
+				$res->total+=$valor->det_subtotal;
 			}
 			$res->descuento = $res->total - $pventa;
 			}else{
@@ -1104,7 +1160,6 @@
 				$res->descuento=0;
 				$res->detRadios="";
 			}
-				
 			return $res;
 		}
 		
@@ -1138,22 +1193,36 @@
 						}else{
 							$SecNom = $progId[0]->sec_nombre;
 						}
+						// $detalle->detRadios
+						$encCot = $this->getEncCot($idCot);
+						$prod = $this->getProdCli($encCot[0]->cot_pro_id);
+						if($detalle->contador <= 1){
+							$las = "radio";
+						}else{
+							$las = "radios";
+						}
+						$res->exp = "
+							Por este medio someto a su evaluación, presupuesto de inversión publicitaria en ".$las.":
+							<b>".$detalle->detRadios."</b>
+							para la campaña de <b>".$prod[0]->pro_nomb_producto."</b>.  A continuación el detalle:<br><br>
+						";
 
-						
-						$res->radios[$i]='<br>
-							<b>Servicio Ofertado :'.$SecNom.''.$detalle->contador.'</b>
-								<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
-								<tr style="background:#3498db;" ">
+						$res->radios[$i]='
+							<b>Servicio Ofertado : '.$SecNom.'</b>
+							<br><br>
+								<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
+								<tr style="background:#9CC2E5;">
 									<td>Radio</td>
 									<td>Costo Por Segundo</td>
 									<td>Cantidad</td>
 									<td>Duracion(Seg)</td>
 									<td>Sub Total</td>
 								</tr>
-								<tbody style="background:rgb(150,202,197);">
+								<tbody style="background:#BFBFBF;">
 								'.$detalle->servi.'
 								</tbody>
 								</table>
+							<br>
 							<br>
 							<table>
 								<tr>
@@ -1189,6 +1258,7 @@
 				for ($i=0; $i < 3 ; $i++) { 
 					$res->radios[$i]="";	
 					$res->contador="";
+					$res->exp="";
 				}
 				
 			}
