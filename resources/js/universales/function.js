@@ -26,11 +26,10 @@ function getBaseURL() {
     duracion    = tr.find(".txtDuracion");
     select      = tr.find(".precios option:selected").html();
     subTotal    = tr.find(".subTotal");
+    diarias     = tr.find(".txtDiaria");
     total       = tabla.find(".total");
     descuento   = tabla.find(".descuento");
     pventa      = tabla.find(".pventa");
-    diarias     = tr.find(".txtDiaria");
-    // diarias     = tabla.find(".txtDiarias");
     try{
         var pSin = select.replace("$","");
     }catch(err){
@@ -42,10 +41,16 @@ function getBaseURL() {
     if(duracion.val()==0){
         duracion.val("");
     }
+    if(subTotal.val()==0){
+      subTotal.val("");
+    }
+    if(total.val()==0){
+      total.val("");
+    }
     if(diarias.length > 0){
       if(diarias.val()==0){
-      diarias.val("");
-    }
+        diarias.val("");
+      }
     }
     
     valCantidad = cantidad.val();
@@ -66,8 +71,9 @@ function getBaseURL() {
     //Calcular el Total
     sum     = 0;
     tabla.find(".subTotal").each(function(i,val){
-        sub=$(this).val();
+        sub = $(this).val();
         valor   = sub.replace("$","");
+        console.log("este valor es el que traigo",valor);
         if(isNumber(valor)){
             sum += parseFloat(valor);
         }
