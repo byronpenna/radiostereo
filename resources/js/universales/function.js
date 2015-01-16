@@ -29,10 +29,10 @@ function getBaseURL() {
     total       = tabla.find(".total");
     descuento   = tabla.find(".descuento");
     pventa      = tabla.find(".pventa");
-    diarias     = tabla.find(".txtDiaria");
+    diarias     = tr.find(".txtDiaria");
     // diarias     = tabla.find(".txtDiarias");
     try{
-        var valsin = select.replace("$","");
+        var pSin = select.replace("$","");
     }catch(err){
         valsin="";
     }
@@ -42,7 +42,7 @@ function getBaseURL() {
     if(duracion.val()==0){
         duracion.val("");
     }
-    if(diarias!=undefined){
+    if(diarias.length > 0){
       if(diarias.val()==0){
       diarias.val("");
     }
@@ -54,31 +54,40 @@ function getBaseURL() {
     if(diarias.length > 0){
       valDiarias  = diarias.val();
     }
-    
     res=0;
     if(diarias.length > 0){
-      res=valsin*valCantidad*valDiarias*valDuracion;
+      res=pSin*valCantidad*valDiarias*valDuracion;
     }else{
-      res=valsin*valCantidad*valDuracion;
+      res=pSin*valCantidad*valDuracion;
     }
     if(res!=0){
-        subTotal.val(res.toFixed(2));
+        subTotal.val("$ "+res.toFixed(2));
     }
     //Calcular el Total
     sum     = 0;
     tabla.find(".subTotal").each(function(i,val){
-        valor   = $(this).val();
+        sub=$(this).val();
+        valor   = sub.replace("$","");
         if(isNumber(valor)){
             sum += parseFloat(valor);
         }
     })
     if(sum){
-    if(!valsin || !cantidad.val() || !duracion.val()){
-      if(subTotal.val()){
-        sum=sum-subTotal.val();
-        subTotal.val("");
+      if(diarias.length > 0){
+        if(!pSin || !cantidad.val() || !duracion.val() || !diarias.val()){
+         if(subTotal.val()){
+            sum=sum-subTotal.val();
+            subTotal.val("");
+          }
+        }
+      }else{
+        if(!pSin || !cantidad.val() || !duracion.val()){
+          if(subTotal.val()){
+            sum=sum-subTotal.val();
+            subTotal.val("");
+          }
+        }
       }
-    } 
         if(sum==0.00){
             total.val("");
         }else{
@@ -87,7 +96,7 @@ function getBaseURL() {
         if(sum>=pventa.val()){
           if(pventa.val()){
           des=sum-pventa.val();
-          descuento.val(des.toFixed(2));
+          descuento.val("$ "+des.toFixed(2));
         }else{
           descuento.val("");
         }
