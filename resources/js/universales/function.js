@@ -73,22 +73,20 @@ function getBaseURL() {
         }
     });
     if(sum){
-      if(diarias.length>0){
-        if(!valsin || !cantidad.val() || !duracion.val() || !diarias.val()){
-          if(subTotal.val()){
-            sum=sum-subTotal.val();
-            subTotal.val("");
+          if(diarias.length>0){
+            if(!diarias.val()){
+              if(subTotal.val()){
+                sum=sum-subTotal.val();
+                subTotal.val("");
+              }
+            }
           }
-        }else{
           if(!valsin || !cantidad.val() || !duracion.val()){
             if(subTotal.val()){
               sum=sum-subTotal.val();
               subTotal.val("");
             }
           } 
-        }
-      }
-    
         if(sum==0.00){
             total.val("");
         }else{
