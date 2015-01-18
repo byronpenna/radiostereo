@@ -21,7 +21,7 @@ function getBaseURL() {
 
 
 //calcular los totales para los campos de las cotizaciones 
-	function calcularTotal(tr,tabla){
+  function calcularTotal(tr,tabla){
     cantidad    = tr.find(".txtCantidad");
     duracion    = tr.find(".txtDuracion");
     select      = tr.find(".precios option:selected").html();
@@ -29,7 +29,7 @@ function getBaseURL() {
     total       = tabla.find(".total");
     descuento   = tabla.find(".descuento");
     pventa      = tabla.find(".pventa");
-    diarias     = tabla.find(".txtDiaria");
+    diarias     = tr.find(".txtDiaria");
     // diarias     = tabla.find(".txtDiarias");
     try{
         var valsin = select.replace("$","");
@@ -42,10 +42,10 @@ function getBaseURL() {
     if(duracion.val()==0){
         duracion.val("");
     }
-    if(diarias!=undefined){
+    if(diarias.length > 0){
       if(diarias.val()==0){
-      diarias.val("");
-    }
+        diarias.val("");
+      }
     }
     
     valCantidad = cantidad.val();
@@ -71,14 +71,24 @@ function getBaseURL() {
         if(isNumber(valor)){
             sum += parseFloat(valor);
         }
-    })
+    });
     if(sum){
-    if(!valsin || !cantidad.val() || !duracion.val()){
-      if(subTotal.val()){
-        sum=sum-subTotal.val();
-        subTotal.val("");
+      if(diarias.length>0){
+        if(!valsin || !cantidad.val() || !duracion.val() || !diarias.val()){
+          if(subTotal.val()){
+            sum=sum-subTotal.val();
+            subTotal.val("");
+          }
+        }else{
+          if(!valsin || !cantidad.val() || !duracion.val()){
+            if(subTotal.val()){
+              sum=sum-subTotal.val();
+              subTotal.val("");
+            }
+          } 
+        }
       }
-    } 
+    
         if(sum==0.00){
             total.val("");
         }else{

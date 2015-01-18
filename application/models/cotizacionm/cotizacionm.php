@@ -274,8 +274,10 @@
 				foreach ($seccion as $i  => $valor) {
 					$replace = str_replace("$","",$valor->total);
 					$total = str_replace(" ", "", $replace);
+					$reemplazo = str_replace("$", "", $valor->descuento);
+					$descuento = str_replace(" ", "", $reemplazo);
 					if($total > 0){
-						$calculo = $valor->descuento/$total;
+						$calculo = $descuento/$total;
 						if($calculo  < 0.30){
 							$this->load->model("cotizacionesm/cotizacionesm");
 							$cotizacionesm = new Cotizacionesm();
@@ -394,7 +396,7 @@
 				'det_cantidad' 		=> $obj->det_cantidad,
 				'det_cuna_diaria' 	=> $obj->det_cuna_diaria,
 				'det_duracion' 		=> $obj->det_duracion,
-				'det_subtotal' 		=> $obj->det_subtotal,
+				'det_subtotal' 		=> str_replace("$", "", $obj->det_subtotal),
 				'det_sec_id'		=> $obj->det_sec_id
 				);
 			$res = $this->db->insert('det_detalle_bloque',$tabla);
