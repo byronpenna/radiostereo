@@ -73,12 +73,8 @@ function getCalendar(selector,fechaInicio,txtEvent){
 			eventClick: function(calEvent, jsEvent, view) {
 				start = calEvent.start.format('YYYY-MM-DD');
 				selector.fullCalendar('removeEvents',calEvent.start);
-				console.log("los eventos son: ",selector.fullCalendar("clientEvents"));
-				do{
-					index = tmpEv.indexOf(start);
-					tmpEv.splice(index,1);	
-				}while(index != -1);
-				
+				index = tmpEv.indexOf(start);
+				tmpEv.splice(index,1);
 				txtEvent.val(JSON.stringify(tmpEv));
 			},
 			select: function(start, end) {				
@@ -92,22 +88,16 @@ function getCalendar(selector,fechaInicio,txtEvent){
 					color: 	'#2B87CD'
 				};
 				eventosActuales = selector.fullCalendar("clientEvents",start);
-				console.log("Los eventos actuales son:",eventosActuales);
-				if(typeof(eventosActuales) != "object"){
+				// console.log("Los eventos actuales son:",eventosActuales);
+				fecha = start.format("YYYY-MM-DD");
+				if(eventosActuales == ""){
 					selector.fullCalendar('renderEvent', eventData, true);
+					tmpEv.push(fecha);	
 				}else{
 					selector.fullCalendar('removeEvents',start);
-				}		
-				fecha = start.format("YYYY-MM-DD");
-				do{
 					index = tmpEv.indexOf(fecha);
-					if(index){
-						tmpEv.push(fecha);	
-					}else{
-						tmpEv.splice(index,1);
-					}	
-				}while(index != -1);
-				
+					tmpEv.splice(index,1);
+				}			
 				txtEvent.val(JSON.stringify(tmpEv));					
 			},
 			// eventClick: function(eventos){
