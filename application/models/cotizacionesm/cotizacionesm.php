@@ -11,7 +11,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_est_id,cot_id DESC";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -162,7 +162,7 @@
 		public function estCot($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
-			$sql="SELECT * FROM est_estado WHERE est_id = ".$id."";
+			$sql="SELECT * FROM est_estado";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
 			if($query->num_rows()>0){
@@ -172,9 +172,14 @@
 			$this->db->trans_complete();
 			$r= "";
 			if($datos->validacion===true){
+				// estado_cot
 				foreach ($query as $key => $valor) {
-					$r.="<input value='".$valor->est_estado."' type='text' class='form-control input-sm pequenios ' readonly='true'/>
-						<input type='hidden' name='estado_cot' value='".$valor->est_id."' />";
+					if($valor->est_id==$id){
+						$s="selected";
+					}else{
+						$s="";
+					}
+					$r.="<option value='".$valor->est_id."' $s>".$valor->est_estado."</option>";
 				}
 			}
 			return $r;
@@ -224,7 +229,9 @@
                         </select>   
                     </span></p>
                     <p>Estado de Cotizacion <span>
-                            '.$this->estCot($row->cot_est_id).'
+	                    <select name="estado_cot" class="form-control input-sm pequenios " >
+	                            '.$this->estCot($row->cot_est_id).'
+	                    </select>   
                     </span></p>
                 </article>
                 <article>
@@ -1340,7 +1347,7 @@
 
 		public function updateEstadoCot($idCot){
 			$tabla 			= array(
-				'cot_est_id'			=> 2
+				'cot_est_id'			=> 3
 				);
 			$this->db->where('cot_id',$idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
