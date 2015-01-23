@@ -170,5 +170,20 @@
 			$this->load->view('catalogosv/catalogosv.php', $datos);
 
 		}
+
+
+		
+public function delete_programa()
+		{
+			//vars
+				$frm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$id_progbd = 'prog_id';
+			$nameform = $frm->txtidprograma;
+			$tabla='prog_programa';
+			$mensaje = $Catalogosm->delete_catalogo($tabla, $id_progbd, $nameform);
+			echo json_encode($mensaje);
+		}
 	}
  ?>

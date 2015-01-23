@@ -20,5 +20,21 @@
 			$datos['Titulo']="..::Catalogos::..";
 			$this->load->view('catalogosv/preciosv/preciosv', $datos);
 		}
+
+
+
+				public function delete_precio()
+		{
+			//vars
+				$frm = json_decode($_POST["form"]);
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$id_tablabd = 'pre_id';
+			$nameform = $frm->txtidprecio;
+			$tabla='pre_precio';
+			$mensaje = $Catalogosm->delete_catalogo($tabla, $id_tablabd, $nameform);
+			echo json_encode($mensaje);
+		}
+
 	}
  ?>

@@ -1,10 +1,12 @@
 function addOption(selector){
 	// txt = $("#inprod").val();
-	txt = selector.parents(".contendorMultiple").find("#inprod").val();
+	txt 		= selector.parents(".contendorMultiple").find("#inprod").val();
+	txtClear 	= selector.parents(".contendorMultiple").find("#inprod");
 	console.log("el valor txt:",txt);
 	if(txt != ""){
 		optionAgregar = "<option value='"+txt+"'>"+txt+"</option>";
 		selector.parents(".contendorMultiple").find("#addprod").append(optionAgregar);
+		txtClear.val("");
 	}else{
 		alertify.error("rellene el campo por favor");
 	}	
@@ -12,7 +14,11 @@ function addOption(selector){
 function removeOption(selector){
 	// optionVal = $("#addprod option:selected");
 	optionVal = selector.parents(".contendorMultiple").find("#addprod option:selected");
-	if(!(optionVal.val() == undefined) ){
+	optionVal1 = selector.parents(".contendorMultiple").find("#addprod option:selected").html();
+	txtClear 	= selector.parents(".contendorMultiple").find("#inprod");
+	// txtClear.val("Prueba");
+	if(!(optionVal.val() == undefined)){
+		txtClear.val(optionVal1);
 		optionVal.remove();
 	}else{
 		alertify.error("Debe seleccionar una opcion");
@@ -424,6 +430,7 @@ function removeOption(selector){
 			}
 		});	
 	}
+	
 	function saveEditCliente (form,tr) {
 		$.ajax({
 			data:{
@@ -572,6 +579,132 @@ function createEditFirma (tr) {
 				tr.empty().append(newtr);
 	//console.log("id-> ",iduser,user);
 }
+
+
+	
+
+		function DeletePrograma (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/catalogosc/catalogosc/delete_programa",
+				type: "POST",
+				success: function(datos) {
+					//console.log(datos);
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+						//console.log(data);
+						// para input .val("") val()
+						// para divs .empty() text()
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
+	function DeleteRadio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/radiosc/radiosc/delete_radio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+	function DeletePrecio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/preciosc/preciosc/delete_precio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
+	function DeleteServicio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/servicioc/servicioc/delete_servicio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+	function DeleteCliente (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/clientesc/clientesc/delete_cliente",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						location.reload();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
 function saveFirma (frm, tr) {
 	$.ajax({
 				data:{
@@ -595,3 +728,17 @@ function saveFirma (frm, tr) {
 				}
 			});
 }
+
+
+
+
+
+//funcion q retorna el mensaje para delete catalogos
+function Serializar (tr) {
+	frm = tr.find("input");//encuentro el valor contenido en el input
+	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+	return frm;
+}
+
+
+
