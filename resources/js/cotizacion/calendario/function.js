@@ -31,13 +31,24 @@ function alguito () {
 function getCalendar(selector,fechaInicio,txtEvent){
 		// tmpEv = selector.fullCalendar("clientEvents");
 		// console.log("los eventos son: ",tmpEv);
+		eventos = new Array();
 		if(txtEvent.val() != ""){
 			tmpEv = jQuery.parseJSON(txtEvent.val());	
+			console.log("tmp",tmpEv);
+			$.each(tmpEv,function(i,val){
+				eventos[i] = new Object();
+				eventos[i] = {
+					id: 	val,
+					start: 	val,
+					//end: end,
+					color: 	'#2B87CD'
+				};
+			});
 		}else{
 			tmpEv = new Array();
 		}
-		
 		selector.fullCalendar("destroy");
+		console.log("Eventosooooo",eventos);
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -56,7 +67,7 @@ function getCalendar(selector,fechaInicio,txtEvent){
 			defaultDate: fechaInicio,
 			selectable: true,
 			selectHelper: true,
-			events: tmpEv,
+			events: eventos,
 			//,allday,jsEvent
 			select: function(start, end) {				
 				index = start.format('YYYY-MM-DD');
