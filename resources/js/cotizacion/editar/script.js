@@ -25,15 +25,21 @@
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         valHeader = validarCotizacion($(".headerCot :input"));
+
         if(valHeader.estado){
             var secCot  = [];
             $(".conProgra").each(function(i,val){
                 secCot[i]   =   serializeToJson($(this).find("input,select").serializeArray());
             });
+            console.log("txt events",secCot.txtEvents);
+            if(secCot.txtEvents != undefined  ){
+                secCot.txtEvents = jQuery.parseJSON(secCot.txtEvents);
+            }
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
+
             console.log(frmGlobal);
-            editCotizacion(frmGlobal);
+            // editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;

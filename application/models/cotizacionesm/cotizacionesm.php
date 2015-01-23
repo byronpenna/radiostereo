@@ -462,7 +462,7 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
+                            <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
                             
                     </article>
                     </article>
@@ -579,7 +579,7 @@
                                 </span>
                             </article> 
                             	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> 
-                            	<input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
+                            	<input type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
                     		</article>
                     		
                     		<div id="contenedor1" class="conteCalendario">
