@@ -465,8 +465,6 @@
 
                             <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
                             
-
-                            <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
