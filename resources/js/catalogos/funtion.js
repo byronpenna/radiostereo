@@ -721,3 +721,17 @@ function saveFirma (frm, tr) {
 				}
 			});
 }
+
+
+
+
+
+//funcion q retorna el mensaje para delete catalogos
+function Serializar (tr) {
+	frm = tr.find("input");//encuentro el valor contenido en el input
+	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+	return frm;
+}
+
+
+
