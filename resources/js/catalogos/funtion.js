@@ -572,6 +572,132 @@ function createEditFirma (tr) {
 				tr.empty().append(newtr);
 	//console.log("id-> ",iduser,user);
 }
+
+
+	
+
+		function DeletePrograma (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/catalogosc/catalogosc/delete_programa",
+				type: "POST",
+				success: function(datos) {
+					//console.log(datos);
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+						//console.log(data);
+						// para input .val("") val()
+						// para divs .empty() text()
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
+	function DeleteRadio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/radiosc/radiosc/delete_radio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+	function DeletePrecio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/preciosc/preciosc/delete_precio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
+	function DeleteServicio (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/servicioc/servicioc/delete_servicio",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						tr.empty();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+	function DeleteCliente (form,tr) {
+		$.ajax({
+				data:{
+					form: JSON.stringify(form)
+				},
+				url: getBaseURL() + "index.php/clientesc/clientesc/delete_cliente",
+				type: "POST",
+				success: function(datos) {
+					data = jQuery.parseJSON(datos);//convirtiendo datos
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+					}else if(data.estado == true){
+						location.reload();
+					}
+				}
+			});	
+	}
+
+
+
+
+
+
+
 function saveFirma (frm, tr) {
 	$.ajax({
 				data:{
