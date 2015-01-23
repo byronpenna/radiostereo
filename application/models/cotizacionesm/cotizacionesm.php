@@ -462,8 +462,15 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
+
                             <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
                             
+
+                            <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
+                            <div id="contenedor1" class="conteCalendario">
+								<div class="calendar"></div><br>
+							</div> 
+
                     </article>
                     </article>
                 </article>
@@ -892,11 +899,19 @@
 						</tbody>
 						</table>
 					<table border=0 cellspacing="0" style="margin-left:307px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+
 						<tr>
 							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
 							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
 						<tr>
+
+						<tr>
+							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
+							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+						</tr>
+						<tr>
+
 							<td style="border-right:1.5px solid #000000;">
 								Descuento
 							</td>
