@@ -39,7 +39,7 @@
             frmGlobal.headerCot = headerCot;
 
             console.log(frmGlobal);
-            // editCotizacion(frmGlobal);
+            editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;

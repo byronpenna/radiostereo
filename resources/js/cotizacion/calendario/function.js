@@ -67,8 +67,20 @@ function getCalendar(selector,fechaInicio,txtEvent){
 			defaultDate: fechaInicio,
 			selectable: true,
 			selectHelper: true,
+
 			events: eventos,
 			//,allday,jsEvent
+			eventClick: function(calEvent, jsEvent, view) {
+				start = calEvent.start.format('YYYY-MM-DD');
+				selector.fullCalendar('removeEvents',calEvent.start);
+				console.log("los eventos son: ",selector.fullCalendar("clientEvents"));
+				do{
+					index = tmpEv.indexOf(start);
+					tmpEv.splice(index,1);	
+				}while(index != -1);
+				
+				txtEvent.val(JSON.stringify(tmpEv));
+			},
 			select: function(start, end) {				
 				index = start.format('YYYY-MM-DD');
 				var eventData;
@@ -80,19 +92,22 @@ function getCalendar(selector,fechaInicio,txtEvent){
 					color: 	'#2B87CD'
 				};
 				eventosActuales = selector.fullCalendar("clientEvents",start);
-				if(eventosActuales == ""){
+				console.log("Los eventos actuales son:",eventosActuales);
+				if(typeof(eventosActuales) != "object"){
 					selector.fullCalendar('renderEvent', eventData, true);
-						
 				}else{
 					selector.fullCalendar('removeEvents',start);
 				}		
 				fecha = start.format("YYYY-MM-DD");
-				index = tmpEv.indexOf(fecha);
-				if(index){
-					tmpEv.push(fecha);	
-				}else{
-					tmpEv.splice(index,1);
-				}
+				do{
+					index = tmpEv.indexOf(fecha);
+					if(index){
+						tmpEv.push(fecha);	
+					}else{
+						tmpEv.splice(index,1);
+					}	
+				}while(index != -1);
+				
 				txtEvent.val(JSON.stringify(tmpEv));					
 			},
 			// eventClick: function(eventos){
