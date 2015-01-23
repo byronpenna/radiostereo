@@ -34,6 +34,22 @@
 			return $query[0];
 		}
 
+		public function getFrecuencia($idCot){
+			$sql = "SELECT COUNT(*) AS frecuencia
+					FROM fec_fechas
+					INNER JOIN enc_encabezado_bloque
+					on enc_id = fec_enc_id
+					INNER JOIN cot_encabezado_cotizacion 
+					on enc_cot_id = cot_id 
+					where enc_cot_id = ".$idCot.";
+				";
+			$this->db->trans_start();
+				$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$retorno = $query->result();
+			return $retorno[0]->frecuencia;
+		}
+
 		// generamos la tabla que muestra las cotizaciones
 		public function getCotizacion()
 		{
@@ -41,17 +57,26 @@
 			if($datos!="nada"){
 					$retorno = "";
 				foreach ($datos as $row) {
-					$sql="
-							select det.det_id  from 
+					$sql="SELECT det.det_id  from 
 							(cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
 							ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 							ON enc.enc_id=det.det_enc_id
 							WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0
 							AND cot.cot_id=".$row->cot_id."";
+
+					$sqlFrec = "SELECT COUNT(*) AS frecuencia
+								FROM fec_fechas
+								INNER JOIN enc_encabezado_bloque
+								on enc_id = fec_enc_id
+								INNER JOIN cot_encabezado_cotizacion 
+								on enc_cot_id = cot_id 
+								where enc_cot_id = ".$row->cot_id.";";
 					$this->db->trans_start();
-					$count = $this->db->query($sql);
+						$count 	= $this->db->query($sql);
 					$this->db->trans_complete();
-					$count = $count->result();
+					$count 	= $count->result();
+					$frec 	= $this->getFrecuencia($row->cot_id);
+					
 					$retorno .= "<tr class='styleTR'>
 									<td style='display:none'>".$row->cot_id."</td>
 									<td style='display:none'>".$row->cli_id."</td>
@@ -59,11 +84,15 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
+									<td></td>
 									<td style='width:35%;'><center style='float:left;margin-left:100px;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
 										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-danger'>Eliminar</a>";	
 										if(count($count)>0){
 											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
-										}		
+										}	
+										if($frec > 0){
+											$retorno .= "<a href='".site_url("ordencompra")."' class='btn btn-primary btn-sm'>Fr</a>";
+										}	
 										$estado=$this->queryEstado($row->cot_est_id);				
 									$retorno .= "</center><article style='float:right;'>".$estado->est_estado."</article></td></tr>";
 				}
