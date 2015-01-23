@@ -91,7 +91,7 @@
 											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
 										}	
 										if($frec > 0){
-											$retorno .= "<a href='#' class='btn btn-primary btn-sm'>Fr</a>";
+											$retorno .= "<a href='".site_url("ordencompra")."' class='btn btn-primary btn-sm'>Fr</a>";
 										}	
 										$estado=$this->queryEstado($row->cot_est_id);				
 									$retorno .= "</center><article style='float:right;'>".$estado->est_estado."</article></td></tr>";

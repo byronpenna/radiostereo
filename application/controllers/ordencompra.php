@@ -1,9 +1,13 @@
 <?php 
-class Ordencompra extends Padre
+include_once(APPPATH.'controllers/padre.php');
+class ordencompra extends padre
 {
 	
 	function __construct()
 	{
-		# code...
+		parent::__construct();
+	}
+	public function index(){
+		echo "nice";
 	}
 }
