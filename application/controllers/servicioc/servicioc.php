@@ -20,17 +20,5 @@
 			$datos['Titulo']="..::Catalogos::..";
 			$this->load->view('catalogosv/serviciov/serviciov', $datos);
 		}
-		public function delete_servicio()
-		{
-			//vars
-				$frm = json_decode($_POST["form"]);
-			$this->load->model('catalogosm/catalogosm');
-			$Catalogosm = new Catalogosm();
-			$id_tablabd = 'serv_id';
-			$nameform = $frm->txtidservicio;
-			$tabla='serv_servicio';
-			$mensaje = $Catalogosm->delete_catalogo($tabla, $id_tablabd, $nameform);
-			echo json_encode($mensaje);
-		}
 	}
  ?>
