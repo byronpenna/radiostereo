@@ -462,7 +462,7 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
+                            <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 

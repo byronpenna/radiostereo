@@ -16,7 +16,7 @@ function validarEvento (txtEvento,start,end) {//validar coma
 	if(txtEvento.val() == ""){
 		contenidoEventos = start.format('YYYY-MM-DD');
 	}else{
-		contenidoEventos = txtEvento.val() + ", "+ start.format('YYYY-MM-DD');	
+		contenidoEventos = txtEvento.val() + ","+ start.format('YYYY-MM-DD');	
 		// fechafin - fechainicio || 01/01/2015 , 14/01/2015
 		// 13
 		// for(i=0;i<13;i++)
@@ -27,6 +27,7 @@ function validarEvento (txtEvento,start,end) {//validar coma
 function alguito () {
 	// body...
 }
+
 function getCalendar(selector,fechaInicio,eventos,txtEvento){
 		selector.fullCalendar("destroy");
 		selector.fullCalendar({
@@ -50,23 +51,27 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 			events: eventos,
 			//,allday,jsEvent
 			select: function(start, end) {
-				// console.log($(this).parents(".cuerpo").find(".txtEvents").val());
 				index = start.format('YYYY-MM-DD');
-				//index2 = end.format();
 				var eventData;
 				eventData = {
 					start: start,
 					//end: end,
 					color: '#2B87CD'
 				};
-				if (txtEvento.val().indexOf(index) == -1) {
-					contenidoEventos = validarEvento(txtEvento, start)//se llama la funcion que quita la primera coma
-					txtEvento.val(contenidoEventos);//se colocala fecha en el textbox
+				if (txtEvento.val().indexOf(index) == -1) { // no existe evento
+					contenidoEventos = validarEvento(txtEvento, start);
+					txtEvento.val(contenidoEventos);
 					selector.fullCalendar('renderEvent', eventData, true);
-					//console.log(contenidoEventos);
 				}else{
 					ev = index;
-					txtEvento.val(txtEvento.val().replace(ev," "));
+					console.log("valor con ',' es: ",txtEvento.val().indexOf(","+index));
+					if(txtEvento.val().indexOf(","+index) != -1){
+						console.log("reemplazo aqui");
+						txtEvento.val(txtEvento.val().replace(","+ev,""));	
+					}else{
+						txtEvento.val(txtEvento.val().replace(ev,""));	
+					}
+					
 				}
 				 //selector.fullCalendar( 'removeEvents' );
 				eventosActudales = txtEvento.val().split(",");
@@ -76,7 +81,6 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 					if(txtEvento.val() != ""){
 					eventosCalendar = putEvents(eventosActudales);
 					$.each(eventosCalendar,function(i,val){
-						console.log("el valor es:",val);
 						selector.fullCalendar('renderEvent', val, true);
 					});
 				}else{
