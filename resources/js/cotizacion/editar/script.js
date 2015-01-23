@@ -32,9 +32,9 @@
                 secCot[i]   =   serializeToJson($(this).find("input,select").serializeArray());
             });
             console.log("txt events",secCot.txtEvents);
-            if(secCot.txtEvents != undefined  ){
-                secCot.txtEvents = jQuery.parseJSON(secCot.txtEvents);
-            }
+            
+                // secCot.txtEvents = jQuery.parseJSON(secCot.txtEvents);
+            
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
 
