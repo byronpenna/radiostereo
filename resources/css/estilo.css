@@ -367,10 +367,10 @@ textarea{
   margin-left:10%;
 } */
 .cuerpo{
-  width: 98%;
+  width: 80%;
   margin: auto;
+  padding: auto;
   height: auto;
-  padding-left:10px;
 }
 .inAddCot{
   width: 90%;
@@ -381,9 +381,6 @@ textarea{
   margin:auto;
   padding:auto;
   width:35%;
-}
-.cuerpo table thead{
-  text-align: center;
 }
 .fechasFooter{
   margin-top:10px;

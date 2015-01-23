@@ -5,7 +5,6 @@ $(document).ready(function () {
 			$("#frmClientes").slideToggle(175);
 		})
 	// eventos
-
 		// click 
 			$(document).on("click",".btnActionMultiple",function(){
 				direccion = $(this).attr("direccion"); // 1 derecha, 0 izquierda
@@ -16,14 +15,11 @@ $(document).ready(function () {
 					removeOption($(this));
 				}
 			});
-
-		//rodoas las funciones q se mandan a llamar se encuentran en resources/js/catalogos/funtion.js
-
 		// submit
 			$(document).on("submit","#frmPrograma",function(e){
 				e.preventDefault();
 				frm = serializeToJson($(this).serializeArray());//se encuentra en funtion.php
-				agregarPrograma(frm);//esta funcion esta en resources/js/catalogos/funtion.js
+				agregarPrograma(frm);//se encuentra en el archivo funtion.php
 			});
 			//funcion para obtener la fila y editarla
 			$(document).on("click",".btnEditar",function(){
@@ -34,23 +30,25 @@ $(document).ready(function () {
 			//funcion que me controla el evento onclik a la hora de modificar
 			$(document).on("click",".btnGuardarPrograma",function(){
 				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-				frm = Serializar(tr);
+				frm = tr.find("input");//encuentro el valor contenido en el input
+				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 				//console.log(frm);
 				saveEditPrograma(frm,tr);
 			});
 			$(document).on("click",".DeleteProgra",function(){//funcion q me controla el evento onclik ala hora de eliminar
-			 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-			 	frm = Serializar(tr);
-			 	mensaje = "Advertencia: El programa se eliminara si aun no esta relacionado con cotizaciones, de lo contrario no se podra eliminar"
-				alertify.confirm(mensaje,function(e) {
-								if (e) {
-										DeletePrograma(frm,tr);
-				 					}else{
-				 						//console.log("no");
-				 						location.reload();
-				 					}
-				 				});
-		 	});
+				 if (confirm("Advertencia: Si elimina el Programa eliminará toda la información\
+				 				relacionada con él. ¿Aun asi desea continuar?")){
+				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+					console.log(frm);
+					//DeleteUser(frm,tr);
+		            return true;
+		         }
+		         else{
+		            return false;
+				}
+			});
 		//submit agregar radio
 			$(document).on("submit","#frmRadio",function(e) {
 				e.preventDefault();
@@ -66,22 +64,24 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarRadio",function () {
 					tr = $(this).parents("tr");
-					frm = Serializar(tr);
+					frm = tr.find("input");
+					frm = serializeToJson(frm.serializeArray());
 					//console.log(frm);
 					savenewRadio(frm,tr);
 			});
 			$(document).on("click",".DeleteRadio",function(){//funcion q me controla el evento onclik ala hora de eliminar
-				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-			 	frm = Serializar(tr);
-			 	mensaje = "Advertencia: La Radio se eliminara si aun no esta relacionado con cotizaciones, de lo contrario no se podra eliminar"
-				alertify.confirm(mensaje,function(e) {
-								if (e) {
-										DeleteRadio(frm,tr);
-				 					}else{
-				 						//console.log("no");
-				 						location.reload();
-				 					}
-				 				});
+				 if (confirm("Advertencia: Si elimina la Radio eliminará toda la información\
+				 				relacionada con él. ¿Aun asi desea continuar?")){
+				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+					console.log(frm);
+					//DeleteUser(frm,tr);
+		            return true;
+		         }
+		         else{
+		            return false;
+				}
 			});
 		//submit agregar precio
 			$(document).on("submit","#frmPrecio",function(e){
@@ -97,22 +97,24 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarPrecio",function () {
 				tr = $(this).parents("tr");
-				frm = Serializar(tr);
+				frm = tr.find("input");
+				frm = serializeToJson(frm.serializeArray());
 				//console.log(frm);
 				savenewPrecio(frm,tr);
 			});
 			$(document).on("click",".DeletePrecio",function(){//funcion q me controla el evento onclik ala hora de eliminar
-				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-			 	frm = Serializar(tr);
-			 	mensaje = "Advertencia: No debe eliminar esta Tarifa porque puede estar en uso por las cotizaciones, ¿aun asi desea continuar?"
-				alertify.confirm(mensaje,function(e) {
-								if (e) {
-										DeletePrecio(frm,tr);
-				 					}else{
-				 						//console.log("no");
-				 						location.reload();
-				 					}
-				 				});
+				 if (confirm("Advertencia: Si elimina el Precio eliminará toda la información\
+				 				relacionada con él. ¿Aun asi desea continuar?")){
+				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+					console.log(frm);
+					//DeleteUser(frm,tr);
+		            return true;
+		         }
+		         else{
+		            return false;
+				}
 			});
 		//submit agregar servicio
 			$(document).on("submit","#frmServicio",function(e) {
@@ -128,27 +130,24 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarServi",function () {
 				tr = $(this).parents("tr");
-
 				frm = tr.find("input");
 				frm = serializeToJson(frm.serializeArray());
 				// console.log(frm);
-
-				frm = Serializar(tr);
-				//console.log(frm);
-
 				savenewServicio(frm,tr);
 			});
 			$(document).on("click",".DeleteServi",function(){//funcion q me controla el evento onclik ala hora de eliminar
-				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-			 	frm = Serializar(tr);
-			 	mensaje = "Advertencia: El Servicio se eliminara si aun no esta relacionado con cotizaciones, de lo contrario no se podra eliminar"
-				alertify.confirm(mensaje,function(e) {
-								if (e) {
-										DeleteServicio(frm,tr);
-				 					}else{
-				 						location.reload();
-				 					}
-				 				});
+				 if (confirm("Advertencia: Si elimina el Servicio eliminará toda la información\
+				 				relacionada con él. ¿Aun asi desea continuar?")){
+				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+					console.log(frm);
+					//DeleteUser(frm,tr);
+		            return true;
+		         }
+		         else{
+		            return false;
+				}
 			});
 		//submit agregar cliente
 			$(document).on("submit","#frmClientes",function(e) {
@@ -185,7 +184,6 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarCliente",function(){//funcion q me controla el evento onclik ala hora de modificar
 				tr = $(this).parents(".modificar");//ingreso a mi tr padre contenido en la vista
-
 				//tr2 = $("table").find(".tbClientes").find("tr");
 				frm = tr.find("input");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
@@ -198,10 +196,6 @@ $(document).ready(function () {
 				frm.productos = values;
 
 				console.log("formulario",frm);
-
-				frm = Serializar(tr);
-				//console.log(frm);
-
 				saveEditCliente(frm,tr);
 				location.reload();
 				$(".popup").hide();//ocultar div;
@@ -212,17 +206,18 @@ $(document).ready(function () {
 				
 			});	
 			$(document).on("click",".DeleteClient",function(){//funcion q me controla el evento onclik ala hora de eliminar
-				tr = $(this).parents(".popup");//ingreso a mi tr padre contenido en la vista
-			 	frm = Serializar(tr);
-			 	mensaje = "Advertencia: El Cliente se eliminara si aun no esta relacionado con cotizaciones, de lo contrario no se podra eliminar"
-				alertify.confirm(mensaje,function(e) {
-								if (e) {
-										DeleteCliente(frm,tr);
-										location.reload();
-				 					}else{
-				 						location.reload();
-				 					}
-				 				});
+				 if (confirm("Advertencia: Si elimina el Cliente eliminará toda la información\
+				 				relacionada con él. ¿Aun asi desea continuar?")){
+				 	tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
+					frm = tr.find("input");//encuentro el valor contenido en el input
+					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
+					console.log(frm);
+					//DeleteUser(frm,tr);
+		            return true;
+		         }
+		         else{
+		            return false;
+				}
 			});
 		//submit agregar usuario
 			$(document).on("submit","#frmMantoUser",function(e) {
@@ -238,7 +233,8 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarUser",function(){//funcion q me controla el evento onclik ala hora de modificar
 				tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-				frm = Serializar(tr);
+				frm = tr.find("input");//encuentro el valor contenido en el input
+				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 				//console.log(frm);
 				saveEditUser(frm,tr);
 			});	
@@ -255,12 +251,8 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".DeleteUser",function(){//funcion q me controla el evento onclik ala hora de modificar
 					tr = $(this).parents("tr");//ingreso a mi tr padre contenido en la vista
-
-					frm = Serializar(tr);
-
 					frm = tr.find("input");//encuentro el valor contenido en el input
 					frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
-
 
 				 	console.log(frm);
 				 	mensaje = "Advertencia: Si elimina el Usuario eliminara toda la información relacionada con el. ¿Aun asi desea continuar?"
