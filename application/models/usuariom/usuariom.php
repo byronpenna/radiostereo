@@ -25,7 +25,7 @@
 				$retorno .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
-								<td class='tdContraUser'>".$row->usu_password."</td>
+								<!--<td class='tdContraUser'>".$row->usu_password."</td>-->
 								<!--<td class='tdFirmaUser'>".$row->usu_firma."</td>-->
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>

@@ -1,10 +1,12 @@
 function addOption(selector){
 	// txt = $("#inprod").val();
-	txt = selector.parents(".contendorMultiple").find("#inprod").val();
+	txt 		= selector.parents(".contendorMultiple").find("#inprod").val();
+	txtClear 	= selector.parents(".contendorMultiple").find("#inprod");
 	console.log("el valor txt:",txt);
 	if(txt != ""){
 		optionAgregar = "<option value='"+txt+"'>"+txt+"</option>";
 		selector.parents(".contendorMultiple").find("#addprod").append(optionAgregar);
+		txtClear.val("");
 	}else{
 		alertify.error("rellene el campo por favor");
 	}	
@@ -12,7 +14,11 @@ function addOption(selector){
 function removeOption(selector){
 	// optionVal = $("#addprod option:selected");
 	optionVal = selector.parents(".contendorMultiple").find("#addprod option:selected");
-	if(!(optionVal.val() == undefined) ){
+	optionVal1 = selector.parents(".contendorMultiple").find("#addprod option:selected").html();
+	txtClear 	= selector.parents(".contendorMultiple").find("#inprod");
+	// txtClear.val("Prueba");
+	if(!(optionVal.val() == undefined)){
+		txtClear.val(optionVal1);
 		optionVal.remove();
 	}else{
 		alertify.error("Debe seleccionar una opcion");
@@ -424,6 +430,7 @@ function removeOption(selector){
 			}
 		});	
 	}
+	
 	function saveEditCliente (form,tr) {
 		$.ajax({
 			data:{
