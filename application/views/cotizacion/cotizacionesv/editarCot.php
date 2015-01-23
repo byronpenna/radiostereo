@@ -15,6 +15,7 @@
     <script src="<?php echo base_url('resources/js/cotizacion/editar/function.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+    
 	<?php 
         $this->load->view("estructura/menu.php");
     ?><br>

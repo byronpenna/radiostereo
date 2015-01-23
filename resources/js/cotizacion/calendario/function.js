@@ -16,7 +16,7 @@ function validarEvento (txtEvento,start,end) {//validar coma
 	if(txtEvento.val() == ""){
 		contenidoEventos = start.format('YYYY-MM-DD');
 	}else{
-		contenidoEventos = txtEvento.val() + ", "+ start.format('YYYY-MM-DD');	
+		contenidoEventos = txtEvento.val() + ","+ start.format('YYYY-MM-DD');	
 		// fechafin - fechainicio || 01/01/2015 , 14/01/2015
 		// 13
 		// for(i=0;i<13;i++)
@@ -27,8 +27,28 @@ function validarEvento (txtEvento,start,end) {//validar coma
 function alguito () {
 	// body...
 }
-function getCalendar(selector,fechaInicio,eventos,txtEvento){
+
+function getCalendar(selector,fechaInicio,txtEvent){
+		// tmpEv = selector.fullCalendar("clientEvents");
+		// console.log("los eventos son: ",tmpEv);
+		eventos = new Array();
+		if(txtEvent.val() != ""){
+			tmpEv = jQuery.parseJSON(txtEvent.val());	
+			console.log("tmp",tmpEv);
+			$.each(tmpEv,function(i,val){
+				eventos[i] = new Object();
+				eventos[i] = {
+					id: 	val,
+					start: 	val,
+					//end: end,
+					color: 	'#2B87CD'
+				};
+			});
+		}else{
+			tmpEv = new Array();
+		}
 		selector.fullCalendar("destroy");
+		console.log("Eventosooooo",eventos);
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -49,47 +69,31 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 			selectHelper: true,
 			events: eventos,
 			//,allday,jsEvent
-			select: function(start, end) {
-				// console.log($(this).parents(".cuerpo").find(".txtEvents").val());
+			select: function(start, end) {				
 				index = start.format('YYYY-MM-DD');
-				//index2 = end.format();
 				var eventData;
+
 				eventData = {
-					start: start,
+					id: 	start,
+					start: 	start,
 					//end: end,
-					color: '#2B87CD'
+					color: 	'#2B87CD'
 				};
-				if (txtEvento.val().indexOf(index) == -1) {
-					contenidoEventos = validarEvento(txtEvento, start)//se llama la funcion que quita la primera coma
-					txtEvento.val(contenidoEventos);//se colocala fecha en el textbox
+				eventosActuales = selector.fullCalendar("clientEvents",start);
+				if(eventosActuales == ""){
 					selector.fullCalendar('renderEvent', eventData, true);
-					//console.log(contenidoEventos);
+						
 				}else{
-					ev = index;
-					txtEvento.val(txtEvento.val().replace(ev," "));
-				}
-				 //selector.fullCalendar( 'removeEvents' );
-				eventosActudales = txtEvento.val().split(",");
-				var eventosCalendar;
-				if (eventosActudales.indexOf(index) != -1) {//con este if se quita la lentitud de los eventos al hacer click en el dia
-					selector.fullCalendar( 'removeEvents' );
-					if(txtEvento.val() != ""){
-					eventosCalendar = putEvents(eventosActudales);
-					$.each(eventosCalendar,function(i,val){
-						console.log("el valor es:",val);
-						selector.fullCalendar('renderEvent', val, true);
-					});
+					selector.fullCalendar('removeEvents',start);
+				}		
+				fecha = start.format("YYYY-MM-DD");
+				index = tmpEv.indexOf(fecha);
+				if(index){
+					tmpEv.push(fecha);	
 				}else{
-					eventosCalendar = null;
+					tmpEv.splice(index,1);
 				}
-				}else{
-					console.log("fecha ingresada: ",index);	
-				}
-				
-				
-				
-				// console.log("fecha ingresada: ",index);	
-							
+				txtEvent.val(JSON.stringify(tmpEv));					
 			},
 			// eventClick: function(eventos){
    			// 		selector.fullCalendar('removeEvents',eventos._id);

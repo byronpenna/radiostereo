@@ -11,7 +11,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_est_id";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_est_id,cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -181,6 +181,28 @@
 		}
 
 
+
+
+		public function getProdCliEdit($idCli,$idProd){
+			$sql="SELECT * FROM pro_producto
+				WHERE pro_cli_id = ".$idCli."";
+				$this->db->trans_start();
+				$query = $this->db->query($sql);
+				$query = $query->result();
+				$res="";
+				foreach ($query as $row) {
+					if($row->pro_id==$idProd){
+						$se="selected";
+					}else{
+						$se="";
+					}
+				$res .= "<option value='".$row->pro_id."' $se >".$row->pro_nomb_producto."</option>";
+			}
+
+			return $res;
+		}
+
+
 		// obtenemos el encabezado de la cotizacion para mostrarlo en la parte de editar cotizacion
 		public function getHeaderCot($idEncCot){
 			$header =$this->getEncCot($idEncCot);
@@ -206,7 +228,12 @@
                     </span></p>
                 </article>
                 <article>
-                    <p><br>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
+                    <p>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
+                	<p>Producto <span>
+                        <select name="prod" class="form-control input-sm medios" >
+                            '.$this->getProdCliEdit($row->cot_cli_id,$row->cot_pro_id).'
+                        </select>   
+                    </span></p>
                 </article>
             </article>
 				';
@@ -327,7 +354,7 @@
 
 
 		// obtenemos las radios que trae la cotizacion que vamos a editar  y las mostramos en una tabla 
-		public function getRadiosCot($idEncBloq){
+		public function getRadiosCot($idEncBloq,$idSec){
 			$sql="SELECT * FROM 
 				det_detalle_bloque join rad_radio
 				on det_rad_id=rad_id
@@ -340,12 +367,14 @@
 			$res="";
 			if($query->num_rows>0){
 				foreach ($q as $valor) {
-					
 				$res.="<tr class='vacEditCot'>
 						<td><input type='hidden' value='".$valor->det_rad_id."' name='txtIdServ' /><input type='hidden' value='".$valor->det_id."' name='txtIdDet' />".$valor->rad_nombre."</td>
                                 <td>".$this->getPrecios($valor->det_pre_id)."</td>
-                                <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>
-                                <td><input type='text' name='txtDuracion' value='".$valor->det_duracion."'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
+                                <td><input type='text' name='txtCantidad' value='".$valor->det_cantidad."'  class='blur form-control input-sm inAddCot SoloNumero txtCantidad'></td>";
+                                if($idSec==1){
+                                	$res.="<td><input type='text' name='txtDiaria'   value='".$valor->det_cuna_diaria."'  class='form-control input-sm inAddCot SoloNumero txtDiaria blur'></td>";
+                                }
+                            $res.= "<td><input type='text' name='txtDuracion' value='".$valor->det_duracion."'  placeholder='Segundos' class='blur form-control input-sm inAddCot SoloNumero txtDuracion'></td>
                                 <td><input type='text' name='txtSubTotal' value='".$valor->det_subtotal."' placeholder='$'  class='txtSubTotal form-control input-sm inAddCot subTotal' readonly='true'></td>
 					</tr>";
 				}	
@@ -407,7 +436,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
@@ -433,10 +462,8 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
-                            <div id="contenedor1" class="conteCalendario">
-								<div class="calendar"></div><br>
-							</div> 
+                            <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
+                            
                     </article>
                     </article>
                 </article>
@@ -487,32 +514,50 @@
                             <tr>
                                 <td></td>
                                 <td><p>Costo Por Segundo</p></td>
-                                <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
+                                <td><p>Cantidad</p></td>';
+                                if($sec[0]->sec_id==1){
+                                	$r.="<td>Cuñas Diarias</td>";
+                                	}
+                               $r .= '<td><p>Duracion</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
                             </thead>
                             <tbody>
-                            '.$this->getRadiosCot($query[$i]->enc_id).'
+                            '.$this->getRadiosCot($query[$i]->enc_id,$sec[0]->sec_id).'
                             </tbody>
                             <tfoot>
                             <tr class="txtDerecha">
                                 <td></td>
-                                <td></td>
+                                <td></td>';
+                                if($sec[0]->sec_id==1){
+                                	$r.="<td></td>";
+                                }
+                               $r .= '
+
                                 <td></td>
                                 <td>Precio Sin Dcto</td>
                                 <td><input type="text" name="total"  class="form-control input-sm inAddCot total" placeholder="$" readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
-                                <td></td>
+                                <td></td>';
+                                if($sec[0]->sec_id==1){
+                                	$r.="<td></td>";
+                                }
+                               $r .= '
+
                                 <td></td>
                                 <td>Descuento</td>
-                                <td><input type="text" name="total"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
+                                <td><input type="text" name="descuento"  class="form-control input-sm inAddCot descuento"  placeholder="$"  readonly="true"></td>
                             </tr>
                             <tr class="txtDerecha">
                                 <td></td>
-                                <td></td>
+                                <td></td>';
+                                if($sec[0]->sec_id==1){
+                                	$r.="<td></td>";
+                                }
+                               $r .= '
+
                                 <td></td>
                                 <td>Precio de Venta</td>
                                 <td><input type="text" class="NumPunto form-control inAddCot input-sm blur pventa" value="'.$query[$i]->enc_precio_venta.'" name="pventa"  placeholder="$"></td>
@@ -532,9 +577,14 @@
                                 <span>
                                     <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
-                    </article>
+                            </article> 
+                            	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> 
+                            	<input type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
+                    		</article>
+                    		
+                    		<div id="contenedor1" class="conteCalendario">
+								<div class="calendar"></div><br>
+							</div> 
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
@@ -552,6 +602,16 @@
 			$retorno->header = $flag;
 			if($flag){
 				foreach ($seccion as $valor) {
+					$replace = str_replace("$","",$valor->total);
+					$total = str_replace(" ", "", $replace);
+					$reemplazo = str_replace("$", "", $valor->descuento);
+					$descuento = str_replace(" ", "", $reemplazo);
+					if($total > 0){
+						$calculo = $descuento/$total;
+						if($calculo  < 0.30){							
+							$this->updateEstadoCot($header->idCot);
+						}
+					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -579,7 +639,7 @@
 								$valor->txtIdSec[$i] 	= null;
 							}
 					//		if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
-								@$obj = $this->getObjDetalle($valor->txtIdDet[$i],$valor->precio[$i],$valor->txtCantidad[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i]);
+								@$obj = $this->getObjDetalle($valor->txtIdDet[$i],$valor->precio[$i],$valor->txtCantidad[$i],$valor->txtDiaria[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i]);
 							$retorno->detBloq=$this->editDetBloque($obj);
 							//}
 					 //	}
@@ -595,7 +655,8 @@
 			$tabla 			= array(
 				'cot_valor_agregado'	=> $obj->txtValorAgregado,
 				'cot_tip_id'			=> $obj->tipo_cot,
-				'cot_est_id'			=> $obj->estado_cot
+				'cot_est_id'			=> $obj->estado_cot,
+				'cot_pro_id'			=> $obj->prod
 				);
 			$this->db->where('cot_id',$obj->idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
@@ -616,13 +677,14 @@
 				return $res;
 		}
 
-		public function getObjDetalle($IdDet,$precio,$cantidad,$duracion,$subTotal){
+		public function getObjDetalle($IdDet,$precio,$cantidad,$diaria,$duracion,$subTotal){
 			$obj = new stdClass();
-			$obj->det_id 		= $IdDet;
-			$obj->det_pre_id 	= $precio;
-			$obj->det_cantidad 	= $cantidad;
-			$obj->det_duracion 	= $duracion;
-			$obj->det_subtotal 	= $subTotal;
+			$obj->det_id 			= $IdDet;
+			$obj->det_pre_id 		= $precio;
+			$obj->det_cantidad 		= $cantidad;
+			$obj->det_cuna_diaria 	= $diaria;
+			$obj->det_duracion 		= $duracion;
+			$obj->det_subtotal 		= $subTotal;
 			return $obj;
 		}
 
@@ -630,10 +692,11 @@
 
 		public function editDetBloque($obj){
 			$tabla = array(
-				'det_pre_id'	=> $obj->det_pre_id,
-				'det_cantidad' 	=> $obj->det_cantidad,
-				'det_duracion' 	=> $obj->det_duracion,
-				'det_subtotal' 	=> $obj->det_subtotal,
+				'det_pre_id'		=> $obj->det_pre_id,
+				'det_cantidad' 		=> $obj->det_cantidad,
+				'det_cuna_diaria' 	=> $obj->det_cuna_diaria,
+				'det_duracion' 		=> $obj->det_duracion,
+				'det_subtotal' 		=> str_replace("$", "", $obj->det_subtotal),
 				);
 			$this->db->where('det_id',$obj->det_id);
 			$res = $this->db->update('det_detalle_bloque',$tabla);
@@ -776,6 +839,16 @@
 			return $res;
 		}
 
+		public function getProdCli($idProd){
+			$sql="SELECT * FROM pro_producto
+				WHERE pro_id = ".$idProd."";
+				$this->db->trans_start();
+				$query = $this->db->query($sql);
+				$query = $query->result();
+
+			return $query;
+		}
+
 		public function getDetBloqReporte($idCot){
 			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
 			$res = new stdClass();
@@ -790,6 +863,8 @@
 				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
 				$periodo=$ffin-$fi;
 				$periodo=$periodo+1;
+				$encCot = $this->getEncCot($idCot);
+				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
 				if($periodo>1){
 					$periodo=$periodo." meses";
 				}else{
@@ -798,47 +873,43 @@
 				$res->exp = '
 					Por este medio someto a su evaluación, presupuesto de inversión publicitaria en el Programa : 
 					<b>'.$progId[0]->prog_nombre.'</b>
-					para la campaña de (Nombre de producto).  A continuación el detalle:<br><br>
+					para la campaña de <b>'.$prod[0]->pro_nomb_producto.'</b>.  A continuación el detalle:<br><br>
 					';
 				$res->servic ='
 				<b>Programa :'.$progId[0]->prog_nombre.'</b>
 				<br><br>
-					<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
-						<tr style="background:#3498db;">
+							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
+					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
+						<tr style="background:#9CC2E5;">
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
-						<tbody style="background:rgb(150,202,197);">
+						<tbody style="background:#BFBFBF;">
 						'.$detalle->servi.'
 						</tbody>
 						</table>
-						<br>
-					<table>
+					<table border=0 cellspacing="0" style="margin-left:307px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 						<tr>
-							<td>Período de Contratación</td>
-							<td>: ' .$periodo.'</td>
+							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
+							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
 						<tr>
-							<td>Total por Servicios</td>
-							<td>: $ '.number_format($detalle->total,2,".",",").'</td>
-						</tr>
-						<tr>
-							<td>
+							<td style="border-right:1.5px solid #000000;">
 								Descuento
 							</td>
-							<td>
-								: $ '.number_format($detalle->descuento,2,".",",").'
+							<td style="text-align:center;">
+								 $ '.number_format($detalle->descuento,2,".",",").'
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td style="border-right:1.5px solid #000000;">
 								Precio de Venta 
 							</td>
-							<td>
-								: $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
+							<td style="text-align:center;">
+								 $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
 							</td>
 						</tr>
 					</table>
@@ -929,6 +1000,7 @@
 								$res.='<br><br>';
 							}
 							$res.= $p->exp;
+							$res.= $gdb->exp;
 							$res.= $p->servic;
 
 							if(count($gdb->radios)==1){
@@ -1064,7 +1136,7 @@
 			$query=$this->db->query($sql);
 			$query=$query->result();
 			$this->db->trans_complete();
-			return $query;	
+			return $query;
 		}
 
 
@@ -1075,26 +1147,36 @@
 			$res->detRadios="";
 			$res->total=0;
 			if($rad){
-				foreach ($rad as $valor) {
+			foreach ($rad as $key => $valor) {
 				$serv = $this->getRadiosReporte($valor->det_rad_id);
 				foreach ($serv as $i => $row) {
 					$ser=$row->rad_nombre;
 				}
-				$precio = $this->getPrecioReporte($valor->det_pre_id);
-				$res->contador = count($rad);
-					$nomRadio = $this->getRadiosReporte($valor->det_rad_id);
-					$res->detRadios .= $nomRadio[0]->rad_nombre.',';
-				
-				$res->servi.='
-				<tr>
-					<td style="text-align:left;">'.$ser.'</td>
-					<td> $ 	'.$precio->pre_precio.'</td>
-					<td>	'.$valor->det_cantidad.'</td>
-					<td>	'.$valor->det_duracion.'</td>
-					<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-				</tr>
-			';
-			$res->total+=$valor->det_subtotal;
+					$precio = $this->getPrecioReporte($valor->det_pre_id);
+					$res->contador = count($rad);
+						$nomRadio = $this->getRadiosReporte($valor->det_rad_id);
+						if($res->contador <= 1){
+							$res->detRadios = $nomRadio[0]->rad_nombre;
+						}else{
+							if($key == 0){
+								$res->detRadios .= $nomRadio[0]->rad_nombre;	
+							}else{
+								$res->detRadios .= ", ".$nomRadio[0]->rad_nombre;	
+							}
+						}
+					$res->servi.='
+					<tr>
+						<td style="text-align:left;">'.$ser.'</td>
+						<td> $ 	'.$precio->pre_precio.'</td>
+						<td>	'.$valor->det_cantidad.'</td>';
+						if($valor->det_cuna_diaria){
+							$res->servi.='<td>	'.$valor->det_cuna_diaria.'</td>';
+						}
+						$res->servi.='<td>	'.$valor->det_duracion.'</td>
+						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+					</tr>
+				';
+				$res->total+=$valor->det_subtotal;
 			}
 			$res->descuento = $res->total - $pventa;
 			}else{
@@ -1104,7 +1186,6 @@
 				$res->descuento=0;
 				$res->detRadios="";
 			}
-				
 			return $res;
 		}
 		
@@ -1138,47 +1219,71 @@
 						}else{
 							$SecNom = $progId[0]->sec_nombre;
 						}
-
-						
-						$res->radios[$i]='<br>
-							<b>Servicio Ofertado :'.$SecNom.''.$detalle->contador.'</b>
-								<table border=1 class="cont-table-report" style="width:80%;text-align:center;margin:auto;"  cellspacing="0">
-								<tr style="background:#3498db;" ">
+						// $detalle->detRadios
+						$encCot = $this->getEncCot($idCot);
+						$prod = $this->getProdCli($encCot[0]->cot_pro_id);
+						if($detalle->contador <= 1){
+							$las = "radio";
+						}else{
+							$las = "radios";
+						}
+						$res->exp = "
+							Por este medio someto a su evaluación, presupuesto de inversión publicitaria en ".$las.":
+							<b>".$detalle->detRadios."</b>
+							para la campaña de <b>".$prod[0]->pro_nomb_producto."</b>.  A continuación el detalle:<br><br>
+						";
+						$res->radios[$i]="";
+						$res->radios[$i].='
+							<b>Servicio Ofertado : '.$SecNom.'</b>
+							<br><br>
+							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
+								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;"  cellspacing="0">
+								<tr style="background:#9CC2E5;">
 									<td>Radio</td>
-									<td>Costo Por Segundo</td>
-									<td>Cantidad</td>
-									<td>Duracion(Seg)</td>
+									<td style="width:130px;">Costo Por Segundo</td>
+									<td style="width:80px;">Cantidad</td>';
+									if($progId[0]->sec_id==1){
+										$res->radios[$i].="<td style='width:100px;'>Cuñas Diarias</td>	";
+										$estilo1='
+											style="margin-left:352px;width:553px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+										';
+										$estilo2='
+											style="width:92px;text-align:center;"
+										';
+									}else{
+										$estilo1='
+											style="margin-left:316px;width:565px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+										';
+										$estilo2='
+											style="width:140px;text-align:center;"
+										';
+									}
+									$res->radios[$i].='<td style="width:100px;">Duracion(Seg)</td>
 									<td>Sub Total</td>
 								</tr>
-								<tbody style="background:rgb(150,202,197);">
+								<tbody style="background:#BFBFBF;">
 								'.$detalle->servi.'
 								</tbody>
 								</table>
-							<br>
-							<table>
-								<tr>
-									<td>Período de Contratación</td>
-									<td>: ' .$periodo.'</td>
+							<table border=0 cellspacing="0" '.$estilo1.' >
+								<tr >
+									<td style="border-right:1.5px solid #000000;">Total por Servicios</td>
+									<td '.$estilo2.'> $ '.number_format($detalle->total,2,".",",").'</td>
 								</tr>
-								<tr>
-									<td>Total por Servicios</td>
-									<td>: $ '.number_format($detalle->total,2,".",",").'</td>
-								</tr>
-								<tr>
-									<td>
+								<tr >
+									<td style="border-right:1.5px solid #000000;">
 										Descuento
 									</td>
-									<td>
-										: $ '. number_format($detalle->descuento,2,".",",").'
+									<td style="text-align:center;">
+										 $ '. number_format($detalle->descuento,2,".",",").'
 									</td>
 								</tr>
-
 								<tr>
-									<td>
+									<td style="border-right:1.5px solid #000000;">
 										Precio de Venta 
 									</td>
-									<td>
-										: $ '.number_format($valor->enc_precio_venta,2,".",",").'
+									<td style="text-align:center;">
+										 $ '.number_format($valor->enc_precio_venta,2,".",",").'
 									</td>
 								</tr>
 							</table>
@@ -1189,6 +1294,7 @@
 				for ($i=0; $i < 3 ; $i++) { 
 					$res->radios[$i]="";	
 					$res->contador="";
+					$res->exp="";
 				}
 				
 			}
