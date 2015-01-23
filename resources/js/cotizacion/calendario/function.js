@@ -28,7 +28,15 @@ function alguito () {
 	// body...
 }
 
-function getCalendar(selector,fechaInicio,eventos,txtEvento){
+function getCalendar(selector,fechaInicio,txtEvent){
+		// tmpEv = selector.fullCalendar("clientEvents");
+		// console.log("los eventos son: ",tmpEv);
+		if(txtEvent.val() != ""){
+			tmpEv = jQuery.parseJSON(txtEvent.val());	
+		}else{
+			tmpEv = new Array();
+		}
+		
 		selector.fullCalendar("destroy");
 		selector.fullCalendar({
 			windowResize: function(view) {
@@ -48,52 +56,33 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 			defaultDate: fechaInicio,
 			selectable: true,
 			selectHelper: true,
-			events: eventos,
+			events: tmpEv,
 			//,allday,jsEvent
-			select: function(start, end) {
+			select: function(start, end) {				
 				index = start.format('YYYY-MM-DD');
 				var eventData;
+
 				eventData = {
-					start: start,
+					id: 	start,
+					start: 	start,
 					//end: end,
-					color: '#2B87CD'
+					color: 	'#2B87CD'
 				};
-				if (txtEvento.val().indexOf(index) == -1) { // no existe evento
-					contenidoEventos = validarEvento(txtEvento, start);
-					txtEvento.val(contenidoEventos);
+				eventosActuales = selector.fullCalendar("clientEvents",start);
+				if(eventosActuales == ""){
 					selector.fullCalendar('renderEvent', eventData, true);
+						
 				}else{
-					ev = index;
-					console.log("valor con ',' es: ",txtEvento.val().indexOf(","+index));
-					if(txtEvento.val().indexOf(","+index) != -1){
-						console.log("reemplazo aqui");
-						txtEvento.val(txtEvento.val().replace(","+ev,""));	
-					}else{
-						txtEvento.val(txtEvento.val().replace(ev,""));	
-					}
-					
-				}
-				 //selector.fullCalendar( 'removeEvents' );
-				eventosActudales = txtEvento.val().split(",");
-				var eventosCalendar;
-				if (eventosActudales.indexOf(index) != -1) {//con este if se quita la lentitud de los eventos al hacer click en el dia
-					selector.fullCalendar( 'removeEvents' );
-					if(txtEvento.val() != ""){
-					eventosCalendar = putEvents(eventosActudales);
-					$.each(eventosCalendar,function(i,val){
-						selector.fullCalendar('renderEvent', val, true);
-					});
+					selector.fullCalendar('removeEvents',start);
+				}		
+				fecha = start.format("YYYY-MM-DD");
+				index = tmpEv.indexOf(fecha);
+				if(index){
+					tmpEv.push(fecha);	
 				}else{
-					eventosCalendar = null;
+					tmpEv.splice(index,1);
 				}
-				}else{
-					console.log("fecha ingresada: ",index);	
-				}
-				
-				
-				
-				// console.log("fecha ingresada: ",index);	
-							
+				txtEvent.val(JSON.stringify(tmpEv));					
 			},
 			// eventClick: function(eventos){
    			// 		selector.fullCalendar('removeEvents',eventos._id);

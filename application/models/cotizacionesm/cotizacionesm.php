@@ -463,9 +463,7 @@
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
                             <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
-                            <div id="contenedor1" class="conteCalendario">
-								<div class="calendar"></div><br>
-							</div> 
+                            
                     </article>
                     </article>
                 </article>
@@ -579,9 +577,14 @@
                                 <span>
                                     <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
-                    </article>
+                            </article> 
+                            	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> 
+                            	<input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
+                    		</article>
+                    		
+                    		<div id="contenedor1" class="conteCalendario">
+								<div class="calendar"></div><br>
+							</div> 
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
