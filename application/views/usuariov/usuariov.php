@@ -46,7 +46,7 @@
                             <thead class="thead">
                                 <tr>
                                    <th>Usuario</th>
-                                   <!-- <th>Password</th> -->
+                                   <th>Password</th>
                                    <!--<th>Firma</th>-->
 									<th>Acción</th>
                                 </tr>

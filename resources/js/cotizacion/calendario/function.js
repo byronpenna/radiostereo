@@ -28,8 +28,27 @@ function alguito () {
 	// body...
 }
 
-function getCalendar(selector,fechaInicio,eventos,txtEvento){
+function getCalendar(selector,fechaInicio,txtEvent){
+		// tmpEv = selector.fullCalendar("clientEvents");
+		// console.log("los eventos son: ",tmpEv);
+		eventos = new Array();
+		if(txtEvent.val() != ""){
+			tmpEv = jQuery.parseJSON(txtEvent.val());	
+			console.log("tmp",tmpEv);
+			$.each(tmpEv,function(i,val){
+				eventos[i] = new Object();
+				eventos[i] = {
+					id: 	val,
+					start: 	val,
+					//end: end,
+					color: 	'#2B87CD'
+				};
+			});
+		}else{
+			tmpEv = new Array();
+		}
 		selector.fullCalendar("destroy");
+		console.log("Eventosooooo",eventos);
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -48,52 +67,38 @@ function getCalendar(selector,fechaInicio,eventos,txtEvento){
 			defaultDate: fechaInicio,
 			selectable: true,
 			selectHelper: true,
+
 			events: eventos,
 			//,allday,jsEvent
-			select: function(start, end) {
+			eventClick: function(calEvent, jsEvent, view) {
+				start = calEvent.start.format('YYYY-MM-DD');
+				selector.fullCalendar('removeEvents',calEvent.start);
+				index = tmpEv.indexOf(start);
+				tmpEv.splice(index,1);
+				txtEvent.val(JSON.stringify(tmpEv));
+			},
+			select: function(start, end) {				
 				index = start.format('YYYY-MM-DD');
 				var eventData;
+
 				eventData = {
-					start: start,
+					id: 	start,
+					start: 	start,
 					//end: end,
-					color: '#2B87CD'
+					color: 	'#2B87CD'
 				};
-				if (txtEvento.val().indexOf(index) == -1) { // no existe evento
-					contenidoEventos = validarEvento(txtEvento, start);
-					txtEvento.val(contenidoEventos);
+				eventosActuales = selector.fullCalendar("clientEvents",start);
+				// console.log("Los eventos actuales son:",eventosActuales);
+				fecha = start.format("YYYY-MM-DD");
+				if(eventosActuales == ""){
 					selector.fullCalendar('renderEvent', eventData, true);
+					tmpEv.push(fecha);	
 				}else{
-					ev = index;
-					console.log("valor con ',' es: ",txtEvento.val().indexOf(","+index));
-					if(txtEvento.val().indexOf(","+index) != -1){
-						console.log("reemplazo aqui");
-						txtEvento.val(txtEvento.val().replace(","+ev,""));	
-					}else{
-						txtEvento.val(txtEvento.val().replace(ev,""));	
-					}
-					
-				}
-				 //selector.fullCalendar( 'removeEvents' );
-				eventosActudales = txtEvento.val().split(",");
-				var eventosCalendar;
-				if (eventosActudales.indexOf(index) != -1) {//con este if se quita la lentitud de los eventos al hacer click en el dia
-					selector.fullCalendar( 'removeEvents' );
-					if(txtEvento.val() != ""){
-					eventosCalendar = putEvents(eventosActudales);
-					$.each(eventosCalendar,function(i,val){
-						selector.fullCalendar('renderEvent', val, true);
-					});
-				}else{
-					eventosCalendar = null;
-				}
-				}else{
-					console.log("fecha ingresada: ",index);	
-				}
-				
-				
-				
-				// console.log("fecha ingresada: ",index);	
-							
+					selector.fullCalendar('removeEvents',start);
+					index = tmpEv.indexOf(fecha);
+					tmpEv.splice(index,1);
+				}			
+				txtEvent.val(JSON.stringify(tmpEv));					
 			},
 			// eventClick: function(eventos){
    			// 		selector.fullCalendar('removeEvents',eventos._id);

@@ -213,7 +213,7 @@
                                     <input type="text" name="txtFechaFin"  placeholder="dd-mm-aaaa" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article>    
-                    </article>
+                    	</article>
                     </article>
                 </article>
 				';

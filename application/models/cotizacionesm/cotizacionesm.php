@@ -11,7 +11,7 @@
 		public function SelectCotizacion()
 		{
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id ORDER BY cot_est_id,cot_id DESC";
+			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
 			$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
@@ -162,7 +162,7 @@
 		public function estCot($id){
 			$datos = new stdClass();
 			$datos->validacion=false;
-			$sql="SELECT * FROM est_estado WHERE est_id = ".$id."";
+			$sql="SELECT * FROM est_estado";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
 			if($query->num_rows()>0){
@@ -172,9 +172,14 @@
 			$this->db->trans_complete();
 			$r= "";
 			if($datos->validacion===true){
+				// estado_cot
 				foreach ($query as $key => $valor) {
-					$r.="<input value='".$valor->est_estado."' type='text' class='form-control input-sm pequenios ' readonly='true'/>
-						<input type='hidden' name='estado_cot' value='".$valor->est_id."' />";
+					if($valor->est_id==$id){
+						$s="selected";
+					}else{
+						$s="";
+					}
+					$r.="<option value='".$valor->est_id."' $s>".$valor->est_estado."</option>";
 				}
 			}
 			return $r;
@@ -224,7 +229,9 @@
                         </select>   
                     </span></p>
                     <p>Estado de Cotizacion <span>
-                            '.$this->estCot($row->cot_est_id).'
+	                    <select name="estado_cot" class="form-control input-sm pequenios " >
+	                            '.$this->estCot($row->cot_est_id).'
+	                    </select>   
                     </span></p>
                 </article>
                 <article>
@@ -462,10 +469,13 @@
                                 </span>
                             </article> 
                             <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
-                            <input style=\'width:400px;\' type=\'text\' value=\'\' class=\'txtEvents\'>  
+
+                            <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
+                            
                             <div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
+
                     </article>
                     </article>
                 </article>
@@ -579,9 +589,14 @@
                                 <span>
                                     <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
-                            </article> <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen" /> 
-                            <input type=\'hidden\' value=\'\' class=\'txtEvents\'>  
-                    </article>
+                            </article> 
+                            	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> 
+                            	<input type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
+                    		</article>
+                    		
+                    		<div id="contenedor1" class="conteCalendario">
+								<div class="calendar"></div><br>
+							</div> 
                     </article>
                 </article>
                 <!-- Finaliza contenedor de las cuñas -->
@@ -889,11 +904,19 @@
 						</tbody>
 						</table>
 					<table border=0 cellspacing="0" style="margin-left:307px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+
 						<tr>
 							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
 							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
 						<tr>
+
+						<tr>
+							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
+							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+						</tr>
+						<tr>
+
 							<td style="border-right:1.5px solid #000000;">
 								Descuento
 							</td>
@@ -1324,7 +1347,7 @@
 
 		public function updateEstadoCot($idCot){
 			$tabla 			= array(
-				'cot_est_id'			=> 2
+				'cot_est_id'			=> 3
 				);
 			$this->db->where('cot_id',$idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);

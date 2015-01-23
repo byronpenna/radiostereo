@@ -25,13 +25,19 @@
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         valHeader = validarCotizacion($(".headerCot :input"));
+
         if(valHeader.estado){
             var secCot  = [];
             $(".conProgra").each(function(i,val){
                 secCot[i]   =   serializeToJson($(this).find("input,select").serializeArray());
             });
+            console.log("txt events",secCot.txtEvents);
+            
+                // secCot.txtEvents = jQuery.parseJSON(secCot.txtEvents);
+            
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
+
             console.log(frmGlobal);
             editCotizacion(frmGlobal);
         }else{
