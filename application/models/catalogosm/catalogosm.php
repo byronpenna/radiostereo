@@ -71,28 +71,6 @@
 			}
 			return $retorno;
 		}
-		public function delete_catalogo($tabla, $idbd, $name)
-		{
-			$retorno 	= new stdClass();
-			$this->db->trans_start();
-			 	$this->db->where($idbd,$name);
-        		$flag = $this->db->delete($tabla);
-			$this->db->trans_complete();
-			if($this->db->trans_status() === true){
-				if($flag){
-					$retorno->estado 	= true;
-					$retorno->mensaje 	= "Eliminado con exito";
-				}else{
-					$retorno->estado 	= false;
-					$msg 				= $this->db->_error_message();
-					$retorno->mensaje 	= $msg;
-				}
-			}else{
-				$retorno->estado = false;
-				$retorno->mensaje = "Se ha producido un Error al Eliminar";
-			}
-			return $retorno;
-		}
 		public function update_clientedb($dato)
 		{
 			$data 	= array(
