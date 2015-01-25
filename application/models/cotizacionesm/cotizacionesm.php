@@ -989,7 +989,6 @@
 							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
 							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
-						<tr>
 
 						<tr>
 							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
