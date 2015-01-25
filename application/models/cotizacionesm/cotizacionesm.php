@@ -434,6 +434,16 @@
 				$query[0]->enc_fecha_inicio="";
 				$query[0]->enc_fecha_fin="";
 			}
+			$fechas = $this->getFechas($query[0]->enc_id);
+				$f='[';
+				foreach ($fechas as $llave => $row) {
+					if($llave==0){
+						$f.='"'.$row->fec_fecha.'"';
+					}else{
+						$f.=',"'.$row->fec_fecha.'"';		
+					}
+				}
+				$f.=']';
 				$r='
 				<article id="conProgra"  class="conProgra">
 				<input type="hidden" name="txtIdEncabezado" value="'.$query[0]->enc_id.'" />
@@ -497,11 +507,11 @@
                                     <input type="text" name="txtFechaFin" value="'.$query[0]->enc_fecha_fin.'" placeholder="aaaa-mm-dd" class="form-control input-sm medios fechaFin datepicker ffin txtFechaFin" required>
                                 </span>
                             </article> 
-                            <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" />
+                            <img src="'.base_url("resources/imagenes/calendario.png").'" class="imagen imagen1" /> ';
 
-                            <input style=\'width:400px;\' type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
+                            $r.="<input type='hidden' name='txtEvents' value='".$f."' class='txtEvents'>";
                             
-                            <div id="contenedor1" class="conteCalendario">
+                            $r.='<div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
 							</div> 
 
@@ -527,6 +537,17 @@
 
 		}
 
+		public function getFechas($idEnc){
+			$sql="
+				select * from fec_fechas
+				where fec_enc_id = ".$idEnc.";
+			";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$query = $query->result();
+			$this->db->trans_complete();
+			return $query;
+		}
 
 
 		public function encRadios($idCot){
@@ -541,6 +562,16 @@
 			$r="";
 			for ($i=1; $i <= 3; $i++) { 
 				$sec = $this->getNombreSec($i); 
+				$fechas = $this->getFechas($query[$i]->enc_id);
+				$f='[';
+				foreach ($fechas as $llave => $row) {
+					if($llave==0){
+						$f.='"'.$row->fec_fecha.'"';
+					}else{
+						$f.=',"'.$row->fec_fecha.'"';		
+					}
+				}
+				$f.=']';
 				$r .='
 				<!-- Contenedor para las Cuñas -->
                 <article id="conProgra"  class="conProgra">
@@ -619,9 +650,9 @@
                                     <input type="text" name="txtFechaFin" value="'.$query[$i]->enc_fecha_fin.'"  placeholder="aaaa-mm-dd" class="form-control input-sm medios datepicker ffin" required>
                                 </span>
                             </article> 
-                            	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> 
-                            	<input type=\'text\' name=\'txtEvents\' value=\'\' class=\'txtEvents\'>  
-                    		</article>
+                            	<img src="'.base_url("resources/imagenes/calendario.png").'" modal=\'1\' class="imagen" /> ';
+                            	$r.="<input type='hidden' name='txtEvents' value='".$f."' class='txtEvents'>";
+                    		$r.='</article>
                     		
                     		<div id="contenedor1" class="conteCalendario">
 								<div class="calendar"></div><br>
@@ -653,6 +684,10 @@
 							$this->updateEstadoCot($header->idCot);
 						}
 					}
+					$events = json_decode($valor->txtEvents);
+							for ($i=0; $i < count($events) ; $i++) { 
+								$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+							}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -667,6 +702,10 @@
 					}
 					//if($valor->pventa!=null && $valor->txtFechaFin!=null){
 						$retorno->encBloq=$this->editEncBloq($valor);
+						// if($valor->txtEvents){
+							
+							// $eventos = explode(",",$events);
+						// }
 						for ($i=0; $i < count($valor->precio); $i++) {
 						//if($valor->precio!=-1){
 						if($valor->precio[$i]==-1){
@@ -690,6 +729,18 @@
 			}
 
 			return $retorno;
+		}
+
+
+		public function agregarFechaBloq($idBloq,$fecha){
+			$tabla		= array(
+				'fec_enc_id'	=> $idBloq,
+				'fec_fecha'		=> $fecha
+				);
+
+			$res = $this->db->insert('fec_fechas',$tabla);
+
+			return $res;
 		}
 
 		public function editarHeaderCot($obj){

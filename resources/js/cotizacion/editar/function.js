@@ -8,7 +8,7 @@
          type:   "POST",
          success: function(data){
            var datos = jQuery.parseJSON(data);
-           if(datos.header && datos.encBloq && datos.detBloq){
+           if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
               alertify.success("Datos Editados Correctamente");
                setTimeout(function() {
                     window.location=getBaseURL()+"cotizacionesc/cotizacionesc";

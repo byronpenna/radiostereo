@@ -13,7 +13,7 @@
 	<?php 
 	$this->load->view("estructura/menu.php");
 	?>
-	<div class="popup well"><!--pop up para modificar-->
+	<div class="popup well posAbsolute"><!--pop up para modificar-->
 		
 		<table class="table">
 			<thead>

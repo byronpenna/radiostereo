@@ -425,3 +425,8 @@ textarea{
 #contaddprod tr{
   padding:20em;
 }
+
+
+.posAbsolute{
+  position: absolute !important;
+}

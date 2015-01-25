@@ -31,14 +31,14 @@
             $(".conProgra").each(function(i,val){
                 secCot[i]   =   serializeToJson($(this).find("input,select").serializeArray());
             });
-            console.log("txt events",secCot.txtEvents);
+            // console.log("txt events",secCot.txtEvents);
             
-                // secCot.txtEvents = jQuery.parseJSON(secCot.txtEvents);
-            
+            // seccc = secCot[3].txtEvents;
+            // console.log("eventos ",seccc.length);
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
 
-            console.log(frmGlobal);
+            // console.log(frmGlobal);
             editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
