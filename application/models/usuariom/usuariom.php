@@ -9,16 +9,15 @@
 		{
 			parent::__construct();
 		}
-		public function selectUser($tabla)
-		{
+		public function selectUser($tabla){
 			$this->db->trans_start();
 				$query = $this->db->get($tabla);
 			$this->db->trans_complete();
 			$query = $query->result();
 			return $query;
 		}
-		public function getTablaUser()
-		{
+
+		public function getTablaUser(){
 			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
@@ -206,8 +205,19 @@
 		}
 
 
+		public function queryUsuario(){
+			$this->db->trans_start();
+			$sql="SELECT * FROM usu_usuario
+			ORDER BY usu_rol_id";
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			return $query;
+		}
+
+
 		public function consultaRolesAsignados(){
-			$datos = $this->selectUser('usu_usuario');
+			$datos = $this->queryUsuario();
 			$res="";
 			foreach ($datos as $row) {
 				$rol = $this->obtenerNombreRol($row->usu_rol_id);
@@ -221,7 +231,6 @@
 							<td>".$rol."</td>
 					</tr>";
 			}
-
 			return $res;
 		}
 	}
