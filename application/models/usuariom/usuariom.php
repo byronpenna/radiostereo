@@ -197,13 +197,12 @@
 		public function obtenerNombreRol($idrol){
 			$sql="
 					SELECT * FROM 	rol_usuario
-					WHERE rol_id=".$idrol."
-			";
+					WHERE rol_id='".$idrol."'";
 			$this->db->trans_start();
 			$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
-			return $query[0];
+			return $query;
 		}
 
 
@@ -212,9 +211,14 @@
 			$res="";
 			foreach ($datos as $row) {
 				$rol = $this->obtenerNombreRol($row->usu_rol_id);
+				if($rol){
+					$rol = $rol[0]->rol_nombre;
+				}else{
+					$rol = "Sin rol";
+				}
 				$res.="<tr>
 							<td>".$row->usu_nombre."</td>
-							<td>".$rol->rol_nombre."</td>
+							<td>".$rol."</td>
 					</tr>";
 			}
 
