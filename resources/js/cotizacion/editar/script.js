@@ -18,6 +18,13 @@
                 $(this).val(" ");
             }
         });
+
+        // con esta funcion verificamos el estado de la cotizacion para poder mandar la alerta indicando que no 
+        // se puede modificar
+        frmGlobal   = new Object();
+        headerCot = serializeToJson($(".headerCot :input").serializeArray());
+        frmGlobal.headerCot = headerCot;
+        getEstadoCot(frmGlobal);
     });
 
     //obtener datos de cotizacion para editar

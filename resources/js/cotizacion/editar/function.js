@@ -22,3 +22,22 @@
           }
      });
 	}
+
+
+// funcion para obtener el estado de la cotizacion en el inicio
+  function getEstadoCot(frm){
+    $.ajax({
+         data:{
+           form: JSON.stringify(frm)
+         },
+         url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/getEstadoCot",
+         type:   "POST",
+         success: function(data){
+            var datos = jQuery.parseJSON(data);
+            if(datos.est_id==3 || datos.est_id==4 || datos.est_id==5){
+              alertify.alert("Esta cotización esta "+datos.est_estado+" por lo tanto no se puede editar");
+            }
+          }
+     });
+  }
+

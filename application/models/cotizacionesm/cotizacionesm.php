@@ -84,17 +84,17 @@
 									<td>".$row->cli_razon_social."</td>
 									<td>".$row->cli_nit."</td>
 									<td>".$row->cot_fecha_elaboracion."</td>
-									<td></td>
 									<td style='width:35%;'><center style='float:left;margin-left:100px;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
 										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-danger'>Eliminar</a>";	
 										if(count($count)>0){
 											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
 										}	
 										if($frec > 0){
-											$retorno .= "<a href='".site_url("ordencompra")."' class='btn btn-primary btn-sm'>Fr</a>";
+											$retorno .= " <a href='".site_url("ordencompra")."' class='btn btn-primary btn-sm'>Fr</a>";
 										}	
 										$estado=$this->queryEstado($row->cot_est_id);				
-									$retorno .= "</center><article style='float:right;'>".$estado->est_estado."</article></td></tr>";
+										// <article style='float:right;'>".$estado->est_estado."</article>
+										$retorno .= "</center></td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
@@ -111,7 +111,7 @@
 					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
 					ON cot.cot_cli_id=cli.cli_id
-					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id <> 3
+					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id = 5
 					ORDER BY cot_id DESC";
 					$this->db->trans_start();
 					$query = $this->db->query($sql);
@@ -208,7 +208,12 @@
 					}else{
 						$s="";
 					}
-					$r.="<option value='".$valor->est_id."' $s>".$valor->est_estado."</option>";
+					if($_SESSION['rol']==2 && $valor->est_id==3 || $valor->est_id==4){
+						$none = "style='display:none;'";	
+					}else{
+						$none ="";
+					}
+					$r.="<option value='".$valor->est_id."' ".$none." ".$s." >".$valor->est_estado."</option>";
 				}
 			}
 			return $r;
@@ -550,6 +555,37 @@
 		}
 
 
+		public function getBotones($idCot){
+			$sql = " SELECT * FROM cot_encabezado_cotizacion
+					WHERE cot_id=".$idCot."";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			if($query[0]->cot_est_id == 3 || $query[0]->cot_est_id == 4 || $query[0]->cot_est_id == 5){
+				$disabled="disabled";
+			}else{
+				$disabled='';
+			}
+	        $res='
+	        <article id="contBtnAddCot">
+				<input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot" id="editCot" '.$disabled.'>
+	            <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot" id="limpiar" '.$disabled.'> 
+	        	<input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot cancel">
+            </article>';
+
+				return $res;
+
+		}
+
+
+		public function verificarEstadoCot($frm){
+			$header 	=	$frm->headerCot;
+			$estado = $this->queryEstado($header->estado_cot);
+			return $estado;
+		}
+
+
 		public function encRadios($idCot){
 			$query = $this->queryEncBloque($idCot);
 			foreach ($query as $valor) {
@@ -685,9 +721,14 @@
 						}
 					}
 					$events = json_decode($valor->txtEvents);
-							for ($i=0; $i < count($events) ; $i++) { 
-								$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+							if(count($events)>0){
+								for ($i=0; $i < count($events) ; $i++) { 
+									$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+								}
+							}else{
+								$retorno->fecha 	= true;
 							}
+							
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
