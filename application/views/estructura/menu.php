@@ -23,6 +23,7 @@
                 <li><a href="<?php echo site_url('preciosc/preciosc'); ?>">Precios</a></li>
                 <li><a href="<?php echo site_url('servicioc/servicioc'); ?>">Servicios</a></li>
                 <li><a href="<?php echo site_url('clientesc/clientesc'); ?>">Clientes</a></li>
+                <li><a href="<?php echo site_url('usuario/roluserc'); ?>">Roles</a></li>
               </ul>
             </li>
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc'); ?>">Cotizaciones</a></li>

@@ -24,7 +24,7 @@
 				}else{
 					$color = "144, 240, 139, 0.8";
 				}
-				$retorno .= "<tr style='background:rgba(".$color.");'>
+				$retorno .= "<tr class='lista-clientes-tr' style='background:rgba(".$color.");'>
 								<td>".$row->cli_nombres."</td>
 								<td>".$row->cli_razon_social."</td>
 								<td>".$row->cli_nit."</td>

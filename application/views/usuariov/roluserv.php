@@ -30,7 +30,11 @@
 		<input type="submit" name="" value="Asignar" class="btn btn-m btn-success" id="asignRol">
 		<div class="tableRolAsignado styleTR">
 			<h4 class="thead">Roles Asignados</h4>
-				 <?php //echo $tabla->rol; ?>
+				<table class="tabla-roles-asignados">
+					<tbody>
+					<?php echo $tabla->rolesAsignados; ?>
+					</tbody>
+				</table>
 		</div>
 	</fieldset>
 </body>

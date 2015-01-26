@@ -530,8 +530,6 @@ function removeOption(selector){
 							<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
-						<td class='tdContraUser'>"+data.dato2+"</td>\
-						<td class='tdFirmaUser'>"+data.dato3+"</td>\
 						<td>\
 							<button class='EditUsuario btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
@@ -740,9 +738,18 @@ function saveFirma (frm, tr) {
 						url: getBaseURL() + "index.php/usuario/roluserc/asignaRol",
 						type: "POST",
 						success: function(datos) {
-							console.log(datos);
 							var data = jQuery.parseJSON(datos);//convirtiendo datos
-							console.log(data);
+							if(data==true){
+								alertify.success("Los roles han sido asignados con exito");
+					              setTimeout(function() {
+					                location.reload();
+					              }, 1500);
+					          }else{
+					          	alertify.error("Ha surgido algun problema inesperado, intente de nuevo");
+					              setTimeout(function() {
+					                location.reload();
+					              }, 1500);
+					          }
 						}
 					});
 		}
