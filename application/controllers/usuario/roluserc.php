@@ -18,6 +18,7 @@
 			$tabla->id = $_SESSION['iduser'];
 			$tabla->usuario = $Usuariom->get_user_rol();
 			$tabla->rol 	= $Usuariom->get_rol();
+			$tabla->rolesAsignados = $Usuariom->consultaRolesAsignados();
 			$datos['tabla'] = $tabla;
 			$datos['Titulo']="..::Rol Usuario::..";
 			$this->load->view('usuariov/roluserv',$datos);
@@ -29,7 +30,7 @@
 			$this->load->model("usuariom/usuariom");
 			$usuariom = new Usuariom();
 			$res = $usuariom->asignarRol($form);
-			return json_encode($form);
+			echo json_encode($res);
 		}
 	}
  ?>

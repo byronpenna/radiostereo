@@ -8,7 +8,7 @@
 			$datos=new stdClass();
 			$datos->validacion=false;
 			$contra=sha1($frm->txtContra);
-			$sql="SELECT COUNT(*) AS login,usu_id FROM usu_usuario WHERE  usu_nombre='".$frm->txtUsuario."' AND  usu_password='".$contra."'";
+			$sql="SELECT COUNT(*) AS login,usu_id,usu_rol_id FROM usu_usuario WHERE  usu_nombre='".$frm->txtUsuario."' AND  usu_password='".$contra."'";
 			//iniciar transaccion para validar la consulta 
 			$this->db->trans_start();
 				$query = $this->db->query($sql);
@@ -31,8 +31,8 @@
 					if(session_start()==null){
 				session_start();
 			}
-					$_SESSION['iduser']	=$valor->usu_id;
-					
+					$_SESSION['iduser']	=	$valor->usu_id;
+					$_SESSION['rol']	=	$valor->usu_rol_id;
 				}
 			}
 			return $datos;

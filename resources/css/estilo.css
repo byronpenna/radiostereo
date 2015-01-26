@@ -439,3 +439,18 @@ textarea{
   margin-top:10px;
   margin-left:5%;
 }
+.tabla-roles-asignados{
+  width:100%;
+  margin:auto;
+}
+.tabla-roles-asignados tr{
+  text-align: center;
+}
+
+.tabla-roles-asignados tr:hover{
+  background: rgb(130,179,182);
+}
+
+.lista-clientes-tr:hover{
+  color:rgb(78,120,107);
+}

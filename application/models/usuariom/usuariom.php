@@ -9,24 +9,21 @@
 		{
 			parent::__construct();
 		}
-		public function selectUser($tabla)
-		{
+		public function selectUser($tabla){
 			$this->db->trans_start();
 				$query = $this->db->get($tabla);
 			$this->db->trans_complete();
 			$query = $query->result();
 			return $query;
 		}
-		public function getTablaUser()
-		{
+
+		public function getTablaUser(){
 			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
 				$retorno .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
-								<td class='tdContraUser'>".$row->usu_password."</td>
-								<!--<td class='tdFirmaUser'>".$row->usu_firma."</td>-->
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>
 							</tr>";
@@ -172,15 +169,69 @@
 				);
 			$this->db->where('usu_id',$idUSer);
 			$res = $this->db->update('usu_usuario',$tabla);
+
+			return $res;
 		}
 
 		public function asignarRol($frm){
 			$usuarios 	= $frm->txtUser;
 			$rol 		= $frm->txtRol;
-			// foreach ($usuarios as $row) {
-			// 	$this->putRol($row,$rol);
-			// }
-			return $frm;
+			$res = false;
+			if(is_array($usuarios)){
+				foreach ($usuarios as $row) {
+				$flag 	= 	$this->putRol($row,$rol);
+				if($flag){
+					$res 	= 	true;
+				}
+			}		
+			}else{
+				$flag 	= 	$this->putRol($usuarios,$rol);
+				if($flag){
+					$res 	= 	true;
+				}
+			}
+			return $res;
+		}
+
+		public function obtenerNombreRol($idrol){
+			$sql="
+					SELECT * FROM 	rol_usuario
+					WHERE rol_id='".$idrol."'";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			return $query;
+		}
+
+
+		public function queryUsuario(){
+			$this->db->trans_start();
+			$sql="SELECT * FROM usu_usuario
+			ORDER BY usu_rol_id";
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			return $query;
+		}
+
+
+		public function consultaRolesAsignados(){
+			$datos = $this->queryUsuario();
+			$res="";
+			foreach ($datos as $row) {
+				$rol = $this->obtenerNombreRol($row->usu_rol_id);
+				if($rol){
+					$rol = $rol[0]->rol_nombre;
+				}else{
+					$rol = "Sin rol";
+				}
+				$res.="<tr>
+							<td>".$row->usu_nombre."</td>
+							<td>".$rol."</td>
+					</tr>";
+			}
+			return $res;
 		}
 	}
  ?>
