@@ -51,10 +51,11 @@
 			}
 			$query=$query->result();
 			$this->db->trans_complete();
+			$r="";
 			if($datos->validacion===true){
-					$r ="<input type='text' value='".$query[0]->est_estado."' class='form-control input-sm pequenios' readonly='true'  />
-						<input type='hidden' value='".$query[0]->est_id."' name='estado_cot' />
-						";
+				foreach ($query as $row) {
+					$r .="<option value='".$row->est_id."'>".$row->est_estado."</option>";
+				}
 			}
 			return $r;
 		}
@@ -278,7 +279,7 @@
 					$descuento = str_replace(" ", "", $reemplazo);
 					if($total > 0){
 						$calculo = $descuento/$total;
-						if($calculo  < 0.30){
+						if($calculo  < 0.30 && $header->estado_cot==5){
 							$this->load->model("cotizacionesm/cotizacionesm");
 							$cotizacionesm = new Cotizacionesm();
 							$cotizacionesm->updateEstadoCot($idEncCot);

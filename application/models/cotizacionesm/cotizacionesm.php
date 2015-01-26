@@ -111,7 +111,7 @@
 					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
 					ON cot.cot_cli_id=cli.cli_id
-					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id=1
+					WHERE det.det_cantidad > 0 AND det.det_duracion > 0 AND det.det_subtotal > 0 AND cot.cot_est_id <> 3
 					ORDER BY cot_id DESC";
 					$this->db->trans_start();
 					$query = $this->db->query($sql);
@@ -680,7 +680,7 @@
 					$descuento = str_replace(" ", "", $reemplazo);
 					if($total > 0){
 						$calculo = $descuento/$total;
-						if($calculo  < 0.30){							
+						if($calculo  < 0.30 && $header->estado_cot==5){							
 							$this->updateEstadoCot($header->idCot);
 						}
 					}
@@ -1084,7 +1084,7 @@
 			
 
 			// consulta para traer la firma del usuario
-			$que="select * from usu_usuario where usu_id =".$_SESSION['iduser']." ";
+			$que="select * from usu_usuario where usu_id =".$cot[0]->cot_usu_id." ";
 			$this->db->trans_start();
 			$firma=$this->db->query($que);
 			$firma=$firma->result();
