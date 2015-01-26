@@ -53,8 +53,14 @@
 			$this->db->trans_complete();
 			$r="";
 			if($datos->validacion===true){
+
 				foreach ($query as $row) {
-					$r .="<option value='".$row->est_id."'>".$row->est_estado."</option>";
+					if($_SESSION['rol']==2 && $row->est_id==3 || $row->est_id==4){
+						$none = "style='display:none;'";	
+					}else{
+						$none ="";
+					}
+					$r .="<option value='".$row->est_id."' ".$none.">".$row->est_estado."</option>";
 				}
 			}
 			return $r;

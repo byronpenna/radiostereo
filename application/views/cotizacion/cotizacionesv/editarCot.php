@@ -39,11 +39,7 @@
                 <!-- fin de los valores agregados -->
             </section>
             <!-- Finaliza contenedor de los servicios -->
-            <article id="contBtnAddCot">
-                <input type="submit" name="" value="Guardar" class="btn btn-m btn-success btnAddCot" id="editCot">
-                <input type="submit" name="" value="Limpiar" class="btn btn-m btn-warning btnAddCot" id="limpiar">
-                <input type="button" name="" value="Cancelar" class="btn btn-m btn-danger btnAddCot cancel">
-            </article>
+            <?= $data->botones ?>
         </section>
     </section>
     </div>

@@ -46,9 +46,19 @@
 			$data->valAgregado 		= 	$Cotizacionesm->getValorAgregado($idCot);
 			$data->encProg			= 	$Cotizacionesm->encProg($idCot);
 			$data->encRadios		= 	$Cotizacionesm->encRadios($idCot);
+			$data->botones			= 	$Cotizacionesm->getBotones($idCot);
 			$datos['Titulo']		=	"Editando Cotizacion";
 			$datos['data']			=	$data;
 			$this->load->view('cotizacion/cotizacionesv/editarCot', $datos);
+		}
+
+
+		public function getEstadoCot(){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$form 				= json_decode($_POST['form']);
+			$cotizacionm 		= new cotizacionesm();
+			$retorno 			= $cotizacionm->verificarEstadoCot($form);
+			echo json_encode($retorno);
 		}
 
 
