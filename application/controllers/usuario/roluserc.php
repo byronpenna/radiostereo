@@ -22,5 +22,14 @@
 			$datos['Titulo']="..::Rol Usuario::..";
 			$this->load->view('usuariov/roluserv',$datos);
 		}
+
+
+		public function asignaRol(){
+			$form = json_decode($_POST['form']);
+			$this->load->model("usuariom/usuariom");
+			$usuariom = new Usuariom();
+			$res = $usuariom->asignarRol($form);
+			return json_encode($form);
+		}
 	}
  ?>

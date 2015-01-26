@@ -731,11 +731,28 @@ function saveFirma (frm, tr) {
 
 
 
+		//funcion para asignar roles a usuarios
+		function asignRol(frm) {
+			$.ajax({
+						data:{
+							form: JSON.stringify(frm)
+						},
+						url: getBaseURL() + "index.php/usuario/roluserc/asignaRol",
+						type: "POST",
+						success: function(datos) {
+							console.log(datos);
+							var data = jQuery.parseJSON(datos);//convirtiendo datos
+							console.log(data);
+						}
+					});
+		}
+
+
 
 
 //funcion q retorna el mensaje para delete catalogos
 function Serializar (tr) {
-	frm = tr.find("input");//encuentro el valor contenido en el input
+	frm = tr.find("input,select");//encuentro el valor contenido en el input
 	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 	return frm;
 }

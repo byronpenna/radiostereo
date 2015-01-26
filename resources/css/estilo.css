@@ -425,8 +425,17 @@ textarea{
 #contaddprod tr{
   padding:20em;
 }
-
-
 .posAbsolute{
   position: absolute !important;
+}
+.rolClientes div{
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  height: auto;
+  margin-left: 40px;
+}
+#asignRol{
+  margin-top:10px;
+  margin-left:5%;
 }

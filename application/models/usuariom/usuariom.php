@@ -47,8 +47,8 @@
 			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
-				$retorno .= "<input type='text' value='".$row->usu_id."' class='InputUserId' name='txtIdUser' style='display:none'>
-							<input type='checkbox' value='".$row->usu_nombre."' name='txtUser' class='InputUser'>".$row->usu_nombre."
+				$retorno .= "
+							<input type='checkbox' value='".$row->usu_id."' name='txtUser' class='InputUser'>".$row->usu_nombre."
 							<br>";
 			}
 			return $retorno;
@@ -162,6 +162,25 @@
 				$retorno->mensaje = "Se ha producido un Error al modificar";
 			}
 			return $retorno;
+		}
+
+		
+
+		public function putRol($idUSer,$idRol){
+			$tabla = array(
+				'usu_rol_id' => $idRol
+				);
+			$this->db->where('usu_id',$idUSer);
+			$res = $this->db->update('usu_usuario',$tabla);
+		}
+
+		public function asignarRol($frm){
+			$usuarios 	= $frm->txtUser;
+			$rol 		= $frm->txtRol;
+			// foreach ($usuarios as $row) {
+			// 	$this->putRol($row,$rol);
+			// }
+			return $frm;
 		}
 	}
  ?>

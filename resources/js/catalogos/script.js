@@ -254,10 +254,10 @@ $(document).ready(function () {
 			});
 
 
-
-
-			//funcion click para obtener 
-			// $(document).on("#","",function(){
-
-			// });
+			$(document).on("click","#asignRol",function(){
+				formulario = $(".rolClientes");
+				frm = Serializar(formulario);
+				// console.log(frm);
+				asignRol(frm);
+			});
 });
