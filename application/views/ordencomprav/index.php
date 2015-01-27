@@ -15,10 +15,10 @@
 			<?= $res->programa ?>
 		</article>
 		<br>
-		<table border=1 width="100%"> 
+		<table class='table table-responsive 'border=1 width="100%"> 
 			<?= $res->tabla ?>
 		</table>
-		
+		<button>Guardar</button>
 	</section>
 </body>
 </html>
