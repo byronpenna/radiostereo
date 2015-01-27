@@ -2,18 +2,19 @@
 include_once(APPPATH.'controllers/padre.php');
 class ordencompra extends padre
 {
-	private $ordenCompraModel;
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model("Ordencompram");
-		$ordenCompraModel = new Ordencompram();
+		
 	}
 	public function index($id){
+		$this->load->model("ordencompram/ordencompram");
+		$ordenCompraModel = new Ordencompram();
 		$data = array(
-			'tablaFrecuencia' => $ordenCompraModel->getCalendarFrecuencia();
+			'res' 	=> 	$ordenCompraModel->getCalendarFrecuencia($id),
+			'Titulo'			=>	'Frecuencia'
 		);
-		$this->load->view("ordencomprav/index.php");
+		$this->load->view("ordencomprav/index.php",$data);
 
 	}
 }

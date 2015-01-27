@@ -90,7 +90,7 @@
 											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
 										}	
 										if($frec > 0){
-											$retorno .= " <a href='".site_url("ordencompra")."' class='btn btn-primary btn-sm'>Fr</a>";
+											$retorno .= " <a href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'>Fr</a>";
 										}	
 										$estado=$this->queryEstado($row->cot_est_id);				
 										// <article style='float:right;'>".$estado->est_estado."</article>
@@ -545,8 +545,8 @@
 		public function getFechas($idEnc){
 			$sql="
 				select * from fec_fechas
-				where fec_enc_id = ".$idEnc.";
-			";
+				where fec_enc_id = ".$idEnc."
+				order by fec_fecha";
 			$this->db->trans_start();
 			$query = $this->db->query($sql);
 			$query = $query->result();

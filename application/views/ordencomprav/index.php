@@ -11,6 +11,15 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
-	<?php ?>
+	<section class="container" style="background:orange;">
+		<article class="text-center">
+			<?= $res->titulo ?>
+		</article>
+		<br>
+		<table border=1 width="100%"> 
+			<?= $res->tabla ?>	
+		</table>
+		
+	</section>
 </body>
 </html>
