@@ -7,6 +7,7 @@
          url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/recibeDatosEdit",
          type:   "POST",
          success: function(data){
+          console.log(data);
            var datos = jQuery.parseJSON(data);
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
               alertify.success("Datos Editados Correctamente");

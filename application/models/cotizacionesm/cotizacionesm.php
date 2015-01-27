@@ -723,7 +723,16 @@
 					$events = json_decode($valor->txtEvents);
 							if(count($events)>0){
 								for ($i=0; $i < count($events) ; $i++) { 
-									$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+									$queryFechas = $this->getFechas($valor->txtIdEncabezado);
+									$resp = false;
+									foreach ($queryFechas as $row){
+											if($row->fec_fecha==$events[$i]){
+												$resp=true;
+											}
+										}
+										if($resp==false){
+											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+										}	
 								}
 							}else{
 								$retorno->fecha 	= true;
