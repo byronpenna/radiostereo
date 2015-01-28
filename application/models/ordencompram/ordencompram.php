@@ -70,7 +70,7 @@ class Ordencompram extends CI_Model
 				// echo "<pre>";
 				// 	print_r($det);
 				// echo "</pre>";
-				echo "<pre>".$res->tabla."</pre>";
+				// echo "<pre>".$res->tabla."</pre>";
 				foreach ($det as $deta) {
 					if($deta->det_pre_id && $deta->det_cantidad && $deta->det_duracion){
 						if($deta->det_serv_id){
