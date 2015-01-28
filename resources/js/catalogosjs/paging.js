@@ -59,11 +59,12 @@ function Pager(tableName, itemsPerPage) {
     	}
     	var element = document.getElementById(positionId);
     	
-    	var pagerHtml = '<span onclick="' + pagerName + '.prev();" class="pg-normal" style="size:12px;" onmouseover="this.style.cursor=\'pointer\'"> &#171 Anterior </span> | ';
+        var pagerHtml = "<ul class='pagination'>"
+    	pagerHtml += '<li><span onclick="' + pagerName + '.prev();" class="pg-normal" style="size:12px;" onmouseover="this.style.cursor=\'pointer\'"> &larr; Anterior </span></li> ';
         for (var page = 1; page <= this.pages; page++) 
-            pagerHtml += '<span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');"  style="size:12px;" onmouseover="this.style.cursor=\'pointer\'">' + page + '</span> | ';
-        pagerHtml += '<span onclick="'+pagerName+'.next();" class="pg-normal" style="size:12px;" onmouseover="this.style.cursor=\'pointer\'"> Siguiente &#187;</span>';            
-        
+            pagerHtml += '<li><span id="pg' + page + '" class="pg-normal" onclick="' + pagerName + '.showPage(' + page + ');"  style="size:12px;" onmouseover="this.style.cursor=\'pointer\'">' + page + '</span></li>';
+        pagerHtml += '<li><span onclick="'+pagerName+'.next();" class="pg-normal" style="size:12px;" onmouseover="this.style.cursor=\'pointer\'"> Siguiente &rarr;</span></li>';            
+        pagerHtml += "</ul>"
         element.innerHTML = pagerHtml;
     }
 }
