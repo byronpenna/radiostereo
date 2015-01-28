@@ -14,7 +14,7 @@
                 <div class="pull-right">
                 </div>
             </div>
-            <table id="resultados" class="table" >
+            <table id="resultados" class="table table-responsive">
                 <thead>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="Nombre" ></th>
@@ -27,12 +27,12 @@
                 </tbody>
             </table>
         </div>
-         <div style="border: 2px;" id="NavPosicion" class="pag"></div>
+         <div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
           <script type="text/javascript">
-                    var pager = new Pager('resultados', 10);
-                    pager.init();
-                    pager.showPageNav('pager', 'NavPosicion');
-                    pager.showPage(1);
-                                    </script>
+                var pager = new Pager('resultados', 10);
+                pager.init();
+                pager.showPageNav('pager', 'NavPosicion');
+                pager.showPage(1);
+          </script>
     </div>
 </div>
