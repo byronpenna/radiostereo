@@ -4,7 +4,7 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
-	<script src="<?php echo base_url('resources/js/ordencompra/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
+	<script src="<?php echo base_url('resources/js/ordencompra/functions.js')?>" type="text/javascript" charset="utf-8"></script>
 	<script src="<?php echo base_url('resources/js/ordencompra/script.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
