@@ -14,20 +14,27 @@
 		$this->load->view("estructura/menu.php");
 	?>
 	</select>
-	<fieldset class="fieldClientes well" id="fieldClientes">
+
+	<div class="container" id="contenedorClientes">
+	<fieldset id="fieldClientes">
 		<article class="rolClientes">
 		<div class="tableUser styleTR">
 			<h4 class="thead">Usuarios</h4>
-			<?php echo $tabla->usuario; ?>	
+			<table class="table">
+				<?php echo $tabla->usuario; ?>	
+			</table>
 		</div>
 		<div class="tableRol styleTR">
 			<h4 class="thead">Rol</h4>
 			<select name="txtRol" class="form-control selectBlanco">
 				<?php echo $tabla->rol; ?>
 			</select>
+			<div class="text-right">
+				<input type="submit" name="" value="Asignar" class="btn btn-m btn-success" id="asignRol">
+			</div>
 		</div>
 		</article>
-		<input type="submit" name="" value="Asignar" class="btn btn-m btn-success" id="asignRol">
+		
 		<div class="tableRolAsignado styleTR">
 			<h4 class="thead">Roles Asignados</h4>
 				<table class="tabla-roles-asignados">
@@ -37,5 +44,6 @@
 				</table>
 		</div>
 	</fieldset>
+</div>
 </body>
 </html>
