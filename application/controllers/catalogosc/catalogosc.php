@@ -166,7 +166,7 @@
 			$tabla->programas = $Catalogosm->datos_programa();//carga la tabla programas
 			
 			$datos['tabla'] = $tabla; 
-			$datos['Titulo']="..::Catalogos::..";
+			$datos['Titulo']="Catalogos | Grupo Radio Stereo";
 			$this->load->view('catalogosv/catalogosv.php', $datos);
 
 		}

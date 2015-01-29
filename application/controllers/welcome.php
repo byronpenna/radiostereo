@@ -12,7 +12,7 @@
                 header("Location:main/main");
             }else{
             	$this->load->helper("url");
-				$data["Titulo"] = "Login";
+				$data["Titulo"] = "Login | Grupo Radio Stereo";
 				$this->load->view("login/login.php",$data);
             }
 		}

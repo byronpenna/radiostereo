@@ -11,16 +11,28 @@
   <?php 
     $this->load->view("estructura/menu.php");
   ?>
-  <fieldset class="fieldRadio well" id="fieldRadio">
-    <legend>Radios</legend>
-    <form id="frmRadio" method="POST" class="well"><!--Formulario para ingresar radio-->
-      <table>
-        <tr>
-          <td><label for="nombradio">Nombre Radio:</label></td>
-          <td><input type="text" name="txtnombradio" class="vaciarinput form-control" required /></td>
-          <td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot" required /></td>
-        </tr>
-      </table>
+  <div class="container" id="contenedorClientes">
+
+  <fieldset id="fieldRadio">
+    <h3><strong>Radios</strong></h3>
+    <hr id="hr">
+
+    <form id="frmRadio" method="POST" class="form-inline"><!--Formulario para ingresar radio-->
+      <div class="form-group">
+        <label for="nombradio">Nombre Radio:</label>
+          <div class="input-group">
+            <input type="text" name="txtnombradio" class="vaciarinput form-control" required />
+            <span class="input-group-btn">
+              <input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot" required />
+            </span>
+          </div>
+      </div>
+      <div class="form-group" style="float:right;">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+          <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Radio" />
+        </div>
+      </div>
     </form>
     <div id="contenido">
       <div class="midBox1"> 
@@ -28,9 +40,6 @@
           <h3></h3>            
         </div>
               <div class="datagrid">
-                <form>
-                    <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Radio" />
-                </form>
               <br />
               <table id="resultados" class="table">
                 <thead class="thead">
@@ -43,14 +52,16 @@
                   <?php echo $tabla->radio ?>
                 </tbody>
               </table>
-              <div style="border: 2px;" id="NavPosicion"></div>
+              <div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
     </div>
     <script type="text/javascript">
           var pager = new Pager('resultados', 10);
           pager.init();
           pager.showPageNav('pager', 'NavPosicion');
           pager.showPage(1);
-              </script>
+    </script>
+    </div>
+    
   </fieldset>
       </div>
   </div>

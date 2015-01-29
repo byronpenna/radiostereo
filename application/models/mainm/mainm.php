@@ -20,16 +20,19 @@
 			$retorno = "";
 			foreach ($datos as $row) {
 				if($row->cli_usu_id == $iduser){
-					$color = "44,156,247,0.4";	
+					/*$color = "44,156,247,0.4";*/
+					$color = "info";	
 				}else{
-					$color = "144, 240, 139, 0.8";
+					/*$color = "144, 240, 139, 0.8";*/
+					$color = "success";
 				}
-				$retorno .= "<tr class='lista-clientes-tr' style='background:rgba(".$color.");'>
+				$retorno .= "<tr class='lista-clientes-tr' >
+								<td class='". $color ."'></td>
 								<td>".$row->cli_nombres."</td>
 								<td>".$row->cli_razon_social."</td>
 								<td>".$row->cli_nit."</td>
 								<td style='display:none;'>".$row->cli_usu_id."</td>
-								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion/'.$row->cli_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Cotizacion</a></td>
+								<td><a href='".site_url('cotizacion/cotizacion/crearCotizacion/'.$row->cli_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary btn-block'>Cotización</a></td>
 							</tr>";
 			}
 			return $retorno;

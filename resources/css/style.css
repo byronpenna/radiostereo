@@ -1,6 +1,6 @@
 fieldset{
 	height: 100%;
-	width: 60%;
+	width: 100%;
 }
 .fielPrograma{
 	background-color: none;
@@ -27,7 +27,7 @@ fieldset{
 	background:rgba(248,249,244, 0.8);
 }
 .thead{
-	background: #3682F3;
+	background: #2c3e50;
 	color: white;
 	text-align: center;
 }
@@ -43,7 +43,7 @@ fieldset{
 }
 /*input busqueda*/
 #searchTerm{
-	width: 25%;
+	width: 100%;
 }
 .txtNombUser{
 	font-size: 13px;
@@ -99,3 +99,7 @@ fieldset{
 	margin-left: 45%;
 }*/
 
+.tablaPrecios{
+	max-width: 50%;
+	margin: 0 25% 0 25%;
+}

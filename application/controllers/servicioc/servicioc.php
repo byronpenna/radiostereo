@@ -17,7 +17,7 @@
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
 			$tabla->servicio =  $Catalogosm->DatosServicio();//carga la tabla servicios
 			$datos['tabla'] = $tabla; 
-			$datos['Titulo']="..::Catalogos::..";
+			$datos['Titulo']="Catalogos | Grupo Radio Stereo";
 			$this->load->view('catalogosv/serviciov/serviciov', $datos);
 		}
 

@@ -17,7 +17,7 @@
 			$tabla = new stdClass(); //instanciamos la clase stdClass() para crear una tabla
 			$tabla->radio = $Catalogosm->DatosRadio();//carga la tabla radios
 			$datos['tabla'] = $tabla; 
-			$datos['Titulo']="..::Catalogos::..";
+			$datos['Titulo']="Catalogos | Grupo Radio Stereo";
 			$this->load->view('radiosv/radiosv', $datos);
 		}
 

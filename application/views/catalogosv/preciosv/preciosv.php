@@ -11,25 +11,37 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
-	<fieldset class="fieldPrecio well" id="fieldPrecio">
-		<legend>Precios</legend>
-		<form id="frmPrecio" method="POST" class="well"><!--Formulario para ingresar precio-->
-			<table>
-				<tr>
-					<td><label for="precio">Precio $</label></td>
-					<td><input type="text" name="precio" id='txtPrecio' class="NumPunto vaciarinput form-control" required /></td>
-					<td colspan="2"><input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot"></td>
-				</tr>
-			</table>
+
+	<div class="container" id="contenedorClientes">
+
+	<fieldset  id="fieldPrecio fieldPrecio">
+		<h3><strong>Precios</strong></h3>
+    <hr id="hr">
+
+		<form id="frmPrecio" method="POST" class="form-inline"><!--Formulario para ingresar precio-->
+
+			<div class="form-group">
+        <label for="precio">Precio: </label>
+        <div class="input-group">
+        	<span class="input-group-addon"> $ </span>
+					<input type="text" name="precio" id='txtPrecio' class="NumPunto vaciarinput form-control" required />
+          <span class="input-group-btn">
+            <input type="submit" value="Guardar" class="btn btn-m btn-success btnAddCot">
+          </span>
+        </div>
+      </div>
+      <div class="form-group" style="float:right;">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+          <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Precio" />
+        </div>
+      </div>
 		</form>
 	<div id="contenido">
         <div class="midBox1">
         		<div class="datagrid">
-        <form>
-           <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Tarifa" />
-        </form>
         <br />
-		        <table id="resultados" class="table"><!--Datos de la bd de catalogo precios-->
+		    <table id="resultados" class="table tablaPrecios"><!--Datos de la bd de catalogo precios-->
 				<thead class="thead">
 					<tr>
 						<th>Tarifas</th>
@@ -40,7 +52,7 @@
 					<?php echo $tabla->precio ?>
 				</tbody>
 			</table>
-	<div style="border: 2px;" id="NavPosicion"></div>
+	<div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
                     </div>
                     <script type="text/javascript">
                     var pager = new Pager('resultados', 10);
@@ -51,5 +63,6 @@
                 </div>
             </div>
 	</fieldset>
+</div>
 </body>
 </html>
