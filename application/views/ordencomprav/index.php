@@ -4,6 +4,8 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
+	<script src="<?php echo base_url('resources/js/ordencompra/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
+	<script src="<?php echo base_url('resources/js/ordencompra/script.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<?php 
@@ -15,10 +17,10 @@
 			<?= $res->programa ?>
 		</article>
 		<br>
-		<table border=1 width="100%"> 
+		<table class='table table-responsive 'border=1 width="100%"> 
 			<?= $res->tabla ?>
 		</table>
-		
+		<button class='btnGuardar'>Guardar</button>
 	</section>
 </body>
 </html>
