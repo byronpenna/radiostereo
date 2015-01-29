@@ -91,9 +91,9 @@
 							<td class='tdNombreUser'>".$row->usu_nombre."</td>
 							<td class='tdAlgoUser'>".nl2br($mensaje)."</td>";
 							if($mensaje == "Aun no posee firma"){
-								$retorno.="<td><a class='EditFirma btn btn-sm btn-primary'>Agregar Firma</a></td>";
+								$retorno.="<td><a class='EditFirma btn btn-sm btn-block btn-primary'>Agregar Firma</a></td>";
 							}elseif ($mensaje != "Aun no posee firma") {
-								$retorno.="<td><a class='EditFirma btn btn-sm btn-primary'>Editar</a></td>";
+								$retorno.="<td><a class='EditFirma btn btn-sm  btn-block btn-primary'>Editar</a></td>";
 							}
 						  	$retorno.= "</tr>";
 			}
