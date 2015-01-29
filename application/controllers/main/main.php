@@ -15,7 +15,7 @@
 					$tabla->clientes = $mainm->DatosCliente($IdUser);
 				}
 				$data['tabla'] = $tabla;
-				$data["Titulo"] = "Principal";
+				$data["Titulo"] = "Inicio | Grupo Radio Stereo";
 				$this->load->view("index/index.php",$data);
 		}
 	}	
