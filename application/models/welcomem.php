@@ -20,11 +20,11 @@
 					$datos->validacion 	= true;
 				}else{
 					$datos->validacion 	= false;
-					$datos->mensaje 	= "Usuario o Contraseña Incorrecta";
+					$datos->mensaje 	= "<strong>Error</strong> Usuario o Contraseña Incorrecta";
 				}
 			}else{
 				$datos->validacion 	= false;
-				$datos->mensaje 	= "Error Interno del Servidor,Intente de Nuevo";
+				$datos->mensaje 	= "<strong>Error</strong> Fallo interno del Servidor,Intente de Nuevo";
 			}
 			if ($datos->validacion===true) {
 				foreach ($query as $key => $valor) {

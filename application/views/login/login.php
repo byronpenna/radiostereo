@@ -30,7 +30,12 @@
                                         </label>
                                         <input class="form-control" placeholder="Usuario" id="username" name="txtUsuario" type="text">
                                         <input class="form-control" placeholder="Contraseña" id="password" name="txtContra" type="password">
-                                        <p id="msj" style="display:none;"></p>
+                                        
+                                        <!-- <p id="msj" style="display:none;"></p> -->
+                                        <div class="alert alert-dismissable alert-danger" id="msj" style="display:none;">
+                                          <button type="button" class="close" data-dismiss="alert">×</button>
+                                        </div>
+
                                         <br>
                                         <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesion">
                                     </fieldset>

@@ -9,22 +9,29 @@
 		{
 			parent::__construct();
 		}
-		public function selectUser($tabla){
+		public function selectUser($tabla,$condicion){
 			$this->db->trans_start();
-				$query = $this->db->get($tabla);
+			if($condicion!=""){
+				$this->db->where($condicion);	
+			}
+			$query = $this->db->get($tabla);
 			$this->db->trans_complete();
 			$query = $query->result();
 			return $query;
 		}
 
 		public function getTablaUser(){
-			$datos = $this->selectUser('usu_usuario');
+			$condicion  = array(
+				'usu_rol_id <>' => 1
+				);
+			$datos = $this->selectUser('usu_usuario',$condicion);
 			$retorno = "";
 			foreach ($datos as $row) {
 				$retorno .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
+								<td></td>
 								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>
 							</tr>";
 			}
@@ -39,9 +46,13 @@
 			$dato = $query->result();
 			return $dato;
 		}
+
 		public function get_user_rol()
 		{
-			$datos = $this->selectUser('usu_usuario');
+			$condicion  = array(
+				'usu_rol_id <>' => 1
+				);
+			$datos = $this->selectUser('usu_usuario',$condicion);
 			$retorno = "";
 			$tablita = 0;
 			foreach ($datos as $row) {
@@ -69,7 +80,10 @@
 		}
 		public function get_rol()
 		{
-			$datos = $this->selectUser('rol_usuario');
+			$condicion = array(
+				'rol_id <>' => 1
+				);
+			$datos = $this->selectUser('rol_usuario',$condicion);
 			$retorno = "";
 			foreach ($datos as $row) {
 				$retorno .= "<option value='".$row->rol_id."'>".$row->rol_nombre."</option>";

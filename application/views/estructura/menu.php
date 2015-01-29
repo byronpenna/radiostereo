@@ -18,21 +18,21 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <?php if($rol==3){ ?>
+                <?php if($rol==3 || $rol==1){ ?>
                 <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Programas</a></li>
                 <li><a href="<?php echo site_url('radiosc/radiosc'); ?>">Radios</a></li>
                 <li><a href="<?php echo site_url('preciosc/preciosc'); ?>">Precios</a></li>
                 <li><a href="<?php echo site_url('servicioc/servicioc'); ?>">Servicios</a></li>
                 <?php } ?>
                 <li><a href="<?php echo site_url('clientesc/clientesc'); ?>">Clientes</a></li>
-                <?php if($rol==3){ ?>
+                <?php if($rol==3 || $rol==1){ ?>
                 <li><a href="<?php echo site_url('usuario/roluserc'); ?>">Roles</a></li>
                 <?php } ?>
               </ul>
             </li>
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc'); ?>">Cotizaciones</a></li>
             <li><a href="<?php echo site_url('usuario/perfilc'); ?>">Firma Usuario</a></li>
-            <?php if($rol==3){ ?>
+            <?php if($rol==3 || $rol==1){ ?>
             <li><a href="<?php echo site_url('usuario/usuarioc'); ?>">Administrar usuarios</a></li>
             <li><a href="<?php echo site_url('cotizacionesc/cotizacionesc/aprobarCot'); ?>">Aprobar Cotizaciones</a></li>
             <?php } ?>
