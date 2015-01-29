@@ -18,7 +18,7 @@
 			$tabla->id = $_SESSION['iduser'];
 			$tabla->clientes = $Catalogosm->DatosClientes($tabla->id);//carga la tabla clientes
 			$datos['tabla'] = $tabla; 
-			$datos['Titulo']="..::Catalogos::..";
+			$datos['Titulo']="Catalogos | Grupo Radio Stereo";
 			$this->load->view('catalogosv/clientesv/clientesv', $datos);
 		}
 

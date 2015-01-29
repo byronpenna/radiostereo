@@ -43,10 +43,27 @@
 		{
 			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
+			$tablita = 0;
 			foreach ($datos as $row) {
-				$retorno .= "
-							<input type='checkbox' value='".$row->usu_id."' name='txtUser' class='InputUser'>".$row->usu_nombre."
-							<br>";
+				if ($tablita == 0) {
+					$retorno .= "
+					<tr><td>
+					<span class='button-checkbox'>
+						<button type='button' class='btn  btn-xs' data-color='info'><i class='glyphicon glyphicon-user'></i></button>
+						<input type='checkbox' class='hidden' value='".$row->usu_id."' name='txtUser' class='InputUser'>".$row->usu_nombre."
+					</span> </td>	
+					";
+					$tablita++;
+				}else{
+					$retorno .= "
+					<td>
+					<span class='button-checkbox'>
+						<button type='button' class='btn  btn-xs' data-color='info'><i class='glyphicon glyphicon-user'></i></button>
+						<input type='checkbox' class='hidden' value='".$row->usu_id."' name='txtUser' class='InputUser'>".$row->usu_nombre."
+					</span> </td></tr>
+					";
+					$tablita = 0;
+				}
 			}
 			return $retorno;
 		}

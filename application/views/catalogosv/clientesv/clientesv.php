@@ -10,9 +10,9 @@
 </head>
 <body>
 	<!--cargamos el menu-->
-	<?php 
-	$this->load->view("estructura/menu.php");
-	?>
+	<?php  $this->load->view("estructura/menu.php"); ?>
+
+	<div class="container" id="contenedorClientes">
 	<div class="popup well posAbsolute"><!--pop up para modificar-->
 		
 		<table class="table">
@@ -44,8 +44,9 @@
 				</tr>
 		</table>
 	</div>
-	<fieldset class="fieldClientes well" id="fieldClientes">
-		<legend>Clientes</legend>
+	<fieldset id="fieldClientes">
+		<h3><strong>Clientes</strong></h3>
+      	<hr id="hr">
 		<button class="btn btn-sm btn-success btnDesplegar"><b>Agregar Nuevo Cliente</b></button>
 		<form id="frmClientes" method="POST" class="well">
 			<table>
@@ -117,7 +118,12 @@
 					</div>
 					<div class="datagrid">
 						<form>
-							<b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Cliente" />
+							<div class="form-group" style="float:right;">
+				              <div class="input-group">
+				                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+				                <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Cliente" />
+				              </div>
+				            </div>
 						</form>
 						<br />
 						<table id="resultados" class="table"><!--Datos de la bd de catalogo clientes-->
@@ -135,7 +141,7 @@
 								
 							</tbody>
 						</table>
-						<div style="border: 2px;" id="NavPosicion"></div>
+						<div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
 					</div>
 					<script type="text/javascript">
 						var pager = new Pager('resultados', 10);
@@ -146,5 +152,6 @@
 				</div>
 			</div>
 		</fieldset>
-	</body>
-	</html>
+	</div>
+</body>
+</html>

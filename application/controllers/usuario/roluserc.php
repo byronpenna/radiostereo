@@ -20,7 +20,7 @@
 			$tabla->rol 	= $Usuariom->get_rol();
 			$tabla->rolesAsignados = $Usuariom->consultaRolesAsignados();
 			$datos['tabla'] = $tabla;
-			$datos['Titulo']="..::Rol Usuario::..";
+			$datos['Titulo']="Rol Usuario | Grupo Radio Stereo";
 			$this->load->view('usuariov/roluserv',$datos);
 		}
 
