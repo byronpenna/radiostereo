@@ -72,7 +72,7 @@ class Ordencompram extends CI_Model
 				}
 				$fechas 		=	$cotizacionesm->getFechas($encabezado->enc_id);
 				$enca 			= 	"";
-				$enca 	.= 	"<tr><th></th>";
+				$enca 	.= 	"<tr class='active'><th></th>";
 				$col  			= 	array();
 				// echo "<pre>";
 				// 	print_r($fechas);
@@ -90,7 +90,7 @@ class Ordencompram extends CI_Model
 					$enca 	.= 	substr($fec->fec_fecha, 8,2)."</th>";
 				}
 				
-				$encaAnt = "<thead><tr><td></td>";
+				$encaAnt = "<thead><tr class='success'><td></td>";
 				foreach ($col as $key => $value) {
 					$encaAnt .= "<th colspan='".$value."' class='text-center'>".$this->getMonth(intval($key))."</th>";
 				}
@@ -112,7 +112,7 @@ class Ordencompram extends CI_Model
 							$nombreDet = $radio[0]->rad_nombre;
 						}
 						$res->tabla.="<tr detalle='".$deta->det_id."'>
-								<td>".$nombreDet."</td>";
+								<td class='active col-sm-2'>".$nombreDet."</td>";
 								foreach ($fechas as $fec) {
 									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia' name='".$fec->fec_id."' style='width:100%;'/></td>";
 								}

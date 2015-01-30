@@ -22,13 +22,19 @@
                 </div>
             </div>
             <div class="datagrid buscar">
+                <form class="form-inline">
 		            <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
-                          <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Usuarios" />
+                          <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar" />
                         </div>
-                      </div>
-                    <a class='btn btn-sm btn-success apCot'  >Aprobar Seleccionados</a>
+                    </div>
+                    <div class="form-group" style="float:right;">
+                        <div class="input-group">
+                            <a class='btn btn-success apCot'>Aprobar Seleccionados</a>
+                        </div>
+                    </div>
+                </form>
             <table id="resultados" class="table dataApo" >
                 <thead class="thead">
                     <tr>
@@ -51,7 +57,7 @@
                     pager.init();
                     pager.showPageNav('pager', 'NavPosicion');
                     pager.showPage(1);
-                                    </script>
+          </script>
     </div>
 	</div>
 </div>

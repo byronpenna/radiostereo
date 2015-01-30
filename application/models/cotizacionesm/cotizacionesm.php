@@ -106,7 +106,7 @@
 		// hacemos la consulta para obtener todas las cotizaciones que tienen lleno un detalle y asi mostrarlas al dar clickk 
 		// sobre la opcion del menu aprobar cotizaciones
 		public function getCotApro(){
-			$sql="select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
+			$sql="	select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
 					((cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
 					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
@@ -140,6 +140,7 @@
 									<td>".$row->cot_fecha_elaboracion."</td>
 									<td><center>
 										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>
+										<a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
 										</center></td></tr>";
 				}
 			}else{
