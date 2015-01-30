@@ -22,9 +22,12 @@
                 </div>
             </div>
             <div class="datagrid buscar">
-		            <form>
-		                <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Search" />
-		            </form>
+		            <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+                          <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Usuarios" />
+                        </div>
+                      </div>
                     <a class='btn btn-sm btn-success apCot'  >Aprobar Seleccionados</a>
             <table id="resultados" class="table dataApo" >
                 <thead class="thead">
@@ -42,7 +45,7 @@
                 </tbody>
             </table>
         </div>
-         <div style="border: 2px;" id="NavPosicion" class="pag"></div>
+         <div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
           <script type="text/javascript">
                     var pager = new Pager('resultados', 10);
                     pager.init();

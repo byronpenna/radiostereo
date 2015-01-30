@@ -29,9 +29,8 @@
 			<select name="txtRol" class="form-control selectBlanco">
 				<?php echo $tabla->rol; ?>
 			</select>
-			<div class="text-right">
-				<input type="submit" name="" value="Asignar" class="btn btn-m btn-success" id="asignRol">
-			</div>
+			
+				<input type="submit" name="" value="Asignar" class="btn btn-m btn-success" style="float: right;"  id="asignRol">
 		</div>
 		</article>
 		

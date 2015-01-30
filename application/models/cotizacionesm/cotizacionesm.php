@@ -208,7 +208,7 @@
 					}else{
 						$s="";
 					}
-					if($_SESSION['rol']==2 && $valor->est_id==3 || $valor->est_id==4){
+					if($_SESSION['rol']==2 && $valor->est_id == 3 || $_SESSION['rol']==2 && $valor->est_id == 4){
 						$none = "style='display:none;'";	
 					}else{
 						$none ="";

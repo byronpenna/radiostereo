@@ -21,9 +21,14 @@
             </div>
             <div class="datagrid buscar">
 		            <form>
-		                <b> BUSCAR:</b> <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Search" />
-		            </form>
-            <table id="resultados" class="table" >
+                            <div class="form-group" style="float:right;">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> </span>
+                                <input id="searchTerm" type="search" onkeyup="doSearch()" class="form-control" placeholder="Buscar Cliente" />
+                              </div>
+                            </div>
+                    </form>
+            <table id="resultados" class="table table-hover" >
                 <thead class="thead">
                     <tr>
                         <th>Nombre</th>
@@ -38,13 +43,13 @@
                 </tbody>
             </table>
         </div>
-         <div style="border: 2px;" id="NavPosicion" class="pag"></div>
+         <div style="border: 2px;" id="NavPosicion" class="pag text-center"></div>
           <script type="text/javascript">
-                    var pager = new Pager('resultados', 10);
-                    pager.init();
-                    pager.showPageNav('pager', 'NavPosicion');
-                    pager.showPage(1);
-                                    </script>
+                var pager = new Pager('resultados', 10);
+                pager.init();
+                pager.showPageNav('pager', 'NavPosicion');
+                pager.showPage(1);
+            </script>
     </div>
 	</div>
 </div>
