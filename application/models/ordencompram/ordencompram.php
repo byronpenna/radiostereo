@@ -5,7 +5,6 @@ class Ordencompram extends CI_Model
 			parent:: __construct();
 	}
 
-
 	public function getPrograma($idProg){
 		$sql="SELECT * FROM prog_programa
 		WHERE prog_id=".$idProg."";
@@ -14,6 +13,38 @@ class Ordencompram extends CI_Model
 		$this->db->trans_complete();
 		$query = $query->result();
 		return $query;
+	}
+	public function addFrecuencia($frm){
+		$data 		= array();
+		$cn 		= 0;
+		$encabezado = end($frm); 
+		$cnFinalArr = count($frm);
+		array_splice($frm, $cnFinalArr-1);
+		echo "<pre>";
+				print_r($frm);
+			echo "</pre>";
+		foreach ($frm as $txtFecha => $fecha) {
+			echo "<pre>";
+				print_r($fecha);
+			echo "</pre>";
+			if(is_array($fecha)){
+				foreach ($fecha as $key => $value) {
+					// $data[$cn] = array(
+					// 	'frecuencia'	=> $value->frecuencia, 
+					// 	'id_seccion'	=> $encabezado,
+					// 	'id_fecha' 		=> $txtFecha,
+					// 	'id_detalle' 	=> $value->detalle
+					// );
+					// $cn++;
+				}	
+			}
+			
+			
+		}
+		return $data;
+		// $this->db->trans_start();
+		// 	// $query = $this->db->insert();
+		// $this->db->trans_complete();
 	}
 	public function getMonth($nMes){
 
@@ -65,7 +96,7 @@ class Ordencompram extends CI_Model
 				}
 				$encaAnt 	.= "</tr>";
 				$res->tabla .= $encaAnt.$enca;
-				$res->tabla .= "</thead>";
+				$res->tabla .= "</thead><tbody encabezado='".$encabezado->enc_id."' id='tbTabla'>";
 				$det	= 	$cotizacionesm->getDetId($encabezado->enc_id);
 				// echo "<pre>";
 				// 	print_r($det);
@@ -80,14 +111,15 @@ class Ordencompram extends CI_Model
 							$radio = $cotizacionesm->getRadiosReporte($deta->det_rad_id);
 							$nombreDet = $radio[0]->rad_nombre;
 						}
-						$res->tabla.="<tr seccion='".$deta->det_id."'>
+						$res->tabla.="<tr detalle='".$deta->det_id."'>
 								<td>".$nombreDet."</td>";
 								foreach ($fechas as $fec) {
-									$res->tabla.="<td><input  type='text' name='".$fec->fec_id."' style='width:100%;'/></td>";
+									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia' name='".$fec->fec_id."' style='width:100%;'/></td>";
 								}
 						$res->tabla.="</tr>";	
 					}
 				}
+				$res->tabla .= "</tbody>";
 			}
 		}
 		return $res;

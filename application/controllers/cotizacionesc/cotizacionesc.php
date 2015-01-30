@@ -15,7 +15,7 @@
 			$tabla 				=	 new stdClass();
 			$tabla->cotizacion 	=	 $Cotizacionesm->getCotizacion();
 			$datos['tabla'] 	= 	 $tabla;			
-			$datos['Titulo']	=	 "..::Cotizaciones::..";
+			$datos['Titulo']	=	 "Cotizaciones | Grupo Radio Stereo";
 			$this->load->view('cotizacion/cotizacionesv/cotizacionesv', $datos);
 		}
 
@@ -25,7 +25,7 @@
 			$tabla 				=	 new stdClass();
 			$tabla->cotizacion 	=	 $Cotizacionesm->obtenerCotizacionesAprobar();
 			$datos['tabla'] 	= 	 $tabla;			
-			$datos['Titulo']	=	 "Aprobar Cotizaciones";
+			$datos['Titulo']	=	 "Aprobar Cotizaciones | Grupo Radio Stereo";
 			$this->load->view('cotizacion/aprobarCot', $datos);	
 		}
 
@@ -47,7 +47,7 @@
 			$data->encProg			= 	$Cotizacionesm->encProg($idCot);
 			$data->encRadios		= 	$Cotizacionesm->encRadios($idCot);
 			$data->botones			= 	$Cotizacionesm->getBotones($idCot);
-			$datos['Titulo']		=	"Editando Cotizacion";
+			$datos['Titulo']		=	"Editando Cotizacion | Grupo Radio Stereo";
 			$datos['data']			=	$data;
 			$this->load->view('cotizacion/cotizacionesv/editarCot', $datos);
 		}

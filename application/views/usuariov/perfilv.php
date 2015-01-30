@@ -15,7 +15,7 @@
   <div class="container" id="contenedorClientes">
     <h3>Datos usuario actual</h3>
     <hr id="hr">
-	<fieldset class="fielPrograma well" id="fieldPrograma">
+	<fieldset id="fieldPrograma">
 		<table id="resultados" class="table">
       <thead class="thead">
         <tr>

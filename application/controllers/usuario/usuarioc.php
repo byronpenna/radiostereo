@@ -47,7 +47,7 @@
 			$tabla = new stdClass();
 			$tabla->usuario = $usuariom->getTablaUser();
 			$datos['tabla'] = $tabla;
-			$datos['Titulo']="..::Usuarios::..";
+			$datos['Titulo']="Usuarios | Grupo Radio Stereo";
 			$this->load->view('usuariov/usuariov', $datos);
 		}
 	}
