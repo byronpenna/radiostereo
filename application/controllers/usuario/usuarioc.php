@@ -13,7 +13,7 @@
 		public function insert_user()
 		{
 			//vars
-				$form = json_decode($_POST["form"]);
+			$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$password = sha1($form->txtpassword);
@@ -25,7 +25,7 @@
 		public function update_user()
 		{
 			//vars
-				$frm = json_decode($_POST["form"]);
+			$frm = json_decode($_POST["form"]);
 			$this->load->model('usuariom/usuariom');
 			$Usuariom = new Usuariom();
 			$mensaje = $Usuariom->update_userdb($frm);

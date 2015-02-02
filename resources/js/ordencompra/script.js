@@ -24,6 +24,6 @@ $(document).ready(function(){
 		encabezado 		= $("#tbTabla").attr("encabezado");
 		frm.encabezado 	= encabezado;
 		console.log("frm",frm);
-		// guardarOrdenCompra(frm); 
+		guardarOrdenCompra(frm,encabezado);   
 	});
 });

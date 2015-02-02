@@ -14,38 +14,29 @@ class Ordencompram extends CI_Model
 		$query = $query->result();
 		return $query;
 	}
-	public function addFrecuencia($frm){
-		$data 		= array();
-		$cn 		= 0;
-		$encabezado = end($frm); 
-		$cnFinalArr = count($frm);
-		array_splice($frm, $cnFinalArr-1);
-		echo "<pre>";
-				print_r($frm);
-			echo "</pre>";
-		foreach ($frm as $txtFecha => $fecha) {
-			echo "<pre>";
-				print_r($fecha);
-			echo "</pre>";
-			if(is_array($fecha)){
-				foreach ($fecha as $key => $value) {
-					// $data[$cn] = array(
-					// 	'frecuencia'	=> $value->frecuencia, 
-					// 	'id_seccion'	=> $encabezado,
-					// 	'id_fecha' 		=> $txtFecha,
-					// 	'id_detalle' 	=> $value->detalle
-					// );
-					// $cn++;
-				}	
-			}
-			
-			
+	public function addFrecuencia($frm,$encabezado){
+		foreach ($frm as $valor) {
+			$data = $this->insertFr($valor,$encabezado);
 		}
 		return $data;
-		// $this->db->trans_start();
-		// 	// $query = $this->db->insert();
-		// $this->db->trans_complete();
+		
 	}
+
+	public function insertFr($obj,$encabezado){
+		$tabla = array(
+			'frecuencia' 	=> 	$obj->frecuencia, 
+			'id_seccion' 	=>	$encabezado,
+			'id_fecha' 		=>	$obj->fecha,
+			'id_detalle'	=> 	$obj->detalle
+			);
+		
+		$res = $this->db->insert('frec_fecuencia',$tabla);
+
+		return $res;
+	}
+
+
+
 	public function getMonth($nMes){
 
 		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 

@@ -17,11 +17,13 @@ class ordencompra extends padre
 		$this->load->view("ordencomprav/index.php",$data);
 
 	}
+
 	public function addFrecuencia(){
 		$frm 		= json_decode($_POST["frm"]);
+		$encabezado = json_decode($_POST["encabezado"]);
 		$retorno 	= new stdClass();
 		if(isset($frm) && !empty($frm)){
-			$retorno = $this->ordenCompraModel->addFrecuencia($frm);
+			$retorno = $this->ordenCompraModel->addFrecuencia($frm,$encabezado);
 		}else{
 			$retorno->estado 	= false;
 			$retorno->mensaje  	= "No se pudieron guardar las frecuencias";
