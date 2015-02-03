@@ -30,4 +30,25 @@ class ordencompra extends padre
 		}
 		echo json_encode($retorno);
 	}
+
+
+	public function printOrdenCompra($id){
+		/*$this->load->model("cotizacionesm/cotizacionesm");
+			$cotizacionm 			= 	new Cotizacionesm();
+			$prog 					=	$cotizacionm->getProg($idCot);
+			$datos['prog']			=	$prog;*/
+			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
+	}
+
+	public function Reporte($vista,$obj){
+			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
+			ob_start();
+			$this->load->view($vista, $obj);
+			$html=ob_get_clean();
+			$mipdf = new DOMPDF();
+			$mipdf ->set_paper("A4", "portrait");
+			$mipdf ->load_html($html);
+			$mipdf ->render();
+			$mipdf ->stream('OrdendeCompra.pdf' ,array("Attachment" => 0));
+	}
 }

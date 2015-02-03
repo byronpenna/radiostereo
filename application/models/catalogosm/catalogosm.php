@@ -204,6 +204,7 @@
 			$retorno->contacto 		= $consulta->cli_contacto;
 			$retorno->correo 		= $consulta->cli_correo;
 			$retorno->titulo 		= $consulta->cli_titulo;
+			$retorno->giro 			= $consulta->cli_giro;
 			
 			return $retorno;
 		}

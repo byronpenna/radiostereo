@@ -35,7 +35,8 @@
 				'cli_contacto'		=> $form->txtContacto,
 				'cli_correo'		=> $form->txtCorreo,
 				'cli_usu_id'		=> $form->txtIdUser,
-				'cli_titulo'		=> $form->txtTitulo
+				'cli_titulo'		=> $form->txtTitulo,
+				'cli_giro'			=> $form->txtGiro
 				);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			// agregar programas

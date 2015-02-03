@@ -35,6 +35,7 @@
                         <th>Razon Social</th>
                         <th>NIT</th>
                         <th>Fecha Creación</th>
+                        <th>Estado</th>
                         <th><center>Acción</center></th>
                     </tr>
                 </thead>

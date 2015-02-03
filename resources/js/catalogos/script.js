@@ -260,4 +260,7 @@ $(document).ready(function () {
 				// console.log(frm);
 				asignRol(frm);
 			});
+
+
+
 });

@@ -2,17 +2,25 @@
 	class Cotizacionesm extends CI_Model
 	{
 		
-		function __construct()
-		{
+		function __construct(){
 			parent::__construct();
 		}
 
 		// hacemos la consulta para traer las cotizaciones y mostrarlas al dar click en la opcion del menu cotizaciones
-		public function SelectCotizacion()
-		{
+		public function SelectCotizacion(){
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
-			$query = $this->db->query($consulta);
+				$rolUsu = $this->db->select('rol_nombre')
+	    	->from('usu_usuario')
+	    	->join('rol_usuario', 'usu_rol_id = rol_id')
+	    	->where( array('usu_id' => $_SESSION['iduser'] ))    	
+	    	->get()->row()->rol_nombre;
+				
+				if($rolUsu == "SuperAdministrador" || $rolUsu == "Administrador"){
+					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id  ORDER BY cot_est_id,cot_id DESC";					
+				}else{		
+					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
+				}
+				$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
 			if($query->num_rows()>0){
@@ -76,25 +84,28 @@
 					$this->db->trans_complete();
 					$count 	= $count->result();
 					$frec 	= $this->getFrecuencia($row->cot_id);
-					
+					$estado=$this->queryEstado($row->cot_est_id);
 					$retorno .= "<tr class='styleTR'>
-									<td style='display:none'>".$row->cot_id."</td>
-									<td style='display:none'>".$row->cli_id."</td>
-									<td>".$row->cli_nombres."</td>
-									<td>".$row->cli_razon_social."</td>
-									<td>".$row->cli_nit."</td>
-									<td>".$row->cot_fecha_elaboracion."</td>
-									<td style='width:35%;'><center style='float:left;margin-left:100px;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-danger'>Eliminar</a>";	
+									<td style='display:none'>" .$row->cot_id. "</td>
+									<td style='display:none'>" .$row->cli_id. "</td>
+									<td>" .$row->cli_nombres. "</td>
+									<td>" .$row->cli_razon_social. "</td>
+									<td>" .$row->cli_nit. "</td>
+									<td>" .$row->cot_fecha_elaboracion."</td>
+									<td>". $estado->est_estado . "</td>
+									<td>
+										<a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
+										<a title='Eliminar' href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a>";	
 										if(count($count)>0){
-											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
+											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if($frec > 0){
-											$retorno .= " <a href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'>Fr</a>";
-										}	
-										$estado=$this->queryEstado($row->cot_est_id);				
-										// <article style='float:right;'>".$estado->est_estado."</article>
-										$retorno .= "</center></td></tr>";
+											$retorno .= " <a title='Registrar Frecuencias' href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'><i class='glyphicon glyphicon-log-in'></i></a>";
+										}
+										if($estado->est_estado == "Orden de Compra"){
+											$retorno .="<a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+										}
+										$retorno .= "</td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";

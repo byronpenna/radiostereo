@@ -118,27 +118,27 @@ $(document).ready(function(){
     //validar numero telefonico
         $(document).on("keypress",".NumTelefono",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length >= 8){
+            if($(this).val().length >= 9){
                 e.preventDefault();
             }
         });
          $(document).on("blur",".NumTelefono",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length < 8){
+            if($(this).val().length < 9){
                 alertify.error("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
             }
         });
     //validar numero nit
         $(document).on("keypress",".NumNit",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length >= 14){
+            if($(this).val().length >= 17){
                 e.preventDefault();
             }
         });
         $(document).on("blur",".NumNit",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length < 14){
-                alertify.error("Advertencia: El campo NIT debe contener 14 dígitos exactos");
+            if($(this).val().length < 17){
+                alertify.error("Advertencia: El campo NIT debe contener sus dígitos exactos");
             }
         });
     //validar numero nrc
