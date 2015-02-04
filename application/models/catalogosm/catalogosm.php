@@ -82,7 +82,9 @@
 							'cli_telefono'		=> $dato->txtTelefono,
 							'cli_contacto'		=> $dato->txtContacto,
 							'cli_correo'		=> $dato->txtCorreo,
-							'cli_titulo'		=> $dato->txtTitulo,);
+							'cli_titulo'		=> $dato->txtTitulo,
+							'cli_giro'			=> $dato->txtGiro
+							);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('cli_id', $dato->txtidcliente);

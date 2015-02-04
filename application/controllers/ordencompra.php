@@ -33,11 +33,9 @@ class ordencompra extends padre
 
 
 	public function printOrdenCompra($id){
-		/*$this->load->model("cotizacionesm/cotizacionesm");
-			$cotizacionm 			= 	new Cotizacionesm();
-			$prog 					=	$cotizacionm->getProg($idCot);
-			$datos['prog']			=	$prog;*/
-			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
+			$prog 					=	$this->ordenCompraModel->getFrec($id);
+			$datos['prog']			=	$prog;
+			$this->Reporte('ordencomprav/ReporteOrdenCompra/datosReporte',$datos);
 	}
 
 	public function Reporte($vista,$obj){

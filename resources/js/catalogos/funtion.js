@@ -393,7 +393,7 @@ function removeOption(selector){
 					<input name='txtApellido' class='txtApellido form-control' value='"+data.razonsocial+"'>\
 				</td></tr>\
 				<tr><td>NIT:</td><td>\
-					<input name='txtNIT' class='txtNIT form-control NumNit' pattern='\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}' onkeyup='GuionNit()' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
+					<input name='txtNIT' class='txtNIT form-control NumNit' pattern='\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
 				</td>\
 				<td>NRC</td><td>\
 					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"' placeholder='000000-0'>\
@@ -402,7 +402,7 @@ function removeOption(selector){
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
 				</td>\
 				<td>Telefono</td><td>\
-					<input name='txtTelefono' class='txtTelefono form-control NumTelefono' pattern='\d{4}[\-]{1}\d{4}' onkeyup='GuionTelefono()' value='"+data.telefono+"'>\
+					<input name='txtTelefono' class='txtTelefono form-control NumTelefono' pattern='\d{4}[\-]{1}\d{4}' value='"+data.telefono+"'>\
 				</td></tr>\
 				<tr><td>Contacto</td><td>\
 					<input name='txtContacto' class='txtContacto form-control' value='"+data.contacto+"'>\
@@ -412,8 +412,8 @@ function removeOption(selector){
 				</td></tr>\
 				<tr><td>Titulo de Contacto</td><td>\
 					<input name='txtTitulo' class='txtTitulo form-control' value='"+data.titulo+"'>\
-				</td></tr>\
-				<tr><td>Giro</td><td>\
+				</td>\
+				<td>Giro</td><td>\
 					<input name='txtGiro' class='txtGiro form-control' value='"+data.giro+"'>\
 				</td></tr>\
 				<tr><td colspan='2'>\
@@ -766,33 +766,3 @@ function Serializar (tr) {
 	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 	return frm;
 }
-
-// Datos del Nit y Telefono
-	function GuionNit(){
-		var nitVal = $("#txtNIT").val();
-		var ni     = $("#txtNIT");
-	    	                        
-			if (nitVal.length == 4) {
-						// document.form.nit.value = nit+"-";
-						ni.val(nitVal + "-");
-			};
-	        if (nitVal.length == 11) {
-				//document.form.nit.value = nit+"-";
-				ni.val(nitVal + "-");
-			};
-	        if (nitVal.length == 15) {
-				//document.form.nit.value = nit+"-";
-				ni.val(nitVal + "-");
-			};
-		}
-
-	function GuionTelefono(){
-		var telVal = $("#txtTelefono").val();
-		var te = $("#txtTelefono");
-
-		if (telVal.length == 4) {
-			/*document.form.telefono.value = telefono+"-";*/
-			te.val(telVal + "-")
-		};            
-	}
-

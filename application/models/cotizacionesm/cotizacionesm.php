@@ -1034,44 +1034,35 @@
 				<br><br>
 							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
 					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
-						<tr style="background:#9CC2E5;">
+						<tr>
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
-						<tbody style="background:#BFBFBF;">
+						<tbody>
 						'.$detalle->servi.'
 						</tbody>
 						</table>
-					<table border=0 cellspacing="0" style="margin-left:307px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
-							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Total por Servicios</td>
+							<td style="text-align: right;" >$ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
+					</table>
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
-							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Descuento</td>
+							<td style="text-align: right;">$ '.number_format($detalle->descuento,2,".",",").'</td>
 						</tr>
+					</table>
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 						<tr>
-
-							<td style="border-right:1.5px solid #000000;">
-								Descuento
-							</td>
-							<td style="text-align:center;">
-								 $ '.number_format($detalle->descuento,2,".",",").'
-							</td>
-						</tr>
-						<tr>
-							<td style="border-right:1.5px solid #000000;">
-								Precio de Venta 
-							</td>
-							<td style="text-align:center;">
-								 $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
-							</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Precio de Venta</td>
+							<td style="text-align: right;"><strong>$ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'</strong></td>
 						</tr>
 					</table>
 
@@ -1116,7 +1107,7 @@
 						<td> $ 	'.$precio->pre_precio.'</td>
 						<td>	'.$valor->det_cantidad.'</td>
 						<td>	'.$valor->det_duracion.'</td>
-						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+						<td style="text-align: right;"> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
 					</tr>
 				';
 				$res->total+=$valor->det_subtotal;

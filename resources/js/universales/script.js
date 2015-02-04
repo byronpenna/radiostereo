@@ -117,6 +117,11 @@ $(document).ready(function(){
 
     //validar numero telefonico
         $(document).on("keypress",".NumTelefono",function(e){
+            var telVal = $(this).val()
+
+            if($(this).val().length == 4) {
+                $(this).val(telVal + "-");
+            } 
             //console.log($(this).val().length);
             if($(this).val().length >= 9){
                 e.preventDefault();
@@ -128,8 +133,25 @@ $(document).ready(function(){
                 alertify.error("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
             }
         });
+
+
     //validar numero nit
         $(document).on("keypress",".NumNit",function(e){
+            var nitVal = $(this).val();
+                                    
+            if ($(this).val().length == 4) {
+                $(this).val(nitVal + "-");
+            };
+            if ($(this).val().length == 11) {
+                
+                $(this).val(nitVal + "-");
+            };
+            if ($(this).val().length == 15) {
+                $(this).val(nitVal + "-");
+            };
+
+
+
             //console.log($(this).val().length);
             if($(this).val().length >= 17){
                 e.preventDefault();
@@ -143,15 +165,21 @@ $(document).ready(function(){
         });
     //validar numero nrc
         $(document).on("keypress",".NumNrc",function(e){
+            var NRCVal = $(this).val();
             //console.log($(this).val().length);
-            if($(this).val().length >= 7){
+            if($(this).val().length == 6){
+                $(this).val(NRCVal + "-");
+            }
+            
+            if($(this).val().length >= 8){
                 e.preventDefault();
             }
         });  
         $(document).on("blur",".NumNrc",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length < 7){
+            if($(this).val().length < 8){
                 alertify.error("Advertencia: El campo NRC debe contener 7 dígitos exactos");
             }
         });
+
 });
