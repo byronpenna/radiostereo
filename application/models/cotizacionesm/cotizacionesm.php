@@ -979,11 +979,11 @@
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
 					Presente <br> ';
-					if(substr($cli->cli_titulo, -1)=="o"){
+					if(substr($cli->cli_titulo, -1)=="o" || substr($cli->cli_titulo, -2)=="or"){
 						$sal="Estimado";
-						}else{
-							$sal="Estimada";
-						}
+					}else{
+						$sal="Estimada";
+					}
 
 					$res->encabezado .= $sal.' '.$cli->cli_titulo.'.<br><br>
 
@@ -1390,7 +1390,7 @@
 							<br><br>
 							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
 								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;"  cellspacing="0">
-								<tr style="background:#9CC2E5;">
+								<tr>
 									<td>Radio</td>
 									<td style="width:130px;">Costo Por Segundo</td>
 									<td style="width:80px;">Cantidad</td>';
@@ -1413,7 +1413,7 @@
 									$res->radios[$i].='<td style="width:100px;">Duracion(Seg)</td>
 									<td>Sub Total</td>
 								</tr>
-								<tbody style="background:#BFBFBF;">
+								<tbody>
 								'.$detalle->servi.'
 								</tbody>
 								</table>

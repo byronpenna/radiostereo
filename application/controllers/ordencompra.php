@@ -8,6 +8,9 @@ class ordencompra extends padre
 		parent::__construct();
 		$this->load->model("ordencompram/ordencompram");
 		$this->ordenCompraModel = new Ordencompram();
+
+		$this->load->model("cotizacionesm/cotizacionesm");
+		$this->cotizacionesModel = new Cotizacionesm();
 	}
 	public function index($id){
 		$data = array(
@@ -33,20 +36,11 @@ class ordencompra extends padre
 
 
 	public function printOrdenCompra($id){
-			$prog 					=	$this->ordenCompraModel->getFrec($id);
-			$datos['prog']			=	$prog;
-			$this->Reporte('ordencomprav/ReporteOrdenCompra/datosReporte',$datos);
+			$data['id'] = $id;
+			$data['datosEnc']= $this->ordenCompraModel->getDatosCli($id);
+			$this->load->view("fpdf/fpdf");
+			$this->load->view("ordencomprav/ReporteOrdenCompra/datosReporte", $data);
+
 	}
 
-	public function Reporte($vista,$obj){
-			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
-			ob_start();
-			$this->load->view($vista, $obj);
-			$html=ob_get_clean();
-			$mipdf = new DOMPDF();
-			$mipdf ->set_paper("A4", "portrait");
-			$mipdf ->load_html($html);
-			$mipdf ->render();
-			$mipdf ->stream('OrdendeCompra.pdf' ,array("Attachment" => 0));
-	}
 }
