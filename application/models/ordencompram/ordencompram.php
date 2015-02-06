@@ -182,6 +182,9 @@ class Ordencompram extends CI_Model
 		return $sql;
 	}
 
+
+// Reporte de frecuencias
+
 	function getServicios($id){
 		$sql = "SELECT  
 				det_id,
@@ -189,12 +192,14 @@ class Ordencompram extends CI_Model
 					rad_nombre is null,
 						serv_nombre,
 						rad_nombre
-				) detalleServicio				
-				from det_detalle_bloque 
-				left join rad_radio 
-				on rad_id = det_rad_id
-				left join serv_servicio
-				on serv_id = det_serv_id
+				) detalleServicio,
+				det_subtotal, 
+				ROUND((det_duracion * pre_precio), 2) AS costoS,
+ 				det_cantidad 				
+				FROM det_detalle_bloque 
+				LEFT JOIN rad_radio  ON rad_id = det_rad_id
+				LEFT JOIN serv_servicio ON serv_id = det_serv_id
+				LEFT JOIN pre_precio ON det_pre_id = pre_id
 				where det_enc_id = ".$id." and det_pre_id > 0 and det_cantidad > 0;
 				";
 		$this->db->trans_start();
