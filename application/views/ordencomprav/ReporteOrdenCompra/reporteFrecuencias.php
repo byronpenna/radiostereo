@@ -35,11 +35,37 @@ $mipdf->SetMargins(15, 10, 15);
 
 //Encabezado  Cliente
 $mipdf->ln(1); 
-$mipdf->Cell(180, 6, "CLIENTE: ", 0 , 1);
-$mipdf->Cell(180, 6, "PRODUCTO: ", 0 , 1);
+$mipdf->Cell(180, 6, utf8_decode("CLIENTE:    " . $datosEnc['nombres']), 0 , 1);
+$mipdf->Cell(180, 6, utf8_Decode("PRODUCTO: " . $datosEnc['producto']), 0 , 1);
 $mipdf->Cell(180, 6, "PERIODO: ", 0 , 1);
 
 $mipdf->ln(10);
+$mipdf->Cell(40, 6, "", 0, 0);
+$mipdf->Cell(230, 6, "fechas", 1, 1, 'C');
+
+$mipdf->Cell(40, 6, "Radios", 1, 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode("Costo Por Cuña"), 1 , 0, 'C');
+$mipdf->Cell(30, 6, utf8_decode("Inversión Paquete") , 1 , 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode("Total Cuñas"), 1 , 0, 'C');
+$mipdf->Cell(150, 6, utf8_decode("estas | son | las | fechas| 05 |  06 |"), 1, 1, 'C');
+
+//Aqui van los datos
+$mipdf->Cell(40, 6, "", 'LRT', 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode(""), 'LRT' , 0, 'C');
+$mipdf->Cell(30, 6, utf8_decode("") , 'LRT' , 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode(""), 1 , 0, 'C');
+$mipdf->Cell(150, 6, utf8_decode(""), 1, 1, 'C');
+
+
+///Con Total iva incluido
+
+$mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode(""), 'LRB' , 0, 'C');
+$mipdf->Cell(30, 6, utf8_decode("") , 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, utf8_decode(""), 1 , 0, 'C');
+$mipdf->Cell(150, 6, utf8_decode(""), 1, 1, 'C');
+
+
 
 
 $mipdf->SetAuthor('GrupoRadioStereo');
