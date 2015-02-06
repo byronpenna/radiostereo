@@ -45,9 +45,11 @@ class ordencompra extends padre
 	}
 
 	public function printFrecuencia($id){
-		$data['id'] = $this->ordenCompraModel->printFrecuencia($id);
-		$this->ReporteFr('ordencomprav/reporteFrecuencia',$data);
-		// return $retorno;
+			$data['id'] = $id;
+			//$data['datosEnc'] = $this->ordenCompraModel->getDatosCli($id);
+			//$data['detalleP'] = $this->ordenCompraModel->getDatosDetalle($id);
+			$this->load->view("fpdf/fpdf");
+			$this->load->view("ordencomprav/ReporteOrdenCompra/reporteFrecuencias"); //, $data		
 	}
 
 	public function ReporteFr($vista,$obj){
@@ -60,5 +62,6 @@ class ordencompra extends padre
 			$mipdf ->load_html($html);
 			$mipdf ->render();
 			$mipdf ->stream('Frecuencia.pdf' ,array("Attachment" => 0));
-		}
+	}
+
 }
