@@ -182,8 +182,86 @@ class Ordencompram extends CI_Model
 		return $sql;
 	}
 
+	function getServicios($id){
+		$sql = "SELECT  
+				det_id,
+				if(
+					rad_nombre is null,
+						serv_nombre,
+						rad_nombre
+				) detalleServicio				
+				from det_detalle_bloque 
+				left join rad_radio 
+				on rad_id = det_rad_id
+				left join serv_servicio
+				on serv_id = det_serv_id
+				where det_enc_id = ".$id." and det_pre_id > 0 and det_cantidad > 0;
+				";
+		$this->db->trans_start();
+		$query  = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;
+	}
+	
+	function fechaFrec($encabezado,$idDetalle){
+		$sql = "SELECT fec_id,fec_fecha, 
+				(
+					Select frecuencia
+					from frec_fecuencia 
+					where id_fecha = fec_id and id_seccion = ".$encabezado." and id_detalle = ".$idDetalle."
+				) as frecuencia
+				from fec_fechas
+				where fec_enc_id = ".$encabezado.";
+				";
+		// echo "la query es: ".$sql;
+		$this->db->trans_start();
+		$query  = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;	
+	}
+	function fecha($id){
+		$sql = "SELECT  fec_id,DAY(fec_fecha) dia 
+				from fec_fechas
+				where fec_enc_id = ".$id.";
+				";
+		$this->db->trans_start();
+		$query  = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;	
+
+	}
 	function printFrecuencia($id){
-		return $id;
+		$res = "<table border=1>";
+		$servicios 	= $this->getServicios($id);
+		// echo "<pre>";
+		// 	print_r($servicios);
+		// echo "</pre>";
+		$fecha 		= $this->fecha($id);
+		$res .= "<tr><td></td>";
+		foreach ($fecha as $key => $value) {
+			$res .= "<td>".$value->dia."</td>";
+		}	
+		$res .= "</tr>";
+		foreach ($servicios as $key => $value) {
+			$res .= "<tr>
+				<td>".$value->detalleServicio."</td>
+				";
+				
+				$frec = $this->fechaFrec($id,$value->det_id);
+				// echo "<pre>";
+				// 	print_r($frec);
+				// echo "</pre>";
+				foreach ($frec as $key => $value) {
+					$res .= "<td><input value='".$value->frecuencia."'></td>";
+				}
+			$res .="
+				</tr>
+				";
+		}
+		return $res;
 	}
 
 }
