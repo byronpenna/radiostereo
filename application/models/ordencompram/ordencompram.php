@@ -123,9 +123,18 @@ class Ordencompram extends CI_Model
 
 //Datos del encabezado del cliente
 	function getDatosCli($idCot){
-		$sql = $this->db->query("SELECT cli_nombres, cli_contacto, cli_nit, cli_giro, cli_direccion, cli_telefono, cli_correo 
-			FROM cot_encabezado_cotizacion
-			INNER JOIN cli_cliente ON cot_cli_id = cli_id 
+		$sql = $this->db->query("SELECT
+				cli_nombres, cli_contacto,
+				cli_nit, cli_giro,
+				cli_direccion, cli_telefono,
+				cli_correo, cot_valor_agregado,
+				tip_tipo, pro_nomb_producto, 
+				CURDATE() AS 'fechEmision'
+			FROM ( (
+						cot_encabezado_cotizacion
+						INNER JOIN cli_cliente ON cot_cli_id = cli_id
+					) INNER JOIN tip_tipo ON cot_tip_id = tip_id
+				) INNER JOIN pro_producto ON cot_pro_id = pro_id
 			WHERE cot_id =" . $idCot );
 		foreach ($sql->result_array() as $datos) {
 			$retorno['nombres'] = $datos['cli_nombres'];
@@ -135,45 +144,43 @@ class Ordencompram extends CI_Model
 			$retorno['direccion'] = $datos['cli_direccion'];
 			$retorno['telefono'] = $datos['cli_telefono'];
 			$retorno['correo'] = $datos['cli_correo'];
+			$retorno['detcDes'] = $datos['cot_valor_agregado'];
+			$retorno['tipoPago'] = $datos['tip_tipo'];
+			$retorno['producto'] = $datos['pro_nomb_producto'];
+			$retorno['fechEmision'] = $datos['fechEmision'];
 		}
-		$sql2 = $this->db->query("SELECT
-			pro_nomb_producto
-			FROM
-				cot_encabezado_cotizacion
-			INNER JOIN pro_producto ON cot_pro_id = pro_id
-			WHERE cot_id =" . $idCot);
-		foreach ($sql2->result_array() as $key) {
-			$retorno['producto'] = $key['pro_nomb_producto'];
-		}
+
 		return $retorno;
 	}
 
-	function getEncCli($idCot){
-		$sql = "SELECT det_cantidad, det_cuna_diaria, det_duracion, det_subtotal, enc_fecha_inicio, enc_fecha_fin, serv_nombre, rad_nombre, pre_precio
-					FROM
-					( (	(
-						det_detalle_bloque
-						INNER JOIN enc_encabezado_bloque ON det_enc_id = enc_id
-						)
-						LEFT JOIN serv_servicio ON serv_id = det_serv_id
-						)
-						LEFT JOIN rad_radio ON rad_id = det_rad_id
-						)
-						LEFT JOIN pre_precio ON pre_id = det_pre_id
-					WHERE enc_id =" . $idCot;
-		foreach ($sql->result_array() as $valores) {
-			$retorno['cantidad'] =  $valores['det_cantidad'];
-			$retorno['cuna'] =  $valores['det_cuna_diaria'];
-			$retorno['duracion'] = $valores['det_duracion'];
-			$retorno['subtotal'] = $valores['det_subtotal'];
-			$retorno['finicio'] = $valores['enc_fecha_inicio'];
-			$retorno['ffin'] = $valores['enc_fecha_fin'];
-			$retorno['nombreServicio'] = $valores['serv_nombre'];
-			$retorno['nombreRadio'] = $valores['rad_nombre'];
-			$retorno['precio'] = $valores['pre_precio'];
+	function getDatosDetalle($idCot){
+		$sql = $this->db->query("SELECT enc_id, enc_precio_venta, prog_nombre, sec_nombre
+				FROM ( enc_encabezado_bloque LEFT JOIN prog_programa ON enc_prog_id = prog_id )
+				LEFT JOIN sec_seccion ON sec_id = enc_sec_id
+				WHERE enc_fecha_fin != '0000-00-00' AND enc_cot_id =" . $idCot);
+			foreach ($sql->result_array() as $datos) {
+			$retorno['precioVenta'] = number_format($datos['enc_precio_venta'], 2);
+			$retorno['progNombre'] = $datos['prog_nombre'];
+			$retorno['secNombre'] = $datos['sec_nombre'];
+			$enc_id = $datos['enc_id'];
 		}
+		$retorno['datosServ'] = $this->getSacarDatosServ($enc_id);
+		return $retorno;
 	}
 
+	function getSacarDatosServ($idEnc){
+		$sql = $this->db->query("SELECT DISTINCT
+						det_id, det_subtotal,
+						det_sec_id, rad_nombre,
+						serv_nombre, det_cantidad
+					FROM ( ( det_detalle_bloque
+							LEFT JOIN frec_fecuencia ON det_id = id_detalle )
+							LEFT JOIN serv_servicio ON serv_id = det_serv_id )
+							LEFT JOIN rad_radio ON rad_id = det_rad_id
+					WHERE det_cantidad > 0 AND det_enc_id =" . $idEnc);
+		$sql = $sql->result();
+		return $sql;
+	}
 
 	function printFrecuencia($id){
 		return $id;

@@ -37,7 +37,8 @@ class ordencompra extends padre
 
 	public function printOrdenCompra($id){
 			$data['id'] = $id;
-			$data['datosEnc']= $this->ordenCompraModel->getDatosCli($id);
+			$data['datosEnc'] = $this->ordenCompraModel->getDatosCli($id);
+			$data['detalleP'] = $this->ordenCompraModel->getDatosDetalle($id);
 			$this->load->view("fpdf/fpdf");
 			$this->load->view("ordencomprav/ReporteOrdenCompra/datosReporte", $data);
 
