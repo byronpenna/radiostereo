@@ -83,7 +83,7 @@ class Ordencompram extends CI_Model
 					$enca 	.= 	substr($fec->fec_fecha, 8,2)."</th>";
 				}
 				
-				$encaAnt = "<thead><tr class='success'><td></td>";
+				$encaAnt = "<thead><tr class='success'><td><a href='".base_url("ordencompra/printFrecuencia/".$cotizacion."")."'><button class='btn-primary'>Imprimir</button></a></td>";
 				foreach ($col as $key => $value) {
 					$encaAnt .= "<th colspan='".$value."' class='text-center'>".$this->getMonth(intval($key))."</th>";
 				}
@@ -172,6 +172,11 @@ class Ordencompram extends CI_Model
 			$retorno['nombreRadio'] = $valores['rad_nombre'];
 			$retorno['precio'] = $valores['pre_precio'];
 		}
+	}
+
+
+	function printFrecuencia($id){
+		return $id;
 	}
 
 }
