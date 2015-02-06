@@ -86,7 +86,7 @@
 					$frec 	= $this->getFrecuencia($row->cot_id);
 					$estado=$this->queryEstado($row->cot_est_id);
 					$retorno .= "<tr class='styleTR'>
-									<td style='display:none'>" .$row->cot_id. "</td>
+									<td style='display:none'><input type='hidden' name='idCot' class='idCot' value='".$row->cot_id."' />" .$row->cot_id. "</td>
 									<td style='display:none'>" .$row->cli_id. "</td>
 									<td>" .$row->cli_nombres. "</td>
 									<td>" .$row->cli_razon_social. "</td>
@@ -95,7 +95,7 @@
 									<td>". $estado->est_estado . "</td>
 									<td>
 										<a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
-										<a title='Eliminar' href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a>";	
+										<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>";	
 										if(count($count)>0){
 											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-print'></i></a>";
 										}	
@@ -881,17 +881,24 @@
 
 		public function eliminarCot($idCot){
 			$encId=$this->getEncId($idCot);
+			$flag = false;
 			foreach ($encId as $valor) {
 				$detId=$this->getDetId($valor->enc_id);
 				foreach ($detId as $row) {
 					$this->db->where('det_id',$row->det_id);
-					$this->db->delete('det_detalle_bloque');
+					$flag  = $this->db->delete('det_detalle_bloque');
 				}
-				$this->db->where('enc_id',$valor->enc_id);
-				$this->db->delete('enc_encabezado_bloque');
+				if($flag==true){
+					$this->db->where('enc_id',$valor->enc_id);
+					$this->db->delete('enc_encabezado_bloque');
+				}
+				
 			}
-			$this->db->where('cot_id',$idCot);
-			$this->db->delete('cot_encabezado_cotizacion');
+			if($flag==true){
+				$this->db->where('cot_id',$idCot);
+				$this->db->delete('cot_encabezado_cotizacion');	
+			}
+			return $flag;
 		}
 
 		
