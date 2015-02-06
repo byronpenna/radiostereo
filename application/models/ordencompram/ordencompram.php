@@ -83,7 +83,7 @@ class Ordencompram extends CI_Model
 					$enca 	.= 	substr($fec->fec_fecha, 8,2)."</th>";
 				}
 				
-				$encaAnt = "<thead><tr class='success'><td><a href='".base_url("ordencompra/printFrecuencia/".$cotizacion."")."'><button class='btn-primary'>Imprimir</button></a></td>";
+				$encaAnt = "<thead><tr class='success'><td><a href='".base_url("ordencompra/printFrecuencia/".$encabezado->enc_id."")."'><button class='btn-primary'>Imprimir</button></a></td>";
 				foreach ($col as $key => $value) {
 					$encaAnt .= "<th colspan='".$value."' class='text-center'>".$this->getMonth(intval($key))."</th>";
 				}
