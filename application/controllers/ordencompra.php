@@ -54,5 +54,12 @@ class ordencompra extends padre
 	}
 
 
+	public function getFrecuencias(){
+		$frm = json_decode($_POST['frm']);
+		$res  = $this->ordenCompraModel->getFrecuencias($frm);
+		echo json_encode($res);
+	}
+
+
 
 }

@@ -15,12 +15,52 @@ class Ordencompram extends CI_Model
 		$query = $query->result();
 		return $query;
 	}
+
+	function queryFrEnc($id){
+		$sql="SELECT  * FROM frec_fecuencia
+				WHERE id_seccion=".$id."";
+		$this->db->trans_start();
+		$query = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;
+	}
+
+
 	public function addFrecuencia($frm,$encabezado){
+		$enc = $this->queryFrEnc($encabezado);
 		foreach ($frm as $valor) {
-			$data = $this->insertFr($valor,$encabezado);
+			$flag= $this->queryFrecuencia($encabezado,$valor->detalle,$valor->fecha);
+			if($flag){
+				foreach ($flag as $row) {
+						foreach ($enc as $enca) {
+							if($row->id_seccion==$enca->id_seccion && $row->id_detalle==$enca->id_detalle && $row->id_fecha == $enca->id_fecha){
+							$data = $this->updateFr($row->id,$valor);
+						}else{
+							$data = $this->delFr($enca->id);
+						}
+					}
+				}
+			}else{
+				$data = $this->insertFr($valor,$encabezado);	
+			}
 		}
 		return $data;
-		
+	}
+
+	public function updateFr($id,$obj){
+		$tabla = array(
+			'frecuencia' 	=> 	$obj->frecuencia, 
+			);
+		$this->db->where('id',$id);
+		$res = $this->db->update('frec_fecuencia',$tabla);
+		return $res;
+	}
+
+	public function delFr($id){
+		$this->db->where('id',$id);
+		$res = $this->db->delete('frec_fecuencia');
+		return $res;
 	}
 
 	public function insertFr($obj,$encabezado){
@@ -226,6 +266,7 @@ class Ordencompram extends CI_Model
 		$query = $query->result();
 		return $query;	
 	}
+	
 	function fecha($id){
 		$sql = "SELECT  fec_id,DAY(fec_fecha) dia 
 				from fec_fechas
@@ -238,33 +279,30 @@ class Ordencompram extends CI_Model
 		return $query;	
 
 	}
-	function printFrecuencia($id){
-		$res = "<table border=1>";
-		$servicios 	= $this->getServicios($id);
-		// echo "<pre>";
-		// 	print_r($servicios);
-		// echo "</pre>";
-		$fecha 		= $this->fecha($id);
-		$res .= "<tr><td></td>";
-		foreach ($fecha as $key => $value) {
-			$res .= "<td>".$value->dia."</td>";
-		}	
-		$res .= "</tr>";
-		foreach ($servicios as $key => $value) {
-			$res .= "<tr>
-				<td>".$value->detalleServicio."</td>
-				";
-				
-				$frec = $this->fechaFrec($id,$value->det_id);
-				// echo "<pre>";
-				// 	print_r($frec);
-				// echo "</pre>";
-				foreach ($frec as $key => $value) {
-					$res .= "<td><input value='".$value->frecuencia."'></td>";
-				}
-			$res .="
-				</tr>
-				";
+
+
+	function queryFrecuencia($enc,$det,$fec){
+		$sql="SELECT  * FROM frec_fecuencia
+				WHERE id_fecha=".$fec." AND id_detalle =".$det." AND id_seccion=".$enc."";
+		$this->db->trans_start();
+		$query = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;
+	}
+
+	function getFrecuencias($frm){
+		$encabezado  	= 	$frm->encabezado;
+		$detalle 		=	$frm->detalle;
+		$fecha 			=	$frm->fecha;
+		$res = new stdClass();
+		foreach ($detalle as $i => $row) {
+			$flag= $this->queryFrecuencia($encabezado,$row,$fecha[$i]);
+			if($flag){
+				$res->detalle[$i] 	= 	$row;
+				$res->fecha[$i] 	=	$fecha[$i];
+				$res->fr[$i]		=	$flag[0]->frecuencia;
+			}
 		}
 		return $res;
 	}

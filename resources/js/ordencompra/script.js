@@ -26,4 +26,23 @@ $(document).ready(function(){
 		console.log("frm",frm);
 		guardarOrdenCompra(frm,encabezado);   
 	});
+
+
+
+	frmGlobal = new Object();
+	encabezado  = $("#tbTabla").attr("encabezado");
+	detalle = [];
+	fecha   = [];
+	console.log("encabezado",encabezado);
+	$(".txtFrecuencia").each(function(i,val){
+		detalle[i]  = $(this).attr("detalle");
+		fecha[i] 	=	$(this).attr("name");
+	});
+
+	frmGlobal.encabezado 	= encabezado;
+	frmGlobal.detalle		= detalle;
+	frmGlobal.fecha			= fecha;
+	console.log("frm global",frmGlobal);
+	getFrecuencias(frmGlobal);
+
 });

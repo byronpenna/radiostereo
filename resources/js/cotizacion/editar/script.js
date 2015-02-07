@@ -27,6 +27,16 @@
         getEstadoCot(frmGlobal);
     });
 
+
+    $(document).on("click",".fc-event",function(){
+        console.log("has dado click en el evento");
+        $(".txtEvents").each(function(i,val){
+            console.log("valor de eventos",stt);
+            
+        });
+        
+    });
+
     //obtener datos de cotizacion para editar
     $(document).on("click","#editCot",function(){
         frmGlobal   = new Object();
@@ -45,8 +55,8 @@
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
 
-            // console.log(frmGlobal);
-            editCotizacion(frmGlobal);
+            console.log(frmGlobal);
+            // editCotizacion(frmGlobal);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;

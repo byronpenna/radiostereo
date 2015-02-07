@@ -734,7 +734,7 @@
 					}
 					$events = json_decode($valor->txtEvents);
 							if(count($events)>0){
-								for ($i=0; $i < count($events) ; $i++) { 
+								for ($i=0; $i < count($events) ; $i++) {
 									$queryFechas = $this->getFechas($valor->txtIdEncabezado);
 									$resp = false;
 									foreach ($queryFechas as $row){
@@ -742,9 +742,10 @@
 												$resp=true;
 											}
 										}
+										// $this->delFechaBloq($valor->txtIdEncabezado,$events[$i]);
 										if($resp==false){
 											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
-										}	
+										}
 								}
 							}else{
 								$retorno->fecha 	= true;
@@ -802,6 +803,16 @@
 
 			$res = $this->db->insert('fec_fechas',$tabla);
 
+			return $res;
+		}
+
+		public function delFechaBloq($idBloq,$fecha){
+			$tabla		= array(
+				'fec_enc_id'	=> $idBloq,
+				'fec_fecha'		=> $fecha
+				);
+			$this->db->where($tabla);
+			$res = $this->db->delete('fec_fechas');
 			return $res;
 		}
 
