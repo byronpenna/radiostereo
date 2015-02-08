@@ -5,9 +5,6 @@ $(document).ready(function(){
 		cn 		= 0;
 		$(".txtFrecuencia").each(function(i,val){
 			indice = String($(this).attr("name"));
-
-			
-			
 			// reg = Array($(this).val(),$(this).attr("detalle"));
 			reg = new Object();
 			reg.frecuencia 	= $(this).val();
@@ -23,17 +20,19 @@ $(document).ready(function(){
 		// frm = serializeToJson(frm);
 		encabezado 		= $("#tbTabla").attr("encabezado");
 		frm.encabezado 	= encabezado;
-		console.log("frm",frm);
+		// console.log("frm",frm);
 		guardarOrdenCompra(frm,encabezado);   
 	});
 
-
+	$(document).on("blur",".txtFrecuencia",function(){
+		validarFr($(this));
+	});
 
 	frmGlobal = new Object();
 	encabezado  = $("#tbTabla").attr("encabezado");
 	detalle = [];
 	fecha   = [];
-	console.log("encabezado",encabezado);
+	// console.log("encabezado",encabezado);
 	$(".txtFrecuencia").each(function(i,val){
 		detalle[i]  = $(this).attr("detalle");
 		fecha[i] 	=	$(this).attr("name");
@@ -42,7 +41,6 @@ $(document).ready(function(){
 	frmGlobal.encabezado 	= encabezado;
 	frmGlobal.detalle		= detalle;
 	frmGlobal.fecha			= fecha;
-	console.log("frm global",frmGlobal);
+	// console.log("frm global",frmGlobal);
 	getFrecuencias(frmGlobal);
-
 });

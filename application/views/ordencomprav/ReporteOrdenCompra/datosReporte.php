@@ -132,15 +132,16 @@ $tpagar = $detalleP['precioVenta'] + $iva;
 $mipdf->Cell(140, 7, "   TOTAL A PAGAR", 1, 0, 'L');
 $mipdf->Cell(40, 7, "$ " . $tpagar  , 1 , 1, 'R');
 
-$mipdf->ln(5);
-$mipdf->Cell(100, 5, "                        ______________________", 0 , 0, 'L'); 
-$mipdf->Cell(80, 5, "          ______________________", 0 , 1, 'L');
-$mipdf->Cell(100, 5, "                            Gerencia de Ventas", 0 , 0, 'L'); 
-$mipdf->Cell(80, 5, "                V.B.O Continuidad", 0 , 1, 'L');
-
-$mipdf->ln(3);
-$mipdf->Cell(180, 5, "___________________________", 0 , 1, 'C');
-$mipdf->Cell(180, 5, "Cliente", 0 ,1, 'C');
+$mipdf->ln(10);
+$mipdf->Cell(100, 0, "                        ______________________", 0 , 0, 'L'); 
+$mipdf->Cell(80, 0, "          ______________________", 0 , 1, 'L');
+$mipdf->Cell(100, 10, "                            Gerencia de Ventas", 0 , 0, 'L'); 
+$mipdf->Cell(80, 10, "                       Continuidad", 0 , 1, 'L');
+$mipdf->ln(10);
+$mipdf->Cell(85, 0, "___________________________", 0 , 1, 'C');
+$mipdf->Cell(85, 10, "Cliente", 0 ,1, 'C');
+$mipdf->Cell(260, -20, "___________________________", 0 , 1, 'C');
+$mipdf->Cell(260, 27, "Vendedor", 0 ,1, 'C');
 
 $mipdf->SetAuthor('GrupoRadioStereo');
 $mipdf -> Output();

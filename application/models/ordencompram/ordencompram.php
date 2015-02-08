@@ -145,9 +145,9 @@ class Ordencompram extends CI_Model
 							$nombreDet = $radio[0]->rad_nombre;
 						}
 						$res->tabla.="<tr detalle='".$deta->det_id."'>
-								<td class='active col-sm-2'>".$nombreDet."</td>";
+								<td class='active col-sm-2'>Cantidad : <input type='text' class='Cantidad' disabled style='width:30%;' value='".$deta->det_cantidad."'><b>".$nombreDet."</b></td>";
 								foreach ($fechas as $fec) {
-									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia' name='".$fec->fec_id."' style='width:100%;'/></td>";
+									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia SoloNumero' name='".$fec->fec_id."' style='width:100%;'/></td>";
 								}
 						$res->tabla.="</tr>";	
 					}

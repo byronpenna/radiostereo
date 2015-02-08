@@ -18,7 +18,10 @@
             });
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-            addCotizacion(frmGlobal);
+            scrollTop();
+            setTimeout(function() {
+                    addCotizacion(frmGlobal);
+                }, 1000);
         }else{
             alertify.error(valHeader.mensaje);
                 var pathname = window.location.pathname;

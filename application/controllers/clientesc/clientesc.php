@@ -35,5 +35,13 @@
 			$mensaje = $Catalogosm->delete_catalogo($tabla, $id_tablabd, $nameform);
 			echo json_encode($mensaje);
 		}
+
+
+		public function getCat(){
+			$this->load->model('catalogosm/catalogosm');
+			$Catalogosm = new Catalogosm();
+			$res = $Catalogosm->getCat();
+			echo json_encode($res);
+		}
 	}
  ?>

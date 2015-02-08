@@ -7,10 +7,13 @@ $(document).ready(function(){
     
 
     //Recargar pagina
-    $("#limpiar").click(function(){
+    $(document).on("click","#limpiar",function(){
         location.reload();
     });
     
+    $(document).on("click",".limpiar",function(){
+        location.reload();
+    });
 
 
 	$(document).on('submit','#frmLogout',function(e){
@@ -39,6 +42,7 @@ $(document).ready(function(){
 
 
 	$(document).on("keypress",".SoloNumero",function(e){//evento para validar si es un numero
+        console.log("estoy adentro");
 		el 			= $(this).val();
 		exp 		= /[0-9]/;
 		caracter 	=getCharFromEvent(e);
@@ -152,13 +156,11 @@ $(document).ready(function(){
 
 
 
-            //console.log($(this).val().length);
             if($(this).val().length >= 17){
                 e.preventDefault();
             }
         });
         $(document).on("blur",".NumNit",function(e){
-            //console.log($(this).val().length);
             if($(this).val().length < 17){
                 alertify.error("Advertencia: El campo NIT debe contener sus dígitos exactos");
             }
@@ -166,7 +168,6 @@ $(document).ready(function(){
     //validar numero nrc
         $(document).on("keypress",".NumNrc",function(e){
             var NRCVal = $(this).val();
-            //console.log($(this).val().length);
             if($(this).val().length == 6){
                 $(this).val(NRCVal + "-");
             }
@@ -176,7 +177,6 @@ $(document).ready(function(){
             }
         });  
         $(document).on("blur",".NumNrc",function(e){
-            //console.log($(this).val().length);
             if($(this).val().length < 8){
                 alertify.error("Advertencia: El campo NRC debe contener 7 dígitos exactos");
             }
