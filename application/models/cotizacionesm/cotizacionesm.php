@@ -2,17 +2,25 @@
 	class Cotizacionesm extends CI_Model
 	{
 		
-		function __construct()
-		{
+		function __construct(){
 			parent::__construct();
 		}
 
 		// hacemos la consulta para traer las cotizaciones y mostrarlas al dar click en la opcion del menu cotizaciones
-		public function SelectCotizacion()
-		{
+		public function SelectCotizacion(){
 			$this->db->trans_start();
-			$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
-			$query = $this->db->query($consulta);
+				$rolUsu = $this->db->select('rol_nombre')
+	    	->from('usu_usuario')
+	    	->join('rol_usuario', 'usu_rol_id = rol_id')
+	    	->where( array('usu_id' => $_SESSION['iduser'] ))	
+	    	->get()->row()->rol_nombre;
+				
+				if($rolUsu == "SuperAdministrador" || $rolUsu == "Administrador"){
+					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id  ORDER BY cot_est_id,cot_id DESC";					
+				}else{		
+					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id WHERE cot_usu_id = ".$_SESSION['iduser']." ORDER BY cot_est_id,cot_id DESC";
+				}
+				$query = $this->db->query($consulta);
 			$this->db->trans_complete();
 			$datos = $query->result();
 			if($query->num_rows()>0){
@@ -76,25 +84,28 @@
 					$this->db->trans_complete();
 					$count 	= $count->result();
 					$frec 	= $this->getFrecuencia($row->cot_id);
-					
+					$estado=$this->queryEstado($row->cot_est_id);
 					$retorno .= "<tr class='styleTR'>
-									<td style='display:none'>".$row->cot_id."</td>
-									<td style='display:none'>".$row->cli_id."</td>
-									<td>".$row->cli_nombres."</td>
-									<td>".$row->cli_razon_social."</td>
-									<td>".$row->cli_nit."</td>
-									<td>".$row->cot_fecha_elaboracion."</td>
-									<td style='width:35%;'><center style='float:left;margin-left:100px;'><a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/eliminarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-danger'>Eliminar</a>";	
+									<td style='display:none'><input type='hidden' name='idCot' class='idCot' value='".$row->cot_id."' />" .$row->cot_id. "</td>
+									<td style='display:none'>" .$row->cli_id. "</td>
+									<td>" .$row->cli_nombres. "</td>
+									<td>" .$row->cli_razon_social. "</td>
+									<td>" .$row->cli_nit. "</td>
+									<td>" .$row->cot_fecha_elaboracion."</td>
+									<td>". $estado->est_estado . "</td>
+									<td>
+										<a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
+										<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>";	
 										if(count($count)>0){
-											$retorno .= " <a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>";
+											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if($frec > 0){
-											$retorno .= " <a href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'>Fr</a>";
-										}	
-										$estado=$this->queryEstado($row->cot_est_id);				
-										// <article style='float:right;'>".$estado->est_estado."</article>
-										$retorno .= "</center></td></tr>";
+											$retorno .= " <a title='Registrar Frecuencias' href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'><i class='glyphicon glyphicon-log-in'></i></a>";
+										}
+										if($estado->est_estado == "Orden de Compra"){
+											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+										}
+										$retorno .= "</td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
@@ -106,7 +117,7 @@
 		// hacemos la consulta para obtener todas las cotizaciones que tienen lleno un detalle y asi mostrarlas al dar clickk 
 		// sobre la opcion del menu aprobar cotizaciones
 		public function getCotApro(){
-			$sql="select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
+			$sql="	select DISTINCT cot.cot_id,cli.cli_id,cli.cli_nombres,cli.cli_razon_social,cli.cli_nit,cot.cot_fecha_elaboracion from 
 					((cot_encabezado_cotizacion cot JOIN enc_encabezado_bloque enc
 					ON cot.cot_id=enc.enc_cot_id) JOIN det_detalle_bloque det
 					ON enc.enc_id=det.det_enc_id) JOIN cli_cliente cli 
@@ -562,7 +573,7 @@
 			$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
-			if($query[0]->cot_est_id == 3 || $query[0]->cot_est_id == 4 || $query[0]->cot_est_id == 5){
+			if($query[0]->cot_est_id == 3 || $query[0]->cot_est_id == 4){
 				$disabled="disabled";
 			}else{
 				$disabled='';
@@ -717,12 +728,15 @@
 					if($total > 0){
 						$calculo = $descuento/$total;
 						if($calculo  < 0.30 && $header->estado_cot==5){							
-							$this->updateEstadoCot($header->idCot);
+							$fl = $this->getFechas($valor->txtIdEncabezado);
+							if($fl){
+								$this->updateEstadoCot($header->idCot);
+							}
 						}
 					}
 					$events = json_decode($valor->txtEvents);
 							if(count($events)>0){
-								for ($i=0; $i < count($events) ; $i++) { 
+								for ($i=0; $i < count($events) ; $i++) {
 									$queryFechas = $this->getFechas($valor->txtIdEncabezado);
 									$resp = false;
 									foreach ($queryFechas as $row){
@@ -730,9 +744,10 @@
 												$resp=true;
 											}
 										}
+										// $this->delFechaBloq($valor->txtIdEncabezado,$events[$i]);
 										if($resp==false){
 											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
-										}	
+										}
 								}
 							}else{
 								$retorno->fecha 	= true;
@@ -790,6 +805,16 @@
 
 			$res = $this->db->insert('fec_fechas',$tabla);
 
+			return $res;
+		}
+
+		public function delFechaBloq($idBloq,$fecha){
+			$tabla		= array(
+				'fec_enc_id'	=> $idBloq,
+				'fec_fecha'		=> $fecha
+				);
+			$this->db->where($tabla);
+			$res = $this->db->delete('fec_fechas');
 			return $res;
 		}
 
@@ -869,17 +894,24 @@
 
 		public function eliminarCot($idCot){
 			$encId=$this->getEncId($idCot);
+			$flag = false;
 			foreach ($encId as $valor) {
 				$detId=$this->getDetId($valor->enc_id);
 				foreach ($detId as $row) {
 					$this->db->where('det_id',$row->det_id);
-					$this->db->delete('det_detalle_bloque');
+					$flag  = $this->db->delete('det_detalle_bloque');
 				}
-				$this->db->where('enc_id',$valor->enc_id);
-				$this->db->delete('enc_encabezado_bloque');
+				if($flag==true){
+					$this->db->where('enc_id',$valor->enc_id);
+					$this->db->delete('enc_encabezado_bloque');
+				}
+				
 			}
-			$this->db->where('cot_id',$idCot);
-			$this->db->delete('cot_encabezado_cotizacion');
+			if($flag==true){
+				$this->db->where('cot_id',$idCot);
+				$this->db->delete('cot_encabezado_cotizacion');	
+			}
+			return $flag;
 		}
 
 		
@@ -966,12 +998,12 @@
 		      		'.$cli->cli_titulo.'<br>
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
-					Presente <br> ';
-					if(substr($cli->cli_titulo, -1)=="o"){
+					Presente <br><br> ';
+					if(substr($cli->cli_titulo, -1)=="o" || substr($cli->cli_titulo, -2)=="or"){
 						$sal="Estimado";
-						}else{
-							$sal="Estimada";
-						}
+					}else{
+						$sal="Estimada";
+					}
 
 					$res->encabezado .= $sal.' '.$cli->cli_titulo.'.<br><br>
 
@@ -1022,44 +1054,35 @@
 				<br><br>
 							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
 					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
-						<tr style="background:#9CC2E5;">
+						<tr>
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
 							<td>Duracion(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
-						<tbody style="background:#BFBFBF;">
+						<tbody>
 						'.$detalle->servi.'
 						</tbody>
 						</table>
-					<table border=0 cellspacing="0" style="margin-left:307px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
-							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Total por Servicios</td>
+							<td style="text-align: right;" >$ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
+					</table>
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:158px;">Total por Servicios</td>
-							<td style="text-align:center;"> $ '.number_format($detalle->total,2,".",",").'</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Descuento</td>
+							<td style="text-align: right;">$ '.number_format($detalle->descuento,2,".",",").'</td>
 						</tr>
+					</table>
+					<table border=0 cellspacing="0" style="margin-left:39px;width:640px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 						<tr>
-
-							<td style="border-right:1.5px solid #000000;">
-								Descuento
-							</td>
-							<td style="text-align:center;">
-								 $ '.number_format($detalle->descuento,2,".",",").'
-							</td>
-						</tr>
-						<tr>
-							<td style="border-right:1.5px solid #000000;">
-								Precio de Venta 
-							</td>
-							<td style="text-align:center;">
-								 $ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'
-							</td>
+							<td style="border-right:1.5px solid #000000;width:513px;">Precio de Venta</td>
+							<td style="text-align: right;"><strong>$ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'</strong></td>
 						</tr>
 					</table>
 
@@ -1104,7 +1127,7 @@
 						<td> $ 	'.$precio->pre_precio.'</td>
 						<td>	'.$valor->det_cantidad.'</td>
 						<td>	'.$valor->det_duracion.'</td>
-						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+						<td style="text-align: right;"> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
 					</tr>
 				';
 				$res->total+=$valor->det_subtotal;
@@ -1387,7 +1410,7 @@
 							<br><br>
 							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
 								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;"  cellspacing="0">
-								<tr style="background:#9CC2E5;">
+								<tr>
 									<td>Radio</td>
 									<td style="width:130px;">Costo Por Segundo</td>
 									<td style="width:80px;">Cantidad</td>';
@@ -1410,7 +1433,7 @@
 									$res->radios[$i].='<td style="width:100px;">Duracion(Seg)</td>
 									<td>Sub Total</td>
 								</tr>
-								<tbody style="background:#BFBFBF;">
+								<tbody>
 								'.$detalle->servi.'
 								</tbody>
 								</table>

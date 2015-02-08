@@ -21,7 +21,7 @@
     ?><br>
 	<div class="container" id="contenedorClientes">
         <section class="container" id="contenedorClientes">
-    <h3>Editar Cotizacion</h3>
+    <h3>Cotizacion Numero : <?php echo $idCot ?> </h3>
     <hr id="hr">
         <section id="mainCot">
             <!-- inicio de el encabezado de la cotizacion -->

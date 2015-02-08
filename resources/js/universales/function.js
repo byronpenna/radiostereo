@@ -18,6 +18,11 @@ function getBaseURL() {
 	}
 }
 
+function scrollTop(){
+     $('html, body').animate({ scrollTop: '0px'},500);
+     return false;
+}
+
 
 
 //calcular los totales para los campos de las cotizaciones 

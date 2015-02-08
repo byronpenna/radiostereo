@@ -9,6 +9,17 @@
 		{
 			parent::__construct();
 		}
+
+		public function getCat(){
+			$sql="SELECT  * FROM cat_categoria_contribuyente";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			return $query;
+		}
+
+
 		public function getProductosFromCliente($clienteId){
 			$sql = "SELECT * FROM `pro_producto` where pro_cli_id = ".$clienteId.";";
 			$this->db->trans_start();
@@ -23,6 +34,7 @@
 			$this->db->trans_complete();
 			return $flag;
 		}
+
 		public function deleteProductosClientes($idCliente){
 			$this->db->trans_start();
 				$data = array('pro_cli_id' => $idCliente );
@@ -82,7 +94,10 @@
 							'cli_telefono'		=> $dato->txtTelefono,
 							'cli_contacto'		=> $dato->txtContacto,
 							'cli_correo'		=> $dato->txtCorreo,
-							'cli_titulo'		=> $dato->txtTitulo,);
+							'cli_titulo'		=> $dato->txtTitulo,
+							'cli_giro'			=> $dato->txtGiro,
+							'cli_cat_id'		=> $dato->cat
+							);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('cli_id', $dato->txtidcliente);
@@ -190,6 +205,23 @@
 			$query = $query->result();
 			return $query[0];
 		}
+		public function getCat1($id){
+			$sql="SELECT  * FROM cat_categoria_contribuyente";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$query = $query->result();
+			$res ="";
+			foreach ($query as $valor) {
+				if($valor->cat_id==$id){
+					$s='selected';
+				}else{
+					$s='';
+				}
+				$res.= "<option value='".$valor->cat_id."' ".$s.">".$valor->cat_categoria."</option>";
+			}
+			return $res;
+		}
 		public function RetornarUpdate($idcliente)
 		{
 			$consulta = $this->selectCliente($idcliente);
@@ -204,9 +236,12 @@
 			$retorno->contacto 		= $consulta->cli_contacto;
 			$retorno->correo 		= $consulta->cli_correo;
 			$retorno->titulo 		= $consulta->cli_titulo;
+			$retorno->giro 			= $consulta->cli_giro;
+			$retorno->cat 			= $this->getCat1($consulta->cli_cat_id);
 			
 			return $retorno;
 		}
+
 		public function DatosClientes($iduser)
 		{
 			$this->load->model('mainm/mainm');//cargamos el modelo
@@ -260,10 +295,4 @@
 		}
 
 	}
-
-
-
-
-
-
 ?>	

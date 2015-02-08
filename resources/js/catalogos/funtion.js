@@ -40,6 +40,7 @@ function removeOption(selector){
 					<center>\
 						<input type='button' class='btnGuardarPrograma btn btn-sm btn-success btnAddCot' value='Guardar' />\
 						<button class='DeleteProgra btn btn-sm btn-danger'>Eliminar</button>\
+						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
 					</center>\
 				</td>\
 				";//creo nuevo html para modificar
@@ -54,9 +55,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_programa",
 			type: 	"POST",
+			beforeSend: function(){
+          // cargando
+	          $(".cont-loading").css("display","block");
+	          },
 			success: 	function(datos) {
 				idPrograma = tr.find(".inputProgramId").val();//buscamos el id para construir la fila
 				data = jQuery.parseJSON(datos);//convirtiendo datos
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);
 				}else if(data.estado == true){
@@ -81,9 +87,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_programa",
 			type: 		"POST",
+			beforeSend: function(){
+          // cargando
+	          $(".cont-loading").css("display","block");
+	          },
 			success: 	function(datos){
 				// agregar el elemento a la tabla
 				data = jQuery.parseJSON(datos);//convertimos los datos
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -112,8 +123,13 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_radio",
 			type: 	"POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				data = jQuery.parseJSON(datos);
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -149,6 +165,7 @@ function removeOption(selector){
 					<center>\
 						<input type='button' class='btnGuardarRadio btn btn-sm btn-success btnAddCot' value='Guardar' />\
 						<button class='DeleteRadio btn btn-sm btn-danger'>Eliminar</button>\
+						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
 					</center>\
 				</td>";
 				//console.log(newtr);
@@ -161,9 +178,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_radio",
 			type: "POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				idradio = tr.find(".inputRadioId").val();
 				data = jQuery.parseJSON(datos);//convirtiendo datos
+				$(".cont-loading").css("display","none");	
 				newtr = "\
 						<td style='display:none'>\
 							<input name='txtidRadio' value='"+idradio+"' class='inputRadioId'>\
@@ -187,8 +209,13 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_precio",
 			type: 		"POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: 	function(datos){
 				data = jQuery.parseJSON(datos);
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -224,6 +251,7 @@ function removeOption(selector){
 					<center>\
 						<input type='button' class='btnGuardarPrecio btn btn-sm btn-success btnAddCot' value='Guardar' />\
 						<button class='DeletePrecio btn btn-sm btn-danger'>Eliminar</button>\
+						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
 					</center>\
 				</td>";
 				//console.log(newtr);
@@ -236,9 +264,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_precio",
 			type: "POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				idprecio = tr.find(".inputPrecioId").val();
 				data = jQuery.parseJSON(datos);//convirtiendo datos
+				$(".cont-loading").css("display","none");
 				newtr = "\
 						<td style='display:none'>\
 							<input name='txtidprecio' value='"+idprecio+"' class='inputPrecioId'>\
@@ -262,9 +295,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/insert_servicio",
 			type: 	"POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success:    function(datos) {
 				// agregar el elemento a la tabla
 				data = jQuery.parseJSON(datos);//convertimos los datos
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -301,6 +339,7 @@ function removeOption(selector){
 						<center>\
 							<input type='button' class='btnGuardarServi btn btn-sm btn-success btnAddCot' value='Guardar' />\
 							<button class='DeleteServi btn btn-sm btn-danger'>Eliminar</button>\
+							<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
 						</center>\
 					</td>";
 			tr.empty().append(newtr);
@@ -312,9 +351,14 @@ function removeOption(selector){
 			},
 			url: getBaseURL() + "index.php/catalogosc/catalogosc/update_servicio",
 			type: "POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				idServi = tr.find(".inputServId").val();
 				data = jQuery.parseJSON(datos);//convirtiendo datos
+				$(".cont-loading").css("display","none");
 				newtr = "\
 						<td style='display:none'>\
 							<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
@@ -339,9 +383,14 @@ function removeOption(selector){
 			},
 			url:  getBaseURL() + "index.php/catalogosc/catalogosc/insert_cliente",
 			type: 	"POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				console.log(datos);
 				data = jQuery.parseJSON(datos);
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -365,6 +414,7 @@ function removeOption(selector){
 					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
 					//console.log(frm);
 					$(".vaciarinput").val("");
+					$("#addprod option").remove();
 					// para input .val("") val()
 					// para divs .empty() text()
 				}
@@ -372,7 +422,6 @@ function removeOption(selector){
 		});
 	}
 	function createEditCliente (idcliente,tr) {
-		
 		$.ajax({
 			data:{
 				id: JSON.stringify(idcliente)
@@ -393,7 +442,7 @@ function removeOption(selector){
 					<input name='txtApellido' class='txtApellido form-control' value='"+data.razonsocial+"'>\
 				</td></tr>\
 				<tr><td>NIT:</td><td>\
-					<input name='txtNIT' class='txtNIT form-control SoloNumero NumNit' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
+					<input name='txtNIT' class='txtNIT form-control NumNit' pattern='\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
 				</td>\
 				<td>NRC</td><td>\
 					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"' placeholder='000000-0'>\
@@ -402,7 +451,7 @@ function removeOption(selector){
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
 				</td>\
 				<td>Telefono</td><td>\
-					<input name='txtTelefono' class='txtTelefono form-control NumTelefono SoloNumero' value='"+data.telefono+"'>\
+					<input name='txtTelefono' class='txtTelefono form-control NumTelefono' pattern='\d{4}[\-]{1}\d{4}' value='"+data.telefono+"'>\
 				</td></tr>\
 				<tr><td>Contacto</td><td>\
 					<input name='txtContacto' class='txtContacto form-control' value='"+data.contacto+"'>\
@@ -412,7 +461,14 @@ function removeOption(selector){
 				</td></tr>\
 				<tr><td>Titulo de Contacto</td><td>\
 					<input name='txtTitulo' class='txtTitulo form-control' value='"+data.titulo+"'>\
+				</td>\
+				<td>Giro</td><td>\
+					<input name='txtGiro' class='txtGiro form-control' value='"+data.giro+"'>\
 				</td></tr>\
+				<tr>\
+				<td>Categoria</td>\
+				<td><select name='cat' class='input-sm cat form-control ' required>"+data.cat+"</select></td>\
+				</tr>\
 				<tr><td colspan='2'>\
 					<center>\
 						<input type='button' class='btnGuardarCliente btn btn-m btn-success btnAddCot' value='Guardar' />\
@@ -440,7 +496,9 @@ function removeOption(selector){
 			type: "POST",
 			success: function(datos) {
 				idcliente = tr.find(".inputClienteId").val();
+				console.log(datos);
 				data = jQuery.parseJSON(datos);//convirtiendo datos
+				console.log(data);
 				newtr = "\
 						<td style='display:none'>\
 							<input name='txtidRadio' value='"+idcliente+"' class='inputClienteId'>\
@@ -456,7 +514,6 @@ function removeOption(selector){
 						<td>\
 							<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
 						</td>";//creamos el nuevo fila
-
 				$(".modificar").empty().append(newtr);
 				//console.log(datos);
 			}
@@ -470,8 +527,13 @@ function removeOption(selector){
 			},
 			url:  getBaseURL() + "index.php/usuario/usuarioc/insert_user",
 			type: 	"POST",
+			beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 			success: function(datos) {
 				data = jQuery.parseJSON(datos);
+				$(".cont-loading").css("display","none");
 				if (data.estado == false) {
 					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 				}else if(data.estado == true){
@@ -511,6 +573,7 @@ function removeOption(selector){
 				<td colspan='2'>\
 					<input type='button' class='btnGuardarUser btn btn-sm btn-success btnAddCot' value='Guardar' />\
 					<button class='DeleteUser btn btn-sm btn-danger'>Eliminar</button>\
+					<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
 				</td>";
 				//console.log(idcliente,nombre,apellido);
 				tr.empty().append(newtr);
@@ -522,9 +585,14 @@ function removeOption(selector){
 				},
 				url: getBaseURL() + "index.php/usuario/usuarioc/update_user",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					iduser = tr.find(".inputUserID").val();
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					newtr = "\
 						<td style='display:none'>\
 							<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
@@ -545,8 +613,13 @@ function removeOption(selector){
 				},
 				url: getBaseURL() + "index.php/usuario/usuarioc/delete_user",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -573,6 +646,7 @@ function createEditFirma (tr) {
 				</td>\
 				<td>\
 					<input type='button' class='btnGuardarFirma btn btn-m btn-success btnAddCot' value='Guardar' />\
+					<button class='btn btn-m btn-success limpiar'>Cancelar</button>\
 				</td>";
 				tr.empty().append(newtr);
 	//console.log("id-> ",iduser,user);
@@ -588,9 +662,14 @@ function createEditFirma (tr) {
 				},
 				url: getBaseURL() + "index.php/catalogosc/catalogosc/delete_programa",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					//console.log(datos);
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -616,8 +695,13 @@ function createEditFirma (tr) {
 				},
 				url: getBaseURL() + "index.php/radiosc/radiosc/delete_radio",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -639,8 +723,13 @@ function createEditFirma (tr) {
 				},
 				url: getBaseURL() + "index.php/preciosc/preciosc/delete_precio",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -663,8 +752,13 @@ function createEditFirma (tr) {
 				},
 				url: getBaseURL() + "index.php/servicioc/servicioc/delete_servicio",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -686,8 +780,13 @@ function createEditFirma (tr) {
 				},
 				url: getBaseURL() + "index.php/clientesc/clientesc/delete_cliente",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					if (data.estado == false) {
 						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
 					}else if(data.estado == true){
@@ -710,9 +809,14 @@ function saveFirma (frm, tr) {
 				},
 				url: getBaseURL() + "index.php/usuario/perfilc/updatefirma",
 				type: "POST",
+				beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 				success: function(datos) {
 					iduser = tr.find(".InputIdUser").val();
 					data = jQuery.parseJSON(datos);//convirtiendo datos
+					$(".cont-loading").css("display","none");
 					newtr = "\
 						<td style='display:none'>\
 							<input name='txtIdUser' value='"+iduser+"' class='InputIdUser'>\
@@ -737,8 +841,13 @@ function saveFirma (frm, tr) {
 						},
 						url: getBaseURL() + "index.php/usuario/roluserc/asignaRol",
 						type: "POST",
+						beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
 						success: function(datos) {
 							var data = jQuery.parseJSON(datos);//convirtiendo datos
+							$(".cont-loading").css("display","none");
 							if(data==true){
 								alertify.success("Los roles han sido asignados con exito");
 					              setTimeout(function() {
@@ -756,6 +865,24 @@ function saveFirma (frm, tr) {
 
 
 
+		function getCat(){
+			$.ajax({
+						url: getBaseURL() + "index.php/clientesc/clientesc/getCat",
+						success: function(datos) {
+							console.log(datos);
+							var data = jQuery.parseJSON(datos);//convirtiendo datos
+							console.log(data);
+							option = "";
+							jQuery(data).each(function(i,val){
+								option +="<option value='"+val.cat_id+"'>"+val.cat_categoria+"</option>";
+							});
+
+							$(".cat").empty().append(option);
+
+						}
+					});	
+		}
+
 
 //funcion q retorna el mensaje para delete catalogos
 function Serializar (tr) {
@@ -763,6 +890,3 @@ function Serializar (tr) {
 	frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
 	return frm;
 }
-
-
-

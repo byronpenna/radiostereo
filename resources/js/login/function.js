@@ -9,8 +9,10 @@ function login(frm){
          },
          url:  getBaseURL()+"index.php/welcome/obtenerDatosLogin",
          type:   "POST",
+
          success: function(data){
            var datos = jQuery.parseJSON(data);
+           
             if(datos.validacion==true){
           	 $('#hide').fadeOut( "fast",function(){
           		window.location="main/main";	

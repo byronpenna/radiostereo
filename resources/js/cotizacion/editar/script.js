@@ -27,12 +27,21 @@
         getEstadoCot(frmGlobal);
     });
 
+
+    $(document).on("click",".fc-event",function(){
+        console.log("has dado click en el evento");
+        $(".txtEvents").each(function(i,val){
+            // console.log("valor de eventos",stt);
+            
+        });
+        
+    });
+
     //obtener datos de cotizacion para editar
     $(document).on("click","#editCot",function(){
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         valHeader = validarCotizacion($(".headerCot :input"));
-
         if(valHeader.estado){
             var secCot  = [];
             $(".conProgra").each(function(i,val){
@@ -44,9 +53,11 @@
             // console.log("eventos ",seccc.length);
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-
+            scrollTop();
             // console.log(frmGlobal);
-            editCotizacion(frmGlobal);
+            setTimeout(function() {
+                    editCotizacion(frmGlobal);
+                }, 1000);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;

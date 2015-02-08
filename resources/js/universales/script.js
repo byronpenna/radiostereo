@@ -7,10 +7,13 @@ $(document).ready(function(){
     
 
     //Recargar pagina
-    $("#limpiar").click(function(){
+    $(document).on("click","#limpiar",function(){
         location.reload();
     });
     
+    $(document).on("click",".limpiar",function(){
+        location.reload();
+    });
 
 
 	$(document).on('submit','#frmLogout',function(e){
@@ -39,6 +42,7 @@ $(document).ready(function(){
 
 
 	$(document).on("keypress",".SoloNumero",function(e){//evento para validar si es un numero
+        console.log("estoy adentro");
 		el 			= $(this).val();
 		exp 		= /[0-9]/;
 		caracter 	=getCharFromEvent(e);
@@ -117,41 +121,65 @@ $(document).ready(function(){
 
     //validar numero telefonico
         $(document).on("keypress",".NumTelefono",function(e){
+            var telVal = $(this).val()
+
+            if($(this).val().length == 4) {
+                $(this).val(telVal + "-");
+            } 
             //console.log($(this).val().length);
-            if($(this).val().length >= 8){
+            if($(this).val().length >= 9){
                 e.preventDefault();
             }
         });
          $(document).on("blur",".NumTelefono",function(e){
             //console.log($(this).val().length);
-            if($(this).val().length < 8){
+            if($(this).val().length < 9){
                 alertify.error("Advertencia: El campo Telefono debe contener 8 dígitos exactos");
             }
         });
+
+
     //validar numero nit
         $(document).on("keypress",".NumNit",function(e){
-            //console.log($(this).val().length);
-            if($(this).val().length >= 14){
+            var nitVal = $(this).val();
+                                    
+            if ($(this).val().length == 4) {
+                $(this).val(nitVal + "-");
+            };
+            if ($(this).val().length == 11) {
+                
+                $(this).val(nitVal + "-");
+            };
+            if ($(this).val().length == 15) {
+                $(this).val(nitVal + "-");
+            };
+
+
+
+            if($(this).val().length >= 17){
                 e.preventDefault();
             }
         });
         $(document).on("blur",".NumNit",function(e){
-            //console.log($(this).val().length);
-            if($(this).val().length < 14){
-                alertify.error("Advertencia: El campo NIT debe contener 14 dígitos exactos");
+            if($(this).val().length < 17){
+                alertify.error("Advertencia: El campo NIT debe contener sus dígitos exactos");
             }
         });
     //validar numero nrc
         $(document).on("keypress",".NumNrc",function(e){
-            //console.log($(this).val().length);
-            if($(this).val().length >= 7){
+            var NRCVal = $(this).val();
+            if($(this).val().length == 6){
+                $(this).val(NRCVal + "-");
+            }
+            
+            if($(this).val().length >= 8){
                 e.preventDefault();
             }
         });  
         $(document).on("blur",".NumNrc",function(e){
-            //console.log($(this).val().length);
-            if($(this).val().length < 7){
+            if($(this).val().length < 8){
                 alertify.error("Advertencia: El campo NRC debe contener 7 dígitos exactos");
             }
         });
+
 });

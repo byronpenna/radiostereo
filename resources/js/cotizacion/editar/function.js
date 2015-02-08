@@ -6,9 +6,13 @@
          },
          url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/recibeDatosEdit",
          type:   "POST",
+         beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
          success: function(data){
-          console.log(data);
            var datos = jQuery.parseJSON(data);
+           $(".cont-loading").css("display","none");
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
               alertify.success("Datos Editados Correctamente");
                setTimeout(function() {
@@ -33,10 +37,15 @@
          },
          url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/getEstadoCot",
          type:   "POST",
+         beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
          success: function(data){
             var datos = jQuery.parseJSON(data);
-            if(datos.est_id==3 || datos.est_id==4 || datos.est_id==5){
-              alertify.alert("Esta cotización esta "+datos.est_estado+" por lo tanto no se puede editar");
+            $(".cont-loading").css("display","none");
+            if(datos.est_id==3 || datos.est_id==4){
+              alertify.alert("Esta cotización esta <b>"+datos.est_estado+"</b> por lo tanto no se puede editar");
             }
           }
      });

@@ -4,6 +4,8 @@
 	<?php 
 		$this->load->view("estructura/head.php");
 	?>
+    <script src="<?php echo base_url('resources/js/cotizacion/listaCotizacion/function.js')?>" type="text/javascript" ></script><!--filtro busqueda-->
+    <script src="<?php echo base_url('resources/js/cotizacion/listaCotizacion/script.js')?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<?php 
@@ -35,6 +37,7 @@
                         <th>Razon Social</th>
                         <th>NIT</th>
                         <th>Fecha Creación</th>
+                        <th>Estado</th>
                         <th><center>Acción</center></th>
                     </tr>
                 </thead>
