@@ -36,9 +36,11 @@ $mipdf->SetMargins(15, 10, 15);
 
 //Encabezado  Cliente
 $mipdf->ln(1); 
-$mipdf->Cell(180, 6, utf8_decode("CLIENTE:    " /*. $datosEnc['nombres']*/), 0 , 1);
-$mipdf->Cell(180, 6, utf8_Decode("PRODUCTO: " /*. $datosEnc['producto']*/), 0 , 1);
-$mipdf->Cell(180, 6, "PERIODO: ", 0 , 1);
+foreach ($encFre as $key => $value) {
+$mipdf->Cell(180, 6, utf8_decode("CLIENTE:    " . $value->cli_nombres ), 0 , 1);
+$mipdf->Cell(180, 6, utf8_Decode("PRODUCTO: " . $value->pro_nomb_producto), 0 , 1);
+$mipdf->Cell(180, 6, "PERIODO: Del " . date("d/m/Y",strtotime($value->enc_fecha_inicio))  . " al " . date("d/m/Y",strtotime($value->enc_fecha_fin)) , 0 , 1);
+}
 
 $mipdf->ln(10);
 $mipdf->Cell(40, 6, "", 0, 0);
@@ -114,14 +116,13 @@ $conSubtotal = round($conSubtotal * 1.13, 2);
 $mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
 $mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
 $mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
-$mipdf->Cell(15, 6, $conCant , 1 , 0, 'C');
-$mipdf->Cell(170, 6, utf8_decode(""), 1, 1, 'C');
+$mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
 
-//espacio en blanco
+/*//espacio en blanco
 $mipdf->Cell(40, 6, "", 1, 0, 'C');
 $mipdf->Cell(20, 6, "", 'LRB' , 0, 'C');
 $mipdf->Cell(25, 6, "", 'LRB' , 0, 'C');
-$mipdf->Cell(15, 6, "" , 1 , 1, 'C');
+$mipdf->Cell(15, 6, "" , 1 , 1, 'C');*/
 
 
 

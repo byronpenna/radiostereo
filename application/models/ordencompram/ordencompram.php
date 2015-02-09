@@ -329,6 +329,20 @@ class Ordencompram extends CI_Model{
 
 	}
 
+	function encFre($id){
+		$sql = $this->db->query("SELECT
+			cli_nombres, cli_razon_social,
+			enc_fecha_fin, pro_nomb_producto,
+			enc_fecha_inicio
+		FROM ( ( cot_encabezado_cotizacion
+				LEFT JOIN cli_cliente ON cot_cli_id = cli_id )
+				LEFT JOIN enc_encabezado_bloque ON enc_cot_id = cot_id )
+				LEFT JOIN pro_producto ON cot_pro_id = pro_id
+		WHERE enc_id =" . $id);
+		$sql = $sql->result();
+		return $sql;
+	}
+
 
 
 //Frecuencias

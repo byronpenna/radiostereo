@@ -50,6 +50,7 @@ class ordencompra extends padre
 			$data['fechaFrec'] = $this->ordenCompraModel->fechaFre($id);
 			$data['fechaDia'] = $this->ordenCompraModel->fechaDia($id);
 			$data['fechaMes'] = $this->ordenCompraModel->fechaMes($id);
+			$data['encFre'] = $this->ordenCompraModel->encFre($id);
 			$this->load->view("fpdf/fpdf");
 			$this->load->view("ordencomprav/ReporteOrdenCompra/reporteFrecuencias", $data);		
 	}
