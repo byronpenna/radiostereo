@@ -12,7 +12,7 @@
         $this->load->view("estructura/menu.php");
     ?>
 	<section class="container" id="contenedorClientes">
-    <h3>Crear Cotizacion</h3>
+    <h3>Crear Cotizacion </h3>
     <hr id="hr">
     	<section id="mainCot">
     		<article id="cotHeader" class="headerCot">

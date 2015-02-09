@@ -11,16 +11,14 @@
 	<?php 
 		$this->load->view("estructura/menu.php");
 	?>
-	<section class="container" style="background:orange;">
-		<article class="text-center">
-			<?= $res->titulo ?><br>
-			<?= $res->programa ?>
-		</article>
-		<br>
-		<table class='table table-responsive 'border=1 width="100%"> 
-			<?= $res->tabla ?>
-		</table>
-		<button class='btnGuardar'>Guardar</button>
+	<section class="container">
+		<div class="panel panel-primary">
+		  <div class="panel-heading text-center"><h2> <?= $res->titulo ?><br><small><?= $res->programa ?></small></h2></div>
+			<table class='table table-responsive table-bordered'border=1 width="100%"> 
+				<?= $res->tabla ?>
+			</table>
+			<div class="text-right"><button class='btnGuardar btn btn-success'>Guardar</button></div>
+		</div>
 	</section>
 </body>
 </html>

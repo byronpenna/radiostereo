@@ -5,8 +5,13 @@ function obtenerDatosAprobados(frm){
          },
          url:  getBaseURL()+"index.php/cotizacionesc/cotizacionesc/recibeAprobados",
          type:   "POST",
+         beforeSend: function(){
+          // cargando
+          $(".cont-loading").css("display","block");
+          },
          success: function(data){
            var datos = jQuery.parseJSON(data);
+           $(".cont-loading").css("display","none");
            if(datos.res==true){
             if(datos.contador<=1){
               alertify.success("Se ha Aprobado <b>"+datos.contador+"</b> cotizacion seleccionada");

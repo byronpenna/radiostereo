@@ -34,8 +34,8 @@
 				<td >
 					<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
 					<td>
-						<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
-						<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
+						<input type="button" name="" class='btnActionMultiple btn btn-primary btn-sm' direccion='1' value=">" id="addP">
+						<input type="button" name="" class='btnActionMultiple btn btn-primary btn-sm' direccion='0' value="<" id="delP">
 					</td>
 					<td width="1100px">
 						<select name="selprod" multiple="multiple" size="10" id="addprod">
@@ -58,15 +58,15 @@
 				</tr>
 				<tr>
 					<td><label for="NRC">NRC:</label></td>
-					<td><input type="text" name="txtNRC" id='txtNRC' class="vaciarinput SoloNumero form-control NumNrc" placeholder="000000-0" required /></td>
+					<td><input type="text" name="txtNRC" id='txtNRC' pattern='\d{6}[\-]{1}\d{1}' class="vaciarinput form-control NumNrc SoloNumero" placeholder="000000-0" required /></td>
 					<td class="espacio"><label for="NIT">NIT:</label></td>
-					<td><input type="text" name="txtNIT" id='txtNIT' class="vaciarinput SoloNumero form-control NumNit" placeholder="0000-000000-000-0" required /></td>
+					<td><input type="text" name="txtNIT" id='txtNIT' pattern="\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}" class="vaciarinput SoloNumero form-control NumNit"  placeholder="0000-000000-000-0" required /></td>
 				</tr>
 				<tr>
 					<td><label for="Direccion">Dirección:</label></td>
 					<td><input type="text" name="txtDireccion" id='txtDireccion' class="vaciarinput form-control" required /></td>
 					<td class="espacio"><label for="Telefono">Telefono:</label></td>
-					<td><input type="text" name="txtTelefono" id='txtTelefono' class="vaciarinput SoloNumero form-control NumTelefono" placeholder="0000-0000" required /></td>
+					<td><input type="text" name="txtTelefono" id='txtTelefono' pattern="\d{4}[\-]{1}\d{4}" class="vaciarinput form-control NumTelefono SoloNumero" placeholder="0000-0000" required /></td>
 				</tr>
 				<tr>
 					<td><label for="Contacto">Contacto:</label></td>
@@ -77,6 +77,12 @@
 				<tr>
 					<td><label for="Contacto">Titulo de Contacto:</label></td>
 					<td><input type="text" name="txtTitulo" id='txtTitulo' class="vaciarinput form-control" placeholder="Ej:Ingeniero" required /></td>
+					<td class="espacio"><label for="txtGiro">Giro:</label></td>
+					<td><input type="text" name="txtGiro" id="txtGiro" class="vaciarinput form-control" placeholder="Ej: Actividades Financieras" required /></td>
+				</tr>
+				<tr>
+					<td><label for="Categoria">Categoria : </label></td>
+					<td><select name="cat" class=" cat form-control selectBlanco" required></select></td>
 				</tr>
 				<tr style='display:none'>
 					<td><label for="iduser">Id Usuario:</label></td>
@@ -97,8 +103,8 @@
 				<td >
 					<input type="text" name="prod" value="" placeholder="Escribir Producto" id="inprod"></td>
 					<td>
-						<input type="button" name="" class='btnActionMultiple' direccion='1' value=">" id="addP">
-						<input type="button" name="" class='btnActionMultiple' direccion='0' value="<" id="delP">
+						<input type="button" name="" class='btnActionMultiple btn btn-primary btn-sm' direccion='1' value=">" id="addP">
+						<input type="button" name="" class='btnActionMultiple btn btn-primary btn-sm' direccion='0' value="<" id="delP">
 					</td>
 					<td width="1100px">
 						<select name="selprod" multiple="multiple" size="10" id="addprod">

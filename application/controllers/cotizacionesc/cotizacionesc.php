@@ -49,6 +49,7 @@
 			$data->botones			= 	$Cotizacionesm->getBotones($idCot);
 			$datos['Titulo']		=	"Editando Cotizacion | Grupo Radio Stereo";
 			$datos['data']			=	$data;
+			$datos['idCot']			= $idCot;
 			$this->load->view('cotizacion/cotizacionesv/editarCot', $datos);
 		}
 
@@ -71,11 +72,12 @@
 			echo json_encode($retorno);
 		}
 
-		public function eliminarCotizacion($idCot){
+		public function eliminarCotizacion(){
+			$id  = $_POST['id'];
 			$this->load->model("cotizacionesm/cotizacionesm");
 			$cotizacionm = new cotizacionesm();
-			$cotizacionm->eliminarCot($idCot);
-			$this->index();
+			$res  = $cotizacionm->eliminarCot($id);
+			echo json_encode($res);
 		}
 
 

@@ -48,3 +48,8 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+
+<article class="cont-loading">
+      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate loading"></span>
+</article>

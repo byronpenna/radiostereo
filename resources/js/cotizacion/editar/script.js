@@ -24,7 +24,33 @@
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         frmGlobal.headerCot = headerCot;
-        getEstadoCot(frmGlobal);
+        scrollTop();
+            // console.log(frmGlobal);
+            setTimeout(function() {
+                    getEstadoCot(frmGlobal);
+                }, 1000);
+        
+    });
+
+
+    $(document).on("click",".fc-event",function(){
+        td      = $(this).parents("td");
+        console.log("has dado click en el evento",td.index());
+        tabla   = $(this).parents(".fc-content-skeleton");
+        console.log(tabla.attr("class")) ;
+        valor = tabla.find(".fc-day-number").eq(td);
+        console.log("valor",valor);
+        
+
+
+        
+        /*
+        $(".calendar").fullCalendar('removeEvents',"2015-02-10");
+        $(".txtEvents").each(function(i,val){
+            // console.log("valor de eventos",stt);
+            
+        });*/
+        
     });
 
     //obtener datos de cotizacion para editar
@@ -32,7 +58,6 @@
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         valHeader = validarCotizacion($(".headerCot :input"));
-
         if(valHeader.estado){
             var secCot  = [];
             $(".conProgra").each(function(i,val){
@@ -44,9 +69,11 @@
             // console.log("eventos ",seccc.length);
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-
-            // console.log(frmGlobal);
-            editCotizacion(frmGlobal);
+            scrollTop();
+            console.log(frmGlobal);
+            setTimeout(function() {
+                    editCotizacion(frmGlobal);
+                }, 1000);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;
