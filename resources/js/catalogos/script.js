@@ -242,7 +242,7 @@ $(document).ready(function () {
 
 				console.log("formulario",frm);
                 saveEditCliente(frm,tr);
-				location.reload();
+				// location.reload();
 				$(".popup").hide();//ocultar div;
 				$(".popup").bPopup({//codigo para el popup
 			        closeClass:'.btnGuardarCliente',

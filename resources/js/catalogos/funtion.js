@@ -478,8 +478,9 @@ function removeOption(selector){
 				";
 				//tr.empty().append(newtr);
 				opciones = "";
+				console.log("los productos son: ",data.productos);
 				$.each(data.productos,function(i,val){
-					opciones += "<option value='"+val.pro_nomb_producto+"'>"+val.pro_nomb_producto+"</option>";
+					opciones += "<option value='"+val.pro_id+"'>"+val.pro_nomb_producto+"</option>";
 				});
 				$(".modalContenedorMultiple").find("#addprod").empty().append(opciones);
 				$(".modificar").empty().append(newtr);

@@ -138,6 +138,27 @@
 			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform, $tabla);
 			echo json_encode($mensaje);
 		}
+		public function deleteProductosForUpdate($idCliente,$productos){
+			$sql = "DELETE FROM pro_producto WHERE pro_cli_id = ".$idCliente." and pro_id not in (".$productos.")  ";
+			echo $sql;
+			$this->db->trans_start();
+				$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			return $query;
+		}
+		public function updateProductosClientes($productos,$clienteId){
+			$txtProductos = "";
+			foreach ($productos as $key => $value) {
+				$valor = "'".$value."'";
+				if($key == 0){
+					$txtProductos = $valor ;
+				}else{
+					$txtProductos = ",".$valor;
+				}
+			}
+			$this->deleteProductosForUpdate($clienteId,$txtProductos);
+			
+		}
 		public function update_cliente()
 		{
 			//vars
@@ -145,15 +166,18 @@
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
 			$mensaje = $Catalogosm->update_clientedb($updatfrm);
-			$Catalogosm->deleteProductosClientes($updatfrm->txtidcliente);
-			$data = array();
-			foreach ($updatfrm->productos as $key => $value) {
-				$data[$key] = array(
-					'pro_cli_id' 		=> $updatfrm->txtidcliente, 
-					'pro_nomb_producto'	=> $value
-				);
-			}
-			$Catalogosm->insertCliente($data);
+			$this->updateProductosClientes($updatfrm->productos,$updatfrm->txtidcliente);
+
+			// $Catalogosm->deleteProductosClientes($updatfrm->txtidcliente);
+			// $data = array();
+			// foreach ($updatfrm->productos as $key => $value) {
+			// 	$data[$key] = array(
+			// 		'pro_cli_id' 		=> $updatfrm->txtidcliente, 
+			// 		'pro_nomb_producto'	=> $value
+			// 	);
+			// }
+
+			// $Catalogosm->insertCliente($data);
 			echo json_encode($mensaje);
 		}
 		public function get_Cliente()
