@@ -46,9 +46,10 @@ class ordencompra extends padre
 
 	public function printFrecuencia($id){
 			$data['id'] = $id;
-			//$data['datosEnc'] = $this->ordenCompraModel->getDatosCli($id);
-			//$data['detalleP'] = $this->ordenCompraModel->getDatosDetalle($id);
 			$data['dataServicio'] = $this->ordenCompraModel->getServicios($id);
+			$data['fechaFrec'] = $this->ordenCompraModel->fechaFre($id);
+			$data['fechaDia'] = $this->ordenCompraModel->fechaDia($id);
+			$data['fechaMes'] = $this->ordenCompraModel->fechaMes($id);
 			$this->load->view("fpdf/fpdf");
 			$this->load->view("ordencomprav/ReporteOrdenCompra/reporteFrecuencias", $data);		
 	}

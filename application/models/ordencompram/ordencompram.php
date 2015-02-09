@@ -1,6 +1,6 @@
 <?php 
-class Ordencompram extends CI_Model
-{
+class Ordencompram extends CI_Model{
+
 	public function __construct(){
 			parent:: __construct();
 	}
@@ -123,9 +123,9 @@ class Ordencompram extends CI_Model
 					$enca 	.= 	substr($fec->fec_fecha, 8,2)."</th>";
 				}
 				
-				$encaAnt = "<thead><tr class='success'><td><a href='".base_url("ordencompra/printFrecuencia/".$encabezado->enc_id."")."'><button class='btn-primary'>Imprimir</button></a></td>";
+				$encaAnt = "<thead><tr class='success'><td><a class='btn btn-block btn-success' target='_blank' href='".base_url("ordencompra/printFrecuencia/".$encabezado->enc_id."")."'><i class='glyphicon glyphicon-print'></i> Imprimir</a></td>";
 				foreach ($col as $key => $value) {
-					$encaAnt .= "<th colspan='".$value."' class='text-center'>".$this->getMonth(intval($key))."</th>";
+					$encaAnt .= "<th colspan='".$value."' class='text-center'>".$this->getMonth(intval($key)-1)."</th>";
 				}
 				$encaAnt 	.= "</tr>";
 				$res->tabla .= $encaAnt.$enca;
@@ -145,9 +145,9 @@ class Ordencompram extends CI_Model
 							$nombreDet = $radio[0]->rad_nombre;
 						}
 						$res->tabla.="<tr detalle='".$deta->det_id."'>
-								<td class='active col-sm-2'>Cantidad : <input type='text' class='Cantidad' disabled style='width:30%;' value='".$deta->det_cantidad."'><b>".$nombreDet."</b></td>";
+								<td class='active col-sm-2'><b>".$nombreDet."</b><br>Cantidad : <input type='text' class='Cantidad' disabled style='width:30%;' value='".$deta->det_cantidad."'></td>";
 								foreach ($fechas as $fec) {
-									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia SoloNumero' name='".$fec->fec_id."' style='width:100%;'/></td>";
+									$res->tabla.="<td><input detalle='".$deta->det_id."' type='text' class='txtFrecuencia SoloNumero' name='".$fec->fec_id."' style='width:100%; height:100%'/></td>";
 								}
 						$res->tabla.="</tr>";	
 					}
@@ -169,13 +169,16 @@ class Ordencompram extends CI_Model
 				cli_direccion, cli_telefono,
 				cli_correo, cot_valor_agregado,
 				tip_tipo, pro_nomb_producto, 
-				CURDATE() AS 'fechEmision'
-			FROM ( (
-						cot_encabezado_cotizacion
-						INNER JOIN cli_cliente ON cot_cli_id = cli_id
-					) INNER JOIN tip_tipo ON cot_tip_id = tip_id
-				) INNER JOIN pro_producto ON cot_pro_id = pro_id
-			WHERE cot_id =" . $idCot );
+				CURDATE() AS 'fechEmision',
+				cat_categoria
+			FROM
+				cot_encabezado_cotizacion
+			LEFT JOIN cli_cliente ON cot_cli_id = cli_id
+			LEFT JOIN cat_categoria_contribuyente ON cli_cat_id = cat_id
+			LEFT JOIN tip_tipo ON cot_tip_id = tip_id
+			LEFT JOIN pro_producto ON cot_pro_id = pro_id
+			WHERE
+				cot_id =" . $idCot );
 		foreach ($sql->result_array() as $datos) {
 			$retorno['nombres'] = $datos['cli_nombres'];
 			$retorno['contacto'] = $datos['cli_contacto'];
@@ -188,6 +191,7 @@ class Ordencompram extends CI_Model
 			$retorno['tipoPago'] = $datos['tip_tipo'];
 			$retorno['producto'] = $datos['pro_nomb_producto'];
 			$retorno['fechEmision'] = $datos['fechEmision'];
+			$retorno['categoria'] = $datos['cat_categoria'];
 		}
 
 		return $retorno;
@@ -240,7 +244,7 @@ class Ordencompram extends CI_Model
 				LEFT JOIN rad_radio  ON rad_id = det_rad_id
 				LEFT JOIN serv_servicio ON serv_id = det_serv_id
 				LEFT JOIN pre_precio ON det_pre_id = pre_id
-				where det_enc_id = ".$id." and det_pre_id > 0 and det_cantidad > 0;
+				where det_enc_id = ".$id." and det_pre_id > 0 and det_cantidad > 0
 				";
 		$this->db->trans_start();
 		$query  = $this->db->query($sql);
@@ -249,7 +253,11 @@ class Ordencompram extends CI_Model
 		return $query;
 	}
 	
-	function fechaFrec($encabezado,$idDetalle){
+	/*function fechaFrec($encabezado){
+		$encontrar= "SELECT  det_id FROM det_detalle_bloque WHERE det_enc_id = ". $encabezado ." AND det_pre_id > 0 AND det_cantidad > 0";
+		$encontrar= $this->db->query($encontrar);
+		
+
 		$sql = "SELECT fec_id,fec_fecha, 
 				(
 					Select frecuencia
@@ -259,19 +267,15 @@ class Ordencompram extends CI_Model
 				from fec_fechas
 				where fec_enc_id = ".$encabezado.";
 				";
-		// echo "la query es: ".$sql;
 		$this->db->trans_start();
 		$query  = $this->db->query($sql);
 		$this->db->trans_complete();
 		$query = $query->result();
 		return $query;	
-	}
+	} */
 	
-	function fecha($id){
-		$sql = "SELECT  fec_id,DAY(fec_fecha) dia 
-				from fec_fechas
-				where fec_enc_id = ".$id.";
-				";
+	function fechaDia($id){
+		$sql = "SELECT DAY(fec_fecha) AS 'dia', MONTH(fec_fecha) AS 'mes' FROM fec_fechas WHERE fec_enc_id = ".$id;
 		$this->db->trans_start();
 		$query  = $this->db->query($sql);
 		$this->db->trans_complete();
@@ -280,6 +284,54 @@ class Ordencompram extends CI_Model
 
 	}
 
+	function fechaMes($id){
+		$sql = "SELECT DISTINCT
+		CASE
+			WHEN MONTH (fec_fecha) = 1 THEN
+				'Enero'
+			WHEN MONTH (fec_fecha) = 2 THEN
+				'Febrero'
+			WHEN MONTH (fec_fecha) = 3 THEN
+				'Marzo'
+			WHEN MONTH (fec_fecha) = 4 THEN
+				'Abril'
+			WHEN MONTH (fec_fecha) = 5 THEN
+				'Mayo'
+			WHEN MONTH (fec_fecha) = 6 THEN
+				'Junio'
+			WHEN MONTH (fec_fecha) = 7 THEN
+				'Julio'
+			WHEN MONTH (fec_fecha) = 8 THEN
+				'Agosto'
+			WHEN MONTH (fec_fecha) = 9 THEN
+				'Septiembre'
+			WHEN MONTH (fec_fecha) = 10 THEN
+				'Octubre'
+			WHEN MONTH (fec_fecha) = 11 THEN
+				'Noviembre'
+			WHEN MONTH (fec_fecha) = 12 THEN
+				'Diciembre'
+		END AS 'mes', MONTH(fec_fecha) AS 'mesN', COUNT(fec_fecha) as contada
+		FROM fec_fechas
+		WHERE fec_enc_id =".$id . " GROUP BY MONTH(fec_fecha)";
+		$this->db->trans_start();
+		$query  = $this->db->query($sql);
+		$this->db->trans_complete();
+		$query = $query->result();
+		return $query;	
+	}
+
+	function fechaFre($id){
+		$sql = $this->db->query("SELECT frecuencia, id_detalle, DAY(fec_fecha) AS 'dia'
+				FROM fec_fechas LEFT JOIN frec_fecuencia ON id_fecha = fec_id WHERE fec_enc_id =" . $id);
+		$sql = $sql->result();
+		return $sql;
+
+	}
+
+
+
+//Frecuencias
 
 	function queryFrecuencia($enc,$det,$fec){
 		$sql="SELECT  * FROM frec_fecuencia
@@ -308,3 +360,5 @@ class Ordencompram extends CI_Model
 	}
 
 }
+
+?>

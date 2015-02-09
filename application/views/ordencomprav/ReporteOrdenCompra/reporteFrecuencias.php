@@ -42,15 +42,46 @@ $mipdf->Cell(180, 6, "PERIODO: ", 0 , 1);
 
 $mipdf->ln(10);
 $mipdf->Cell(40, 6, "", 0, 0);
-$mipdf->Cell(80, 6, "", 'TLB', 0, 'C');
-$mipdf->Cell(150, 6 , "las fechas", 'RTB' ,1 , 'C');
+$mipdf->Cell(60, 6, "", 'TBL', 0, 'C');
+
+//Calcular el espacio para los meses además de escribirlos
+$i = 0;
+$diasT = 0;
+foreach ($fechaMes as $key => $value) {
+	$numDias[$i] = $value->contada;
+	$mes[$i] = $value->mes;
+	$mesN[$i] = $value->mesN;
+	$i++;
+}
+
+$espacio = 170; //Cantidad de px que uso
+
+for ($j=0; $j < $i ; $j++) { 
+	$ocupar[$j] = $espacio/$i;
+	$mipdf->Cell( $ocupar[$j] , 6, $mes[$j], 'TBR', 0 , 'C');
+}
+$mipdf->ln();
 
 
+//Segunda linea
 $mipdf->Cell(40, 6, "Radios", 1, 0, 'C');
-$mipdf->Cell(25, 6, utf8_decode("Costo Por Cuña"), 1 , 0, 'C');	
-$mipdf->Cell(30, 6, utf8_decode("Inversión Paquete") , 1 , 0, 'C');
-$mipdf->Cell(25, 6, utf8_decode("Total Cuñas"), 1 , 0, 'C');
-$mipdf->Cell(150, 6, utf8_decode("estas | son | las | fechas| 05 |  06 |"), 1, 1, 'C');
+$mipdf->Cell(20, 6, utf8_decode("Costo"), 1 , 0, 'C');	
+$mipdf->Cell(25, 6, utf8_decode("Paquete") , 1 , 0, 'C');
+$mipdf->Cell(15, 6, utf8_decode("Cantidad"), 1 , 0, 'C');
+
+$h = 0;
+foreach ($fechaDia as $key => $value) {
+	for ($j=0; $j < $i ; $j++) { 
+		if ($value->mes == $mesN[$j]) {
+			$esDia[$h] = $ocupar[$j]/$numDias[$j];
+			$mipdf->Cell( $esDia[$h] , 6, $value->dia , 1, 0, 'C');
+			$diaP[$h] = $value->dia;
+		}	
+	}
+$h++;
+}
+$mipdf->ln();
+
 
 //Aqui van los datos
 $conCostoS= 0;
@@ -61,11 +92,18 @@ foreach ($dataServicio as $key => $value) {
 	$conSubtotal += $value->det_subtotal;
 	$conCant += $value->det_cantidad;
 	$mipdf->Cell(40, 6, utf8_decode($value->detalleServicio), 'LRT', 0, 'C');
-	$mipdf->Cell(25, 6, utf8_decode("$ ". $value->costoS), '1' , 0, 'C');
-	$mipdf->Cell(30, 6, utf8_decode("$ ". $value->det_subtotal) , '1' , 0, 'C');
-	$mipdf->Cell(25, 6, utf8_decode($value->det_cantidad), 1 , 0, 'C');
-	$mipdf->Cell(150, 6, utf8_decode(""), 1, 1, 'C');
-
+	$mipdf->Cell(20, 6, utf8_decode("$ ". $value->costoS), '1' , 0, 'C');
+	$mipdf->Cell(25, 6, utf8_decode("$ ". $value->det_subtotal) , '1' , 0, 'C');
+	$mipdf->Cell(15, 6, utf8_decode($value->det_cantidad), 1 , 0, 'C');
+	$id= $value->det_id;
+	foreach ($fechaFrec as $aa => $frec) {
+		for ($k=0; $k < $h ; $k++) { 
+			if ($id== $frec->id_detalle && $frec->dia == $diaP[$k]) {
+				$mipdf->Cell($esDia[$k], 6, $frec->frecuencia, 1, 0, 'C');
+			}
+		}	
+	}
+	$mipdf->ln();
 }
 
 
@@ -74,16 +112,16 @@ $conCostoS = round($conCostoS * 1.13, 2);
 $conSubtotal = round($conSubtotal * 1.13, 2);
 
 $mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
-$mipdf->Cell(25, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
-$mipdf->Cell(30, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, $conCant , 1 , 0, 'C');
-$mipdf->Cell(150, 6, utf8_decode(""), 1, 1, 'C');
+$mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
+$mipdf->Cell(15, 6, $conCant , 1 , 0, 'C');
+$mipdf->Cell(170, 6, utf8_decode(""), 1, 1, 'C');
 
 //espacio en blanco
 $mipdf->Cell(40, 6, "", 1, 0, 'C');
+$mipdf->Cell(20, 6, "", 'LRB' , 0, 'C');
 $mipdf->Cell(25, 6, "", 'LRB' , 0, 'C');
-$mipdf->Cell(30, 6, "", 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, "" , 1 , 1, 'C');
+$mipdf->Cell(15, 6, "" , 1 , 1, 'C');
 
 
 
