@@ -24,16 +24,32 @@
         frmGlobal   = new Object();
         headerCot = serializeToJson($(".headerCot :input").serializeArray());
         frmGlobal.headerCot = headerCot;
-        getEstadoCot(frmGlobal);
+        scrollTop();
+            // console.log(frmGlobal);
+            setTimeout(function() {
+                    getEstadoCot(frmGlobal);
+                }, 1000);
+        
     });
 
 
     $(document).on("click",".fc-event",function(){
-        console.log("has dado click en el evento");
+        td      = $(this).parents("td");
+        console.log("has dado click en el evento",td.index());
+        tabla   = $(this).parents(".fc-content-skeleton");
+        console.log(tabla.attr("class")) ;
+        valor = tabla.find(".fc-day-number").eq(td);
+        console.log("valor",valor);
+        
+
+
+        
+        /*
+        $(".calendar").fullCalendar('removeEvents',"2015-02-10");
         $(".txtEvents").each(function(i,val){
             // console.log("valor de eventos",stt);
             
-        });
+        });*/
         
     });
 
