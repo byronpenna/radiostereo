@@ -70,7 +70,7 @@
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
             scrollTop();
-            // console.log(frmGlobal);
+            console.log(frmGlobal);
             setTimeout(function() {
                     editCotizacion(frmGlobal);
                 }, 1000);

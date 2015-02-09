@@ -534,7 +534,6 @@
                     </article>
                     </article>
                 </article>
-                
 			';	
 			return $r;
 		}
@@ -711,7 +710,7 @@
 			}
 			return $r;
 		}
-
+		
 		public  function editarCotizacion($frm){
 			$header 		= 	$frm->headerCot;
 			$seccion 		= 	$frm->secCot;
@@ -736,15 +735,14 @@
 					}
 					$events = json_decode($valor->txtEvents);
 							if(count($events)>0){
+								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
 								for ($i=0; $i < count($events) ; $i++) {
-									$queryFechas = $this->getFechas($valor->txtIdEncabezado);
 									$resp = false;
-									foreach ($queryFechas as $row){
+									foreach ($queryFechas as $conta => $row){
 											if($row->fec_fecha==$events[$i]){
 												$resp=true;
 											}
 										}
-										// $this->delFechaBloq($valor->txtIdEncabezado,$events[$i]);
 										if($resp==false){
 											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
 										}
@@ -752,7 +750,6 @@
 							}else{
 								$retorno->fecha 	= true;
 							}
-							
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}

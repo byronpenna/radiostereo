@@ -11,6 +11,7 @@
           $(".cont-loading").css("display","block");
           },
          success: function(data){
+          console.log(data);
            var datos = jQuery.parseJSON(data);
            $(".cont-loading").css("display","none");
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
