@@ -25,6 +25,11 @@
 			$form = json_decode($_POST["form"]);
 			$this->load->model('catalogosm/catalogosm');
 			$Catalogosm = new Catalogosm();
+			if($_SESSION['rol']==1 || $_SESSION['rol']==3){
+				$usuid="";
+			}else{
+				$usuid=$form->txtIdUser;
+			}
 			$data = array(
 				'cli_nombres' 		=> $form->txtnombcliente,
 				'cli_razon_social' 	=> $form->txtapellido,
@@ -34,9 +39,11 @@
 				'cli_telefono'		=> $form->txtTelefono,
 				'cli_contacto'		=> $form->txtContacto,
 				'cli_correo'		=> $form->txtCorreo,
-				'cli_usu_id'		=> $form->txtIdUser,
+				'cli_usu_id'		=> $usuid,
 				'cli_titulo'		=> $form->txtTitulo,
-				'cli_giro'			=> $form->txtGiro
+				'cli_giro'			=> $form->txtGiro,
+				'cli_cat_id'		=> $form->cat,
+				'cli_fecha_acceso'  => date("Y-m-d")
 				);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			// agregar programas

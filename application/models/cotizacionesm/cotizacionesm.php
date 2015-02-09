@@ -12,7 +12,7 @@
 				$rolUsu = $this->db->select('rol_nombre')
 	    	->from('usu_usuario')
 	    	->join('rol_usuario', 'usu_rol_id = rol_id')
-	    	->where( array('usu_id' => $_SESSION['iduser'] ))    	
+	    	->where( array('usu_id' => $_SESSION['iduser'] ))	
 	    	->get()->row()->rol_nombre;
 				
 				if($rolUsu == "SuperAdministrador" || $rolUsu == "Administrador"){
@@ -103,7 +103,7 @@
 											$retorno .= " <a title='Registrar Frecuencias' href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'><i class='glyphicon glyphicon-log-in'></i></a>";
 										}
 										if($estado->est_estado == "Orden de Compra"){
-											$retorno .="<a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
 										}
 										$retorno .= "</td></tr>";
 				}
@@ -151,7 +151,6 @@
 									<td>".$row->cot_fecha_elaboracion."</td>
 									<td><center>
 										<a href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'>Reporte</a>
-										<a href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' class='btn btn-sm btn-primary'>Editar</a>
 										</center></td></tr>";
 				}
 			}else{
@@ -535,7 +534,6 @@
                     </article>
                     </article>
                 </article>
-                
 			';	
 			return $r;
 		}
@@ -574,7 +572,7 @@
 			$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
-			if($query[0]->cot_est_id == 3 || $query[0]->cot_est_id == 4 || $query[0]->cot_est_id == 5){
+			if($query[0]->cot_est_id == 3 || $query[0]->cot_est_id == 4){
 				$disabled="disabled";
 			}else{
 				$disabled='';
@@ -712,7 +710,7 @@
 			}
 			return $r;
 		}
-
+		
 		public  function editarCotizacion($frm){
 			$header 		= 	$frm->headerCot;
 			$seccion 		= 	$frm->secCot;
@@ -729,27 +727,29 @@
 					if($total > 0){
 						$calculo = $descuento/$total;
 						if($calculo  < 0.30 && $header->estado_cot==5){							
-							$this->updateEstadoCot($header->idCot);
+							$fl = $this->getFechas($valor->txtIdEncabezado);
+							if($fl){
+								$this->updateEstadoCot($header->idCot);
+							}
 						}
 					}
 					$events = json_decode($valor->txtEvents);
 							if(count($events)>0){
-								for ($i=0; $i < count($events) ; $i++) { 
-									$queryFechas = $this->getFechas($valor->txtIdEncabezado);
+								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
+								for ($i=0; $i < count($events) ; $i++) {
 									$resp = false;
-									foreach ($queryFechas as $row){
+									foreach ($queryFechas as $conta => $row){
 											if($row->fec_fecha==$events[$i]){
 												$resp=true;
 											}
 										}
 										if($resp==false){
 											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
-										}	
+										}
 								}
 							}else{
 								$retorno->fecha 	= true;
 							}
-							
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -805,6 +805,16 @@
 			return $res;
 		}
 
+		public function delFechaBloq($idBloq,$fecha){
+			$tabla		= array(
+				'fec_enc_id'	=> $idBloq,
+				'fec_fecha'		=> $fecha
+				);
+			$this->db->where($tabla);
+			$res = $this->db->delete('fec_fechas');
+			return $res;
+		}
+
 		public function editarHeaderCot($obj){
 			$tabla 			= array(
 				'cot_valor_agregado'	=> $obj->txtValorAgregado,
@@ -812,6 +822,9 @@
 				'cot_est_id'			=> $obj->estado_cot,
 				'cot_pro_id'			=> $obj->prod
 				);
+			$this->load->model("cotizacionm/cotizacionm");
+			$cotizacionm  = new cotizacionm();
+			$cotizacionm->updateFechaAcceso($obj->txtidCliente);
 			$this->db->where('cot_id',$obj->idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
 			return $res;
@@ -985,7 +998,7 @@
 		      		'.$cli->cli_titulo.'<br>
 					'.$cli->cli_contacto.'  <br>
 					'.$cli->cli_razon_social.' <br>
-					Presente <br> ';
+					Presente <br><br> ';
 					if(substr($cli->cli_titulo, -1)=="o" || substr($cli->cli_titulo, -2)=="or"){
 						$sal="Estimado";
 					}else{

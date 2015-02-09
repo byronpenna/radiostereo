@@ -34,7 +34,7 @@ function getCalendar(selector,fechaInicio,txtEvent){
 		eventos = new Array();
 		if(txtEvent.val() != ""){
 			tmpEv = jQuery.parseJSON(txtEvent.val());	
-			console.log("tmp",tmpEv);
+			// console.log("tmp",tmpEv);
 			$.each(tmpEv,function(i,val){
 				eventos[i] = new Object();
 				eventos[i] = {
@@ -48,7 +48,7 @@ function getCalendar(selector,fechaInicio,txtEvent){
 			tmpEv = new Array();
 		}
 		selector.fullCalendar("destroy");
-		console.log("Eventosooooo",eventos);
+		// console.log("Eventosooooo",eventos);
 		selector.fullCalendar({
 			windowResize: function(view) {
 	    		
@@ -73,6 +73,7 @@ function getCalendar(selector,fechaInicio,txtEvent){
 			eventClick: function(calEvent, jsEvent, view) {
 				start = calEvent.start.format('YYYY-MM-DD');
 				selector.fullCalendar('removeEvents',calEvent.start);
+				selector.fullCalendar('removeEvents',start);
 				index = tmpEv.indexOf(start);
 				tmpEv.splice(index,1);
 				txtEvent.val(JSON.stringify(tmpEv));
@@ -88,11 +89,22 @@ function getCalendar(selector,fechaInicio,txtEvent){
 					color: 	'#2B87CD'
 				};
 				eventosActuales = selector.fullCalendar("clientEvents",start);
+				eventosActualT 	= selector.fullCalendar("clientEvents");
+				// console.log("Todos los eventos son ",eventosActualT);
+				// console.log("fecha actual ",start);
 				// console.log("Los eventos actuales son:",eventosActuales);
+				// console.log("los eventos con index son:",selector.fullCalendar("clientEvents",index));
 				fecha = start.format("YYYY-MM-DD");
 				if(eventosActuales == ""){
-					selector.fullCalendar('renderEvent', eventData, true);
-					tmpEv.push(fecha);	
+					eventosActuales = selector.fullCalendar("clientEvents",index);
+					if(eventosActuales == ""){
+						selector.fullCalendar('renderEvent', eventData, true);
+						tmpEv.push(fecha);		
+					}else{
+						selector.fullCalendar('removeEvents',index);
+						index = tmpEv.indexOf(fecha);
+						tmpEv.splice(index,1);
+					}
 				}else{
 					selector.fullCalendar('removeEvents',start);
 					index = tmpEv.indexOf(fecha);

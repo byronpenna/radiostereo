@@ -4,7 +4,10 @@ $(document).on("click",".btnDelCot",function(){
 	mensaje = "Advertencia: Desea Eliminar la Cotizacion  ? "
 	alertify.confirm(mensaje,function(e) {
 		if (e) {
-			eliminarCot(id);
+			scrollTop();
+            setTimeout(function() {
+                    eliminarCot(id);
+                }, 1000);
 		}else{
 			location.reload();
 		}

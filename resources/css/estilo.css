@@ -152,6 +152,7 @@ body{
 #contenedorClientes{
   background:none;
   margin-top:-28px;
+  width: 90%;
 }
 #hr{
   margin-top:-5px;
@@ -471,7 +472,7 @@ textarea{
 .rolClientes div{
   display: inline-block;
   vertical-align: top;
-  width: 40%;
+  width: 45%;
   height: auto;
   margin-left: 40px;
 }
@@ -499,3 +500,44 @@ textarea{
 .pagination > li > span {
 background-color: #848484;
 }
+
+.cont-loading{
+  background: rgba(245,249,249,0.8);
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  display:none;
+  /*z-index:1000;*/
+}
+
+.loading{
+  margin-left:50%;margin-top:20%;
+  /*color:orange;*/
+  font-size: 2.5em;
+}
+
+.frn-group{
+  z-index:1;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .8s infinite linear;
+    -ms-animation: spin .8s infinite linear;
+    -webkit-animation: spinw .8s infinite linear;
+    -moz-animation: spinm .8s infinite linear;
+}
+ 
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+  
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+ 
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}

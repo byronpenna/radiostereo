@@ -49,6 +49,7 @@
 			$data->botones			= 	$Cotizacionesm->getBotones($idCot);
 			$datos['Titulo']		=	"Editando Cotizacion | Grupo Radio Stereo";
 			$datos['data']			=	$data;
+			$datos['idCot']			= $idCot;
 			$this->load->view('cotizacion/cotizacionesv/editarCot', $datos);
 		}
 
