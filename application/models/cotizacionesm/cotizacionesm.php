@@ -93,19 +93,25 @@
 									<td>" .$row->cli_nit. "</td>
 									<td>" .$row->cot_fecha_elaboracion."</td>
 									<td>". $estado->est_estado . "</td>
-									<td>
-										<a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
-										<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>";	
+									<td>";
+										if($estado->est_estado == "Orden de Compra"){
+											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+										}else{
+											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
+										}	
 										if(count($count)>0){
-											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i></a>";
+										}else{
+											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if($frec > 0){
 											$retorno .= " <a title='Registrar Frecuencias' href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'><i class='glyphicon glyphicon-log-in'></i></a>";
+										}else{
+											$retorno .= " <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-log-in'></i></a>";
 										}
-										if($estado->est_estado == "Orden de Compra"){
-											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
-										}
-										$retorno .= "</td></tr>";
+										$retorno .= " <a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
+																	<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>
+																	</td></tr>";
 				}
 			}else{
 				$retorno="Aun No ha generado ninguna cotizacion";
