@@ -96,7 +96,8 @@
 							'cli_correo'		=> $dato->txtCorreo,
 							'cli_titulo'		=> $dato->txtTitulo,
 							'cli_giro'			=> $dato->txtGiro,
-							'cli_cat_id'		=> $dato->cat
+							'cli_cat_id'		=> $dato->cat,
+							'cli_fecha_acceso' 	=> date("Y-m-d")
 							);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();

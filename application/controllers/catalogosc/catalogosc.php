@@ -42,7 +42,8 @@
 				'cli_usu_id'		=> $usuid,
 				'cli_titulo'		=> $form->txtTitulo,
 				'cli_giro'			=> $form->txtGiro,
-				'cli_cat_id'			=> $form->cat
+				'cli_cat_id'		=> $form->cat,
+				'cli_fecha_acceso'  => date("Y-m-d")
 				);
 			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
 			// agregar programas

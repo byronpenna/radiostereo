@@ -825,6 +825,9 @@
 				'cot_est_id'			=> $obj->estado_cot,
 				'cot_pro_id'			=> $obj->prod
 				);
+			$this->load->model("cotizacionm/cotizacionm");
+			$cotizacionm  = new cotizacionm();
+			$cotizacionm->updateFechaAcceso($obj->txtidCliente);
 			$this->db->where('cot_id',$obj->idCot);
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
 			return $res;

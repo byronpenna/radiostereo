@@ -11,9 +11,9 @@ function guardarOrdenCompra(frm,encabezado){
 				$(".cont-loading").css("display","block");
 			},
 		success: function(data){
-			// console.log("servidor",data);
+			console.log("servidor",data);
 			datos = jQuery.parseJSON(data);
-			// console.log("datos",datos);
+			console.log("datos",datos);
 			$(".cont-loading").css("display","none");
 			if(datos){
 				alertify.success("Todo ha salido Bien !");

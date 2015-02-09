@@ -363,7 +363,19 @@
 			return $res;
 		}
 
+		public function updateFechaAcceso($id){
+			$tabla = array(
+				'cli_fecha_acceso'  => date("Y-m-d") 
+				);
+			$this->db->trans_start();
+			$this->db->where('cli_id',$id);
+			$res  = $this->db->update('cli_cliente',$tabla);
+			return $res;
+
+		}
+
 		public function insertHeaderCot($obj){
+
 				$tabla 			= array(
 				'cot_fecha_elaboracion'	=> $obj->txtFechaCreacionCot,
 				'cot_valor_agregado'	=> $obj->txtValorAgregado,
@@ -373,6 +385,8 @@
 				'cot_usu_id'			=> $obj->idUsuario,
 				'cot_pro_id'			=> $obj->prod
 				);	
+
+				$this->updateFechaAcceso($obj->txtidCliente);
 
 				$res = $this->db->insert('cot_encabezado_cotizacion',$tabla);
 				
