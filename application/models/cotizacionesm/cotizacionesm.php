@@ -90,10 +90,10 @@
 									<td style='display:none'>" .$row->cli_id. "</td>
 									<td>" .$row->cli_nombres. "</td>
 									<td>" .$row->cli_razon_social. "</td>
-									<td>" .$row->cli_nit. "</td>
-									<td>" .$row->cot_fecha_elaboracion."</td>
-									<td>". $estado->est_estado . "</td>
-									<td>";
+									<td class='text-center'>" .$row->cli_nit. "</td>
+									<td class='text-center'>" .$row->cot_fecha_elaboracion."</td>
+									<td class='text-center'>". $estado->est_estado . "</td>
+									<td class='text-center'>";
 										if($estado->est_estado == "Orden de Compra"){
 											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
 										}else{

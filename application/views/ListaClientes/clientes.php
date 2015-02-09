@@ -3,8 +3,8 @@
     <hr id="hr">
     <nav class="tu">   
         <ul>
-            <li><div id="coloroc"></div><p>&nbsp;&nbsp;Mis Clientes</p></li>
-            <li><div id="colordis"></div><p>&nbsp;&nbsp;Disponibles</p></li>
+            <li><div id="coloroc" class="cambioGr"></div><p>&nbsp;&nbsp;Mis Clientes</p></li>
+            <li><div id="colordis" class="cambioGr"></div><p>&nbsp;&nbsp;Disponibles</p></li>
         </ul>
     </nav>
     <br>
