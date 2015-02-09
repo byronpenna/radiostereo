@@ -71,6 +71,8 @@ $mipdf->Cell(20, 6, utf8_decode("Costo"), 1 , 0, 'C');
 $mipdf->Cell(25, 6, utf8_decode("Paquete") , 1 , 0, 'C');
 $mipdf->Cell(15, 6, utf8_decode("Cantidad"), 1 , 0, 'C');
 
+
+//Datos de los dias
 $h = 0;
 foreach ($fechaDia as $key => $value) {
 	for ($j=0; $j < $i ; $j++) { 
@@ -78,6 +80,7 @@ foreach ($fechaDia as $key => $value) {
 			$esDia[$h] = $ocupar[$j]/$numDias[$j];
 			$mipdf->Cell( $esDia[$h] , 6, $value->dia , 1, 0, 'C');
 			$diaP[$h] = $value->dia;
+			$coMes[$h] = $value->mes;
 		}	
 	}
 $h++;
@@ -100,7 +103,7 @@ foreach ($dataServicio as $key => $value) {
 	$id= $value->det_id;
 	foreach ($fechaFrec as $aa => $frec) {
 		for ($k=0; $k < $h ; $k++) { 
-			if ($id== $frec->id_detalle && $frec->dia == $diaP[$k]) {
+			if ($id== $frec->id_detalle && $frec->dia == $diaP[$k] && $frec->mes == $coMes[$k]) {
 				$mipdf->Cell($esDia[$k], 6, $frec->frecuencia, 1, 0, 'C');
 			}
 		}	

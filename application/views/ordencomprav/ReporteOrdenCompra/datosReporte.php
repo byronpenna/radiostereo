@@ -73,23 +73,23 @@ $mipdf->ln(5);
 
 //Cuñas y otros servicios - Encabezado
 $mipdf->Cell(180, 7, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
-$mipdf->Cell(30, 5, "Cantidad", 1, 0, 'C');
-$mipdf->Cell(90, 5, utf8_decode("Descripción"), 1 , 0 , 'C');
+$mipdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
+$mipdf->Cell(80, 5, utf8_decode("Descripción"), 1 , 0 , 'C');
 $mipdf->Cell(40, 5, $cosito , 1 , 0, 'C');
-$mipdf->Cell(20, 5, utf8_decode("Costo"), 1, 1, 'C');
+$mipdf->Cell(40, 5, utf8_decode("Costo"), 1, 1, 'C');
 
 
 $subtotal = 0;
 //Cuñas y otros servicios - Datos
 foreach ($detalleP['datosServ'] as $key => $value) {
-	$mipdf->Cell(30, 5, $value->det_cantidad, 1, 0, 'C');
-	$mipdf->Cell(90, 5, "   " .  $descriCOS , 1 , 0 , 'L');
+	$mipdf->Cell(20, 5, $value->det_cantidad, 1, 0, 'C');
+	$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
 	if($cosito == "Servicios"){
-		$mipdf->Cell(40, 5, $value->serv_nombre , 1 , 0, 'C');	
+		$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre) , 1 , 0, 'C');	
 	}else{
-		$mipdf->Cell(40, 5, $value->rad_nombre , 1 , 0, 'C');
+		$mipdf->Cell(40, 5, utf8_decode($value->rad_nombre) , 1 , 0, 'C');
 	}
-	$mipdf->Cell(20, 5, "$ " . $value->det_subtotal , 1, 1, 'R');
+	$mipdf->Cell(40, 5, "$ " . $value->det_subtotal , 1, 1, 'R');
 	$subtotal += $value->det_subtotal;	
 }
 

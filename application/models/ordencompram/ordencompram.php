@@ -267,7 +267,7 @@ class Ordencompram extends CI_Model{
 	} */
 	
 	function fechaDia($id){
-		$sql = "SELECT DAY(fec_fecha) AS 'dia', MONTH(fec_fecha) AS 'mes' FROM fec_fechas WHERE fec_enc_id = ".$id;
+		$sql = "SELECT DAY(fec_fecha) AS 'dia', MONTH(fec_fecha) AS 'mes' FROM fec_fechas WHERE fec_enc_id = ".$id . " ORDER BY fec_fecha";
 		$this->db->trans_start();
 		$query  = $this->db->query($sql);
 		$this->db->trans_complete();
@@ -314,8 +314,8 @@ class Ordencompram extends CI_Model{
 	}
 
 	function fechaFre($id){
-		$sql = $this->db->query("SELECT frecuencia, id_detalle, DAY(fec_fecha) AS 'dia'
-				FROM fec_fechas LEFT JOIN frec_fecuencia ON id_fecha = fec_id WHERE fec_enc_id =" . $id);
+		$sql = $this->db->query("SELECT frecuencia, id_detalle, DAY(fec_fecha) AS 'dia', MONTH(fec_fecha) AS 'mes'
+				FROM fec_fechas LEFT JOIN frec_fecuencia ON id_fecha = fec_id WHERE fec_enc_id =" . $id . " ORDER BY fec_fecha");
 		$sql = $sql->result();
 		return $sql;
 
