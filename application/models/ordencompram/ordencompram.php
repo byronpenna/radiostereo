@@ -33,11 +33,9 @@ class Ordencompram extends CI_Model{
 			$flag= $this->queryFrecuencia($encabezado,$valor->detalle,$valor->fecha);
 			if($flag){
 				foreach ($flag as $row) {
-						foreach ($enc as $enca) {
+						foreach ($enc as $enca){
 							if($row->id_seccion==$enca->id_seccion && $row->id_detalle==$enca->id_detalle && $row->id_fecha == $enca->id_fecha){
 							$data = $this->updateFr($row->id,$valor);
-						}else{
-							$data = $this->delFr($enca->id);
 						}
 					}
 				}
@@ -54,12 +52,6 @@ class Ordencompram extends CI_Model{
 			);
 		$this->db->where('id',$id);
 		$res = $this->db->update('frec_fecuencia',$tabla);
-		return $res;
-	}
-
-	public function delFr($id){
-		$this->db->where('id',$id);
-		$res = $this->db->delete('frec_fecuencia');
 		return $res;
 	}
 

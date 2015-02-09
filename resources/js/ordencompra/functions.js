@@ -66,7 +66,11 @@ function getFrecuencias(frm){
 				det = $(this).attr("detalle");
 				fec = $(this).attr("name");
 				if(det==datos.detalle[i] && fec==datos.fecha[i]){
+					if(datos.fr[i]==0){
+						$(this).val("  ");
+					}else{
 						$(this).val(datos.fr[i]);
+					}
 				}
 			});
 		}

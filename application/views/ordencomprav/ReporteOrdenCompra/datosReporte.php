@@ -104,10 +104,10 @@ $mipdf->Cell(140, 5, utf8_decode("Descripción"), 1 , 0 , 'C' );
 $mipdf->Cell(40, 5, "Costo", 1, 1, 'C');
 
 $mipdf->Cell(140, 5, utf8_decode($datosEnc['detcDes']) , 1, 0, 'L');
-$mipdf->Cell(40, 5, "$ " . $descuento, 1, 1, 'R');
+$mipdf->Cell(40, 5, "$ "  .number_format($descuento,2,".",","), 1, 1, 'R');
 
 $mipdf->Cell(140, 7, "   SUB-TOTAL", 1, 0, 'L');
-$mipdf->Cell(40, 7, "$ " . $descuento, 1 , 1, 'R');
+$mipdf->Cell(40, 7, "$ " . number_format($descuento,2,".",","), 1 , 1, 'R');
 
 $mipdf->ln(5);
 
@@ -120,7 +120,7 @@ $mipdf->Cell(40, 5, $datosEnc['fechEmision'] , 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("SUB-TOTAL"), 1 , 0 , 'L' );
 $mipdf->Cell(40, 5, "$ " . $subtotal,  1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Descuentos"), 1, 0, 'L');
-$mipdf->Cell(40, 5, "$ " . $descuento,  1, 1, 'R');
+$mipdf->Cell(40, 5, "$ " . number_format($descuento,2,".",","),  1, 1, 'R');
 
 if ($datosEnc['categoria'] == "Excento IVA") {
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );

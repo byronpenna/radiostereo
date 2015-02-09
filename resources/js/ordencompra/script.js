@@ -10,18 +10,22 @@ $(document).ready(function(){
 			reg.frecuencia 	= $(this).val();
 			reg.detalle 	= $(this).attr("detalle");
 			reg.fecha 		= indice;
-			if(reg.frecuencia != ""){
+			// if(reg.frecuencia != ""){
 				frmTemp.push(reg);	
 				cn++;
-			}
+			// }
 			
 		});
 		frm = frmTemp;
 		// frm = serializeToJson(frm);
 		encabezado 		= $("#tbTabla").attr("encabezado");
 		frm.encabezado 	= encabezado;
-		// console.log("frm",frm);
-		guardarOrdenCompra(frm,encabezado);   
+		console.log("frm",frm);
+		scrollTop();
+        setTimeout(function() {
+        	guardarOrdenCompra(frm,encabezado);   
+        }, 1000);
+		
 	});
 
 	$(document).on("blur",".txtFrecuencia",function(){
@@ -41,6 +45,9 @@ $(document).ready(function(){
 	frmGlobal.encabezado 	= encabezado;
 	frmGlobal.detalle		= detalle;
 	frmGlobal.fecha			= fecha;
-	// console.log("frm global",frmGlobal);
-	getFrecuencias(frmGlobal);
+	// console.log("frm global",frmGlobal)
+	scrollTop();
+        setTimeout(function() {
+        	getFrecuencias(frmGlobal);
+        }, 1000);
 });
