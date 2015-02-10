@@ -27,9 +27,9 @@
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td></td>
-								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>
+								<td class='col-sm-1'><a class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-pencil'></i></a></td>
 							</tr>";
-			}
+					}
 				}
 				
 			return $retorno;

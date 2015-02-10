@@ -4,10 +4,6 @@ $(document).ready(function () {
 		$(document).on("click",".btnDesplegar",function() {
 			$("#frmClientes").slideToggle(175);
 		})
-
-
-		//obtener las categorias de los clientes
-		getCat();
 	// eventos
 		// click 
 			$(document).on("click",".btnActionMultiple",function(){

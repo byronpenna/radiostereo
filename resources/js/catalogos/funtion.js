@@ -38,9 +38,9 @@ function removeOption(selector){
 				</td>\
 				<td>\
 					<center>\
-						<input type='button' class='btnGuardarPrograma btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeleteProgra btn btn-sm btn-danger'>Eliminar</button>\
-						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
+						<button class='btnGuardarPrograma btn btn-sm btn-success btnAddCot'><i class='glyphicon glyphicon-check'></i></button>\
+						<button class='DeleteProgra btn btn-sm btn-danger'><i class='glyphicon glyphicon-trash'></i></button>\
+						<button class='btn btn-sm btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 					</center>\
 				</td>\
 				";//creo nuevo html para modificar
@@ -72,7 +72,7 @@ function removeOption(selector){
 						</td>\
 						<td class='tdProgramNombre'>"+data.dato+"</td>\
 						<td>\
-							<center><button class='btnEditar btn btn-sm btn-primary'>Editar</button></center>\
+							<center><button class='btnEditar btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button></center>\
 						</td>";//creamos el nuevo fila
 					tr.empty().append(tr2);
 				}
@@ -105,7 +105,7 @@ function removeOption(selector){
 							<td class='tdProgramNombre'>"+frm.nombpro+"</td>\
 							<td>\
 								<center>\
-									<button class='btnEditar btn btn-sm btn-primary'>Editar</button>\
+									<button class='btnEditar btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 								</center>\
 							</td>\
 						  </tr>"
@@ -140,7 +140,7 @@ function removeOption(selector){
 							<td class='tdRadioNomb'>"+frm.txtnombradio+"</td>\
 							<td>\
 								<center>\
-									<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+									<button class='btnEdtRadio btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 								</center>\
 							</td>\
 						  </tr>"
@@ -163,9 +163,9 @@ function removeOption(selector){
 				</td>\
 				<td>\
 					<center>\
-						<input type='button' class='btnGuardarRadio btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeleteRadio btn btn-sm btn-danger'>Eliminar</button>\
-						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
+						<button class='btnGuardarRadio btn btn-sm btn-success btnAddCot'><i class='glyphicon glyphicon-check'></i></button>\
+						<button class='DeleteRadio btn btn-sm btn-danger'><i class='glyphicon glyphicon-trash'></i></button>\
+						<button class='btn btn-sm btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 					</center>\
 				</td>";
 				//console.log(newtr);
@@ -193,7 +193,7 @@ function removeOption(selector){
 						<td class='tdRadioNomb'>"+data.dato+"</td>\
 						<td>\
 							<center>\
-								<button class='btnEdtRadio btn btn-sm btn-primary'>Editar</button>\
+								<button class='btnEdtRadio btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 							</center>\
 						</td>";//creamos el nuevo fila
 				tr.empty().append(newtr);
@@ -226,7 +226,7 @@ function removeOption(selector){
 							<td class='tdPrecio'>"+frm.precio+"</td>\
 							<td>\
 								<center>\
-									<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+									<button class='btnEditPrecio btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 								</center>\
 							</td>\
 						  </tr>"
@@ -249,9 +249,9 @@ function removeOption(selector){
 				</td>\
 				<td>\
 					<center>\
-						<input type='button' class='btnGuardarPrecio btn btn-sm btn-success btnAddCot' value='Guardar' />\
-						<button class='DeletePrecio btn btn-sm btn-danger'>Eliminar</button>\
-						<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
+						<button class='btnGuardarPrecio btn btn-sm btn-success btnAddCot'><i class='glyphicon glyphicon-check'></i></button>\
+						<button class='DeletePrecio btn btn-sm btn-danger'><i class='glyphicon glyphicon-trash'></i></button>\
+						<button class='btn btn-sm btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 					</center>\
 				</td>";
 				//console.log(newtr);
@@ -279,7 +279,7 @@ function removeOption(selector){
 						<td class='tdPrecio'>"+data.dato+"</td>\
 						<td>\
 							<center>\
-								<button class='btnEditPrecio btn btn-sm btn-primary'>Editar</button>\
+								<button class='btnEditPrecio btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 							</center>\
 						</td>";//creamos el nuevo fila
 				tr.empty().append(newtr);
@@ -313,7 +313,7 @@ function removeOption(selector){
 							<td class='tdServicio'>"+form.servicio+"</td>\
 							<td>\
 								<center>\
-									<button class='btnEdtserv btn btn-sm btn-primary'>Editar</button>\
+									<button class='btnEdtserv btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 								</center>\
 							</td>\
 						  </tr>"
@@ -337,9 +337,9 @@ function removeOption(selector){
 					</td>\
 					<td>\
 						<center>\
-							<input type='button' class='btnGuardarServi btn btn-sm btn-success btnAddCot' value='Guardar' />\
-							<button class='DeleteServi btn btn-sm btn-danger'>Eliminar</button>\
-							<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
+							<button class='btnGuardarServi btn btn-sm btn-success btnAddCot' ><i class='glyphicon glyphicon-check'></i></button>\
+							<button class='DeleteServi btn btn-sm btn-danger'><i class='glyphicon glyphicon-trash'></i></button>\
+							<button class='btn btn-sm btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 						</center>\
 					</td>";
 			tr.empty().append(newtr);
@@ -364,7 +364,7 @@ function removeOption(selector){
 							<input name='txtidservicio' value='"+idServi+"' class='inputServId'>\
 						</td>\
 						<td class='tdServicio'>"+data.dato+"</td>\
-						<td><center><button class='btnEdtserv btn btn-sm btn-primary'>Editar</button></center>\
+						<td><center><button class='btnEdtserv btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button></center>\
 						</td>\
 					  </tr>"
 				//$(".vaciarinput").val("");
@@ -408,7 +408,7 @@ function removeOption(selector){
 							<td class='tdContacto ocultar'>"+frm.txtContacto+"</td>\
 							<td class='tdCorreo ocultar'>"+frm.txtCorreo+"</td>\
 							<td>\
-									<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+									<button class='EditCliente btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 							</td>\
 						  </tr>"
 					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
@@ -513,7 +513,7 @@ function removeOption(selector){
 						<td class='tdContacto ocultar'>"+data.dato7+"</td>\
 						<td class='tdCorreo ocultar'>"+data.dato8+"</td>\
 						<td>\
-							<button class='EditCliente btn btn-sm btn-primary'>Editar</button>\
+							<button class='EditCliente btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 						</td>";//creamos el nuevo fila
 				$(".modificar").empty().append(newtr);
 				//console.log(datos);
@@ -572,9 +572,9 @@ function removeOption(selector){
 					<input name='txtPsw' class='txtPsw form-control' value='"+psw+"'>\
 				</td>\
 				<td colspan='2'>\
-					<input type='button' class='btnGuardarUser btn btn-sm btn-success btnAddCot' value='Guardar' />\
-					<button class='DeleteUser btn btn-sm btn-danger'>Eliminar</button>\
-					<button class='btn btn-sm btn-success limpiar'>Cancelar</button>\
+					<button class='btnGuardarUser btn btn-sm btn-primary btnAddCot'><i class='glyphicon glyphicon-check'></i></button>\
+					<button class='DeleteUser btn btn-sm btn-danger'><i class='glyphicon glyphicon-trash'></i></button>\
+					<button class='btn btn-sm btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 				</td>";
 				//console.log(idcliente,nombre,apellido);
 				tr.empty().append(newtr);
@@ -599,8 +599,9 @@ function removeOption(selector){
 							<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
+						<td class='tdNombreUser'></td>\
 						<td>\
-							<button class='EditUsuario btn btn-sm btn-primary'>Editar</button>\
+							<button class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
 						</td>";//creamos el nuevo fila
 					tr.empty().append(newtr);
 					console.log(datos);

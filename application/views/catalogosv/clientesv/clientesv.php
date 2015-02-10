@@ -7,6 +7,12 @@
 	?>
 	<script src="<?php echo base_url('resources/js/catalogos/funtion.js')?>" type="text/javascript" charset="utf-8"></script>
 	<script src="<?php echo base_url('resources/js/catalogos/script.js')?>" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+			$(document).ready(function(){
+				//obtener las categorias de los clientes
+		getCat();
+			});
+	</script>
 </head>
 <body>
 	<!--cargamos el menu-->

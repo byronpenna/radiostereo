@@ -114,7 +114,7 @@
 																	</td></tr>";
 				}
 			}else{
-				$retorno="Aun No ha generado ninguna cotizacion";
+				$retorno="";
 			}
 			
 			return $retorno;
