@@ -138,26 +138,64 @@
 			$mensaje = $Catalogosm->update_programadb($updatfrm, $tablabd, $nameform, $tabla);
 			echo json_encode($mensaje);
 		}
+
 		public function deleteProductosForUpdate($idCliente,$productos){
-			$sql = "DELETE FROM pro_producto WHERE pro_cli_id = ".$idCliente." and pro_id not in (".$productos.")  ";
-			echo $sql;
+			$sql = "DELETE FROM pro_producto WHERE pro_cli_id = ".$idCliente." and pro_id not in (".$productos.")  ";			
 			$this->db->trans_start();
 				$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			return $query;
 		}
 		public function updateProductosClientes($productos,$clienteId){
+			// print_r($productos);
 			$txtProductos = "";
 			foreach ($productos as $key => $value) {
 				$valor = "'".$value."'";
-				if($key == 0){
+				if($key == 0 || $txtProductos == ""){
 					$txtProductos = $valor ;
 				}else{
-					$txtProductos = ",".$valor;
+					$txtProductos .= ",".$valor;
 				}
 			}
-			$this->deleteProductosForUpdate($clienteId,$txtProductos);
+			// echo "el txt producto es: ".$txtProductos;
 			
+			$this->deleteProductosForUpdate($clienteId,$txtProductos);
+			$this->addProductosClientes($clienteId,$txtProductos,$productos);
+			
+		}
+		public function addProductosClientes($clienteId,$productos,$arrProductos){
+			$sql = "SELECT * FROM pro_producto WHERE pro_cli_id = ".$clienteId." and pro_id in (".$productos.")  "; // no repetir 
+			$this->db->trans_start();
+				$query = $this->db->query($sql);
+			$this->db->trans_complete();
+			$resultado = $query->result();
+			$productosIngresar 	= array();
+			$cn 				= 0;
+			foreach ($arrProductos as $key => $value) {
+				$ingresar = true;
+				foreach ($resultado as $k => $val) {
+					if($val->pro_id == $value){
+						$ingresar = false;
+					}
+				}
+				if($ingresar){
+					$arr = array(
+						'pro_cli_id' 		=> $clienteId,
+						'pro_nomb_producto'	=> $value
+					);
+					$productosIngresar[$cn] = $arr;
+					$cn++;
+				}
+			}
+			if(count($productosIngresar) >0 ){
+				$this->db->trans_start();
+					$this->db->insert_batch("pro_producto",$productosIngresar);
+				$this->db->trans_complete();	
+			}
+			
+			// echo "los productos a ingresar son los siguientes";
+			// print_r($productosIngresar);
+
 		}
 		public function update_cliente()
 		{

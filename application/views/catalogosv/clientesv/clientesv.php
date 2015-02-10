@@ -11,7 +11,6 @@
 <body>
 	<!--cargamos el menu-->
 	<?php  $this->load->view("estructura/menu.php"); ?>
-
 	<div class="container" id="contenedorClientes">
 	<div class="popup well posAbsolute"><!--pop up para modificar-->
 		
