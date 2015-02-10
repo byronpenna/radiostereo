@@ -13,6 +13,7 @@
          success: function(data){
           console.log(data);
            var datos = jQuery.parseJSON(data);
+           console.log(datos);
            $(".cont-loading").css("display","none");
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
               alertify.success("Datos Editados Correctamente");
