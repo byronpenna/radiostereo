@@ -726,6 +726,67 @@
 			$retorno->header = $flag;
 			if($flag){
 				foreach ($seccion as $valor) {
+
+					$events = json_decode($valor->txtEvents);
+					$arreF = array();
+							$arre2 = array();
+								$conta2 = 0;
+								$contadorF = 0; 
+							if(count($events)>0){
+								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
+								for ($i=0; $i < count($events) ; $i++) {
+									$resp = false;
+									foreach ($queryFechas as $conta => $row){
+											if($events[$i]==$row->fec_fecha){
+												$resp=true;
+												$arreF[$contadorF]=$row->fec_fecha;
+												$contadorF++;
+											}
+										}
+										if($resp==false){
+											$arre2[$conta2]=$events[$i];
+											$conta2++;
+											// $retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+										}
+										// echo $aborrar."[]";
+										// if($aborrar!=""){
+										// 	$this->delFechaBloq($valor->txtIdEncabezado,$aborrar);
+										// }
+								}
+								
+							}else{
+								$retorno->fecha 	= true;
+							}
+							if(count($arreF)>0){
+									$resF="";
+									if(is_array($arreF)){
+										foreach ($arreF as $key => $value) {
+											if($key==0){
+												$resF.="'".$value."'";
+											}else{
+												$resF.=",'".$value."'";
+											}
+										}
+										$this->delFechaBloq($valor->txtIdEncabezado,$resF);
+									}else{
+										$resF.="'".$arreF."'";
+										$this->delFechaBloq($valor->txtIdEncabezado,$resF);
+									}
+								}else{
+									$this->delFechaBloq2($valor->txtIdEncabezado);
+								}
+
+								if($arre2){
+									if(is_array($arre2)){
+										foreach ($arre2 as $l => $val) {
+											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$val);
+										}
+									}else{
+											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$arre2);
+									}
+									
+								}	
+
 					$replace = str_replace("$","",$valor->total);
 					$total = str_replace(" ", "", $replace);
 					$reemplazo = str_replace("$", "", $valor->descuento);
@@ -739,23 +800,6 @@
 							}
 						}
 					}
-					$events = json_decode($valor->txtEvents);
-							if(count($events)>0){
-								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
-								for ($i=0; $i < count($events) ; $i++) {
-									$resp = false;
-									foreach ($queryFechas as $conta => $row){
-											if($row->fec_fecha==$events[$i]){
-												$resp=true;
-											}
-										}
-										if($resp==false){
-											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
-										}
-								}
-							}else{
-								$retorno->fecha 	= true;
-							}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -812,13 +856,22 @@
 		}
 
 		public function delFechaBloq($idBloq,$fecha){
-			$tabla		= array(
-				'fec_enc_id'	=> $idBloq,
-				'fec_fecha'		=> $fecha
-				);
-			$this->db->where($tabla);
-			$res = $this->db->delete('fec_fechas');
-			return $res;
+			$sql = "
+			delete from fec_fechas
+			where fec_enc_id = ".$idBloq." and fec_fecha not in(".$fecha.")
+			";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+		}
+
+		public function delFechaBloq2($idBloq){
+			$sql = "
+			delete from fec_fechas
+			where fec_enc_id = ".$idBloq."";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
 		}
 
 		public function editarHeaderCot($obj){
