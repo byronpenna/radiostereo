@@ -239,7 +239,7 @@
 		public function queryUsuario(){
 			$this->db->trans_start();
 			$sql="SELECT * FROM usu_usuario
-			ORDER BY usu_rol_id";
+			ORDER BY usu_rol_id DESC";
 			$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
@@ -257,10 +257,13 @@
 				}else{
 					$rol = "Sin rol";
 				}
-				$res.="<tr>
+				if($row->usu_rol_id!=1){
+					$res.="<tr>
 							<td>".$row->usu_nombre."</td>
 							<td>".$rol."</td>
 					</tr>";
+				}
+				
 			}
 			return $res;
 		}
