@@ -51,9 +51,13 @@ $active_record = TRUE;
 // $db['default']['hostname'] = '192.168.16.115';
 // $db['default']['username'] = 'username';
 // $db['default']['password'] = 'password';
-$db['default']['hostname'] = 'localhost';
+/*$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['password'] = '';*/
+$db['default']['hostname'] = '50.62.42.134';
+$db['default']['username'] = 'admin';
+$db['default']['password'] = 'ERPb1542013';
+
 $db['default']['database'] = 'radio';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
