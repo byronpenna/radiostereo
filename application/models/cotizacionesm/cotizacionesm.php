@@ -90,25 +90,31 @@
 									<td style='display:none'>" .$row->cli_id. "</td>
 									<td>" .$row->cli_nombres. "</td>
 									<td>" .$row->cli_razon_social. "</td>
-									<td>" .$row->cli_nit. "</td>
-									<td>" .$row->cot_fecha_elaboracion."</td>
-									<td>". $estado->est_estado . "</td>
-									<td>
-										<a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
-										<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>";	
+									<td class='text-center'>" .$row->cli_nit. "</td>
+									<td class='text-center'>" .$row->cot_fecha_elaboracion."</td>
+									<td class='text-center'>". $estado->est_estado . "</td>
+									<td class='text-center'>";
+										if($estado->est_estado == "Orden de Compra"){
+											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+										}else{
+											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
+										}	
 										if(count($count)>0){
-											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i></a>";
+										}else{
+											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if($frec > 0){
 											$retorno .= " <a title='Registrar Frecuencias' href='".site_url('ordencompra/index/'.$row->cot_id.'') ."' class='btn btn-primary btn-sm'><i class='glyphicon glyphicon-log-in'></i></a>";
+										}else{
+											$retorno .= " <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-log-in'></i></a>";
 										}
-										if($estado->est_estado == "Orden de Compra"){
-											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-warning btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
-										}
-										$retorno .= "</td></tr>";
+										$retorno .= " <a title='Editar' href='".site_url('cotizacionesc/cotizacionesc/editarCotizacion/'.$row->cot_id.'') ."' class='btn btn-sm btn-info'><i class='glyphicon glyphicon-edit'></i></a>
+																	<a title='Eliminar' href='#' class='btn btn-sm btn-danger btnDelCot'><i class='glyphicon glyphicon-remove'></i></a>
+																	</td></tr>";
 				}
 			}else{
-				$retorno="Aun No ha generado ninguna cotizacion";
+				$retorno="";
 			}
 			
 			return $retorno;
@@ -720,6 +726,67 @@
 			$retorno->header = $flag;
 			if($flag){
 				foreach ($seccion as $valor) {
+
+					$events = json_decode($valor->txtEvents);
+					$arreF = array();
+							$arre2 = array();
+								$conta2 = 0;
+								$contadorF = 0; 
+							if(count($events)>0){
+								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
+								for ($i=0; $i < count($events) ; $i++) {
+									$resp = false;
+									foreach ($queryFechas as $conta => $row){
+											if($events[$i]==$row->fec_fecha){
+												$resp=true;
+												$arreF[$contadorF]=$row->fec_fecha;
+												$contadorF++;
+											}
+										}
+										if($resp==false){
+											$arre2[$conta2]=$events[$i];
+											$conta2++;
+											// $retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
+										}
+										// echo $aborrar."[]";
+										// if($aborrar!=""){
+										// 	$this->delFechaBloq($valor->txtIdEncabezado,$aborrar);
+										// }
+								}
+								
+							}else{
+								$retorno->fecha 	= true;
+							}
+							if(count($arreF)>0){
+									$resF="";
+									if(is_array($arreF)){
+										foreach ($arreF as $key => $value) {
+											if($key==0){
+												$resF.="'".$value."'";
+											}else{
+												$resF.=",'".$value."'";
+											}
+										}
+										$this->delFechaBloq($valor->txtIdEncabezado,$resF);
+									}else{
+										$resF.="'".$arreF."'";
+										$this->delFechaBloq($valor->txtIdEncabezado,$resF);
+									}
+								}else{
+									$this->delFechaBloq2($valor->txtIdEncabezado);
+								}
+
+								if($arre2){
+									if(is_array($arre2)){
+										foreach ($arre2 as $l => $val) {
+											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$val);
+										}
+									}else{
+											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$arre2);
+									}
+									
+								}	
+
 					$replace = str_replace("$","",$valor->total);
 					$total = str_replace(" ", "", $replace);
 					$reemplazo = str_replace("$", "", $valor->descuento);
@@ -733,23 +800,6 @@
 							}
 						}
 					}
-					$events = json_decode($valor->txtEvents);
-							if(count($events)>0){
-								$queryFechas = $this->getFechas($valor->txtIdEncabezado);
-								for ($i=0; $i < count($events) ; $i++) {
-									$resp = false;
-									foreach ($queryFechas as $conta => $row){
-											if($row->fec_fecha==$events[$i]){
-												$resp=true;
-											}
-										}
-										if($resp==false){
-											$retorno->fecha = $this->agregarFechaBloq($valor->txtIdEncabezado,$events[$i]);
-										}
-								}
-							}else{
-								$retorno->fecha 	= true;
-							}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}
@@ -806,13 +856,22 @@
 		}
 
 		public function delFechaBloq($idBloq,$fecha){
-			$tabla		= array(
-				'fec_enc_id'	=> $idBloq,
-				'fec_fecha'		=> $fecha
-				);
-			$this->db->where($tabla);
-			$res = $this->db->delete('fec_fechas');
-			return $res;
+			$sql = "
+			delete from fec_fechas
+			where fec_enc_id = ".$idBloq." and fec_fecha not in(".$fecha.")
+			";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
+		}
+
+		public function delFechaBloq2($idBloq){
+			$sql = "
+			delete from fec_fechas
+			where fec_enc_id = ".$idBloq."";
+			$this->db->trans_start();
+			$query = $this->db->query($sql);
+			$this->db->trans_complete();
 		}
 
 		public function editarHeaderCot($obj){

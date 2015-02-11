@@ -1,7 +1,4 @@
 <?php 
-	/**
-	* 
-	*/
 	include_once(APPPATH.'controllers/padre.php');
 	class clientesc extends padre
 	{

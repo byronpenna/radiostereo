@@ -9,11 +9,8 @@
 		{
 			parent::__construct();
 		}
-		public function selectUser($tabla,$condicion){
+		public function selectUser($tabla){
 			$this->db->trans_start();
-			if($condicion!=""){
-				$this->db->where($condicion);	
-			}
 			$query = $this->db->get($tabla);
 			$this->db->trans_complete();
 			$query = $query->result();
@@ -21,20 +18,20 @@
 		}
 
 		public function getTablaUser(){
-			$condicion  = array(
-				'usu_rol_id <>' => 1
-				);
-			$datos = $this->selectUser('usu_usuario',$condicion);
+			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
-				$retorno .="<tr class='styleTR'>
+				if($row->usu_rol_id!=1){
+					$retorno .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td></td>
-								<td><a class='EditUsuario btn btn-sm btn-primary'>Editar</a></td>
+								<td class='col-sm-1'><a class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-pencil'></i></a></td>
 							</tr>";
-			}
+					}
+				}
+				
 			return $retorno;
 		}
 		public function getUser($id)
@@ -49,14 +46,12 @@
 
 		public function get_user_rol()
 		{
-			$condicion  = array(
-				'usu_rol_id <>' => 1
-				);
-			$datos = $this->selectUser('usu_usuario',$condicion);
+			$datos = $this->selectUser('usu_usuario');
 			$retorno = "";
 			$tablita = 0;
 			foreach ($datos as $row) {
-				if ($tablita == 0) {
+				if($row->usu_rol_id!=1){
+					if ($tablita == 0) {
 					$retorno .= "
 					<tr><td>
 					<span class='button-checkbox'>
@@ -75,18 +70,21 @@
 					";
 					$tablita = 0;
 				}
+				}
+				
 			}
 			return $retorno;
 		}
 		public function get_rol()
 		{
-			$condicion = array(
-				'rol_id <>' => 1
-				);
-			$datos = $this->selectUser('rol_usuario',$condicion);
+		
+			$datos = $this->selectUser('rol_usuario');
 			$retorno = "";
 			foreach ($datos as $row) {
-				$retorno .= "<option value='".$row->rol_id."'>".$row->rol_nombre."</option>";
+				if($row->rol_id!=1){
+					$retorno .= "<option value='".$row->rol_id."'>".$row->rol_nombre."</option>";
+				}
+				
 			}
 			return $retorno;
 		}
@@ -239,7 +237,7 @@
 		public function queryUsuario(){
 			$this->db->trans_start();
 			$sql="SELECT * FROM usu_usuario
-			ORDER BY usu_rol_id";
+			ORDER BY usu_rol_id DESC";
 			$query = $this->db->query($sql);
 			$this->db->trans_complete();
 			$query = $query->result();
@@ -257,10 +255,13 @@
 				}else{
 					$rol = "Sin rol";
 				}
-				$res.="<tr>
+				if($row->usu_rol_id!=1){
+					$res.="<tr>
 							<td>".$row->usu_nombre."</td>
 							<td>".$rol."</td>
 					</tr>";
+				}
+				
 			}
 			return $res;
 		}

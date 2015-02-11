@@ -33,12 +33,12 @@
             <table id="resultados" class="table table-hover" >
                 <thead class="thead">
                     <tr>
-                        <th>Nombre</th>
-                        <th>Razon Social</th>
-                        <th>NIT</th>
-                        <th>Fecha Creación</th>
-                        <th>Estado</th>
-                        <th><center>Acción</center></th>
+                        <th class='text-center'>Nombre</th>
+                        <th class='text-center'>Razon Social</th>
+                        <th class='text-center'>NIT</th>
+                        <th class='text-center'>Fecha Creación</th>
+                        <th class='text-center'>Estado</th>
+                        <th class='text-center'>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
