@@ -185,7 +185,8 @@
 		public function GetRadio()
 		{
 			$this->db->trans_start();//inicia la transaccion
-				$query = $this->db->get('rad_radio');//
+			$this->db->order_by("rad_nombre", "asc"); 
+			$query = $this->db->get('rad_radio');//
 			$this->db->trans_complete();//finaliza la transaccion
 			$query = $query->result();
 			return $query;

@@ -725,7 +725,8 @@
 			$flag = $this->editarHeaderCot($header);
 			$retorno->header = $flag;
 			if($flag){
-				foreach ($seccion as $valor) {
+				
+				foreach ($seccion as $key => $valor) {
 
 					$events = json_decode($valor->txtEvents);
 					$arreF = array();
@@ -791,12 +792,20 @@
 					$total = str_replace(" ", "", $replace);
 					$reemplazo = str_replace("$", "", $valor->descuento);
 					$descuento = str_replace(" ", "", $reemplazo);
+
+					
+					
+
 					// Porcentaje Variable
-					$porcentaje = $this->db->query("SELECT tar_descuento FROM tar_tarifa WHERE tar_tip_id = " . $header->tipo_cot . " AND ". $total ." BETWEEN tar_rango_inicial AND tar_rango_final ");
-					$porcentaje = $porcentaje->result_array();
 					if($total > 0){
+
+						// echo "Soy el total ".$total;
+						$porcentaje = $this->db->query("SELECT tar_descuento FROM tar_tarifa WHERE tar_tip_id = " . $header->tipo_cot . " AND ". $total ." BETWEEN tar_rango_inicial AND tar_rango_final ");
+						$porcentaje = $porcentaje->result_array();
+
 						$calculo = $descuento/$total;
-						if($calculo  < $porcentaje[0]['tar_descuento'] && $header->estado_cot==5){							
+						if($calculo  < $porcentaje[0]['tar_descuento'] && $header->estado_cot==5){
+						//if($calculo  < 0.30 && $header->estado_cot==5){	
 							$fl = $this->getFechas($valor->txtIdEncabezado);
 							if($fl){
 								$this->updateEstadoCot($header->idCot);
