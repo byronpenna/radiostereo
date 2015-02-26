@@ -19,7 +19,7 @@ function getBaseURL() {
 }
 
 function scrollTop(){
-     $('html, body').animate({ scrollTop: '0px'},500);
+     $('html, body').animate({ scrollTop: '0px'});
      return false;
 }
 
