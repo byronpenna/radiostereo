@@ -15,7 +15,7 @@ class ordencompra extends padre
 	public function index($id){
 		$data = array(
 			'res' 		=> 	$this->ordenCompraModel->getCalendarFrecuencia($id),
-			'Titulo'	=>	'Frecuencia'
+			'Titulo'	=>	'Frecuencia | Grupo Radio Stereo'
 		);
 		$this->load->view("ordencomprav/index.php",$data);
 

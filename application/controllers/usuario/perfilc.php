@@ -19,7 +19,7 @@
 			$tabla->id = $_SESSION['iduser'];
 			$tabla->usuario = $usuariom->getPerfil($tabla->id);
 			$datos['tabla'] = $tabla;
-			$datos['Titulo']="..::Perfil usuario::..";
+			$datos['Titulo']="Perfil | Grupo Radio Stereo";
 			$this->load->view('usuariov/perfilv', $datos);
 		}
 		public function updatefirma()

@@ -12,7 +12,7 @@ $this -> SetTextColor (0,0,0);
 $urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
 $this -> Image ( $urlHeader , 15 , null , 180, 25 );
 $this->ln(5);
-$this->Cell(0 , 0, "Orden de Compra", 0 , 0, 'C');
+$this->Cell(0 , 0, "Orden de Compra de Publicidad", 0 , 0, 'C');
 $this->ln(5);
 }
 
@@ -59,7 +59,11 @@ $mipdf->Cell(80, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 0 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 'R', 0 );
 $mipdf->Cell(10, 5, "");
 $mipdf->Cell(80, 5, utf8_decode("Categoria de Contribuyente:   " . $datosEnc['categoria'] ) , 0 , 1 );
-$mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 'R' , 'J');
+
+$mipdf->Cell(90, 5, utf8_decode("Vendedor: " . $datosEnc['vendedor']), 'R' , 0);
+$mipdf->Cell(10, 5, "");
+$mipdf->Multicell(80, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), '0' , 'J');
+
 
 
 $mipdf->ln(5);
@@ -156,9 +160,9 @@ $mipdf->ln(10);
 $mipdf->Cell(90, 0, "___________________________", 0 , 0, 'C'); 
 $mipdf->Cell(90, 0, "___________________________", 0 , 1, 'C');
 $mipdf->Cell(90, 10, "Cliente", 0 , 0, 'C'); 
-$mipdf->Cell(90, 10, "Vendedor", 0 , 1, 'C');
+$mipdf->Cell(90, 10, "Contabilidad", 0 , 1, 'C');
 
-$mipdf->SetAuthor('GrupoRadioStereo');
+$mipdf->SetAuthor('BISA');
 $mipdf -> Output();
 
 ?>

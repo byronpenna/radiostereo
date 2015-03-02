@@ -25,6 +25,7 @@
 					$retorno .="<tr class='styleTR'>
 								<td style='display:none'><input value='".$row->usu_id."' class='inputUserID'></td>
 								<td class='tdNombreUser'>".$row->usu_nombre."</td>
+								<td class='tdNomCompleto'>". $row->usu_nomcompleto."</td>
 								<td style='display:none' class='tdCopaniaId'>".$row->usu_com_id."</td>
 								<td></td>
 								<td class='col-sm-1'><a class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-pencil'></i></a></td>
@@ -101,11 +102,12 @@
 				$retorno.="<tr>
 							<td style='display:none'><input value='".$row->usu_id."' class='InputIdUser'></td>
 							<td class='tdNombreUser'>".$row->usu_nombre."</td>
+							<td class='tdNomCompleto'>". $row->usu_nomcompleto."</td>
 							<td class='tdAlgoUser'>".nl2br($mensaje)."</td>";
 							if($mensaje == "Aun no posee firma"){
-								$retorno.="<td><a class='EditFirma btn btn-sm btn-block btn-primary'>Agregar Firma</a></td>";
+								$retorno.="<td><a class='EditFirma btn-primary'><i class='glyphicon glyphicon-pencil'></i> Agregar Firma</a></td>";
 							}elseif ($mensaje != "Aun no posee firma") {
-								$retorno.="<td><a class='EditFirma btn btn-sm  btn-block btn-primary'>Editar</a></td>";
+								$retorno.="<td><a class='EditFirma btn  btn-primary'><i class='glyphicon glyphicon-pencil'></i></a></td>";
 							}
 						  	$retorno.= "</tr>";
 			}
@@ -115,7 +117,7 @@
 		public function update_userdb($dato)
 		{
 			$encirpt = sha1($dato->txtPsw);
-			$data 		= array('usu_nombre' => $dato->txtNombUser, 'usu_password' => $encirpt);
+			$data 		= array('usu_nombre' => $dato->txtNombUser, 'usu_password' => $encirpt, 'usu_nomcompleto' => $dato->txtNomCompleto);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('usu_id', $dato->txtIdUser);
@@ -130,6 +132,7 @@
 					$retorno->dato1 = $dato->txtNombUser;//retorno el nuevo valor	
 					$retorno->dato2 = $encirpt;
 					$retorno->dato3 = $algo;
+					$retorno->dato4 = $dato->txtNomCompleto;
 				}else{
 					$retorno->estado = false;
 					$msg = $this->db->_error_message();
@@ -165,7 +168,7 @@
 		}
 		public function updatefirma($datos)
 		{
-			$data 		= array('usu_firma' => $datos->txtfirma);
+			$data 		= array('usu_firma' => $datos->txtfirma, 'usu_nomcompleto' =>$datos->txtNomCompleto);
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('usu_id', $datos->txtIdUser);
@@ -178,6 +181,7 @@
 					$retorno->mensaje	= "Modificado con exito";
 					$retorno->dato1 	= $nombre[0]->usu_nombre;//retorno el nuevo valor	
 					$retorno->dato2 	= $datos->txtfirma;
+					$retorno->dato3   = $datos->txtNomCompleto;
 				}else{
 					$retorno->estado 	= false;
 					$msg 				= $this->db->_error_message();

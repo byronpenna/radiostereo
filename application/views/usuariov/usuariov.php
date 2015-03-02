@@ -50,7 +50,9 @@
                         <table id="resultados" class="table table-hover">
                             <thead class="thead">
                                 <tr>
-                                   <th colspan="2" class="text-center col-md-10" >Usuario</th>
+                                   <th class="text-center col-md-1" >Nombre Usuario</th>
+                                   <th class="col-md-7 text-center">Nombre Completo</th>
+                                   <th class="col-md-2"></th>
                                    <!-- <th>Password</th> -->
                                    <!--<th>Firma</th>-->
 									                 <th class="col-md-2">Acción</th>

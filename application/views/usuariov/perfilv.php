@@ -20,8 +20,9 @@
       <thead class="thead">
         <tr>
           <th>Usuario</th>
+          <th>Nombre</th>
           <th>Firma</th>
-          <th></th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody class="tbProgramas">

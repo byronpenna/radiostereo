@@ -297,9 +297,9 @@ $(document).ready(function () {
 			});
 			$(document).on("click",".btnGuardarFirma",function() {
 				tr = $(this).parents("tr");
-				frm = tr.find("textarea");//encuentro el valor contenido en el input
+				frm = tr.find("input,  textarea");//encuentro el valor contenido en el input
 				frm = serializeToJson(frm.serializeArray());//convierto los datos en un array de tipo form
-				//console.log(frm);
+				console.log(frm);
 				scrollTop();
             setTimeout(function() {
                 saveFirma(frm,tr);

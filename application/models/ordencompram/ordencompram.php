@@ -170,13 +170,14 @@ class Ordencompram extends CI_Model{
 				cli_correo, cot_valor_agregado,
 				tip_tipo, pro_nomb_producto, 
 				CURDATE() AS 'fechEmision',
-				cat_categoria
+				cat_categoria, usu_nomcompleto
 			FROM
 				cot_encabezado_cotizacion
 			LEFT JOIN cli_cliente ON cot_cli_id = cli_id
 			LEFT JOIN cat_categoria_contribuyente ON cli_cat_id = cat_id
 			LEFT JOIN tip_tipo ON cot_tip_id = tip_id
 			LEFT JOIN pro_producto ON cot_pro_id = pro_id
+			LEFT JOIN usu_usuario ON usu_id = cot_usu_id
 			WHERE
 				cot_id =" . $idCot );
 		foreach ($sql->result_array() as $datos) {
@@ -192,6 +193,7 @@ class Ordencompram extends CI_Model{
 			$retorno['producto'] = $datos['pro_nomb_producto'];
 			$retorno['fechEmision'] = $datos['fechEmision'];
 			$retorno['categoria'] = $datos['cat_categoria'];
+			$retorno['vendedor'] = $datos['usu_nomcompleto'];
 		}
 
 		return $retorno;

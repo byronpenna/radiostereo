@@ -560,6 +560,7 @@ function removeOption(selector){
 	function CreateEdtUser (tr) {
 		iduser = tr.find(".inputUserID").val();
 		user = tr.find(".tdNombreUser").text();
+		nomb = tr.find(".tdNomCompleto").text();
 		psw = tr.find(".tdContraUser").text();
 		newtr = "\
 				<td style='display:none'>\
@@ -569,7 +570,10 @@ function removeOption(selector){
 					<input name='txtNombUser' class='txtNombUser form-control' value='"+user+"'>\
 				</td>\
 				<td>\
-					<input name='txtPsw' class='txtPsw form-control' value='"+psw+"'>\
+					<input name='txtNomCompleto' placeholder='Nombre Completo' class='txtNomCompleto form-control' value='"+nomb+"'>\
+				</td>\
+				<td>\
+					<input type='password' placeholder='Contraseña' name='txtPsw' class='txtPsw form-control' value='"+psw+"'>\
 				</td>\
 				<td colspan='2'>\
 					<button class='btnGuardarUser btn btn-sm btn-primary btnAddCot'><i class='glyphicon glyphicon-check'></i></button>\
@@ -599,9 +603,10 @@ function removeOption(selector){
 							<input name='txtIdUser' value='"+iduser+"' class='inputUserID'>\
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
+						<td class='tdNomCompleto'>"+ data.dato4 + "</td>\
 						<td class='tdNombreUser'></td>\
 						<td>\
-							<button class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
+							<button class='EditUsuario btn btn-sm btn-primary'><i class='glyphicon glyphicon-pencil'></i></button>\
 						</td>";//creamos el nuevo fila
 					tr.empty().append(newtr);
 					console.log(datos);
@@ -637,18 +642,20 @@ function removeOption(selector){
 function createEditFirma (tr) {
 	iduser = tr.find(".InputIdUser").val();
 	user = tr.find(".tdNombreUser").text();
+	nomb = tr.find(".tdNomCompleto").text();
 	firma = tr.find(".tdAlgoUser").text();
 	newtr = "\
 				<td style='display:none'>\
 					<textarea name='txtIdUser' cols='2' rows='1' class='form-control InputIdUser'>"+iduser+"</textarea>\
 				</td>\
 				<td>"+user+"</td>\
+				<td><input name='txtNomCompleto' type='text' class='form-control' value='"+nomb+"'></td>\
 				<td>\
 					<textarea name='txtfirma' cols='20' rows='3' class='form-control'>"+firma+"</textarea>\
 				</td>\
 				<td>\
-					<input type='button' class='btnGuardarFirma btn btn-m btn-success btnAddCot' value='Guardar' />\
-					<button class='btn btn-m btn-success limpiar'>Cancelar</button>\
+					<button class='btnGuardarFirma btn btn-m btn-success btnAddCot'> <i class='glyphicon glyphicon-check'></i></button>\
+					<button class='btn btn-m btn-warning limpiar'><i class='glyphicon glyphicon-remove'></i></button>\
 				</td>";
 				tr.empty().append(newtr);
 	//console.log("id-> ",iduser,user);
@@ -824,8 +831,9 @@ function saveFirma (frm, tr) {
 							<input name='txtIdUser' value='"+iduser+"' class='InputIdUser'>\
 						</td>\
 						<td class='tdNombreUser'>"+data.dato1+"</td>\
+						<td class='tdNomCompleto'>"+data.dato3+"</td>\
 						<td class='tdAlgoUser'>"+data.dato2+"</td>\
-						<td><button class='EditFirma btn btn-sm btn-primary'>Editar</button></td>\
+						<td><button class='EditFirma btn btn-primary'><i class='glyphicon glyphicon-pencil'></i></button></td>\
 						";//creamos el nuevo fila
 					tr.empty().append(newtr);
 					// console.log(iduser);
