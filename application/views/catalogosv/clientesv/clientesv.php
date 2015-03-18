@@ -63,7 +63,7 @@
 				</tr>
 				<tr>
 					<td><label for="NRC">NRC:</label></td>
-					<td><input type="text" name="txtNRC" id='txtNRC' pattern='\d{6}[\-]{1}\d{1}' class="vaciarinput form-control NumNrc SoloNumero" placeholder="000000-0" required /></td>
+					<td><input type="text" name="txtNRC" id='txtNRC' class="vaciarinput form-control NumNrc" placeholder="NRC" required/></td>
 					<td class="espacio"><label for="NIT">NIT:</label></td>
 					<td><input type="text" name="txtNIT" id='txtNIT' pattern="\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}" class="vaciarinput SoloNumero form-control NumNit"  placeholder="0000-000000-000-0" required /></td>
 				</tr>

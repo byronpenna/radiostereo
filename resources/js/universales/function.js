@@ -62,7 +62,7 @@ function scrollTop(){
     
     res=0;
     if(diarias.length > 0){
-      res=valsin*valCantidad*valDiarias*valDuracion;
+      res=valsin*valCantidad*valDuracion;
     }else{
       res=valsin*valCantidad*valDuracion;
     }

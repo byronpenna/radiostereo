@@ -445,7 +445,7 @@ function removeOption(selector){
 					<input name='txtNIT' class='txtNIT form-control NumNit' pattern='\d{4}[\-]{1}\d{6}[/-]{1}\d{3}[/-]{1}\d{1}' value='"+data.nit+"' placeholder='0000-000000-000-0'>\
 				</td>\
 				<td>NRC</td><td>\
-					<input name='txtNRC' class='txtNRC form-control SoloNumero NumNrc' value='"+data.nrc+"' placeholder='000000-0'>\
+					<input name='txtNRC' class='txtNRC form-control NumNrc' value='"+data.nrc+"' placeholder='NRC'>\
 				</td></tr>\
 				<tr><td>Dirección:</td><td>\
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\

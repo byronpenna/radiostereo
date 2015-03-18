@@ -165,21 +165,5 @@ $(document).ready(function(){
                 alertify.error("Advertencia: El campo NIT debe contener sus dígitos exactos");
             }
         });
-    //validar numero nrc
-        $(document).on("keypress",".NumNrc",function(e){
-            var NRCVal = $(this).val();
-            if($(this).val().length == 6){
-                $(this).val(NRCVal + "-");
-            }
-            
-            if($(this).val().length >= 8){
-                e.preventDefault();
-            }
-        });  
-        $(document).on("blur",".NumNrc",function(e){
-            if($(this).val().length < 8){
-                alertify.error("Advertencia: El campo NRC debe contener 7 dígitos exactos");
-            }
-        });
 
 });
