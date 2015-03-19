@@ -41,7 +41,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
               <form id="frmLogout">
-                <input type="submit" class="btn-link" value="Cerrar Sesion" id="btnlout">
+                <input type="submit" class="btn-link" value="Cerrar Sesión" id="btnlout">
               </form>
             </li>
         </ul>
