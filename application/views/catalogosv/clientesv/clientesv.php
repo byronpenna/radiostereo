@@ -70,8 +70,8 @@
 				<tr>
 					<td><label for="Direccion">Dirección:</label></td>
 					<td><input type="text" name="txtDireccion" id='txtDireccion' class="vaciarinput form-control"  /></td>
-					<td class="espacio"><label for="Telefono">Telefono:</label></td>
-					<td><input type="text" name="txtTelefono" id='txtTelefono' pattern="\d{4}[\-]{1}\d{4}" class="vaciarinput form-control NumTelefono SoloNumero" placeholder="0000-0000" /></td>
+					<td class="espacio"><label for="Telefono">Teléfono:</label></td>
+					<td><input type="text" name="txtTelefono" id='txtTelefono' pattern="\d{4}[\-]{1}\d{4}" class="vaciarinput form-control NumTelefono SoloNumero" placeholder="0000-0000"  /></td>
 				</tr>
 				<tr>
 					<td><label for="Contacto">Contacto:</label></td>
@@ -80,13 +80,13 @@
 					<td><input type="email" name="txtCorreo" id='txtCorreo' class="vaciarinput form-control" placeholder="ejemplo@gmail.com"  /></td>
 				</tr>
 				<tr>
-					<td><label for="Contacto">Titulo de Contacto:</label></td>
+					<td><label for="Contacto">Título de Contacto:</label></td>
 					<td><input type="text" name="txtTitulo" id='txtTitulo' class="vaciarinput form-control" placeholder="Ej:Ingeniero" required /></td>
 					<td class="espacio"><label for="txtGiro">Giro:</label></td>
 					<td><input type="text" name="txtGiro" id="txtGiro" class="vaciarinput form-control" placeholder="Ej: Actividades Financieras"  /></td>
 				</tr>
 				<tr>
-					<td><label for="Categoria">Categoria : </label></td>
+					<td><label for="Categoria">Categoría : </label></td>
 					<td><select name="cat" class=" cat form-control selectBlanco" required></select></td>
 				</tr>
 				<tr style='display:none'>
@@ -141,9 +141,9 @@
 							<thead class="thead">
 								<tr>
 									<th>Nombre</th>
-									<th>Razon Social</th>
+									<th>Razón Social</th>
 									<th>NIT</th>
-									<th>Titulo</th>
+									<th>Título</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
