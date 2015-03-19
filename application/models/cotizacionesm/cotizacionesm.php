@@ -95,15 +95,15 @@
 									<td class='text-center'>". $estado->est_estado . "</td>
 									<td class='text-center'>";
 										if($estado->est_estado == "Orden de Compra"){
-											$retorno .=" <a title='Imprimir Orden de Compra a Color' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
-											$retorno .=" <a title='Imprimir Orden de Compra en Blanco y Negro' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-default btn-sm' style='background:black;'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .=" <a title='Imprimir Orden de Compra a Color' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm pOrden'><i class='glyphicon glyphicon-print'></i><section class='conte-ar'><article class='ar ar1'></article><article class='ar ar2'></article><article class='ar ar3'></article></section></a>";
+											$retorno .=" <a title='Imprimir Orden de Compra en Blanco y Negro' target='_blank' href='". site_url('ordencompra/printOrdenCompraBN/'.$row->cot_id.'') . "' class='btn btn-success btn-sm pOrden'><i class='glyphicon glyphicon-print'></i><section class='conte-arbn'><article class='arbn ar1bn'></article><article class='arbn ar2bn'></article></section></a>";
 										}else{
 											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
 											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if(count($count)>0){
-											$retorno .= " <a title='Imprimir Cotización a Color' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i></a>";
-											$retorno .= " <a title='Imprimir Cotización en Blanco  y Negro' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;background:black;' target='_blank' class='btn btn-sm btn-default'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .= " <a title='Imprimir Cotización a Color' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i><section class='conte-ar' style='margin-left:45%;'><article class='ar ar1'></article><article class='ar ar2'></article><article class='ar ar3'></article></section></a>";
+											$retorno .= " <a title='Imprimir Cotización en Blanco  y Negro' href='".site_url('cotizacionesc/cotizacionesc/printCotizacionBN/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i><section class='conte-arbn' style='margin-left:45%;'><article class='arbn ar1bn'></article><article class='arbn ar2bn'></article></section></a>";
 										}else{
 											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
 											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
@@ -1219,6 +1219,169 @@
 			
 			return $res;
 		}
+
+
+
+
+
+
+
+
+		// para obtenerlos sin logos
+		public function getProgBN($idCot){
+			$enc = $this->getEncCotReport($idCot);
+			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
+			$this->db->trans_start();
+			$cot=$this->db->query($sql);
+			$cot=$cot->result();
+			$this->db->trans_complete();
+			$gdb=$this->getDetBloqReporteSec($idCot);
+			$p=$this->getDetBloqReporte($idCot);
+			
+
+			// consulta para traer la firma del usuario
+			$que="select * from usu_usuario where usu_id =".$cot[0]->cot_usu_id." ";
+			$this->db->trans_start();
+			$firma=$this->db->query($que);
+			$firma=$firma->result();
+			$this->db->trans_complete();
+			if($enc){
+				$res = '
+		      				<article>
+		      				'.$enc->encabezado.'';
+		      				if($gdb->contador>1 && $p->contador > 1){
+								$res.='<br><br>';
+							}
+							$res.= $p->exp;
+							$res.= $gdb->exp;
+							$res.= $p->servic;
+
+							if(count($gdb->radios)==1){
+								if($p!=null){
+									if($gdb->radios[0]!=""){
+										if($p->contador > 1 && $gdb->contador[0] > 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}elseif($p->contador == 1 && $gdb->contador[0] > 1 || $p->contador > 1 && $gdb->contador[0] == 1){
+											$res .=	'<div style="page-break-before: always;"></div>';
+										}
+										$res .=	$gdb->radios[0];
+									}
+								}else{
+									if($gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
+									}
+								}
+							}else if(count($gdb->radios)==3){
+								if($p!=null){
+									if($p->contador >=1){
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1];
+											$res .= '
+											'.$gdb->radios[2].'</div>';
+										}
+									}else{
+										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+											$res .=	$gdb->radios[0];
+											$res .=	$gdb->radios[1];
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';
+										}
+									}
+									
+								}else{
+									if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
+									$res .=	$gdb->radios[0];
+									$res .=	$gdb->radios[1];
+									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+									'.$gdb->radios[2].'</div>';
+								}
+							}
+							}else if(count($gdb->radios)==2){
+								if($p!=null){
+									if($p->contador >= 1){
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
+									}else{
+										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+											$res .=	$gdb->radios[0];
+										}
+										if(isset($gdb->radios[0]) && isset($gdb->radios[1])){
+											if($gdb->radios[0]!="" && $gdb->radios[1]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[1] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}else if(isset($gdb->radios[0]) && isset($gdb->radios[2])){
+											if($gdb->radios[0]!="" && $gdb->radios[2]!=""){
+												if($gdb->contador[0] > 1 || $gdb->contador[2] > 1 ){
+													$res .= '<div style="page-break-before: always;"></div>';
+												}
+											}
+										}
+										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+											$res .= '<div class="cont-secprint">
+											'.$gdb->radios[1].'</div>';	
+										
+										}
+										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+											$res .= '<div class="cont-secprint">
+											'.$gdb->radios[2].'</div>';	
+										}
+									}
+								}else{
+									if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
+										$res .=	$gdb->radios[0];
+									}
+									if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
+										$res .=	$gdb->radios[1];
+									
+									}
+									if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
+										$res .=	$gdb->radios[2];
+									}
+							}
+							}
+							if(!$enc->valorAgregado){
+								$valorAgregado="Sin Beneficios";
+							}else{
+								$valorAgregado=$enc->valorAgregado;
+							}
+							/*'.substr("Licenciado", -1).'*/
+					 	 $res.='<br>
+					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:251px;">
+								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
+								 		Esperando poder servirles muy pronto, me despido.<br><br>
+
+										Atentamente,<br><br> ';
+								$res.=  nl2br($firma[0]->usu_firma);
+							$res.= '	</article>
+					      	</div>
+					      </div>
+					      </article>
+						';
+			}else{
+				$res="";
+			}
+			
+			return $res;
+		}
+
+
+
+		// para obtenerlos con colorcitos
 
 		public function getProg($idCot){
 			$enc = $this->getEncCotReport($idCot);

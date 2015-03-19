@@ -89,6 +89,14 @@
 			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
 		}
 
+		public function printCotizacionBN($idCot){
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$cotizacionm 			= 	new Cotizacionesm();
+			$prog 					=	$cotizacionm->getProgBN($idCot);
+			$datos['prog']			=	$prog;
+			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
+		}
+
 		public function Reporte($vista,$obj){
 			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
 			ob_start();

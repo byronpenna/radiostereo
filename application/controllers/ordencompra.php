@@ -44,6 +44,18 @@ class ordencompra extends padre
 
 	}
 
+
+	public function printOrdenCompraBN($id){
+			$data['id'] = $id;
+			$data['datosEnc'] = $this->ordenCompraModel->getDatosCli($id);
+			$data['detalleP'] = $this->ordenCompraModel->getDatosDetalle($id);
+			$this->load->view("fpdf/fpdf");
+			$this->load->view("ordencomprav/ReporteOrdenCompra/datosReporteBN", $data);
+
+	}
+
+
+
 	public function printFrecuencia($id){
 			$data['id'] = $id;
 			$data['dataServicio'] = $this->ordenCompraModel->getServicios($id);

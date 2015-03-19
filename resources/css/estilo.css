@@ -511,6 +511,59 @@ background-color: #848484;
   /*z-index:1000;*/
 }
 
+.conte-ar{
+  /*background: orange;*/
+  height: 0px;
+}
+
+.pOrden article{
+  display: inline-block;
+}
+
+.ar{
+  width: 8px;
+  height: 4px;
+  margin-left: -0.75%;
+  position: absolute;
+}
+
+.ar1{
+  background: red;
+}
+
+.ar2{
+  background: green;
+  margin-left:-0.3%;
+}
+
+.ar3{
+  background: blue;
+  margin-left: 0.2%;
+}
+
+
+.conte-arbn{
+  /*background: orange;*/
+  height: 0px;
+}
+
+.arbn{
+  width: 12px;
+  height: 4px;
+  margin-left: -0.75%;
+  position: absolute;
+}
+
+.ar1bn{
+  background: black;
+}
+
+.ar2bn{
+  background: white;
+  margin-left:0%;
+}
+
+
 .loading{
   margin-left:50%;margin-top:20%;
   /*color:orange;*/
