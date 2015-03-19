@@ -16,10 +16,14 @@
            console.log(datos);
            $(".cont-loading").css("display","none");
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
-              alertify.success("Datos Editados Correctamente");
+              if(datos.cliInfo==false){
+                alertify.alert("Debe Ingresar Todos los Datos del Cliente para poder generar la Orden de Compra !");
+              }else{
+                alertify.success("Datos Editados Correctamente");
                setTimeout(function() {
                     window.location=getBaseURL()+"cotizacionesc/cotizacionesc";
-                }, 1000);
+                }, 1000);  
+              }
            }else{
            alertify.error("Ha salido algo mal,por favor intente de nuevo");
                     setTimeout(function() {

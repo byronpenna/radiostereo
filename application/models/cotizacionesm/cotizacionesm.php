@@ -14,7 +14,6 @@
 	    	->join('rol_usuario', 'usu_rol_id = rol_id')
 	    	->where( array('usu_id' => $_SESSION['iduser'] ))	
 	    	->get()->row()->rol_nombre;
-				
 				if($rolUsu == "SuperAdministrador" || $rolUsu == "Administrador"){
 					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id  ORDER BY cot_est_id,cot_id DESC";					
 				}else{		
@@ -808,11 +807,24 @@
 						$porcentaje = $porcentaje->result_array();
 
 						$calculo = $descuento/$total;
-						if($calculo  < $porcentaje[0]['tar_descuento'] && $header->estado_cot==5){
+
+
+
+						$sql ="select * from cli_cliente where cli_id=".$header->txtidCliente."";
+						$this->db->trans_start();
+						$cliq = $this->db->query($sql);
+						$this->db->trans_complete();
+						$cliq = $cliq->result();
+
+						$retorno->cliInfo = false;
+
+
+						if($calculo  < $porcentaje[0]['tar_descuento'] && $header->estado_cot==5 && $cliq[0]->cli_nit && $cliq[0]->cli_nrc &&  $cliq[0]->cli_direccion && $cliq[0]->cli_telefono && $cliq[0]->cli_correo && $cliq[0]->cli_giro){
 						//if($calculo  < 0.30 && $header->estado_cot==5){	
 							$fl = $this->getFechas($valor->txtIdEncabezado);
 							if($fl){
 								$this->updateEstadoCot($header->idCot);
+								$retorno->cliInfo = true;
 							}
 						}
 					}
