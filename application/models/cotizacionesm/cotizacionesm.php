@@ -95,13 +95,17 @@
 									<td class='text-center'>". $estado->est_estado . "</td>
 									<td class='text-center'>";
 										if($estado->est_estado == "Orden de Compra"){
-											$retorno .=" <a title='Imprimir Orden de Compra' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .=" <a title='Imprimir Orden de Compra a Color' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-success btn-sm'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .=" <a title='Imprimir Orden de Compra en Blanco y Negro' target='_blank' href='". site_url('ordencompra/printOrdenCompra/'.$row->cot_id.'') . "' class='btn btn-default btn-sm' style='background:black;'><i class='glyphicon glyphicon-print'></i></a>";
 										}else{
+											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
 											$retorno .=" <a class='btn btn-default btn-sm' disabled><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if(count($count)>0){
-											$retorno .= " <a title='Imprimir Cotización' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .= " <a title='Imprimir Cotización a Color' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;' target='_blank' class='btn btn-sm btn-warning'><i class='glyphicon glyphicon-print'></i></a>";
+											$retorno .= " <a title='Imprimir Cotización en Blanco  y Negro' href='".site_url('cotizacionesc/cotizacionesc/printCotizacion/'.$row->cot_id.'') ."' style='text-decoration:none;color:#FFFFFF;background:black;' target='_blank' class='btn btn-sm btn-default'><i class='glyphicon glyphicon-print'></i></a>";
 										}else{
+											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
 											$retorno .= " <a class='btn btn-sm btn-default' disabled><i class='glyphicon glyphicon-print'></i></a>";
 										}	
 										if($frec > 0){
