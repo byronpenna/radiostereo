@@ -450,7 +450,7 @@ function removeOption(selector){
 				<tr><td>Dirección:</td><td>\
 					<input name='txtDireccion' class='txtDireccion form-control' value='"+data.direccion+"'>\
 				</td>\
-				<td>Telefono</td><td>\
+				<td>Teléfono</td><td>\
 					<input name='txtTelefono' class='txtTelefono form-control NumTelefono' pattern='\d{4}[\-]{1}\d{4}' value='"+data.telefono+"'>\
 				</td></tr>\
 				<tr><td>Contacto</td><td>\
@@ -459,7 +459,7 @@ function removeOption(selector){
 				<td>Correo</td><td>\
 					<input name='txtCorreo' class='txtCorreo form-control' value='"+data.correo+"'>\
 				</td></tr>\
-				<tr><td>Titulo de Contacto</td><td>\
+				<tr><td>Título de Contacto</td><td>\
 					<input name='txtTitulo' class='txtTitulo form-control' value='"+data.titulo+"'>\
 				</td>\
 				<td>Giro</td><td>\

@@ -20,7 +20,7 @@
                     <tr class="filters">
                         <th class="active"></th>
                         <th><input type="text" class="form-control" placeholder="Nombre" ></th>
-                        <th><input type="text" class="form-control" placeholder="Razon Social" ></th>
+                        <th><input type="text" class="form-control" placeholder="Razón Social" ></th>
                         <th><input type="text" class="form-control" placeholder="NIT" ></th>
                     </tr>
                 </thead>

@@ -12,7 +12,7 @@
         $this->load->view("estructura/menu.php");
     ?>
 	<section class="container" id="contenedorClientes">
-    <h3>Crear Cotizacion </h3>
+    <h3>Crear Cotización </h3>
     <hr id="hr">
     	<section id="mainCot">
     		<article id="cotHeader" class="headerCot">
@@ -26,14 +26,14 @@
                             <?php echo $TipoCot; ?>
                         </select>   
     				</span></p>
-    				<p>Estado de Cotizacion <span>
+    				<p>Estado de Cotización <span>
                         <select name='estado_cot' class='form-control input-sm pequenios selectBlanco' >
         					<?php echo $EstadoCot; ?>
                         </select>
     				</span></p>
     			</article>
     			<article>
-    				<p>Fecha de Creacion <span><input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
+    				<p>Fecha de Creación <span><input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
                     <p>Producto <span>
                         <select name='prod' class='form-control input-sm medios selectBlanco' >
                             <?php echo $Producto; ?>
@@ -59,7 +59,7 @@
                                 <td></td>
                                 <td><p>Costo Por Segundo</p></td>
                                 <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
+                                <td><p>Duración</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
                         </thead>
