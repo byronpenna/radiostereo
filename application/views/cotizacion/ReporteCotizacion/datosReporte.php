@@ -1,1 +1,1 @@
-<?=$prog?>
+<?php echo  $prog; ?>

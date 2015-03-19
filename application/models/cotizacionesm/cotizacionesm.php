@@ -1054,7 +1054,7 @@
 
 		public function getFooter(){
 			$footer=' 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:60px;position:fixed;"/>
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:180px;position:fixed;"/>
 			';
 			return $footer;
 		}
@@ -1360,8 +1360,8 @@
 							}
 							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:251px;">
+					 	<p style="word-wrap:break-word;margin-top:-20px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:290px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 
@@ -1517,8 +1517,8 @@
 							}
 							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;margin-top:-10px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:251px;">
+					 	<p style="word-wrap:break-word;margin-top:-20px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:290px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 
@@ -1655,10 +1655,10 @@
 									if($progId[0]->sec_id==1){
 										$res->radios[$i].="<td style='width:100px;'>Cuñas Diarias</td>	";
 										$estilo1='
-											style="margin-left:352px;width:553px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+											style="margin-left:355px;width:552px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
 										';
 										$estilo2='
-											style="width:92px;text-align:center;"
+											style="width:88px;text-align:center;"
 										';
 									}else{
 										$estilo1='
