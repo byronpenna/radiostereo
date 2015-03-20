@@ -12,7 +12,7 @@
 				$rolUsu = $this->db->select('rol_nombre')
 	    	->from('usu_usuario')
 	    	->join('rol_usuario', 'usu_rol_id = rol_id')
-	    	->where( array('usu_id' => $_SESSION['iduser'] ))	
+	    	->where( array('usu_id' => $_SESSION['iduser'] ))
 	    	->get()->row()->rol_nombre;
 				if($rolUsu == "SuperAdministrador" || $rolUsu == "Administrador"){
 					$consulta = "SELECT * FROM cot_encabezado_cotizacion join cli_cliente ON cli_id=cot_cli_id  ORDER BY cot_est_id,cot_id DESC";					
@@ -808,7 +808,7 @@
 
 						$calculo = $descuento/$total;
 
-
+						$retorno->cliInfo= 0;
 
 						$sql ="select * from cli_cliente where cli_id=".$header->txtidCliente."";
 						$this->db->trans_start();
@@ -816,17 +816,22 @@
 						$this->db->trans_complete();
 						$cliq = $cliq->result();
 
-						$retorno->cliInfo = false;
-
-
-						if($calculo  < $porcentaje[0]['tar_descuento'] && $header->estado_cot==5 && $cliq[0]->cli_nit && $cliq[0]->cli_nrc &&  $cliq[0]->cli_direccion && $cliq[0]->cli_telefono && $cliq[0]->cli_correo && $cliq[0]->cli_giro){
-						//if($calculo  < 0.30 && $header->estado_cot==5){	
+						if($porcentaje){
+						if($calculo  <= $porcentaje[0]['tar_descuento'] && $header->estado_cot==5 && $header->tipo_cot != 3){
+							//if($calculo  < 0.30 && $header->estado_cot==5){	
+							$retorno->cliInfo = 1;
 							$fl = $this->getFechas($valor->txtIdEncabezado);
 							if($fl){
-								$this->updateEstadoCot($header->idCot);
-								$retorno->cliInfo = true;
+								if($cliq[0]->cli_nit != "" && $cliq[0]->cli_nrc != "" &&  $cliq[0]->cli_direccion != "" && $cliq[0]->cli_telefono != "" && $cliq[0]->cli_correo != "" && $cliq[0]->cli_giro != ""){
+									$retorno->cliInfo = 2;
+									$this->updateEstadoCot($header->idCot);
+								}
 							}
 						}
+						}
+
+
+						
 					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;

@@ -69,11 +69,33 @@
             // console.log("eventos ",seccc.length);
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-            scrollTop();
+            padre=undefined;
+            $(".total").each(function(i,val){
+                if($(this).val()){
+                    padre = $(this).parents(".conProgra");
+                }
+            });            
+            if(padre==undefined){
+                alertify.alert("Debe Ingresar al menos un detalle para poder guardar !");
+            }else{
+                pventa = padre.find(".pventa");
+                ffin = padre.find(".ffin");
+                if(pventa.val() && ffin.val()){
+                    console.log("ambos estan llenos");
+                      scrollTop();
             console.log(frmGlobal);
             setTimeout(function() {
                     editCotizacion(frmGlobal);
                 }, 1000);
+                }else{
+                    alertify.alert("Es Obligatorio llenar ingresar el precio de venta y el fin de pauta para poder continuar !");
+                }    
+            }
+            // scrollTop();
+            // console.log(frmGlobal);
+            // setTimeout(function() {
+            //         editCotizacion(frmGlobal);
+            //     }, 1000);
         }else{
             alertify.alert(valHeader.mensaje, function () { 
                 var pathname = window.location.pathname;

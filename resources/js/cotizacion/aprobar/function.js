@@ -13,6 +13,7 @@ function obtenerDatosAprobados(frm){
            var datos = jQuery.parseJSON(data);
            $(".cont-loading").css("display","none");
            if(datos.res==true){
+
             if(datos.contador<=1){
               alertify.success("Se ha Aprobado <b>"+datos.contador+"</b> cotizacion seleccionada");
               setTimeout(function() {
@@ -24,6 +25,7 @@ function obtenerDatosAprobados(frm){
                 location.reload();
               }, 2000);
             }
+            
            }else{
            alertify.error("Ha salido algo mal,por favor intente de nuevo");
            setTimeout(function() {

@@ -18,10 +18,35 @@
             });
             frmGlobal.secCot    = secCot;
             frmGlobal.headerCot = headerCot;
-            scrollTop();
-            setTimeout(function() {
-                    addCotizacion(frmGlobal);
-                }, 1000);
+            padre=undefined;
+            $(".total").each(function(i,val){
+                if($(this).val()){
+                    padre = $(this).parents(".conProgra");
+                }
+            });
+
+            
+            if(padre==undefined){
+                alertify.alert("Debe Ingresar al menos un detalle para poder guardar !");
+            }else{
+                pventa = padre.find(".pventa");
+                ffin = padre.find(".ffin");
+                if(pventa.val() && ffin.val()){
+                    console.log("ambos estan llenos");
+                      scrollTop();
+                        setTimeout(function() {
+                                addCotizacion(frmGlobal);
+                            }, 1000);
+                }else{
+                    alertify.alert("Es Obligatorio llenar ingresar el precio de venta y el fin de pauta para poder continuar !");
+                }    
+            }
+            
+
+            // scrollTop();
+            // setTimeout(function() {
+            //         addCotizacion(frmGlobal);
+            //     }, 1000);
         }else{
             alertify.error(valHeader.mensaje);
                 var pathname = window.location.pathname;

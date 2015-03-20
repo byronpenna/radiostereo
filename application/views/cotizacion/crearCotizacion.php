@@ -47,7 +47,7 @@
                     <h4 class="text-center">Programas</h4>
                     <article class="contTitle">
                         <article class="titleProgra"><span>Programa </span><span>
-                            <select name='programa' class='form-control input-sm selectBlanco' style='width:240px;height:28px;padding:0px;' >
+                            <select name='programa' class='form-control input-sm selectBlanco selPrograma' style='width:240px;height:28px;padding:0px;' >
                                 <?php echo $Prog;?>
                             </select></span></article>
                         <!-- <article class="contPVenta"><span>Precio de Venta </span><span><input type="text" class="NumPunto form-control input-sm" name="pventa" value="" placeholder="$"></span></article> -->
