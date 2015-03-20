@@ -1071,7 +1071,7 @@
 
 		public function getFooter(){
 			$footer=' 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:180px;position:fixed;"/>
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:90px;position:fixed;"/>
 			';
 			return $footer;
 		}
@@ -1535,7 +1535,7 @@
 							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
 					 	<p style="word-wrap:break-word;margin-top:-20px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:290px;">
+								 	 <article style="position:fixed;bottom:312px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 
@@ -1664,29 +1664,29 @@
 							<b>Servicio Ofertado : '.$SecNom.'</b>
 							<br><br>
 							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
-								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;"  cellspacing="0">
+								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;font-size:0.9em;"  cellspacing="0">
 								<tr>
 									<td>Radio</td>
-									<td style="width:130px;">Costo Por Segundo</td>
-									<td style="width:80px;">Cantidad</td>';
+									<td style="width:120px;">Costo Por Segundo</td>
+									<td style="width:60px;">Cantidad</td>';
 									if($progId[0]->sec_id==1){
-										$res->radios[$i].="<td style='width:100px;'>Cuñas Diarias</td>	";
+										$res->radios[$i].="<td style='width:90px;'>Cuñas Diarias</td>	";
 										$estilo1='
-											style="margin-left:355px;width:552px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+											style="margin-left:362px;width:549px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
 										';
 										$estilo2='
 											style="width:88px;text-align:center;"
 										';
 									}else{
 										$estilo1='
-											style="margin-left:316px;width:565px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+											style="margin-left:362px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
 										';
 										$estilo2='
-											style="width:140px;text-align:center;"
+											style="width:89px;text-align:center;"
 										';
 									}
-									$res->radios[$i].='<td style="width:100px;">Duracion(Seg)</td>
-									<td>Sub Total</td>
+									$res->radios[$i].='<td style="width:90px;">Duracion(Seg)</td>
+									<td style="width:88px;">Sub Total</td>
 								</tr>
 								<tbody>
 								'.$detalle->servi.'
@@ -1707,7 +1707,7 @@
 								</tr>
 								<tr>
 									<td style="border-right:1.5px solid #000000;">
-										Precio de Venta 
+										Precio de Vta.
 									</td>
 									<td style="text-align:center;">
 										 $ '.number_format($valor->enc_precio_venta,2,".",",").'

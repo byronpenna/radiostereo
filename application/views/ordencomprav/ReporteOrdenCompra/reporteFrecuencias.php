@@ -21,7 +21,7 @@ public function Footer(){
    	//Posición: a 3cm del final
     $this->SetY(-20);
     $urlFooter = base_url("resources/imagenes/Reporte/footerReporte.jpg");
-    $this -> Image ( $urlFooter, null , null , 280, 20 );
+    $this -> Image ( $urlFooter, 10 , 180 , 280, 30 );
    }
 
 }
