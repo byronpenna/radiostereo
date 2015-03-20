@@ -18,7 +18,7 @@
            if(datos.header && datos.encBloq && datos.detBloq && datos.fecha){
               if(datos.cliInfo == 1){
                 alertify.alert("Debe Ingresar Todos los Datos del Cliente para poder generar la Orden de Compra !");
-                window.location=getBaseURL()+"cotizacionesc/cotizacionesc";
+                // window.location=getBaseURL()+"cotizacionesc/cotizacionesc";
               }else if(datos.cliInfo == 2 || datos.cliInfo==0){
                 alertify.success("Datos Editados Correctamente");
                setTimeout(function() {
