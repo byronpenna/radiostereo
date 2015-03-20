@@ -11,7 +11,7 @@ $this -> SetTextColor (0,0,0);
 
 $urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
 // $this -> Image ( $urlHeader , 15 , null , 180, 25 );
-$this->ln(5);
+$this->ln(45);
 $this->Cell(0 , 0, "Orden de Compra de Publicidad", 0 , 0, 'C');
 $this->ln(5);
 }
@@ -46,24 +46,19 @@ if (isset($detalleP['progNombre']) && $detalleP != "") {
 
 
 //Datos
+
+//Datos
 $mipdf->ln(2);
-$mipdf->Cell(90, 5, utf8_decode("Número de Orden de Compra:   ") . $id , 'R', 0 );
-$mipdf->Cell(10, 5, "");
-$mipdf->Cell(80, 5, utf8_decode("Teléfono:   " . $datosEnc['telefono']), 0 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Nombre:   " . $datosEnc['nombres'] ) , 'R', 0 );
-$mipdf->Cell(10, 5, "");
-$mipdf->Cell(80, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 0 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 'R', 0 );
-$mipdf->Cell(10, 5, "");
-$mipdf->Cell(80, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 0 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 'R', 0 );
-$mipdf->Cell(10, 5, "");
-$mipdf->Cell(80, 5, utf8_decode("Categoria de Contribuyente:   " . $datosEnc['categoria'] ) , 0 , 1 );
-
-$mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 'R' , 0);
-$mipdf->Cell(10, 5, "");
-$mipdf->Multicell(80, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), '0' , 'J');
-
+$mipdf->Cell(90, 5, utf8_decode("Número de Orden de Compra:   ") . $id , 1, 0 );
+$mipdf->Cell(90, 5, utf8_decode("Teléfono:   " . $datosEnc['telefono']), 1 , 1);
+$mipdf->Cell(90, 5, utf8_decode("Nombre:   " . $datosEnc['nombres'] ) , 1, 0 );
+$mipdf->Cell(90, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 1 , 1);
+$mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 1, 0 );
+$mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
+$mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 1, 0 );
+$mipdf->Cell(90, 5, utf8_decode("Categoria de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
+$mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 1 , 0);
+$mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
 
 
 $mipdf->ln(5);
