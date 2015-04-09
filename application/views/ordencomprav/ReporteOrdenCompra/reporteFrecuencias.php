@@ -53,13 +53,16 @@ foreach ($fechaMes as $key => $value) {
 	$numDias[$i] = $value->contada;
 	$mes[$i] = $value->mes;
 	$mesN[$i] = $value->mesN;
+	$diasT += $value->contada;
 	$i++;
 }
 
-$espacio = 170; //Cantidad de px que uso
+
+
+$espacio = 170; //Cantidad de px que uso 
 
 for ($j=0; $j < $i ; $j++) { 
-	$ocupar[$j] = $espacio/$i;
+	$ocupar[$j] = ( $espacio / $diasT) * $numDias[$j] ;
 	$mipdf->Cell( $ocupar[$j] , 6, $mes[$j], 'TBR', 0 , 'C');
 }
 $mipdf->ln();
@@ -116,7 +119,7 @@ foreach ($dataServicio as $key => $value) {
 $conCostoS = round($conCostoS * 1.13, 2);
 $conSubtotal = round($conSubtotal * 1.13, 2);
 
-$mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
+$mipdf->Cell(40, 6, "TOTAL + IVA", 1, 0, 'C');
 $mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
 $mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
 $mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
