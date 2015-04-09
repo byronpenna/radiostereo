@@ -253,9 +253,9 @@ $(document).ready(function () {
 				alertify.confirm(mensaje,function(e) {
 								if (e) {
 										scrollTop();
-            setTimeout(function() {
+            // setTimeout(function() {
                 DeleteCliente(frm,tr);
-                }, 1000);
+                // }, 1000);
 
 										location.reload();
 				 					}else{
