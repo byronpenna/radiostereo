@@ -116,8 +116,14 @@
 		}
 		public function update_userdb($dato)
 		{
-			$encirpt = sha1($dato->txtPsw);
-			$data 		= array('usu_nombre' => $dato->txtNombUser, 'usu_password' => $encirpt, 'usu_nomcompleto' => $dato->txtNomCompleto);
+			if($dato->txtPsw){
+				$encirpt = sha1($dato->txtPsw);
+				$data 		= array('usu_nombre' => $dato->txtNombUser, 'usu_password' => $encirpt, 'usu_nomcompleto' => $dato->txtNomCompleto);	
+			}else{
+				$encirpt = sha1($dato->txtPsw);
+				$data 		= array('usu_nombre' => $dato->txtNombUser, 'usu_nomcompleto' => $dato->txtNomCompleto);	
+			}
+			
 			$retorno 	= new stdClass();
 			$this->db->trans_start();
 				$this->db->where('usu_id', $dato->txtIdUser);
