@@ -10,10 +10,10 @@ $this->SetDrawColor(15,80,180);
 $this -> SetTextColor (0,0,0);
 
 $urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
-$this -> Image ( $urlHeader , 15 , null , 180, 25 );
+$this -> Image ( $urlHeader , 15 , null , 170, 25 );
 $this->ln(15);
 $this->Cell(0 , 0, "Orden de Compra de Publicidad", 0 , 0, 'C');
-$this->ln(10);
+$this->ln(5);
 }
 
 public function Footer(){
@@ -63,14 +63,14 @@ $mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1
 $mipdf->ln(5);
 
 //Productos
-$mipdf->Cell(180, 7, "Producto a Anunciar", 1 , 1, 'C');
+$mipdf->Cell(180, 6, "PRODUCTO A ANUNCIAR", 1 , 1, 'C');
 $mipdf->Cell(180, 5, "   " . utf8_decode($datosEnc['producto']), 1 , 1, 'L');
 
 $mipdf->ln(5);
 
 
 //Cuñas y otros servicios - Encabezado
-$mipdf->Cell(180, 7, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
+$mipdf->Cell(180, 6, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
 $mipdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
 $mipdf->Cell(80, 5, utf8_decode("Descripción"), 1 , 0 , 'C');
 $mipdf->Cell(40, 5, $cosito , 1 , 0, 'C');
@@ -96,20 +96,26 @@ $descuento = $subtotal - str_replace(",", "", $detalleP['precioVenta']);
 $mipdf->ln(5);
 
 //Descuentos
-$mipdf->Cell(180, 7, "DESCUENTOS", 1 , 1, 'C' );
+$mipdf->Cell(180, 6, "DESCUENTOS", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Descripción"), 1 , 0 , 'C' );
 $mipdf->Cell(40, 5, "Costo", 1, 1, 'C');
 
-$mipdf->Cell(140, 5, utf8_decode($datosEnc['detcDes']) , 1, 0, 'L');
-$mipdf->Cell(40, 5, "$ "  .number_format($descuento,2,".",","), 1, 1, 'R');
 
-$mipdf->Cell(140, 7, "   SUB-TOTAL", 1, 0, 'L');
-$mipdf->Cell(40, 7, "$ " . number_format($descuento,2,".",","), 1 , 1, 'R');
+$x = $mipdf->GetX();
+$y1 = $mipdf->GetY();
+$mipdf->MultiCell(140, 5, utf8_decode($datosEnc['detcDes']) , 1, 'J');
+$y2 = $mipdf->GetY();
+$yTotal = $y2 - $y1;
+$mipdf->SetXY($x + 140, $y1);
+$mipdf->Cell(40, $yTotal, "$ "  .number_format($descuento,2,".",","), 1, 1, 'R');
+$mipdf->SetXY($x, $y2);
+$mipdf->Cell(140, 6, "   SUB-TOTAL", 1, 0, 'L');
+$mipdf->Cell(40, 6, "$ " . number_format($descuento,2,".",","), 1 , 1, 'R');
 
 $mipdf->ln(5);
 
 //Detalle de Compra
-$mipdf->Cell(180, 7, "DETALLE DE COMPRA", 1 , 1, 'C' );
+$mipdf->Cell(180, 6, "DETALLE DE COMPRA", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Tipo de Pago"), 1 , 0 , 'L' );
 $mipdf->Cell(40, 5, utf8_decode($datosEnc['tipoPago']), 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Fecha de Emisión"), 1, 0, 'L');
@@ -125,8 +131,8 @@ if ($datosEnc['categoria'] == "Excento IVA") {
 	$mipdf->Cell(140, 5, utf8_decode("IVA 13%"), 1, 0, 'L');
 	$mipdf->Cell(40, 5, "-" , 1, 1, 'R');
 	$tpagar = $detalleP['precioVenta'];
-	$mipdf->Cell(140, 7, "   TOTAL A PAGAR", 1, 0, 'L');
-	$mipdf->Cell(40, 7, "$ " . number_format($tpagar,2,".",",")   , 1 , 1, 'R');
+	$mipdf->Cell(140, 6, "   TOTAL A PAGAR", 1, 0, 'L');
+	$mipdf->Cell(40, 6, "$ " . number_format($tpagar,2,".",",")   , 1 , 1, 'R');
 	
 }else{
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );
@@ -135,8 +141,8 @@ if ($datosEnc['categoria'] == "Excento IVA") {
 	$mipdf->Cell(140, 5, utf8_decode("IVA 13%"), 1, 0, 'L');
 	$mipdf->Cell(40, 5, "$ ". number_format($iva,2,".",",")  , 1, 1, 'R');
 	$tpagar = str_replace(",", "", $detalleP['precioVenta']) + $iva;
-	$mipdf->Cell(140, 7, "   TOTAL A PAGAR", 1, 0, 'L');
-	$mipdf->Cell(40, 7, "$ " . number_format($tpagar,2,".",",") , 1 , 1, 'R');
+	$mipdf->Cell(140, 6, "   TOTAL A PAGAR", 1, 0, 'L');
+	$mipdf->Cell(40, 6, "$ " . number_format($tpagar,2,".",",") , 1 , 1, 'R');
 }
 
 
