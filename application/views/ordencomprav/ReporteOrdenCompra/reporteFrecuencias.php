@@ -40,6 +40,7 @@ foreach ($encFre as $key => $value) {
 $mipdf->Cell(180, 6, utf8_decode("CLIENTE:    " . $value->cli_nombres ), 0 , 1);
 $mipdf->Cell(180, 6, utf8_Decode("PRODUCTO: " . $value->pro_nomb_producto), 0 , 1);
 $mipdf->Cell(180, 6, "PERIODO: Del " . date("d/m/Y",strtotime($value->enc_fecha_inicio))  . " al " . date("d/m/Y",strtotime($value->enc_fecha_fin)) , 0 , 1);
+$precioVenta = $value->enc_precio_venta;
 }
 
 $mipdf->ln(10);
@@ -58,7 +59,6 @@ foreach ($fechaMes as $key => $value) {
 }
 
 
-
 $espacio = 170; //Cantidad de px que uso 
 
 for ($j=0; $j < $i ; $j++) { 
@@ -70,7 +70,7 @@ $mipdf->ln();
 
 //Segunda linea
 $mipdf->Cell(40, 6, "Radios", 1, 0, 'C');
-$mipdf->Cell(20, 6, utf8_decode("Costo"), 1 , 0, 'C');	
+$mipdf->Cell(20, 6, utf8_decode("Costo + IVA"), 1 , 0, 'C');	
 $mipdf->Cell(25, 6, utf8_decode("Paquete") , 1 , 0, 'C');
 $mipdf->Cell(15, 6, utf8_decode("Cantidad"), 1 , 0, 'C');
 
@@ -116,19 +116,20 @@ foreach ($dataServicio as $key => $value) {
 
 
 ///Con Total iva incluido
-$conCostoS = round($conCostoS * 1.13, 2);
-$conSubtotal = round($conSubtotal * 1.13, 2);
 
 $mipdf->Cell(40, 6, "TOTAL + IVA", 1, 0, 'C');
 $mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, "$ " . $precioVenta , 'LRB' , 0, 'C');
 $mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
 
-/*//espacio en blanco
-$mipdf->Cell(40, 6, "", 1, 0, 'C');
-$mipdf->Cell(20, 6, "", 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, "", 'LRB' , 0, 'C');
-$mipdf->Cell(15, 6, "" , 1 , 1, 'C');*/
+$conCostoS = round($conCostoS * 1.13, 2);
+$conSubtotal = round($precioVenta * 1.13, 2);
+
+//espacio en blanco
+$mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
+$mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
+$mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
 
 
 
