@@ -1097,7 +1097,7 @@
 						$sal="Estimada";
 					}
 
-					$res->encabezado .= $sal.' '.$cli->cli_titulo.'.<br><br>
+					$res->encabezado .= $sal.' '.$cli->cli_titulo. " " . $cli->cli_contacto . '.<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
 			';

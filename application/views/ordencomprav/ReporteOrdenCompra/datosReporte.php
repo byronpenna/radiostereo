@@ -19,7 +19,7 @@ $this->ln(10);
 public function Footer(){
 
    	//Posición: a 2cm del final
-    $this->SetY(-50);
+    $this->SetY(-20);
     $urlFooter = base_url("resources/imagenes/Reporte/footerReporte.jpg");
     $this -> Image ( $urlFooter, null , null , 185, 20 );
    }
@@ -91,8 +91,7 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	$subtotal += $value->det_subtotal;	
 }
 
-$descuento = $subtotal - $detalleP['precioVenta'];
-
+$descuento = $subtotal - str_replace(",", "", $detalleP['precioVenta']);
 
 $mipdf->ln(5);
 
@@ -116,28 +115,28 @@ $mipdf->Cell(40, 5, utf8_decode($datosEnc['tipoPago']), 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Fecha de Emisión"), 1, 0, 'L');
 $mipdf->Cell(40, 5, $datosEnc['fechEmision'] , 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("SUB-TOTAL"), 1 , 0 , 'L' );
-$mipdf->Cell(40, 5, "$ " . $subtotal,  1, 1, 'R');
+$mipdf->Cell(40, 5, "$ " . number_format($subtotal,2,".",",") ,  1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Descuentos"), 1, 0, 'L');
 $mipdf->Cell(40, 5, "$ " . number_format($descuento,2,".",","),  1, 1, 'R');
 
 if ($datosEnc['categoria'] == "Excento IVA") {
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );
-	$mipdf->Cell(40, 5, "$ " . $detalleP['precioVenta'], 1, 1, 'R');
+	$mipdf->Cell(40, 5, "$ " . $detalleP['precioVenta'] , 1, 1, 'R');
 	$mipdf->Cell(140, 5, utf8_decode("IVA 13%"), 1, 0, 'L');
 	$mipdf->Cell(40, 5, "-" , 1, 1, 'R');
 	$tpagar = $detalleP['precioVenta'];
 	$mipdf->Cell(140, 7, "   TOTAL A PAGAR", 1, 0, 'L');
-	$mipdf->Cell(40, 7, "$ " . $tpagar  , 1 , 1, 'R');
+	$mipdf->Cell(40, 7, "$ " . number_format($tpagar,2,".",",")   , 1 , 1, 'R');
 	
 }else{
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );
 	$mipdf->Cell(40, 5, "$ " . $detalleP['precioVenta'], 1, 1, 'R');
-	$iva = ($detalleP['precioVenta']*0.13);
+	$iva = (str_replace(",", "", $detalleP['precioVenta'])*0.13);
 	$mipdf->Cell(140, 5, utf8_decode("IVA 13%"), 1, 0, 'L');
-	$mipdf->Cell(40, 5, "$ ". $iva  , 1, 1, 'R');
-	$tpagar = $detalleP['precioVenta'] + $iva;
+	$mipdf->Cell(40, 5, "$ ". number_format($iva,2,".",",")  , 1, 1, 'R');
+	$tpagar = str_replace(",", "", $detalleP['precioVenta']) + $iva;
 	$mipdf->Cell(140, 7, "   TOTAL A PAGAR", 1, 0, 'L');
-	$mipdf->Cell(40, 7, "$ " . $tpagar  , 1 , 1, 'R');
+	$mipdf->Cell(40, 7, "$ " . number_format($tpagar,2,".",",") , 1 , 1, 'R');
 }
 
 
