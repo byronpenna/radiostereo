@@ -92,12 +92,8 @@ $mipdf->ln();
 
 
 //Aqui van los datos
-$conCostoS= 0;
-$conSubtotal= 0;
 $conCant = 0;
-foreach ($dataServicio as $key => $value) {	
-	$conCostoS += $value->costoS;
-	$conSubtotal += $value->det_subtotal;
+foreach ($dataServicio as $key => $value) {
 	$conCant += $value->det_cantidad;
 	$mipdf->Cell(40, 6, utf8_decode($value->detalleServicio), 'LRT', 0, 'C');
 	$mipdf->Cell(20, 6, utf8_decode("$ ". $value->costoS), '1' , 0, 'C');
@@ -116,6 +112,7 @@ foreach ($dataServicio as $key => $value) {
 
 
 ///Con Total iva incluido
+$conCostoS = round($precioVenta / $conCant, 2);
 
 $mipdf->Cell(40, 6, "TOTAL + IVA", 1, 0, 'C');
 $mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
