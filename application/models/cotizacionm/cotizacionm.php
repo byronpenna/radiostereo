@@ -55,7 +55,7 @@
 			if($datos->validacion===true){
 
 				foreach ($query as $row) {
-					if($_SESSION['rol']==2 && $row->est_id==3 || $_SESSION['rol']==2 && $row->est_id==4 || $_SESSION['rol']==2 && $row->est_id==5){
+					if($row->est_id==3 || $row->est_id==4 || $row->est_id==5){
 						$none = "style='display:none;'";	
 					}else{
 						$none ="";
