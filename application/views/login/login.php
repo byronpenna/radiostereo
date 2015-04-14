@@ -37,7 +37,7 @@
                                         </div>
 
                                         <br>
-                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesion">
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Iniciar Sesión">
                                     </fieldset>
                                 </form>
                             </div>

@@ -159,7 +159,7 @@
                                 if($valor->sec_id==1){
                                 	$res.="<td>Cuñas Diarias</td>";
                                 }
-                               $res .= ' <td><p>Duracion</p></td>
+                               $res .= ' <td><p>Duración</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
                             </thead>

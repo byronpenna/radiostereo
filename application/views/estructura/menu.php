@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav">
             <li><a href="<?php echo site_url('main/main'); ?>">Inicio</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catalogos<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <?php if($rol==3 || $rol==1){ ?>
                 <li><a href="<?php echo site_url('catalogosc/catalogosc'); ?>">Programas</a></li>

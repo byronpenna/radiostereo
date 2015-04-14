@@ -1145,6 +1145,9 @@
 				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
 				$periodo=$ffin-$fi;
 				// $periodo=$periodo+1;
+				if($periodo==0){
+					$periodo=1;
+				}
 				$encCot = $this->getEncCot($idCot);
 				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
 				if($periodo>1){
@@ -1166,7 +1169,7 @@
 							<td>Servicio</td>
 							<td>Costo Por Segundo</td>
 							<td>Cantidad</td>
-							<td>Duracion(Seg)</td>
+							<td>Duración(Seg)</td>
 							<td>Sub Total</td>
 						</tr>
 						<tbody>
@@ -1663,6 +1666,9 @@
 						$ffin=substr($valor->enc_fecha_fin,"5","2");
 						$periodo=$ffin-$fi;
 						// $periodo=$periodo+1;
+						if($periodo==0){
+							$periodo=1;
+						}
 						if($periodo>1){
 							$periodo=$periodo." meses";
 						}else{
@@ -1713,7 +1719,7 @@
 											style="width:89px;text-align:center;"
 										';
 									}
-									$res->radios[$i].='<td style="width:90px;">Duracion(Seg)</td>
+									$res->radios[$i].='<td style="width:90px;">Duración(Seg)</td>
 									<td style="width:88px;">Sub Total</td>
 								</tr>
 								<tbody>
