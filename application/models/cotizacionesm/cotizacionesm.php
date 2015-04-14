@@ -1013,7 +1013,21 @@
 
 //Aca se generan los reportes para los programas 
 		public function getEnReporte($IdCot,$campo){
-			$sql="SELECT  * FROM enc_encabezado_bloque 
+			$sql="SELECT  
+				enc_id,
+				enc_cot_id,
+				enc_prog_id,
+				enc_precio_venta,
+				enc_fecha_fin,
+				enc_fecha_inicio,
+				enc_sec_id,
+				ROUND(
+					DATEDIFF(
+						enc_fecha_fin,
+						enc_fecha_inicio
+					) / 30
+				) AS Periodo 
+			FROM enc_encabezado_bloque
 			WHERE (enc_cot_id = ".$IdCot.") AND (".$campo." is not null) AND  (enc_precio_venta >0) AND (enc_fecha_inicio>0) AND (enc_fecha_fin>0)";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
@@ -1141,9 +1155,9 @@
 				$progId=$progId->result();
 				$this->db->trans_complete();
 				$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
-				$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
-				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
-				$periodo=$ffin-$fi;
+				// $fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
+				// $ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
+				$periodo=$encBloq[0]->Periodo;
 				// $periodo=$periodo+1;
 				if($periodo==0){
 					$periodo=1;
@@ -1662,9 +1676,10 @@
 						$progId=$progId->result();
 						$this->db->trans_complete();
 						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
-						$fi=substr($valor->enc_fecha_inicio,"5","2");
-						$ffin=substr($valor->enc_fecha_fin,"5","2");
-						$periodo=$ffin-$fi;
+						// $fi=substr($valor->enc_fecha_inicio,"5","2");
+						// $ffin=substr($valor->enc_fecha_fin,"5","2");
+						// $periodo=$ffin-$fi;
+						$periodo=$valor->Periodo;
 						// $periodo=$periodo+1;
 						if($periodo==0){
 							$periodo=1;
