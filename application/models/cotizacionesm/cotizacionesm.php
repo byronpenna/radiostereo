@@ -1096,8 +1096,24 @@
 					}else{
 						$sal="Estimada";
 					}
-
-					$res->encabezado .= $sal.' '.$cli->cli_titulo. " " . $cli->cli_contacto . '.<br><br>
+					$partido = explode(" ", $cli->cli_contacto);
+					$contaPartido = count($partido);
+					$contacto="";
+					switch ($contaPartido) {
+						case 1:
+							$contacto = $partido[0];
+							break;
+						case 2:
+							$contacto = $partido[1];
+							break;
+						case 3 || 4:
+							$contacto = $partido[2];
+							break;
+						default:
+							$contacto = "";
+							break;
+					}
+					$res->encabezado .= $sal.' '.$cli->cli_titulo. " " . $contacto  . '.<br><br>
 
 					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
 			';
@@ -1389,7 +1405,7 @@
 							}
 							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;margin-top:-20px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+					 	<p style="word-wrap:break-word;bottom:440px;position:fixed;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
 								 	 <article style="position:fixed;bottom:290px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
@@ -1546,8 +1562,8 @@
 							}
 							/*'.substr("Licenciado", -1).'*/
 					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;margin-top:-20px;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:312px;">
+					 	<p style="word-wrap:break-word;bottom:440px;position:fixed;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
+								 	 <article style="position:fixed;bottom:265px;">
 								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
 								 		Esperando poder servirles muy pronto, me despido.<br><br>
 

@@ -70,7 +70,7 @@ $mipdf->ln();
 
 //Segunda linea
 $mipdf->Cell(40, 6, "Radios", 1, 0, 'C');
-$mipdf->Cell(20, 6, utf8_decode("Costo + IVA"), 1 , 0, 'C');	
+$mipdf->Cell(20, 6, utf8_decode("Cuña + IVA"), 1 , 0, 'C');	
 $mipdf->Cell(25, 6, utf8_decode("Paquete") , 1 , 0, 'C');
 $mipdf->Cell(15, 6, utf8_decode("Cantidad"), 1 , 0, 'C');
 
@@ -96,8 +96,8 @@ $conCant = 0;
 foreach ($dataServicio as $key => $value) {
 	$conCant += $value->det_cantidad;
 	$mipdf->Cell(40, 6, utf8_decode($value->detalleServicio), 'LRT', 0, 'C');
-	$mipdf->Cell(20, 6, utf8_decode("$ ". $value->costoS), '1' , 0, 'C');
-	$mipdf->Cell(25, 6, utf8_decode("$ ". $value->det_subtotal) , '1' , 0, 'C');
+	$mipdf->Cell(20, 6, utf8_decode("$ ". number_format($value->costoS,2,".",",")), '1' , 0, 'C');
+	$mipdf->Cell(25, 6, utf8_decode("$ ". number_format($value->det_subtotal,2,".",",")) , '1' , 0, 'C');
 	$mipdf->Cell(15, 6, utf8_decode($value->det_cantidad), 1 , 0, 'C');
 	$id= $value->det_id;
 	foreach ($fechaFrec as $aa => $frec) {
@@ -115,8 +115,8 @@ foreach ($dataServicio as $key => $value) {
 $conCostoS = round($precioVenta / $conCant, 2);
 
 $mipdf->Cell(40, 6, "TOTAL + IVA", 1, 0, 'C');
-$mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, "$ " . $precioVenta , 'LRB' , 0, 'C');
+$mipdf->Cell(20, 6, "$ " . number_format($conCostoS,2,".",","), 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, "$ " . number_format($precioVenta,2,".",",") , 'LRB' , 0, 'C');
 $mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
 
 $conCostoS = round($conCostoS * 1.13, 2);
@@ -124,8 +124,8 @@ $conSubtotal = round($precioVenta * 1.13, 2);
 
 //espacio en blanco
 $mipdf->Cell(40, 6, "TOTAL IVA INCLUIDO", 1, 0, 'C');
-$mipdf->Cell(20, 6, "$ " . $conCostoS, 'LRB' , 0, 'C');
-$mipdf->Cell(25, 6, "$ " . $conSubtotal , 'LRB' , 0, 'C');
+$mipdf->Cell(20, 6, "$ " . number_format($conCostoS,2,".",","), 'LRB' , 0, 'C');
+$mipdf->Cell(25, 6, "$ " . number_format($conSubtotal,2,".",",") , 'LRB' , 0, 'C');
 $mipdf->Cell(15, 6, $conCant , 1 , 1, 'C');
 
 

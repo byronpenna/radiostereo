@@ -54,7 +54,7 @@ $mipdf->Cell(90, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 1, 0 );
-$mipdf->Cell(90, 5, utf8_decode("Categoria de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
+$mipdf->Cell(90, 5, utf8_decode("Categoría de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
 $mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 1 , 0);
 $mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
 
@@ -87,7 +87,7 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	}else{
 		$mipdf->Cell(40, 5, utf8_decode($value->rad_nombre) , 1 , 0, 'C');
 	}
-	$mipdf->Cell(40, 5, "$ " . $value->det_subtotal , 1, 1, 'R');
+	$mipdf->Cell(40, 5, "$ " .  number_format($value->det_subtotal,2,".",",") , 1, 1, 'R');
 	$subtotal += $value->det_subtotal;	
 }
 
