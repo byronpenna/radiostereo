@@ -282,14 +282,14 @@
                             '.$this->getTipoCotizacion($row->cot_tip_id).'
                         </select>   
                     </span></p>
-                    <p>Estado de Cotizacion <span>
+                    <p>Estado de Cotización <span>
 	                    <select name="estado_cot" class="form-control input-sm pequenios " >
 	                            '.$this->estCot($row->cot_est_id).'
 	                    </select>   
                     </span></p>
                 </article>
                 <article>
-                    <p>Fecha de Creacion <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
+                    <p>Fecha de Creación <span> <input type="text" name="txtFechaCreacionCot" value="'.$row->cot_fecha_elaboracion.'" class="form-control input-sm medios" readonly="true"></span></p>
                 	<p>Producto <span>
                         <select name="prod" class="form-control input-sm medios" >
                             '.$this->getProdCliEdit($row->cot_cli_id,$row->cot_pro_id).'
@@ -487,7 +487,7 @@
                                 <td></td>
                                 <td><p>Costo Por Segundo</p></td>
                                 <td><p>Cantidad</p></td>
-                                <td><p>Duracion</p></td>
+                                <td><p>Duración</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
                         </thead>
@@ -645,7 +645,7 @@
                                 if($sec[0]->sec_id==1){
                                 	$r.="<td>Cuñas Diarias</td>";
                                 	}
-                               $r .= '<td><p>Duracion</p></td>
+                               $r .= '<td><p>Duración</p></td>
                                 <td><p>Sub Total</p></td>
                             </tr>
                             </thead>
@@ -1128,7 +1128,7 @@
 				$fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
 				$ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
 				$periodo=$ffin-$fi;
-				$periodo=$periodo+1;
+				// $periodo=$periodo+1;
 				$encCot = $this->getEncCot($idCot);
 				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
 				if($periodo>1){
@@ -1144,7 +1144,7 @@
 				$res->servic ='
 				<b>Programa :'.$progId[0]->prog_nombre.'</b>
 				<br><br>
-							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
+							<div style="text-align:center;width:100%;">Período de Contratación : '.$periodo.'</div><br>
 					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
 						<tr>
 							<td>Servicio</td>
@@ -1646,7 +1646,7 @@
 						$fi=substr($valor->enc_fecha_inicio,"5","2");
 						$ffin=substr($valor->enc_fecha_fin,"5","2");
 						$periodo=$ffin-$fi;
-						$periodo=$periodo+1;
+						// $periodo=$periodo+1;
 						if($periodo>1){
 							$periodo=$periodo." meses";
 						}else{
@@ -1675,7 +1675,7 @@
 						$res->radios[$i].='
 							<b>Servicio Ofertado : '.$SecNom.'</b>
 							<br><br>
-							<div style="text-align:center;width:100%;">Periodo de Contratacion : '.$periodo.'</div><br>
+							<div style="text-align:center;width:100%;">Período de Contratación : '.$periodo.'</div><br>
 								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;font-size:0.9em;"  cellspacing="0">
 								<tr>
 									<td>Radio</td>
