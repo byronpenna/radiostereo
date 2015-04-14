@@ -91,13 +91,24 @@ $h++;
 $mipdf->ln();
 
 
-//Aqui van los datos
 $conCant = 0;
+$conSubtotal = 0;
 foreach ($dataServicio as $key => $value) {
 	$conCant += $value->det_cantidad;
+	$conSubtotal += $value->det_subtotal;
+}
+
+$porcentaje = $precioVenta/$conSubtotal; 
+//Aqui van los datos
+
+	
+foreach ($dataServicio as $key => $value) {
+	$costoUni = $value->costoS*$porcentaje;
+	$subtotalUni = $value->det_subtotal*$porcentaje;
+
 	$mipdf->Cell(40, 6, utf8_decode($value->detalleServicio), 'LRT', 0, 'C');
-	$mipdf->Cell(20, 6, utf8_decode("$ ". number_format($value->costoS,2,".",",")), '1' , 0, 'C');
-	$mipdf->Cell(25, 6, utf8_decode("$ ". number_format($value->det_subtotal,2,".",",")) , '1' , 0, 'C');
+	$mipdf->Cell(20, 6, utf8_decode("$ ". number_format( $costoUni ,2,".",",")), '1' , 0, 'C');
+	$mipdf->Cell(25, 6, utf8_decode("$ ". number_format( $subtotalUni,2,".",",")) , '1' , 0, 'C');
 	$mipdf->Cell(15, 6, utf8_decode($value->det_cantidad), 1 , 0, 'C');
 	$id= $value->det_id;
 	foreach ($fechaFrec as $aa => $frec) {
