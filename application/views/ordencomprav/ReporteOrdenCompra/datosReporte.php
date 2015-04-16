@@ -83,6 +83,17 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	$mipdf->Cell(20, 5, $value->det_cantidad, 1, 0, 'C');
 	$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
 	if($cosito == "Servicios"){
+		if($value->det_cantidad>1){
+      if($value->serv_nombre!="Menciones"){
+       $value->serv_nombre = $value->serv_nombre."s";
+      }
+    }else{
+    	if($value->serv_nombre=="Menciones"){
+      	$value->serv_nombre="Mención";
+      }else{
+      	$value->serv_nombre=$value->serv_nombre;
+      }
+    }
 		$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre) , 1 , 0, 'C');	
 	}else{
 		$mipdf->Cell(40, 5, utf8_decode($value->rad_nombre) , 1 , 0, 'C');
