@@ -1085,7 +1085,7 @@
 
 		public function getFooter(){
 			$footer=' 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:100%;bottom:90px;position:fixed;"/>
+					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:105%;bottom:90px;left:-16px;position:fixed;"/>
 			';
 			return $footer;
 		}
@@ -1190,36 +1190,36 @@
 						'.$detalle->servi.'
 						</tbody>
 						</table>
-					<table border=0 cellspacing="0" style="margin-left:294px;width:555px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:306px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:152px;">Total sin IVA</td>
+							<td style="border-right:1.5px solid #000000;width:157px;">Total sin IVA</td>
 							<td style="text-align: right;" >$ '.number_format($detalle->total,2,".",",").'</td>
 						</tr>
 					</table>
-					<table border=0 cellspacing="0" style="margin-left:294px;width:555px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:306px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
 
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:152px;">Descuento</td>
+							<td style="border-right:1.5px solid #000000;width:157px;">Descuento</td>
 							<td style="text-align: right;">$ '.number_format($detalle->descuento,2,".",",").'</td>
 						</tr>
 					</table>
-					<table border=0 cellspacing="0" style="margin-left:294px;width:555px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:306px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:152px;">Precio de Venta</td>
+							<td style="border-right:1.5px solid #000000;width:157px;">Precio de Venta</td>
 							<td style="text-align: right;">$ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'</td>
 						</tr>
 					</table>';
 					$iva = (str_replace(",", "", $encBloq[0]->enc_precio_venta)*0.13);
 					$tpagar = str_replace(",", "", $encBloq[0]->enc_precio_venta) + $iva;
-					$res->servic.='<table border=0 cellspacing="0" style="margin-left:294px;width:555px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					$res->servic.='<table border=0 cellspacing="0" style="margin-left:306px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:152px;">IVA 13%</td>
+							<td style="border-right:1.5px solid #000000;width:157px;">IVA 13%</td>
 							<td style="text-align: right;">$ '.number_format($iva,2,".",",").'</td>
 						</tr>
 					</table>
-					<table border=0 cellspacing="0" style="margin-left:294px;width:555px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
+					<table border=0 cellspacing="0" style="margin-left:306px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
 						<tr>
-							<td style="border-right:1.5px solid #000000;width:152px;">Total a pagar</td>
+							<td style="border-right:1.5px solid #000000;width:157px;">Total a pagar</td>
 							<td style="text-align: right;"><strong>$ '.number_format($tpagar,2,".",",").'</strong></td>
 						</tr>
 					</table>
@@ -1257,6 +1257,17 @@
 					}
 					$precio = $this->getPrecioReporte($valor->det_pre_id);
 					$res->contador = count($rad);
+					if($valor->det_cantidad>1){
+						if($ser!="Menciones"){
+							$ser = $ser."s";
+						}
+					}else{
+						if($ser=="Menciones"){
+							$ser="Mención";
+						}else{
+							$ser=$ser;
+						}
+					}
 					$res->servi.='
 					<tr>
 						<td style="text-align:left;">'.$ser.'
@@ -1645,7 +1656,7 @@
 							$res->servi.='<td>	'.$valor->det_cuna_diaria.'</td>';
 						}
 						$res->servi.='<td>	'.$valor->det_duracion.'</td>
-						<td> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
+						<td style="text-align:right;"> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
 					</tr>
 				';
 				$res->total+=$valor->det_subtotal;
@@ -1713,25 +1724,25 @@
 							<b>Servicio Ofertado : '.$SecNom.'</b>
 							<br><br>
 							<div style="text-align:center;width:100%;">Período de Contratación : '.$periodo.'</div><br>
-								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;font-size:0.9em;"  cellspacing="0">
+								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;font-size:1em;"  cellspacing="0">
 								<tr>
 									<td>Radio</td>
 									<td style="width:120px;">Costo Por Segundo</td>
 									<td style="width:60px;">Cantidad</td>';
 									if($progId[0]->sec_id==1){
-										$res->radios[$i].="<td style='width:90px;'>Cuñas Diarias</td>	";
+										$res->radios[$i].="<td style='width:90px;'>Cuñas Diarias</td>";
 										$estilo1='
-											style="margin-left:362px;width:549px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+											style="margin-left:358px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
 										';
 										$estilo2='
-											style="width:88px;text-align:center;"
+											style="width:88px;text-align:right;"
 										';
 									}else{
 										$estilo1='
-											style="margin-left:362px;width:550px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;"
+											style="margin-left:360px;width:551px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
 										';
 										$estilo2='
-											style="width:89px;text-align:center;"
+											style="width:89px;text-align:right;"
 										';
 									}
 									$res->radios[$i].='<td style="width:90px;">Duración(Seg)</td>
@@ -1750,7 +1761,7 @@
 									<td style="border-right:1.5px solid #000000;">
 										Descuento
 									</td>
-									<td style="text-align:center;">
+									<td style="text-align:right;">
 										 $ '. number_format($detalle->descuento,2,".",",").'
 									</td>
 								</tr>
@@ -1758,7 +1769,7 @@
 									<td style="border-right:1.5px solid #000000;">
 										Precio de Vta.
 									</td>
-									<td style="text-align:center;">
+									<td style="text-align:right;">
 										 $ '.number_format($valor->enc_precio_venta,2,".",",").'
 									</td>
 								</tr>
@@ -1770,7 +1781,7 @@
 									<td style="border-right:1.5px solid #000000;">
 										IVA 13%
 									</td>
-									<td style="text-align:center;">
+									<td style="text-align:right;">
 										 $ '.number_format($iva,2,".",",").'
 									</td>
 								</tr>
@@ -1778,7 +1789,7 @@
 									<td style="border-right:1.5px solid #000000;">
 										Total a Pagar
 									</td>
-									<td style="text-align:center;">
+									<td style="text-align:right;">
 										<strong> $ '.number_format($tpagar,2,".",",").'</strong>
 									</td>
 								</tr>
