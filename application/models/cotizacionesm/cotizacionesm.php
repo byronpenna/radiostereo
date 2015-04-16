@@ -1025,7 +1025,7 @@
 					DATEDIFF(
 						enc_fecha_fin,
 						enc_fecha_inicio
-					) / 30
+					)
 				) AS Periodo 
 			FROM enc_encabezado_bloque
 			WHERE (enc_cot_id = ".$IdCot.") AND (".$campo." is not null) AND  (enc_precio_venta >0) AND (enc_fecha_inicio>0) AND (enc_fecha_fin>0)";
@@ -1165,9 +1165,9 @@
 				$encCot = $this->getEncCot($idCot);
 				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
 				if($periodo>1){
-					$periodo=$periodo." meses";
+					$periodo=$periodo." días";
 				}else{
-					$periodo=$periodo." mes";
+					$periodo=$periodo." día";
 				}
 				$res->exp = '
 					Por este medio someto a su evaluación, presupuesto de inversión publicitaria en el Programa : 
@@ -1696,9 +1696,9 @@
 							$periodo=1;
 						}
 						if($periodo>1){
-							$periodo=$periodo." meses";
+							$periodo=$periodo." días";
 						}else{
-							$periodo=$periodo." mes";
+							$periodo=$periodo." día";
 						}
 						$res->contador[$i]=$detalle->contador;
 						if($progId[0]->sec_nombre=="Cuña"){
