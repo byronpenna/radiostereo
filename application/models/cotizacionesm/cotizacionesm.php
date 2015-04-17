@@ -1742,13 +1742,13 @@
 										';
 									}else{
 										$estilo1='
-											style="margin-left:320px;width:240px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
+											style="margin-left:313px;width:244px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
 										';
 										$estilo2='
-											style="width:120px;text-align:right;"
+											style="width:122px;text-align:right;"
 										';
 										$estilo3='
-											width:120px;
+											width:122px;
 										';
 									}
 									$res->radios[$i].='<td style="width:100px;">Duración(Seg)</td>
