@@ -81,20 +81,32 @@ $subtotal = 0;
 //Cuñas y otros servicios - Datos
 foreach ($detalleP['datosServ'] as $key => $value) {
 	$mipdf->Cell(20, 5, $value->det_cantidad, 1, 0, 'C');
-	$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
+	//Cambio de cuñas en descricos Los valores que puede 
+	//tomar solo son produccion, entrevista, cuña
+	if($value->det_cantidad>1 AND $cosito != "Servicios"){
+		if ($descriCOS != "Producción") {
+			$mipdf->Cell(80, 5, "   " .  $descriCOS. "s" , 1 , 0 , 'L');
+		}
+	}else{
+		$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
+	}
+
+	//Nombre de servicio, en este puede tomar 
+	//Entrevista, cuña, menciones, programa
 	if($cosito == "Servicios"){
 		if($value->det_cantidad>1){
       if($value->serv_nombre!="Menciones"){
-       $value->serv_nombre = $value->serv_nombre."s";
+      	$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre ."s") , 1 , 0, 'C');
+      }else{
+      	$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre) , 1 , 0, 'C');
       }
     }else{
     	if($value->serv_nombre=="Menciones"){
-      	$value->serv_nombre="Mención";
+      	$mipdf->Cell(40, 5, utf8_decode("Mención") , 1 , 0, 'C');
       }else{
-      	$value->serv_nombre=$value->serv_nombre;
+      	$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre) , 1 , 0, 'C');
       }
-    }
-		$mipdf->Cell(40, 5, utf8_decode($value->serv_nombre) , 1 , 0, 'C');	
+    }	
 	}else{
 		$mipdf->Cell(40, 5, utf8_decode($value->rad_nombre) , 1 , 0, 'C');
 	}
