@@ -97,6 +97,11 @@
 			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
 		}
 
+		public function prueba(){
+			$this->load->view("fpdf/fpdf");
+			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacion"); //aqui esto lo modificas obvio
+		}
+
 		public function Reporte($vista,$obj){
 			include_once(APPPATH.'plugins/dompdf/dompdf_config.inc.php');
 			ob_start();
