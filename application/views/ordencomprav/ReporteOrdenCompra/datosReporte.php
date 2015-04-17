@@ -11,7 +11,7 @@ $this -> SetTextColor (0,0,0);
 
 $urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
 $this -> Image ( $urlHeader , 15 , null , 170, 25 );
-$this->ln(15);
+$this->ln(10);
 $this->Cell(0 , 0, "Orden de Compra de Publicidad", 0 , 0, 'C');
 $this->ln(5);
 }
@@ -63,14 +63,14 @@ $mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1
 $mipdf->ln(5);
 
 //Productos
-$mipdf->Cell(180, 6, "PRODUCTO A ANUNCIAR", 1 , 1, 'C');
+$mipdf->Cell(180, 5, "PRODUCTO A ANUNCIAR", 1 , 1, 'C');
 $mipdf->Cell(180, 5, "   " . utf8_decode($datosEnc['producto']), 1 , 1, 'L');
 
 $mipdf->ln(5);
 
 
 //Cuñas y otros servicios - Encabezado
-$mipdf->Cell(180, 6, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
+$mipdf->Cell(180, 5, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
 $mipdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
 $mipdf->Cell(80, 5, utf8_decode("Descripción"), 1 , 0 , 'C');
 $mipdf->Cell(40, 5, $cosito , 1 , 0, 'C');
@@ -84,8 +84,10 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	//Cambio de cuñas en descricos Los valores que puede 
 	//tomar solo son produccion, entrevista, cuña
 	if($value->det_cantidad>1 AND $cosito != "Servicios"){
-		if ($descriCOS != "Producción") {
+		if ($descriCOS != "Producción" AND $detalleP['secNombre'] != "Producción") {
 			$mipdf->Cell(80, 5, "   " .  $descriCOS. "s" , 1 , 0 , 'L');
+		}else{
+			$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
 		}
 	}else{
 		$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
@@ -119,7 +121,7 @@ $descuento = $subtotal - str_replace(",", "", $detalleP['precioVenta']);
 $mipdf->ln(5);
 
 //Descuentos
-$mipdf->Cell(180, 6, "DESCUENTOS", 1 , 1, 'C' );
+$mipdf->Cell(180, 5, "DESCUENTOS", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Descripción"), 1 , 0 , 'C' );
 $mipdf->Cell(40, 5, "Costo", 1, 1, 'C');
 
@@ -138,7 +140,7 @@ $mipdf->Cell(40, 6, "$ " . number_format($descuento,2,".",","), 1 , 1, 'R');
 $mipdf->ln(5);
 
 //Detalle de Compra
-$mipdf->Cell(180, 6, "DETALLE DE COMPRA", 1 , 1, 'C' );
+$mipdf->Cell(180, 5, "DETALLE DE COMPRA", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Tipo de Pago"), 1 , 0 , 'L' );
 $mipdf->Cell(40, 5, utf8_decode($datosEnc['tipoPago']), 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Fecha de Emisión"), 1, 0, 'L');

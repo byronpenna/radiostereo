@@ -53,7 +53,7 @@ $mipdf->Cell(90, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 1, 0 );
-$mipdf->Cell(90, 5, utf8_decode("Categoria de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
+$mipdf->Cell(90, 5, utf8_decode("Categoría de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
 $mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 1 , 0);
 $mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
 
@@ -62,14 +62,14 @@ $mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1
 $mipdf->ln(5);
 
 //Productos
-$mipdf->Cell(180, 6, "PRODUCTO A ANUNCIAR", 1 , 1, 'C');
+$mipdf->Cell(180, 5, "PRODUCTO A ANUNCIAR", 1 , 1, 'C');
 $mipdf->Cell(180, 5, "   " . utf8_decode($datosEnc['producto']), 1 , 1, 'L');
 
 $mipdf->ln(5);
 
 
 //Cuñas y otros servicios - Encabezado
-$mipdf->Cell(180, 6, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
+$mipdf->Cell(180, 5, utf8_decode("CUÑAS Y OTROS SERVICIOS"), 1 , 1 , 'C');
 $mipdf->Cell(20, 5, "Cantidad", 1, 0, 'C');
 $mipdf->Cell(80, 5, utf8_decode("Descripción"), 1 , 0 , 'C');
 $mipdf->Cell(40, 5, $cosito , 1 , 0, 'C');
@@ -83,8 +83,10 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	//Cambio de cuñas en descricos Los valores que puede 
 	//tomar solo son produccion, entrevista, cuña
 	if($value->det_cantidad>1 AND $cosito != "Servicios"){
-		if ($descriCOS != "Producción") {
+		if ($descriCOS != "Producción" AND $detalleP['secNombre'] != "Producción") {
 			$mipdf->Cell(80, 5, "   " .  $descriCOS. "s" , 1 , 0 , 'L');
+		}else{
+			$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
 		}
 	}else{
 		$mipdf->Cell(80, 5, "   " .  $descriCOS , 1 , 0 , 'L');
@@ -109,7 +111,7 @@ foreach ($detalleP['datosServ'] as $key => $value) {
 	}else{
 		$mipdf->Cell(40, 5, utf8_decode($value->rad_nombre) , 1 , 0, 'C');
 	}
-	$mipdf->Cell(40, 5, "$ " . $value->det_subtotal , 1, 1, 'R');
+	$mipdf->Cell(40, 5, "$ " .  number_format($value->det_subtotal,2,".",",") , 1, 1, 'R');
 	$subtotal += $value->det_subtotal;	
 }
 
@@ -118,7 +120,7 @@ $descuento = $subtotal - str_replace(",", "", $detalleP['precioVenta']);
 $mipdf->ln(5);
 
 //Descuentos
-$mipdf->Cell(180, 6, "DESCUENTOS", 1 , 1, 'C' );
+$mipdf->Cell(180, 5, "DESCUENTOS", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Descripción"), 1 , 0 , 'C' );
 $mipdf->Cell(40, 5, "Costo", 1, 1, 'C');
 
@@ -137,7 +139,7 @@ $mipdf->Cell(40, 6, "$ " . number_format($descuento,2,".",","), 1 , 1, 'R');
 $mipdf->ln(5);
 
 //Detalle de Compra
-$mipdf->Cell(180, 6, "DETALLE DE COMPRA", 1 , 1, 'C' );
+$mipdf->Cell(180, 5, "DETALLE DE COMPRA", 1 , 1, 'C' );
 $mipdf->Cell(140, 5, utf8_decode("Tipo de Pago"), 1 , 0 , 'L' );
 $mipdf->Cell(40, 5, utf8_decode($datosEnc['tipoPago']), 1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Fecha de Emisión"), 1, 0, 'L');
