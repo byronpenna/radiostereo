@@ -49,7 +49,7 @@ if (isset($detalleP['progNombre']) && $detalleP != "") {
 $mipdf->ln(2);
 $mipdf->Cell(90, 5, utf8_decode("Número de Orden de Compra:   ") . $id , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("Teléfono:   " . $datosEnc['telefono']), 1 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Nombre:   " . $datosEnc['nombres'] ) , 1, 0 );
+$mipdf->Cell(90, 5, utf8_decode("Nombre:   " . $datosEnc['razon'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
