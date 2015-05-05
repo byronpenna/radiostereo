@@ -45,8 +45,12 @@
 				'cli_cat_id'		=> $form->cat,
 				'cli_fecha_acceso'  => date("Y-m-d")
 				);
-			$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
-			// agregar programas
+
+
+			$validarCli = $Catalogosm->validarCli($form->txtNRC,$form->txtNIT);
+			if(count($validarCli)==0){
+				$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
+				// agregar programas
 				$data = array();
 				foreach ($form->programas as $key => $value) {
 					$data[$key] = array(
@@ -55,6 +59,11 @@
 					);
 				}
 				$Catalogosm->insertCliente($data);
+			}else{
+				$mensaje="no";
+			}
+			
+
 			echo json_encode($mensaje);
 		}
 		public function insert_precio()
