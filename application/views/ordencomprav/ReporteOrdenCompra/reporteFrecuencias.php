@@ -84,7 +84,7 @@ $mipdf->SetXY($x + 100, $y1);
 
 //Datos de los dias de semana
 $h = 0;
-foreach ($fechaFrec as $key => $value) {
+foreach ($fechaDia as $key => $value) {
 	for ($j=0; $j < $i ; $j++) { 
 		if ($value->mes == $mesN[$j]) {
 			$esDia[$h] = $ocupar[$j]/$numDias[$j];
