@@ -343,7 +343,7 @@ class Ordencompram extends CI_Model{
 					WHEN DAYOFWEEK(fec_fecha) = 7 THEN
 						'Sab'
 				END AS 'dia_semana'
-				FROM fec_fechas LEFT JOIN frec_fecuencia ON id_fecha = fec_id WHERE fec_enc_id =" . $id . " ORDER BY fec_fecha");
+				FROM fec_fechas LEFT JOIN frec_fecuencia ON id_fecha = fec_id WHERE fec_enc_id =" . $id . " GROUP BY fec_fecha ORDER BY fec_fecha");
 		$sql = $sql->result();
 		return $sql;
 
