@@ -56,7 +56,8 @@ $mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
 $mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("Categoría de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
 $mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 1 , 0);
-$mipdf->Multicell(90, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
+$mipdf->Cell(90, 5, utf8_decode("NRC: " . $datosEnc['ncr']), 1, 1 );
+$mipdf->Multicell(180, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
 
 
 

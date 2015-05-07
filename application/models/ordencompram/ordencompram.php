@@ -165,7 +165,7 @@ class Ordencompram extends CI_Model{
 	function getDatosCli($idCot){
 		$sql = $this->db->query("SELECT
 				cli_nombres, cli_contacto,
-				cli_nit, cli_giro,
+				cli_nit, cli_giro, cli_nrc,
 				cli_direccion, cli_telefono,
 				cli_correo, cot_valor_agregado,
 				tip_tipo, pro_nomb_producto, 
@@ -186,6 +186,7 @@ class Ordencompram extends CI_Model{
 			$retorno['contacto'] = $datos['cli_contacto'];
 			$retorno['nit'] = $datos['cli_nit'];
 			$retorno['giro'] = $datos['cli_giro']; 
+			$retorno['ncr'] = $datos['cli_nrc'];
 			$retorno['direccion'] = $datos['cli_direccion'];
 			$retorno['telefono'] = $datos['cli_telefono'];
 			$retorno['correo'] = $datos['cli_correo'];
