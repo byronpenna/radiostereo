@@ -47,16 +47,34 @@ if (isset($detalleP['progNombre']) && $detalleP != "") {
 
 //Datos
 $mipdf->ln(2);
+
 $mipdf->Cell(90, 5, utf8_decode("Número de Orden de Compra:   ") . $id , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("Teléfono:   " . $datosEnc['telefono']), 1 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Razón Social:   " . $datosEnc['razon'] ) , 1, 0 );
+
+$x = $mipdf->GetX();
+$y1 = $mipdf->GetY();
+$mipdf->MultiCell(90, 5, utf8_decode("Razón Social:   " . $datosEnc['razon']) , 1, 'L');
+$y2 = $mipdf->GetY();
+$yTotal = $y2 - $y1;
+$mipdf->SetXY($x + 90, $y1);
+
 $mipdf->Cell(90, 5, utf8_decode("Correo:   " . $datosEnc['correo']), 1 , 1);
+
 $mipdf->Cell(90, 5, utf8_decode("Contacto:   " . $datosEnc['contacto'] ) , 1, 0 );
 $mipdf->Cell(90, 5, utf8_decode("NIT:   " . $datosEnc['nit']), 1 , 1);
-$mipdf->Cell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro'] ) , 1, 0 );
-$mipdf->Cell(90, 5, utf8_decode("Categoría de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
+
+$x = $mipdf->GetX();
+$y1 = $mipdf->GetY();
+$mipdf->MultiCell(90, 5, utf8_decode("Giro:   " . $datosEnc['giro']) , 1, 'L');
+$y2 = $mipdf->GetY();
+$yTotal = $y2 - $y1;
+$mipdf->SetXY($x + 90, $y1);
+
+$mipdf->Cell(90, $yTotal, utf8_decode("Categoría de Contribuyente:   " . $datosEnc['categoria'] ) , 1 , 1 );
+
 $mipdf->Cell(90, 5, utf8_decode("Orden Generada Por : " . $datosEnc['vendedor']), 1 , 0);
 $mipdf->Cell(90, 5, utf8_decode("NRC: " . $datosEnc['ncr']), 1, 1 );
+
 $mipdf->Multicell(180, 5, utf8_decode("Dirección: " . $datosEnc['direccion']), 1 , 'J');
 
 
