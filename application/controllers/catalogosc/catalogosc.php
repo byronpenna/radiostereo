@@ -46,22 +46,35 @@
 				'cli_fecha_acceso'  => date("Y-m-d")
 				);
 
-
-			$validarCli = $Catalogosm->validarCli($form->txtNRC,$form->txtNIT);
-			if(count($validarCli)==0){
-				$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
-				// agregar programas
-				$data = array();
-				foreach ($form->programas as $key => $value) {
-					$data[$key] = array(
-						'pro_cli_id' 		=> $mensaje->last_id, 
-						'pro_nomb_producto'	=> $value
-					);
+			if($form->txtNRC && $form->txtNIT){
+				$validarCli = $Catalogosm->validarCli($form->txtNRC,$form->txtNIT);
+				if(count($validarCli)==0){
+					$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
+					// agregar programas
+					$data = array();
+					foreach ($form->programas as $key => $value) {
+						$data[$key] = array(
+							'pro_cli_id' 		=> $mensaje->last_id, 
+							'pro_nomb_producto'	=> $value
+						);
+					}
+					$Catalogosm->insertCliente($data);
+				}else{
+					$mensaje="no";
 				}
-				$Catalogosm->insertCliente($data);
 			}else{
-				$mensaje="no";
+				$mensaje = $Catalogosm->add_catalogos('cli_cliente',$data);
+					// agregar programas
+					$data = array();
+					foreach ($form->programas as $key => $value) {
+						$data[$key] = array(
+							'pro_cli_id' 		=> $mensaje->last_id, 
+							'pro_nomb_producto'	=> $value
+						);
+					}
+					$Catalogosm->insertCliente($data);
 			}
+			
 			
 
 			echo json_encode($mensaje);
