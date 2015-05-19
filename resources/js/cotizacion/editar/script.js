@@ -74,7 +74,9 @@
                 if($(this).val()){
                     padre = $(this).parents(".conProgra");
                 }
-            });            
+            });  
+
+            // console.log("FORMULARIO",frmGlobal);         
             if(padre==undefined){
                 alertify.alert("Debe Ingresar al menos un detalle para poder guardar !");
             }else{

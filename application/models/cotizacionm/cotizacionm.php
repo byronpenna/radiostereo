@@ -309,9 +309,9 @@
 						$idEncBloq	=	 $this->db->insert_id();
 						for ($i=0; $i < count($valor->precio); $i++) {
 						//if($valor->precio!=-1){
-						if($valor->precio[$i]==-1){
-							$valor->precio[$i]="";
-						}
+						// if($valor->precio[$i]==-1){
+						// 	$valor->precio[$i]=;
+						// }
 							if(!isset($valor->txtIdRadio[$i])){
 								$valor->txtIdRadio[$i] 	= null;
 							}else if(!isset($valor->txtIdServ[$i])){

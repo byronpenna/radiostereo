@@ -25,7 +25,7 @@
                 }
             });
 
-            
+            // console.log("FORMULARIO ",frmGlobal);
             if(padre==undefined){
                 alertify.alert("Debe Ingresar al menos un detalle para poder guardar !");
             }else{
@@ -52,4 +52,4 @@
                 var pathname = window.location.pathname;
                 $(location).attr('href', pathname+'#cotHeader');
         }
-    });
+});

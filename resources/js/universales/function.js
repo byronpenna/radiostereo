@@ -42,17 +42,17 @@ function scrollTop(){
     try{
         var valsin = select.replace("$","");
     }catch(err){
-        valsin="";
+        valsin=" ";
     }
     if(cantidad.val()==0){
-        cantidad.val("");
+        cantidad.val(" ");
     }
     if(duracion.val()==0){
-        duracion.val("");
+        duracion.val(" ");
     }
     if(diarias.length > 0){
       if(diarias.val()==0){
-        diarias.val("");
+        diarias.val(" ");
       }
     }
     
@@ -92,11 +92,11 @@ function scrollTop(){
           if(!valsin || !cantidad.val() || !duracion.val()){
             if(subTotal.val()){
               sum=sum-subTotal.val();
-              subTotal.val("");
+              subTotal.val(" ");
             }
           } 
         if(sum==0.00){
-            total.val("");
+            total.val(" ");
         }else{
           total.val("$ "+sum.toFixed(2));
         }
@@ -105,12 +105,12 @@ function scrollTop(){
           des=sum-pventa.val();
           descuento.val(des.toFixed(2));
         }else{
-          descuento.val("");
+          descuento.val(" ");
         }
         }else{
           alertify.error("El precio de venta no puede ser mayor que el precio sin descuento");
-                    pventa.val("");
-                    descuento.val(""); 
+                    pventa.val(" ");
+                    descuento.val(" "); 
         }
     }
 }

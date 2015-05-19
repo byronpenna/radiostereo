@@ -853,9 +853,9 @@
 						// }
 						for ($i=0; $i < count($valor->precio); $i++) {
 						//if($valor->precio!=-1){
-						if($valor->precio[$i]==-1){
-							$valor->precio[$i]="";
-						}
+						// if($valor->precio[$i]==-1){
+						// 	$valor->precio[$i]="";
+						// }
 							if(!isset($valor->txtIdRadio[$i])){
 								$valor->txtIdRadio[$i] 	= null;
 							}else if(!isset($valor->txtIdServ[$i])){
@@ -865,7 +865,7 @@
 							}
 					//		if($valor->txtCantidad[$i]!=null && $valor->txtDuracion[$i] != null && $valor->txtSubTotal[$i]!= null){
 								@$obj = $this->getObjDetalle($valor->txtIdDet[$i],$valor->precio[$i],$valor->txtCantidad[$i],$valor->txtDiaria[$i],$valor->txtDuracion[$i],$valor->txtSubTotal[$i]);
-							$retorno->detBloq=$this->editDetBloque($obj);
+								$retorno->detBloq=$this->editDetBloque($obj);
 							//}
 					 //	}
 					}
@@ -955,7 +955,7 @@
 				'det_cantidad' 		=> $obj->det_cantidad,
 				'det_cuna_diaria' 	=> $obj->det_cuna_diaria,
 				'det_duracion' 		=> $obj->det_duracion,
-				'det_subtotal' 		=> str_replace("$", "", $obj->det_subtotal),
+				'det_subtotal' 		=> str_replace("$", "", $obj->det_subtotal)
 				);
 			$this->db->where('det_id',$obj->det_id);
 			$res = $this->db->update('det_detalle_bloque',$tabla);
