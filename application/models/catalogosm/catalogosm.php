@@ -296,5 +296,16 @@
 			return $retorno;
 		}
 
+
+
+
+
+		public function validarCli($nrc,$nit){
+			$sql="SELECT * FROM cli_cliente WHERE cli_nrc = '".$nrc."' AND  cli_nit = '".$nit."' ";
+			$query = $this->db->query($sql);
+			$query = $query->result();
+			return $query;
+		}
+
 	}
 ?>	

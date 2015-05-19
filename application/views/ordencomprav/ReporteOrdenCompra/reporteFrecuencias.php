@@ -68,12 +68,36 @@ for ($j=0; $j < $i ; $j++) {
 $mipdf->ln();
 
 
-//Segunda linea
-$mipdf->Cell(40, 6, "Radios", 1, 0, 'C');
-$mipdf->Cell(20, 6, utf8_decode("Cuña + IVA"), 1 , 0, 'C');	
-$mipdf->Cell(25, 6, utf8_decode("Paquete") , 1 , 0, 'C');
-$mipdf->Cell(15, 6, utf8_decode("Cantidad"), 1 , 0, 'C');
+$x = $mipdf->GetX();
+$y1 = $mipdf->GetY();
 
+//Segunda linea
+$mipdf->Cell(40, 12, "Radios", 1, 0, 'C');
+$mipdf->Cell(20, 12, utf8_decode("Cuña + IVA"), 1 , 0, 'C');	
+$mipdf->Cell(25, 12, utf8_decode("Paquete") , 1 , 0, 'C');
+$mipdf->Cell(15, 12, utf8_decode("Cantidad"), 1 , 1, 'C');
+
+$y2 = $mipdf->GetY();
+$yTotal = $y2 - $y1;
+
+$mipdf->SetXY($x + 100, $y1);
+
+//Datos de los dias de semana
+$h = 0;
+foreach ($fechaDia as $key => $value) {
+	for ($j=0; $j < $i ; $j++) { 
+		if ($value->mes == $mesN[$j]) {
+			$esDia[$h] = $ocupar[$j]/$numDias[$j];
+			$mipdf->Cell( $esDia[$h] , 6, $value->dia_semana , 1, 0, 'C');
+			$diaP[$h] = $value->dia;
+			$coMes[$h] = $value->mes;
+		}	
+	}
+$h++;
+}
+$mipdf->ln();
+
+$mipdf->SetXY($x+100, ($y1 + $yTotal/2));
 
 //Datos de los dias
 $h = 0;
@@ -89,6 +113,8 @@ foreach ($fechaDia as $key => $value) {
 $h++;
 }
 $mipdf->ln();
+
+$mipdf->SetXY($x, $y2);
 
 
 $conCant = 0;

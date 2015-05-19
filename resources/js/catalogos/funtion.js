@@ -390,34 +390,45 @@ function removeOption(selector){
 			success: function(datos) {
 				console.log(datos);
 				data = jQuery.parseJSON(datos);
+				console.log(data);
 				$(".cont-loading").css("display","none");
-				if (data.estado == false) {
-					$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
-				}else if(data.estado == true){
-					tr = "<tr class='styleTR'>\
-							<td style='display:none'>\
-								<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
-							</td>\
-							<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
-							<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
-							<td class='tdNIT'>"+frm.txtNIT+"</td>\
-							<td class='tdTitulo'>"+frm.txtTitulo+"</td>\
-							<td class='tdNRC ocultar'>"+frm.txtNRC+"</td>\
-							<td class='tdDireccion ocultar'>"+frm.txtDireccion+"</td>\
-							<td class='tdTelefono ocultar'>"+frm.txtTelefono+"</td>\
-							<td class='tdContacto ocultar'>"+frm.txtContacto+"</td>\
-							<td class='tdCorreo ocultar'>"+frm.txtCorreo+"</td>\
-							<td>\
-									<button class='EditCliente btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
-							</td>\
-						  </tr>"
-					$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
-					//console.log(frm);
+				if(data=="no"){
 					$(".vaciarinput").val("");
 					$("#addprod option").remove();
-					// para input .val("") val()
-					// para divs .empty() text()
+					alertify.error("Advertencia: El NIT y NRC ingresados ya existen.");
+				}else{
+					if (data.estado == false) {
+						$(".mensaje").text(data.mensaje);//despues del punto accedo a cada valor
+						$(".vaciarinput").val("");
+						$("#addprod option").remove();
+					}else if(data.estado == true){
+						tr = "<tr class='styleTR'>\
+								<td style='display:none'>\
+									<input name='txtidCliente' value='"+data.last_id+"' class='inputClienteId'>\
+								</td>\
+								<td class='tdNombCliente'>"+frm.txtnombcliente+"</td>\
+								<td class='tdApellidoCliente'>"+frm.txtapellido+"</td>\
+								<td class='tdNIT'>"+frm.txtNIT+"</td>\
+								<td class='tdTitulo'>"+frm.txtTitulo+"</td>\
+								<td class='tdNRC ocultar'>"+frm.txtNRC+"</td>\
+								<td class='tdDireccion ocultar'>"+frm.txtDireccion+"</td>\
+								<td class='tdTelefono ocultar'>"+frm.txtTelefono+"</td>\
+								<td class='tdContacto ocultar'>"+frm.txtContacto+"</td>\
+								<td class='tdCorreo ocultar'>"+frm.txtCorreo+"</td>\
+								<td>\
+										<button class='EditCliente btn btn-sm btn-primary'><i class='glyphicon glyphicon-edit'></i></button>\
+								</td>\
+							  </tr>"
+						$(".tbClientes").prepend(tr);//ponemos el nuevo valor al principio
+						//console.log(frm);
+						$(".vaciarinput").val("");
+						$("#addprod option").remove();
+						// para input .val("") val()
+						// para divs .empty() text()
+						alertify.success("Cliente ingresado con éxito.");
+					}
 				}
+
 			}
 		});
 	}
@@ -500,6 +511,7 @@ function removeOption(selector){
 				console.log(datos);
 				data = jQuery.parseJSON(datos);//convirtiendo datos
 				console.log(data);
+				
 				newtr = "\
 						<td style='display:none'>\
 							<input name='txtidRadio' value='"+idcliente+"' class='inputClienteId'>\
