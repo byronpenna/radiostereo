@@ -80,26 +80,20 @@
 			echo json_encode($res);
 		}
 
-
 		public function printCotizacion($idCot){
+			$this->load->view("fpdf/fpdf");
 			$this->load->model("cotizacionesm/cotizacionesm");
-			$cotizacionm 			= 	new Cotizacionesm();
-			$prog 					=	$cotizacionm->getProg($idCot);
-			$datos['prog']			=	$prog;
-			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
+			$cotizacionm =	new Cotizacionesm();
+			$data = $cotizacionm->datos_reporte_cotizacion($idCot); 
+			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacion", $data);
 		}
 
 		public function printCotizacionBN($idCot){
-			$this->load->model("cotizacionesm/cotizacionesm");
-			$cotizacionm 			= 	new Cotizacionesm();
-			$prog 					=	$cotizacionm->getProgBN($idCot);
-			$datos['prog']			=	$prog;
-			$this->Reporte('cotizacion/ReporteCotizacion/datosReporte',$datos);
-		}
-
-		public function prueba(){
 			$this->load->view("fpdf/fpdf");
-			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacion"); //aqui esto lo modificas obvio
+			$this->load->model("cotizacionesm/cotizacionesm");
+			$cotizacionm =	new Cotizacionesm();
+			$data = $cotizacionm->datos_reporte_cotizacion($idCot); 
+			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacionBN", $data);
 		}
 
 		public function Reporte($vista,$obj){

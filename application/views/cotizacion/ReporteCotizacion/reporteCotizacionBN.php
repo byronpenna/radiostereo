@@ -26,9 +26,10 @@ $this -> SetFont ( 'Arial' , '' , 10);
 $this->SetDrawColor(0,0,0);
 $this -> SetTextColor (0,0,0);
 
-$urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
-$this -> Image ( $urlHeader , 15 , null , 170, 25 );
-$this->ln(5);
+//$urlHeader= base_url("resources/imagenes/Reporte/headerReporte.jpg");
+//$this -> Image ( $urlHeader , 15 , null , 170, 25 );
+
+$this->ln(20);
 $this->Cell(6,5,"",0,0);
 $meses = meses();
 $this->Cell(174 , 5, utf8_decode("San Salvador, ".date('d')." de ". $meses[date('n')-1]. " del ".date('Y')), 'T' , 0, 'C');
@@ -40,8 +41,8 @@ public function Footer(){
 
    	//Posición: a 2cm del final
     $this->SetY(-25);
-    $urlFooter = base_url("resources/imagenes/Reporte/footerReporte.jpg");
-    $this -> Image ( $urlFooter, 10, null , 190, 20 );
+    //$urlFooter = base_url("resources/imagenes/Reporte/footerReporte.jpg");
+    //$this -> Image ( $urlFooter, 10, null , 190, 20 );
    }
 
 }

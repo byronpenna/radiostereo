@@ -1075,66 +1075,6 @@
 		}
 
 
-		public function getHeader(){
-			$header='
-			           <img src="'.base_url("resources/imagenes/Reporte/headerReporte.jpg").'" class="img-reporte-header" style="width:98%;top:-40px;position:fixed;"/>
-			           <hr style="position:fixed;top:90px;">
-			';
-			return $header;
-		}
-
-		public function getFooter(){
-			$footer=' 
-					<img src="'.base_url("resources/imagenes/Reporte/footerReporte.jpg").'" class="img-reporte-footer" style="width:105%;bottom:90px;left:-16px;position:fixed;"/>
-			';
-			return $footer;
-		}
-
-		public function getEncCotReport($idCot){
-			$encCot = $this->getEncCot($idCot);
-			$meses = $this->meses();
-			$res = new stdClass();
-			date_default_timezone_set('America/El_Salvador');
-			$cli = $this->getDatosCliente($encCot[0]->cot_cli_id);
-			$fechaActual	= 	"San Salvador,".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;
-			$res->encabezado='
-				<div class="cuerpo" style="top:105px;position:fixed;height:990px;">
-		      	<div class="fechaActual" style="text-align:center;">'.$fechaActual.'</div>
-		      	<div class="cont">
-		      		'.$cli->cli_titulo.'<br>
-					'.$cli->cli_contacto.'  <br>
-					'.$cli->cli_razon_social.' <br>
-					Presente <br><br> ';
-					if(substr($cli->cli_titulo, -1)=="o" || substr($cli->cli_titulo, -2)=="or"){
-						$sal="Estimado";
-					}else{
-						$sal="Estimada";
-					}
-					$partido = explode(" ", $cli->cli_contacto);
-					$contaPartido = count($partido);
-					$contacto="";
-					switch ($contaPartido) {
-						case 1:
-							$contacto = $partido[0];
-							break;
-						case 2:
-							$contacto = $partido[1];
-							break;
-						case 3 || 4:
-							$contacto = $partido[2];
-							break;
-						default:
-							$contacto = "";
-							break;
-					}
-					$res->encabezado .= $sal.' '.$cli->cli_titulo. " " . $contacto  . '.<br><br>
-
-					Reciba un cordial saludo de parte de Grupo Radio Stereo y sus estaciones: Fiesta, Femenina, Ranchera, Láser Inglés y Láser Español.<br><br>
-			';
-			$res->valorAgregado = $encCot[0]->cot_valor_agregado;
-			return $res;
-		}
-
 		public function getProdCli($idProd){
 			$sql="SELECT * FROM pro_producto
 				WHERE pro_id = ".$idProd."";
@@ -1145,93 +1085,6 @@
 			return $query;
 		}
 
-		public function getDetBloqReporte($idCot){
-			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
-			$res = new stdClass();
-			if($encBloq){
-				$sql="SELECT  * FROM prog_programa WHERE prog_id = ".$encBloq[0]->enc_prog_id."";
-				$this->db->trans_start();
-				$progId=$this->db->query($sql);
-				$progId=$progId->result();
-				$this->db->trans_complete();
-				$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
-				// $fi=substr($encBloq[0]->enc_fecha_inicio,"5","2");
-				// $ffin=substr($encBloq[0]->enc_fecha_fin,"5","2");
-				$periodo=$encBloq[0]->Periodo;
-				// $periodo=$periodo+1;
-				if($periodo==0){
-					$periodo=1;
-				}
-				$encCot = $this->getEncCot($idCot);
-				$prod = $this->getProdCli($encCot[0]->cot_pro_id);
-				if($periodo>1){
-					$periodo=$periodo." días";
-				}else{
-					$periodo=$periodo." día";
-				}
-				$res->exp = '
-					Por este medio someto a su evaluación, presupuesto de inversión publicitaria en el Programa : 
-					<b>'.$progId[0]->prog_nombre.'</b>
-					para la campaña de <b>'.$prod[0]->pro_nomb_producto.'</b>.  A continuación el detalle:<br><br>
-					';
-				$res->servic ='
-				<b>Programa :'.$progId[0]->prog_nombre.'</b>
-				<br><br>
-							<div style="text-align:center;width:100%;">Período de Contratación : '.$periodo.'</div><br>
-					<table border=1 class="cont-table-report" style="width:85%;text-align:center;margin:auto;"  cellspacing="0">
-						<tr>
-							<td>Servicio</td>
-							<td>Costo Por Segundo</td>
-							<td>Cantidad</td>
-							<td style="width:110px;">Duración(Seg)</td>
-							<td style="width:110px;">Sub Total</td>
-						</tr>
-						<tbody>
-						'.$detalle->servi.'
-						</tbody>
-						</table>
-					<table border=0 cellspacing="0" style="margin-left:318px;width:220px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
-						<tr>
-							<td style="border-right:1.5px solid #000000;width:110px;">Total sin IVA</td>
-							<td style="text-align: right;width:110px;" >$ '.number_format($detalle->total,2,".",",").'</td>
-						</tr>
-					</table>
-					<table border=0 cellspacing="0" style="margin-left:318px;width:220px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
-
-						<tr>
-							<td style="border-right:1.5px solid #000000;width:110px;">Descuento</td>
-							<td style="text-align: right;width:110px;">$ '.number_format($detalle->descuento,2,".",",").'</td>
-						</tr>
-					</table>
-					<table border=0 cellspacing="0" style="margin-left:318px;width:220px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
-						<tr>
-							<td style="border-right:1.5px solid #000000;width:110px;">Precio de Venta</td>
-							<td style="text-align: right;width:110px;">$ '.number_format($encBloq[0]->enc_precio_venta,2,".",",").'</td>
-						</tr>
-					</table>';
-					$iva = (str_replace(",", "", $encBloq[0]->enc_precio_venta)*0.13);
-					$tpagar = str_replace(",", "", $encBloq[0]->enc_precio_venta) + $iva;
-					$res->servic.='<table border=0 cellspacing="0" style="margin-left:318px;width:220px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;">
-						<tr>
-							<td style="border-right:1.5px solid #000000;width:110px;">IVA 13%</td>
-							<td style="text-align: right;width:110px;">$ '.number_format($iva,2,".",",").'</td>
-						</tr>
-					</table>
-					<table border=0 cellspacing="0" style="margin-left:318px;width:220px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:0.9em;">
-						<tr>
-							<td style="border-right:1.5px solid #000000;width:110px;">Total a pagar</td>
-							<td style="text-align: right;width:110px;"><strong>$ '.number_format($tpagar,2,".",",").'</strong></td>
-						</tr>
-					</table>
-			';
-			$res->contador=$detalle->contador;
-			}else{
-				$res->servic="";
-				$res->contador=0;
-				$res->exp="";
-			}
-			return $res;
-		}
 
 		public function getPrecioReporte($id){
 			$sql="SELECT * FROM pre_precio
@@ -1268,16 +1121,12 @@
 							$ser=$ser;
 						}
 					}
-					$res->servi.='
-					<tr>
-						<td style="text-align:left;">'.$ser.'
-						</td>
-						<td> $ 	'.$precio->pre_precio.'</td>
-						<td>	'.$valor->det_cantidad.'</td>
-						<td>	'.$valor->det_duracion.'</td>
-						<td style="text-align: right;"> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-					</tr>
-				';
+					$res->servi->ser[] = $ser;
+					$res->servi->precio[] = $precio->pre_precio;
+					$res->servi->cantidad[] =  $valor->det_cantidad;
+					$res->servi->duracion[] = $valor->det_duracion;
+					$res->servi->subtotal[] = $valor->det_subtotal;
+					$res->total+=$valor->det_subtotal;
 				$res->total+=$valor->det_subtotal;
 				}
 
@@ -1288,322 +1137,6 @@
 				$res->servi="";
 				$res->total=0;
 				$res->descuento=0;
-			}
-			
-			return $res;
-		}
-
-
-
-
-
-
-
-
-		// para obtenerlos sin logos
-		public function getProgBN($idCot){
-			$enc = $this->getEncCotReport($idCot);
-			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
-			$this->db->trans_start();
-			$cot=$this->db->query($sql);
-			$cot=$cot->result();
-			$this->db->trans_complete();
-			$gdb=$this->getDetBloqReporteSec($idCot);
-			$p=$this->getDetBloqReporte($idCot);
-			
-
-			// consulta para traer la firma del usuario
-			$que="select * from usu_usuario where usu_id =".$cot[0]->cot_usu_id." ";
-			$this->db->trans_start();
-			$firma=$this->db->query($que);
-			$firma=$firma->result();
-			$this->db->trans_complete();
-			if($enc){
-				$res = '
-		      				<article>
-		      				'.$enc->encabezado.'';
-		      				if($gdb->contador>1 && $p->contador > 1){
-								$res.='<br><br>';
-							}
-							$res.= $p->exp;
-							$res.= $gdb->exp;
-							$res.= $p->servic;
-
-							if(count($gdb->radios)==1){
-								if($p!=null){
-									if($gdb->radios[0]!=""){
-										if($p->contador > 1 && $gdb->contador[0] > 1){
-											$res .=	'<div style="page-break-before: always;"></div>';
-										}elseif($p->contador == 1 && $gdb->contador[0] > 1 || $p->contador > 1 && $gdb->contador[0] == 1){
-											$res .=	'<div style="page-break-before: always;"></div>';
-										}
-										$res .=	$gdb->radios[0];
-									}
-								}else{
-									if($gdb->radios[0]!=""){
-										$res .=	$gdb->radios[0];
-									}
-								}
-							}else if(count($gdb->radios)==3){
-								if($p!=null){
-									if($p->contador >=1){
-										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-											$res .=	$gdb->radios[0];
-											$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[1];
-											$res .= '
-											'.$gdb->radios[2].'</div>';
-										}
-									}else{
-										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-											$res .=	$gdb->radios[0];
-											$res .=	$gdb->radios[1];
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';
-										}
-									}
-									
-								}else{
-									if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-									$res .=	$gdb->radios[0];
-									$res .=	$gdb->radios[1];
-									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb->radios[2].'</div>';
-								}
-							}
-							}else if(count($gdb->radios)==2){
-								if($p!=null){
-									if($p->contador >= 1){
-										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-											$res .=	$gdb->radios[0];
-										}
-										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[1].'</div>';	
-										
-										}
-										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';	
-										}
-									}else{
-										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-											$res .=	$gdb->radios[0];
-										}
-										if(isset($gdb->radios[0]) && isset($gdb->radios[1])){
-											if($gdb->radios[0]!="" && $gdb->radios[1]!=""){
-												if($gdb->contador[0] > 1 || $gdb->contador[1] > 1 ){
-													$res .= '<div style="page-break-before: always;"></div>';
-												}
-											}
-										}else if(isset($gdb->radios[0]) && isset($gdb->radios[2])){
-											if($gdb->radios[0]!="" && $gdb->radios[2]!=""){
-												if($gdb->contador[0] > 1 || $gdb->contador[2] > 1 ){
-													$res .= '<div style="page-break-before: always;"></div>';
-												}
-											}
-										}
-										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-											$res .= '<div class="cont-secprint">
-											'.$gdb->radios[1].'</div>';	
-										
-										}
-										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-											$res .= '<div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';	
-										}
-									}
-								}else{
-									if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-										$res .=	$gdb->radios[0];
-									}
-									if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-										$res .=	$gdb->radios[1];
-									
-									}
-									if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-										$res .=	$gdb->radios[2];
-									}
-							}
-							}
-							if(!$enc->valorAgregado){
-								$valorAgregado="Sin Beneficios";
-							}else{
-								$valorAgregado=$enc->valorAgregado;
-							}
-							/*'.substr("Licenciado", -1).'*/
-					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;bottom:440px;position:fixed;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:290px;">
-								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
-								 		Esperando poder servirles muy pronto, me despido.<br><br>
-
-										Atentamente,<br><br> ';
-								$res.=  nl2br($firma[0]->usu_firma);
-							$res.= '	</article>
-					      	</div>
-					      </div>
-					      </article>
-						';
-			}else{
-				$res="";
-			}
-			
-			return $res;
-		}
-
-
-
-		// para obtenerlos con colorcitos
-
-		public function getProg($idCot){
-			$enc = $this->getEncCotReport($idCot);
-			$sql="SELECT  * FROM cot_encabezado_cotizacion cot JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id WHERE cot.cot_id = ".$idCot."";
-			$this->db->trans_start();
-			$cot=$this->db->query($sql);
-			$cot=$cot->result();
-			$this->db->trans_complete();
-			$gdb=$this->getDetBloqReporteSec($idCot);
-			$p=$this->getDetBloqReporte($idCot);
-			
-
-			// consulta para traer la firma del usuario
-			$que="select * from usu_usuario where usu_id =".$cot[0]->cot_usu_id." ";
-			$this->db->trans_start();
-			$firma=$this->db->query($que);
-			$firma=$firma->result();
-			$this->db->trans_complete();
-			if($enc){
-				$res = '
-							'.$this->getHeader().'
-		      				'.$this->getFooter().'      				
-		      				<article>
-		      				'.$enc->encabezado.'';
-		      				if($gdb->contador>1 && $p->contador > 1){
-								$res.='<br><br>';
-							}
-							$res.= $p->exp;
-							$res.= $gdb->exp;
-							$res.= $p->servic;
-
-							if(count($gdb->radios)==1){
-								if($p!=null){
-									if($gdb->radios[0]!=""){
-										if($p->contador > 1 && $gdb->contador[0] > 1){
-											$res .=	'<div style="page-break-before: always;"></div>';
-										}elseif($p->contador == 1 && $gdb->contador[0] > 1 || $p->contador > 1 && $gdb->contador[0] == 1){
-											$res .=	'<div style="page-break-before: always;"></div>';
-										}
-										$res .=	$gdb->radios[0];
-									}
-								}else{
-									if($gdb->radios[0]!=""){
-										$res .=	$gdb->radios[0];
-									}
-								}
-							}else if(count($gdb->radios)==3){
-								if($p!=null){
-									if($p->contador >=1){
-										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-											$res .=	$gdb->radios[0];
-											$res .=	'<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[1];
-											$res .= '
-											'.$gdb->radios[2].'</div>';
-										}
-									}else{
-										if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-											$res .=	$gdb->radios[0];
-											$res .=	$gdb->radios[1];
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';
-										}
-									}
-									
-								}else{
-									if($gdb->radios[0]!="" && $gdb->radios[1]!="" && $gdb->radios[2]!=""){
-									$res .=	$gdb->radios[0];
-									$res .=	$gdb->radios[1];
-									$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-									'.$gdb->radios[2].'</div>';
-								}
-							}
-							}else if(count($gdb->radios)==2){
-								if($p!=null){
-									if($p->contador >= 1){
-										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-											$res .=	$gdb->radios[0];
-										}
-										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[1].'</div>';	
-										
-										}
-										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-											$res .= '<div style="page-break-before: always;"></div><div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';	
-										}
-									}else{
-										if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-											$res .=	$gdb->radios[0];
-										}
-										if(isset($gdb->radios[0]) && isset($gdb->radios[1])){
-											if($gdb->radios[0]!="" && $gdb->radios[1]!=""){
-												if($gdb->contador[0] > 1 || $gdb->contador[1] > 1 ){
-													$res .= '<div style="page-break-before: always;"></div>';
-												}
-											}
-										}else if(isset($gdb->radios[0]) && isset($gdb->radios[2])){
-											if($gdb->radios[0]!="" && $gdb->radios[2]!=""){
-												if($gdb->contador[0] > 1 || $gdb->contador[2] > 1 ){
-													$res .= '<div style="page-break-before: always;"></div>';
-												}
-											}
-										}
-										if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-											$res .= '<div class="cont-secprint">
-											'.$gdb->radios[1].'</div>';	
-										
-										}
-										if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-											$res .= '<div class="cont-secprint">
-											'.$gdb->radios[2].'</div>';	
-										}
-									}
-								}else{
-									if(isset($gdb->radios[0]) && $gdb->radios[0]!=""){
-										$res .=	$gdb->radios[0];
-									}
-									if(isset($gdb->radios[1]) && $gdb->radios[1]!=""){
-										$res .=	$gdb->radios[1];
-									
-									}
-									if(isset($gdb->radios[2]) && $gdb->radios[2]!=""){
-										$res .=	$gdb->radios[2];
-									}
-							}
-							}
-							if(!$enc->valorAgregado){
-								$valorAgregado="Sin Beneficios";
-							}else{
-								$valorAgregado=$enc->valorAgregado;
-							}
-							/*'.substr("Licenciado", -1).'*/
-					 	 $res.='<br>
-					 	<p style="word-wrap:break-word;bottom:440px;position:fixed;"><b>Beneficios por su compra:</b><br>'.nl2br($valorAgregado).'</p><br>
-								 	 <article style="position:fixed;bottom:265px;">
-								 	 Forma de Pago : '.$cot[0]->tip_tipo.'<br><br>
-								 		Esperando poder servirles muy pronto, me despido.<br><br>
-
-										Atentamente,<br><br> ';
-								$res.=  nl2br($firma[0]->usu_firma);
-							$res.= '	</article>
-					      	</div>
-					      </div>
-					      </article>
-						';
-			}else{
-				$res="";
 			}
 			
 			return $res;
@@ -1647,19 +1180,15 @@
 								$res->detRadios .= ", ".$nomRadio[0]->rad_nombre;	
 							}
 						}
-					$res->servi.='
-					<tr>
-						<td style="text-align:left;">'.$ser.'</td>
-						<td> $ 	'.$precio->pre_precio.'</td>
-						<td>	'.$valor->det_cantidad.'</td>';
-						if($valor->det_cuna_diaria){
-							$res->servi.='<td>	'.$valor->det_cuna_diaria.'</td>';
-						}
-						$res->servi.='<td>	'.$valor->det_duracion.'</td>
-						<td style="text-align:right;"> $ 	'.number_format($valor->det_subtotal,2,".",",").'</td>
-					</tr>
-				';
-				$res->total+=$valor->det_subtotal;
+					$res->servi->ser[$key] = $ser;
+					$res->servi->precio[$key] = $precio->pre_precio;
+					$res->servi->cantidad[$key] =  $valor->det_cantidad;
+					if($valor->det_cuna_diaria){
+						$res->servi->cuna[$key] = $valor->det_cuna_diaria;
+					}
+					$res->servi->duracion[$key] = $valor->det_duracion;
+					$res->servi->subtotal[$key] = $valor->det_subtotal;
+					$res->total+=$valor->det_subtotal;
 			}
 			$res->descuento = $res->total - $pventa;
 			}else{
@@ -1671,150 +1200,6 @@
 			}
 			return $res;
 		}
-		
-
-		public function getDetBloqReporteSec($idCot){
-			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
-			$res = new stdClass();
-			foreach ($encBloq as $i => $valor) {
-			if($valor){
-						$sql="SELECT  * FROM 
-						(sec_seccion s JOIN enc_encabezado_bloque e
-						ON s.sec_id=e.enc_sec_id)
-						WHERE sec_id = ".$valor->enc_sec_id."";
-						$this->db->trans_start();
-						$progId=$this->db->query($sql);
-						$progId=$progId->result();
-						$this->db->trans_complete();
-						$detalle=$this->getDetalleReporteRad($valor->enc_id,$valor->enc_precio_venta);
-						// $fi=substr($valor->enc_fecha_inicio,"5","2");
-						// $ffin=substr($valor->enc_fecha_fin,"5","2");
-						// $periodo=$ffin-$fi;
-						$periodo=$valor->Periodo;
-						// $periodo=$periodo+1;
-						if($periodo==0){
-							$periodo=1;
-						}
-						if($periodo>1){
-							$periodo=$periodo." días";
-						}else{
-							$periodo=$periodo." día";
-						}
-						$res->contador[$i]=$detalle->contador;
-						if($progId[0]->sec_nombre=="Cuña"){
-							$SecNom = "Cuña Rotativa";
-						}else{
-							$SecNom = $progId[0]->sec_nombre;
-						}
-						// $detalle->detRadios
-						$encCot = $this->getEncCot($idCot);
-						$prod = $this->getProdCli($encCot[0]->cot_pro_id);
-						if($detalle->contador <= 1){
-							$las = "radio";
-						}else{
-							$las = "radios";
-						}
-						$res->exp = "
-							Por este medio someto a su evaluación, presupuesto de inversión publicitaria en ".$las.":
-							<b>".$detalle->detRadios."</b>
-							para la campaña de <b>".$prod[0]->pro_nomb_producto."</b>.  A continuación el detalle:<br><br>
-						";
-						$res->radios[$i]="";
-						$res->radios[$i].='
-							<b>Servicio Ofertado : '.$SecNom.'</b>
-							<br><br>
-							<div style="text-align:center;width:100%;">Período de Contratación : '.$periodo.'</div><br>
-								<table border=1 class="cont-table-report" style="width:90%;text-align:center;margin:auto;font-size:1em;"  cellspacing="0">
-								<tr>
-									<td style="width:105px;">Radio</td>
-									<td style="width:100px;">Costo Por Segundo</td>
-									<td style="width:100px;">Cantidad</td>';
-									if($progId[0]->sec_id==1){
-										$res->radios[$i].="<td style='width:100px;'>Cuñas Diarias</td>";
-										$estilo1='
-											style="margin-left:343px;width:204px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
-										';
-										$estilo2='
-											style="width:102px;text-align:right"
-										';
-										$estilo3='
-											width:102px;
-										';
-									}else{
-										$estilo1='
-											style="margin-left:313px;width:244px;border-bottom:1.5px solid #000000;border-left:1.5px solid #000000;border-right:1.5px solid #000000;font-size:1em;"
-										';
-										$estilo2='
-											style="width:122px;text-align:right;"
-										';
-										$estilo3='
-											width:122px;
-										';
-									}
-									$res->radios[$i].='<td style="width:100px;">Duración(Seg)</td>
-									<td style="width:100px;">Sub Total</td>
-								</tr>
-								<tbody>
-								'.$detalle->servi.'
-								</tbody>
-								</table>
-							<table border=0 cellspacing="0" '.$estilo1.' >
-								<tr >
-									<td style="text-align:left;border-right:1.5px solid #000000;'.$estilo3.'">Total sin IVA</td>
-									<td '.$estilo2.'> $ '.number_format($detalle->total,2,".",",").'</td>
-								</tr>
-								<tr >
-									<td style="border-right:1.5px solid #000000;">
-										Descuento
-									</td>
-									<td style="text-align:right;">
-										 $ '. number_format($detalle->descuento,2,".",",").'
-									</td>
-								</tr>
-								<tr>
-									<td style="border-right:1.5px solid #000000;">
-										Precio de Vta.
-									</td>
-									<td style="text-align:right;">
-										 $ '.number_format($valor->enc_precio_venta,2,".",",").'
-									</td>
-								</tr>
-								';
-									$iva = (str_replace(",", "", $valor->enc_precio_venta)*0.13);
-									$tpagar = str_replace(",", "", $valor->enc_precio_venta) + $iva;
-									$res->radios[$i].='
-								<tr>
-									<td style="border-right:1.5px solid #000000;">
-										IVA 13%
-									</td>
-									<td style="text-align:right;">
-										 $ '.number_format($iva,2,".",",").'
-									</td>
-								</tr>
-								<tr>
-									<td style="border-right:1.5px solid #000000;">
-										Total a Pagar
-									</td>
-									<td style="text-align:right;">
-										<strong> $ '.number_format($tpagar,2,".",",").'</strong>
-									</td>
-								</tr>
-							</table>
-					';
-				}
-			}
-			if(!isset($res->radios)){
-				for ($i=0; $i < 3 ; $i++) { 
-					$res->radios[$i]="";	
-					$res->contador="";
-					$res->exp="";
-				}
-				
-			}
-			return $res;
-		}
-
-
 
 		//Aprobar Cotizaciones
 
@@ -1846,5 +1231,116 @@
 			$res=$this->db->update('cot_encabezado_cotizacion',$tabla);
 			return $res;
 		}
+
+
+	function datos_reporte_cotizacion ($idCot){
+		$sql="SELECT  * FROM cot_encabezado_cotizacion cot 
+							INNER JOIN tip_tipo tip ON cot.cot_tip_id=tip.tip_id
+							INNER JOIN enc_encabezado_bloque ON enc_cot_id = cot_id 
+					 WHERE enc_precio_venta > 0 AND cot.cot_id = ".$idCot."";
+		$this->db->trans_start();
+		$cot=$this->db->query($sql);
+		$cot=$cot->result();
+		$this->db->trans_complete();
+		$encCot = $this->getEncCot($idCot); //Saco en encabezado de la cotizacion
+		$cli = $this->getDatosCliente($encCot[0]->cot_cli_id); //traigo los datos del encabezado
+		
+		//Para definir el saludo
+		if(substr($cli->cli_titulo, -1)=="o" || substr($cli->cli_titulo, -2)=="or"){
+			$sal="Estimado";
+		}else{
+			$sal="Estimada";
+		}
+
+		//Para definir el apellido del contacto
+		$partido = explode(" ", $cli->cli_contacto);
+		$contaPartido = count($partido);
+		$contacto="";
+		switch ($contaPartido) {
+			case 1:
+				$contacto = $partido[0];
+			break;
+			case 2:
+				$contacto = $partido[1];
+			break;
+			case 3 || 4:
+				$contacto = $partido[2];
+			break;
+			default:
+				$contacto = "";
+			break;
+		}
+
+		$this->db->trans_start();
+			$datosUsuario=$this->db->query("SELECT * FROM usu_usuario where usu_id =".$encCot[0]->cot_usu_id." ")->result_array();
+			$datoProducto=$this->db->query("SELECT * FROM pro_producto WHERE pro_id =". $encCot[0]->cot_pro_id." ")->result_array();
+		$this->db->trans_complete();
+
+		if($encCot[0]->cot_valor_agregado == "" || $encCot[0]->cot_valor_agregado == " " || $encCot[0]->cot_valor_agregado == null){
+			$valorAgregado="Sin Beneficios";
+		}else{
+			$valorAgregado=$encCot[0]->cot_valor_agregado;
+		}
+
+		$res = new stdClass();
+		$encCot = $this->getEncCot($idCot);
+		$prod = $this->getProdCli($encCot[0]->cot_pro_id);
+
+		if($cot[0]->enc_sec_id != 0 || $cot[0]->enc_sec_id) {
+			$encBloq =  $this->getEnReporte($idCot,"enc_sec_id");
+			$tipo = "seccionada";
+			$progNomb = $this->db->query("SELECT  * FROM  (sec_seccion s JOIN enc_encabezado_bloque e ON s.sec_id=e.enc_sec_id) WHERE sec_id = ".$encBloq[0]->enc_sec_id."")->result();
+			if($progNomb[0]->sec_nombre=="Cuña"){
+				$progNomb = "Cuña Rotativa";
+			}else{
+				$progNomb = $progNomb[0]->sec_nombre;
+			}
+			$detalle= $this->getDetalleReporteRad($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
+		}else{
+			$encBloq =  $this->getEnReporte($idCot,"enc_prog_id");
+			$tipo = "programa";
+			$progNomb=$this->db->query("SELECT  * FROM prog_programa WHERE prog_id = ".$encBloq[0]->enc_prog_id."")->result();
+			$progNomb = $progNomb[0]->prog_nombre;
+			$detalle=$this->getDetalleReporte($encBloq[0]->enc_id,$encBloq[0]->enc_precio_venta);
+		}
+
+		//Periodo
+		$periodo=$encBloq[0]->Periodo;
+		// $periodo=$periodo+1;
+		if($periodo==0){
+			$periodo=1;
+		}
+		if($periodo>1){
+			$periodo=$periodo." días";
+		}else{
+			$periodo=$periodo." día";
+		}
+						
+
+		//Datos de encabezado
+		$reporte['cli_titulo'] = $cli->cli_titulo;
+		$reporte['cli_contacto'] = $cli->cli_contacto;
+		$reporte['cli_contacto2'] = $contacto;
+		$reporte['cli_razon_social'] = $cli->cli_razon_social;
+		$reporte['cli_cat_id'] = $cli->cli_cat_id;
+		$reporte['saludo'] = $sal;
+
+		//Datos del detalle cotizion
+		$reporte['producto'] = $datoProducto[0]['pro_nomb_producto'];
+		$reporte['tipoCot'] = $tipo;
+		$reporte['valorAgregado'] = $valorAgregado;
+		$reporte['formaPago'] = $cot[0]->tip_tipo;
+		$reporte['periodo'] = $periodo;
+		$reporte['detalle'] = $detalle;
+
+		//Programa si es de programa y  no de seccion
+		$reporte['nombrePrograma'] = $progNomb;
+
+		//Datos del usuario
+		$reporte['usu_firma'] = $datosUsuario[0]['usu_firma'];
+
+
+		return $reporte;
 	}
+}
  ?>
