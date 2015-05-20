@@ -85,7 +85,7 @@
 			$this->load->model("cotizacionesm/cotizacionesm");
 			$cotizacionm =	new Cotizacionesm();
 			$data = $cotizacionm->datos_reporte_cotizacion($idCot); 
-			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacion", $data);
+			$this->load->view("cotizacion/ReporteCotizacion/reporteCotizacion", $data);
 		}
 
 		public function printCotizacionBN($idCot){
@@ -93,7 +93,7 @@
 			$this->load->model("cotizacionesm/cotizacionesm");
 			$cotizacionm =	new Cotizacionesm();
 			$data = $cotizacionm->datos_reporte_cotizacion($idCot); 
-			$this->load->view("cotizacion\ReporteCotizacion/reporteCotizacionBN", $data);
+			$this->load->view("cotizacion/ReporteCotizacion/reporteCotizacionBN", $data);
 		}
 
 		public function Reporte($vista,$obj){
