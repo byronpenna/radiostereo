@@ -85,10 +85,10 @@ $(document).ready(function(){
         var fi = padre.find(".fi");
         var ffin = padre.find(".ffin");
         var fechaSeleccionada = fi.val(); 
-        if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)<$.datepicker.parseDate('yy-mm-dd', fActual)){
-            alertify.error("La fecha de inicio no puede ser menor que la fecha actual");
-                    fi.val(fActual);
-        }
+        // if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)<$.datepicker.parseDate('yy-mm-dd', fActual)){
+        //     alertify.error("La fecha de inicio no puede ser menor que la fecha actual");
+        //             fi.val(fActual);
+        // }
         if(ffin.val()){
             if($.datepicker.parseDate('yy-mm-dd', fechaSeleccionada)>$.datepicker.parseDate('yy-mm-dd', ffin.val())){
                 alertify.error("Ha cambiado la fecha de inicio, por lo tanto la fecha de fin debe cambiar");
