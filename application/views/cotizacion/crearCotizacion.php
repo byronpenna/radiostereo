@@ -33,7 +33,7 @@
     				</span></p>
     			</article>
     			<article>
-    				<p>Fecha de Creación <span><input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion"  readonly="true"></span></p>
+    				<p>Fecha de Creación <span><input type="text" name="txtFechaCreacionCot" class="form-control input-sm medios fechaCreacion datepicker"></span></p>
                     <p>Producto <span>
                         <select name='prod' class='form-control input-sm medios selectBlanco' >
                             <?php echo $Producto; ?>
