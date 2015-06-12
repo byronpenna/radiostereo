@@ -169,14 +169,14 @@ $mipdf->Cell(40, 5, "$ " . number_format($subtotal,2,".",",") ,  1, 1, 'R');
 $mipdf->Cell(140, 5, utf8_decode("Descuentos"), 1, 0, 'L');
 $mipdf->Cell(40, 5, "$ " . number_format($descuento,2,".",","),  1, 1, 'R');
 
-if ($datosEnc['categoria'] == "Excento IVA") {
+if ($datosEnc['cat_id'] == 4) {
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );
 	$mipdf->Cell(40, 5, "$ " . $detalleP['precioVenta'] , 1, 1, 'R');
 	$mipdf->Cell(140, 5, utf8_decode("IVA 13%"), 1, 0, 'L');
 	$mipdf->Cell(40, 5, "-" , 1, 1, 'R');
 	$tpagar = $detalleP['precioVenta'];
 	$mipdf->Cell(140, 6, "   TOTAL A PAGAR", 1, 0, 'L');
-	$mipdf->Cell(40, 6, "$ " . number_format($tpagar,2,".",",")   , 1 , 1, 'R');
+	$mipdf->Cell(40, 6, "$ " . $tpagar   , 1 , 1, 'R');
 	
 }else{
 	$mipdf->Cell(140, 5, utf8_decode("Total sin IVA"), 1 , 0 , 'L' );

@@ -279,18 +279,23 @@
 			if($flag){
 				$idEncCot = $this->db->insert_id();
 				foreach ($seccion as $i  => $valor) {
-					$replace = str_replace("$","",$valor->total);
-					$total = str_replace(" ", "", $replace);
-					$reemplazo = str_replace("$", "", $valor->descuento);
-					$descuento = str_replace(" ", "", $reemplazo);
-					if($total > 0){
-						$calculo = $descuento/$total;
-						if($calculo  < 0.30 && $header->estado_cot==5){
-							$this->load->model("cotizacionesm/cotizacionesm");
-							$cotizacionesm = new Cotizacionesm();
-							$cotizacionesm->updateEstadoCot($idEncCot);
-						}
-					}
+					// $replace = str_replace("$","",$valor->total);
+					// $total = str_replace(" ", "", $replace);
+					// $reemplazo = str_replace("$", "", $valor->descuento);
+					// $descuento = str_replace(" ", "", $reemplazo);
+
+					// if($total > 0){
+					// 	// Porcentaje Variable
+					// $porcentaje = $this->db->query("SELECT tar_descuento FROM tar_tarifa WHERE tar_tip_id = " . $header->tipo_cot . " AND ". $total ." BETWEEN tar_rango_inicial AND tar_rango_final ");
+					// $porcentaje = $porcentaje->result_array();
+					
+					// 	$calculo = $descuento/$total;
+					// 	if($calculo  <$porcentaje[0]['tar_descuento'] && $header->estado_cot==5){
+					// 		$this->load->model("cotizacionesm/cotizacionesm");
+					// 		$cotizacionesm = new Cotizacionesm();
+					// 		$cotizacionesm->updateEstadoCot($idEncCot);
+					// 	}
+					// }
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
 					}

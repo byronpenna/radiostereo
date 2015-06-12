@@ -420,6 +420,7 @@
 				det_detalle_bloque join rad_radio
 				on det_rad_id=rad_id
 				WHERE det_enc_id=$idEncBloq
+				ORDER BY rad_nombre
 			";
 			$this->db->trans_start();
 			$query=$this->db->query($sql);
@@ -796,9 +797,6 @@
 					$reemplazo = str_replace("$", "", $valor->descuento);
 					$descuento = str_replace(" ", "", $reemplazo);
 
-					
-					
-
 					// Porcentaje Variable
 					if($total > 0){
 
@@ -817,21 +815,18 @@
 						$cliq = $cliq->result();
 
 						if($porcentaje){
-						if($calculo  <= $porcentaje[0]['tar_descuento'] && $header->estado_cot==5 && $header->tipo_cot != 3){
-							//if($calculo  < 0.30 && $header->estado_cot==5){	
-							$retorno->cliInfo = 1;
-							$fl = $this->getFechas($valor->txtIdEncabezado);
-							if($fl){
-								if($cliq[0]->cli_nit != "" && $cliq[0]->cli_nrc != "" &&  $cliq[0]->cli_direccion != "" && $cliq[0]->cli_telefono != "" && $cliq[0]->cli_correo != "" && $cliq[0]->cli_giro != ""){
-									$retorno->cliInfo = 2;
-									$this->updateEstadoCot($header->idCot);
+							if($calculo  <= $porcentaje[0]['tar_descuento'] && $header->estado_cot==5 && $header->tipo_cot != 3){
+								//if($calculo  < 0.30 && $header->estado_cot==5){	
+								$retorno->cliInfo = 1;
+								$fl = $this->getFechas($valor->txtIdEncabezado);
+								if($fl){
+									if($cliq[0]->cli_nit != "" && $cliq[0]->cli_nrc != "" &&  $cliq[0]->cli_direccion != "" && $cliq[0]->cli_telefono != "" && $cliq[0]->cli_correo != "" && $cliq[0]->cli_giro != ""){
+										$retorno->cliInfo = 2;
+										$this->updateEstadoCot($header->idCot);
+									}
 								}
 							}
 						}
-						}
-
-
-						
 					}
 					if(!isset($valor->programa)){
 						$valor->programa 	= 	null;
